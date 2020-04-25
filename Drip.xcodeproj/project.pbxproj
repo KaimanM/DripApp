@@ -34,6 +34,12 @@
 		0ACB986924549DF5007BF01D /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB986824549DF5007BF01D /* TabBarView.swift */; };
 		0ACB986B24549DFE007BF01D /* TabBarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB986A24549DFE007BF01D /* TabBarPresenter.swift */; };
 		0ACB986D2454AEEB007BF01D /* DarkTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB986C2454AEEB007BF01D /* DarkTabBarController.swift */; };
+		0AD151122454EFB400F45042 /* TrendsScreenBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD151112454EFB400F45042 /* TrendsScreenBuilder.swift */; };
+		0AD151152454EFDC00F45042 /* TrendsViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD151142454EFDC00F45042 /* TrendsViewProtocol.swift */; };
+		0AD151172454EFE300F45042 /* TrendsPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD151162454EFE300F45042 /* TrendsPresenterProtocol.swift */; };
+		0AD151192454EFEB00F45042 /* TrendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD151182454EFEB00F45042 /* TrendsView.swift */; };
+		0AD1511B2454EFF600F45042 /* TrendsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1511A2454EFF600F45042 /* TrendsPresenter.swift */; };
+		0AD1511D2454F00100F45042 /* Trends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AD1511C2454F00100F45042 /* Trends.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +84,12 @@
 		0ACB986824549DF5007BF01D /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		0ACB986A24549DFE007BF01D /* TabBarPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarPresenter.swift; sourceTree = "<group>"; };
 		0ACB986C2454AEEB007BF01D /* DarkTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkTabBarController.swift; sourceTree = "<group>"; };
+		0AD151112454EFB400F45042 /* TrendsScreenBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsScreenBuilder.swift; sourceTree = "<group>"; };
+		0AD151142454EFDC00F45042 /* TrendsViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsViewProtocol.swift; sourceTree = "<group>"; };
+		0AD151162454EFE300F45042 /* TrendsPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsPresenterProtocol.swift; sourceTree = "<group>"; };
+		0AD151182454EFEB00F45042 /* TrendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsView.swift; sourceTree = "<group>"; };
+		0AD1511A2454EFF600F45042 /* TrendsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsPresenter.swift; sourceTree = "<group>"; };
+		0AD1511C2454F00100F45042 /* Trends.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Trends.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				0ACB985E24549D99007BF01D /* TabBar */,
+				0AD151102454EF9D00F45042 /* Trends */,
 				0ACB984C24546879007BF01D /* Welcome */,
 				0A2B8B6A2454D69D00D9E8E7 /* History */,
 			);
@@ -227,6 +240,27 @@
 				0ACB986624549DED007BF01D /* TabBarPresenterProtocol.swift */,
 				0ACB986824549DF5007BF01D /* TabBarView.swift */,
 				0ACB986A24549DFE007BF01D /* TabBarPresenter.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		0AD151102454EF9D00F45042 /* Trends */ = {
+			isa = PBXGroup;
+			children = (
+				0AD151112454EFB400F45042 /* TrendsScreenBuilder.swift */,
+				0AD1511C2454F00100F45042 /* Trends.storyboard */,
+				0AD151132454EFB800F45042 /* Classes */,
+			);
+			path = Trends;
+			sourceTree = "<group>";
+		};
+		0AD151132454EFB800F45042 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				0AD151142454EFDC00F45042 /* TrendsViewProtocol.swift */,
+				0AD151162454EFE300F45042 /* TrendsPresenterProtocol.swift */,
+				0AD151182454EFEB00F45042 /* TrendsView.swift */,
+				0AD1511A2454EFF600F45042 /* TrendsPresenter.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -317,6 +351,7 @@
 				0ACB982E24546719007BF01D /* LaunchScreen.storyboard in Resources */,
 				0ACB985924546924007BF01D /* Welcome.storyboard in Resources */,
 				0A2B8B6F2454D88500D9E8E7 /* History.storyboard in Resources */,
+				0AD1511D2454F00100F45042 /* Trends.storyboard in Resources */,
 				0ACB982B24546719007BF01D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -361,13 +396,18 @@
 				0ACB986924549DF5007BF01D /* TabBarView.swift in Sources */,
 				0ACB986024549DBC007BF01D /* TabBarScreenBuilder.swift in Sources */,
 				0ACB982224546717007BF01D /* AppDelegate.swift in Sources */,
+				0AD1511B2454EFF600F45042 /* TrendsPresenter.swift in Sources */,
 				0A2B8B712454D8B500D9E8E7 /* HistoryViewProtocol.swift in Sources */,
 				0A2B8B6D2454D87000D9E8E7 /* HistoryScreenBuilder.swift in Sources */,
 				0ACB986B24549DFE007BF01D /* TabBarPresenter.swift in Sources */,
 				0ACB986524549DE2007BF01D /* TabBarViewProtocol.swift in Sources */,
+				0AD151172454EFE300F45042 /* TrendsPresenterProtocol.swift in Sources */,
 				0ACB986D2454AEEB007BF01D /* DarkTabBarController.swift in Sources */,
+				0AD151122454EFB400F45042 /* TrendsScreenBuilder.swift in Sources */,
 				0ACB986724549DED007BF01D /* TabBarPresenterProtocol.swift in Sources */,
 				0ACB9857245468EC007BF01D /* WelcomePresenter.swift in Sources */,
+				0AD151192454EFEB00F45042 /* TrendsView.swift in Sources */,
+				0AD151152454EFDC00F45042 /* TrendsViewProtocol.swift in Sources */,
 				0ACB9853245468DC007BF01D /* WelcomePresenterProtocol.swift in Sources */,
 				0ACB9855245468E7007BF01D /* WelcomeView.swift in Sources */,
 				0ACB984A245467F5007BF01D /* ScreenBuilder.swift in Sources */,
@@ -534,6 +574,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = kaimanmehmet.Drip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -552,6 +593,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = kaimanmehmet.Drip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

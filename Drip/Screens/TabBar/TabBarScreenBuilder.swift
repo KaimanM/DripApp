@@ -2,6 +2,7 @@ import UIKit
 
 enum TabBarElement: Int, CaseIterable {
     case history
+    case trends
     case welcome
     case welcome2
 }
@@ -27,6 +28,8 @@ extension TabBarElement {
         switch self {
         case .history:
             return "History"
+        case .trends:
+            return "Trends"
         case .welcome:
             return "Welcome"
         case .welcome2:
@@ -39,6 +42,8 @@ extension TabBarElement {
         switch self {
         case .history:
             view = DarkNavController(rootViewController: HistoryScreenBuilder().build())
+        case .trends:
+            view = DarkNavController(rootViewController: TrendsScreenBuilder().build())
         case .welcome:
             view = DarkNavController(rootViewController: WelcomeScreenBuilder().build())
         case .welcome2:
@@ -55,7 +60,9 @@ extension TabBarElement {
 
         switch self {
         case .history:
-            selectedIcon = UIImage(systemName: "return")
+            selectedIcon = UIImage(systemName: "list.bullet")
+        case .trends:
+            selectedIcon = UIImage(systemName: "calendar")
         case .welcome:
             selectedIcon = UIImage(named: "bottle")
         case .welcome2:

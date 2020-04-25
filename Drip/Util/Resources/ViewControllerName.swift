@@ -3,4 +3,5 @@ enum ViewControllerName: String, CaseIterable {
     case home = "Home"
     case tabBar = "TabBar"
     case history = "History"
+    case trends = "Trends"
 }

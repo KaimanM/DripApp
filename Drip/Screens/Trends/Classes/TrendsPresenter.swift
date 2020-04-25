@@ -1,7 +1,7 @@
-final class WelcomePresenter: WelcomePresenterProtocol {
-    weak private(set) var view: WelcomeViewProtocol?
+final class TrendsPresenter: TrendsPresenterProtocol {
+    weak private(set) var view: TrendsViewProtocol?
 
-    init(view: WelcomeViewProtocol) {
+    init(view: TrendsViewProtocol) {
         self.view = view
     }
 
@@ -11,7 +11,7 @@ final class WelcomePresenter: WelcomePresenterProtocol {
 
     func onViewDidLoad() {
         print("Presenter onViewDidLoad firing correctly")
-        view?.updateTitle(title: "Today")
+        view?.updateTitle(title: "Trends")
     }
 
 }
