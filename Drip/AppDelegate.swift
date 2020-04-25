@@ -17,8 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = UINavigationController(rootViewController: WelcomeScreenBuilder().build())
+        window?.rootViewController = DarkNavController(rootViewController: WelcomeScreenBuilder().build())
         self.window?.makeKeyAndVisible()
+        
         
         UIApplication.shared.isIdleTimerDisabled = true
                 

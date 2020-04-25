@@ -20,6 +20,7 @@
 		0ACB9855245468E7007BF01D /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB9854245468E7007BF01D /* WelcomeView.swift */; };
 		0ACB9857245468EC007BF01D /* WelcomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB9856245468EC007BF01D /* WelcomePresenter.swift */; };
 		0ACB985924546924007BF01D /* Welcome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ACB985824546924007BF01D /* Welcome.storyboard */; };
+		0ACB985B24547236007BF01D /* DarkNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB985A24547236007BF01D /* DarkNavController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		0ACB9854245468E7007BF01D /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		0ACB9856245468EC007BF01D /* WelcomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePresenter.swift; sourceTree = "<group>"; };
 		0ACB985824546924007BF01D /* Welcome.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Welcome.storyboard; sourceTree = "<group>"; };
+		0ACB985A24547236007BF01D /* DarkNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkNavController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 				0ACB9845245467BC007BF01D /* UIViewController+ViewControllerName.swift */,
 				0ACB9847245467D6007BF01D /* ViewControllerName.swift */,
 				0ACB9849245467F5007BF01D /* ScreenBuilder.swift */,
+				0ACB985A24547236007BF01D /* DarkNavController.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 				0ACB984A245467F5007BF01D /* ScreenBuilder.swift in Sources */,
 				0ACB9851245468AF007BF01D /* WelcomeViewProtocol.swift in Sources */,
 				0ACB9848245467D6007BF01D /* ViewControllerName.swift in Sources */,
+				0ACB985B24547236007BF01D /* DarkNavController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
