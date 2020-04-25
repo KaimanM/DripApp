@@ -6,16 +6,17 @@ enum TabBarElement: Int, CaseIterable {
 }
 
 final class TabBarScreenBuilder: ScreenBuilder {
-    
+
     func build() -> TabBarView {
+        //swiftlint:disable:next force_cast
         let view = UIViewController.create(.tabBar) as! TabBarView
-        
+
         view.presenter = TabBarPresenter(view: view)
-        
-        view.viewControllers = TabBarElement.allCases.map{
+
+        view.viewControllers = TabBarElement.allCases.map {
             $0.viewController
         }
-        
+
         return view
     }
 }
@@ -29,7 +30,7 @@ extension TabBarElement {
             return "Welcome2"
         }
     }
-    
+
     var viewController: UIViewController {
         let view: UIViewController
         switch self {
@@ -38,16 +39,16 @@ extension TabBarElement {
         case .welcome2:
             view = DarkNavController(rootViewController: WelcomeScreenBuilder().build())
         }
-        
+
         view.tabBarItem = tabBarItem
-        
+
         return view
     }
-    
+
     var tabBarItem: UITabBarItem {
         let selectedIcon: UIImage?
         let unselectedIcon: UIImage?
-        
+
         switch self {
         case .welcome:
             selectedIcon = UIImage(systemName: "view.2d")
@@ -56,7 +57,7 @@ extension TabBarElement {
             selectedIcon = UIImage(systemName: "bold")
             unselectedIcon = UIImage(systemName: "underline")
         }
-        
+
         let item = UITabBarItem(title: title, image: unselectedIcon, selectedImage: selectedIcon)
         return item
     }

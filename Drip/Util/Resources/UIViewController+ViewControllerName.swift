@@ -9,13 +9,10 @@
 import UIKit
 
 extension UIViewController {
-    
     static func create(_ name: ViewControllerName) -> UIViewController {
         return createOptional(name)!
     }
-    
     static func createOptional(_ name: ViewControllerName) -> UIViewController? {
         return UIStoryboard(name: name.rawValue, bundle: nil).instantiateInitialViewController()
     }
-    
 }
