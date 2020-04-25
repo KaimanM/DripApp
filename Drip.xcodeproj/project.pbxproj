@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A2B8B6D2454D87000D9E8E7 /* HistoryScreenBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B8B6C2454D87000D9E8E7 /* HistoryScreenBuilder.swift */; };
+		0A2B8B6F2454D88500D9E8E7 /* History.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A2B8B6E2454D88500D9E8E7 /* History.storyboard */; };
+		0A2B8B712454D8B500D9E8E7 /* HistoryViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B8B702454D8B500D9E8E7 /* HistoryViewProtocol.swift */; };
+		0A2B8B732454D8C700D9E8E7 /* HistoryPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B8B722454D8C700D9E8E7 /* HistoryPresenterProtocol.swift */; };
+		0A2B8B752454D8E200D9E8E7 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B8B742454D8E200D9E8E7 /* HistoryView.swift */; };
+		0A2B8B772454D8F300D9E8E7 /* HistoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B8B762454D8F300D9E8E7 /* HistoryPresenter.swift */; };
 		0ACB982224546717007BF01D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB982124546717007BF01D /* AppDelegate.swift */; };
 		0ACB982B24546719007BF01D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ACB982A24546719007BF01D /* Assets.xcassets */; };
 		0ACB982E24546719007BF01D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ACB982C24546719007BF01D /* LaunchScreen.storyboard */; };
@@ -41,6 +47,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A2B8B6C2454D87000D9E8E7 /* HistoryScreenBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryScreenBuilder.swift; sourceTree = "<group>"; };
+		0A2B8B6E2454D88500D9E8E7 /* History.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = History.storyboard; sourceTree = "<group>"; };
+		0A2B8B702454D8B500D9E8E7 /* HistoryViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewProtocol.swift; sourceTree = "<group>"; };
+		0A2B8B722454D8C700D9E8E7 /* HistoryPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPresenterProtocol.swift; sourceTree = "<group>"; };
+		0A2B8B742454D8E200D9E8E7 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		0A2B8B762454D8F300D9E8E7 /* HistoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPresenter.swift; sourceTree = "<group>"; };
 		0ACB981E24546717007BF01D /* Drip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Drip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ACB982124546717007BF01D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0ACB982A24546719007BF01D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -86,6 +98,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A2B8B6A2454D69D00D9E8E7 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				0A2B8B6C2454D87000D9E8E7 /* HistoryScreenBuilder.swift */,
+				0A2B8B6E2454D88500D9E8E7 /* History.storyboard */,
+				0A2B8B6B2454D72000D9E8E7 /* Classes */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		0A2B8B6B2454D72000D9E8E7 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				0A2B8B702454D8B500D9E8E7 /* HistoryViewProtocol.swift */,
+				0A2B8B722454D8C700D9E8E7 /* HistoryPresenterProtocol.swift */,
+				0A2B8B742454D8E200D9E8E7 /* HistoryView.swift */,
+				0A2B8B762454D8F300D9E8E7 /* HistoryPresenter.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		0ACB981524546717007BF01D = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +184,7 @@
 			children = (
 				0ACB985E24549D99007BF01D /* TabBar */,
 				0ACB984C24546879007BF01D /* Welcome */,
+				0A2B8B6A2454D69D00D9E8E7 /* History */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -282,6 +316,7 @@
 				0ACB986224549DC4007BF01D /* TabBar.storyboard in Resources */,
 				0ACB982E24546719007BF01D /* LaunchScreen.storyboard in Resources */,
 				0ACB985924546924007BF01D /* Welcome.storyboard in Resources */,
+				0A2B8B6F2454D88500D9E8E7 /* History.storyboard in Resources */,
 				0ACB982B24546719007BF01D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -321,10 +356,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0ACB9846245467BC007BF01D /* UIViewController+ViewControllerName.swift in Sources */,
+				0A2B8B732454D8C700D9E8E7 /* HistoryPresenterProtocol.swift in Sources */,
 				0ACB984E24546887007BF01D /* WelcomeScreenBuilder.swift in Sources */,
 				0ACB986924549DF5007BF01D /* TabBarView.swift in Sources */,
 				0ACB986024549DBC007BF01D /* TabBarScreenBuilder.swift in Sources */,
 				0ACB982224546717007BF01D /* AppDelegate.swift in Sources */,
+				0A2B8B712454D8B500D9E8E7 /* HistoryViewProtocol.swift in Sources */,
+				0A2B8B6D2454D87000D9E8E7 /* HistoryScreenBuilder.swift in Sources */,
 				0ACB986B24549DFE007BF01D /* TabBarPresenter.swift in Sources */,
 				0ACB986524549DE2007BF01D /* TabBarViewProtocol.swift in Sources */,
 				0ACB986D2454AEEB007BF01D /* DarkTabBarController.swift in Sources */,
@@ -334,7 +372,9 @@
 				0ACB9855245468E7007BF01D /* WelcomeView.swift in Sources */,
 				0ACB984A245467F5007BF01D /* ScreenBuilder.swift in Sources */,
 				0ACB9851245468AF007BF01D /* WelcomeViewProtocol.swift in Sources */,
+				0A2B8B752454D8E200D9E8E7 /* HistoryView.swift in Sources */,
 				0ACB9848245467D6007BF01D /* ViewControllerName.swift in Sources */,
+				0A2B8B772454D8F300D9E8E7 /* HistoryPresenter.swift in Sources */,
 				0ACB985B24547236007BF01D /* DarkNavController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
