@@ -47,18 +47,15 @@ extension TabBarElement {
 
     var tabBarItem: UITabBarItem {
         let selectedIcon: UIImage?
-        let unselectedIcon: UIImage?
 
         switch self {
         case .welcome:
-            selectedIcon = UIImage(systemName: "view.2d")
-            unselectedIcon = UIImage(systemName: "view.3d")
+            selectedIcon = UIImage(named: "bottle")
         case .welcome2:
             selectedIcon = UIImage(systemName: "bold")
-            unselectedIcon = UIImage(systemName: "underline")
         }
 
-        let item = UITabBarItem(title: title, image: unselectedIcon, selectedImage: selectedIcon)
+        let item = UITabBarItem(title: title, image: selectedIcon, tag: self.rawValue)
         return item
     }
 }

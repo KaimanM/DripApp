@@ -11,15 +11,6 @@ final class TabBarView: DarkTabBarController, TabBarViewProtocol, UITabBarContro
 
     var presenter: TabBarPresenterProtocol!
 
-    func select(tab: TabBarElement) {
-        guard let index = viewControllers?.firstIndex(where: {
-            $0.tabBarItem.tag == tab.rawValue
-        }) else {
-            return
-        }
-        selectedIndex = index
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self

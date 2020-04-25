@@ -5,5 +5,4 @@ protocol TabBarViewProtocol: class {
 
     func presentView(_ view: UIViewController)
     func updateTitle(title: String?)
-    func select(tab: TabBarElement)
 }
