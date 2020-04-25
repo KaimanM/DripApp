@@ -11,7 +11,7 @@ final class WelcomePresenter: WelcomePresenterProtocol {
     
     func onViewDidLoad() {
         print("Presenter onViewDidLoad firing correctly")
-        view?.updateTitle(title: "test")
+        view?.updateTitle(title: "Welcome")
     }
     
     

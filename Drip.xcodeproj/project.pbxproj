@@ -21,6 +21,13 @@
 		0ACB9857245468EC007BF01D /* WelcomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB9856245468EC007BF01D /* WelcomePresenter.swift */; };
 		0ACB985924546924007BF01D /* Welcome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ACB985824546924007BF01D /* Welcome.storyboard */; };
 		0ACB985B24547236007BF01D /* DarkNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB985A24547236007BF01D /* DarkNavController.swift */; };
+		0ACB986024549DBC007BF01D /* TabBarScreenBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB985F24549DBC007BF01D /* TabBarScreenBuilder.swift */; };
+		0ACB986224549DC4007BF01D /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ACB986124549DC4007BF01D /* TabBar.storyboard */; };
+		0ACB986524549DE2007BF01D /* TabBarViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB986424549DE2007BF01D /* TabBarViewProtocol.swift */; };
+		0ACB986724549DED007BF01D /* TabBarPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB986624549DED007BF01D /* TabBarPresenterProtocol.swift */; };
+		0ACB986924549DF5007BF01D /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB986824549DF5007BF01D /* TabBarView.swift */; };
+		0ACB986B24549DFE007BF01D /* TabBarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB986A24549DFE007BF01D /* TabBarPresenter.swift */; };
+		0ACB986D2454AEEB007BF01D /* DarkTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB986C2454AEEB007BF01D /* DarkTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +59,13 @@
 		0ACB9856245468EC007BF01D /* WelcomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePresenter.swift; sourceTree = "<group>"; };
 		0ACB985824546924007BF01D /* Welcome.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Welcome.storyboard; sourceTree = "<group>"; };
 		0ACB985A24547236007BF01D /* DarkNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkNavController.swift; sourceTree = "<group>"; };
+		0ACB985F24549DBC007BF01D /* TabBarScreenBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarScreenBuilder.swift; sourceTree = "<group>"; };
+		0ACB986124549DC4007BF01D /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
+		0ACB986424549DE2007BF01D /* TabBarViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewProtocol.swift; sourceTree = "<group>"; };
+		0ACB986624549DED007BF01D /* TabBarPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarPresenterProtocol.swift; sourceTree = "<group>"; };
+		0ACB986824549DF5007BF01D /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		0ACB986A24549DFE007BF01D /* TabBarPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarPresenter.swift; sourceTree = "<group>"; };
+		0ACB986C2454AEEB007BF01D /* DarkTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkTabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +141,7 @@
 				0ACB9847245467D6007BF01D /* ViewControllerName.swift */,
 				0ACB9849245467F5007BF01D /* ScreenBuilder.swift */,
 				0ACB985A24547236007BF01D /* DarkNavController.swift */,
+				0ACB986C2454AEEB007BF01D /* DarkTabBarController.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -134,6 +149,7 @@
 		0ACB984B2454683A007BF01D /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				0ACB985E24549D99007BF01D /* TabBar */,
 				0ACB984C24546879007BF01D /* Welcome */,
 			);
 			path = Screens;
@@ -156,6 +172,27 @@
 				0ACB9852245468DC007BF01D /* WelcomePresenterProtocol.swift */,
 				0ACB9854245468E7007BF01D /* WelcomeView.swift */,
 				0ACB9856245468EC007BF01D /* WelcomePresenter.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		0ACB985E24549D99007BF01D /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				0ACB985F24549DBC007BF01D /* TabBarScreenBuilder.swift */,
+				0ACB986124549DC4007BF01D /* TabBar.storyboard */,
+				0ACB986324549DC9007BF01D /* Classes */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		0ACB986324549DC9007BF01D /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				0ACB986424549DE2007BF01D /* TabBarViewProtocol.swift */,
+				0ACB986624549DED007BF01D /* TabBarPresenterProtocol.swift */,
+				0ACB986824549DF5007BF01D /* TabBarView.swift */,
+				0ACB986A24549DFE007BF01D /* TabBarPresenter.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -241,6 +278,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0ACB986224549DC4007BF01D /* TabBar.storyboard in Resources */,
 				0ACB982E24546719007BF01D /* LaunchScreen.storyboard in Resources */,
 				0ACB985924546924007BF01D /* Welcome.storyboard in Resources */,
 				0ACB982B24546719007BF01D /* Assets.xcassets in Resources */,
@@ -263,7 +301,13 @@
 			files = (
 				0ACB9846245467BC007BF01D /* UIViewController+ViewControllerName.swift in Sources */,
 				0ACB984E24546887007BF01D /* WelcomeScreenBuilder.swift in Sources */,
+				0ACB986924549DF5007BF01D /* TabBarView.swift in Sources */,
+				0ACB986024549DBC007BF01D /* TabBarScreenBuilder.swift in Sources */,
 				0ACB982224546717007BF01D /* AppDelegate.swift in Sources */,
+				0ACB986B24549DFE007BF01D /* TabBarPresenter.swift in Sources */,
+				0ACB986524549DE2007BF01D /* TabBarViewProtocol.swift in Sources */,
+				0ACB986D2454AEEB007BF01D /* DarkTabBarController.swift in Sources */,
+				0ACB986724549DED007BF01D /* TabBarPresenterProtocol.swift in Sources */,
 				0ACB9857245468EC007BF01D /* WelcomePresenter.swift in Sources */,
 				0ACB9853245468DC007BF01D /* WelcomePresenterProtocol.swift in Sources */,
 				0ACB9855245468E7007BF01D /* WelcomeView.swift in Sources */,

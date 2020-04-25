@@ -28,7 +28,6 @@ final class WelcomeView: UIViewController, UITableViewDelegate, UITableViewDataS
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = .black
-        navigationItem.title = "test"
     }
     
     override func viewDidAppear(_ animated: Bool) {

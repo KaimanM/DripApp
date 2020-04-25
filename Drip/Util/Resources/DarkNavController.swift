@@ -31,4 +31,8 @@ final class DarkNavController: UINavigationController {
     private func getStatusBarHeight() -> CGFloat {
         return navigationBar.frame.height
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 }
