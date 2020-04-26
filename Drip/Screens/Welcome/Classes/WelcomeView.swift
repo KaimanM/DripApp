@@ -29,6 +29,7 @@ final class WelcomeView: UIViewController, UITableViewDelegate, UITableViewDataS
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = .black
+        tableView.rowHeight = 44
     }
 
     override func viewDidAppear(_ animated: Bool) {

@@ -4,7 +4,8 @@ enum TabBarElement: Int, CaseIterable {
     case history
     case trends
     case welcome
-    case welcome2
+    case awards
+    case about
 }
 
 final class TabBarScreenBuilder: ScreenBuilder {
@@ -32,8 +33,10 @@ extension TabBarElement {
             return "Trends"
         case .welcome:
             return "Welcome"
-        case .welcome2:
-            return "Welcome2"
+        case .awards:
+            return "Awards"
+        case .about:
+            return "About"
         }
     }
 
@@ -46,8 +49,10 @@ extension TabBarElement {
             view = DarkNavController(rootViewController: TrendsScreenBuilder().build())
         case .welcome:
             view = DarkNavController(rootViewController: WelcomeScreenBuilder().build())
-        case .welcome2:
-            view = DarkNavController(rootViewController: WelcomeScreenBuilder().build())
+        case .awards:
+            view = DarkNavController(rootViewController: AwardsScreenBuilder().build())
+        case .about:
+            view = DarkNavController(rootViewController: AboutScreenBuilder().build())
         }
 
         view.tabBarItem = tabBarItem
@@ -64,9 +69,11 @@ extension TabBarElement {
         case .trends:
             selectedIcon = UIImage(systemName: "calendar")
         case .welcome:
-            selectedIcon = UIImage(named: "bottle")
-        case .welcome2:
-            selectedIcon = UIImage(systemName: "bold")
+            selectedIcon = UIImage(systemName: "square.and.pencil")
+        case .awards:
+            selectedIcon = UIImage(systemName: "shield")
+        case .about:
+            selectedIcon = UIImage(systemName: "questionmark.circle")
         }
 
         let item = UITabBarItem(title: title, image: selectedIcon, tag: self.rawValue)

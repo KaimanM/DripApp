@@ -13,6 +13,18 @@
 		0A2B8B732454D8C700D9E8E7 /* HistoryPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B8B722454D8C700D9E8E7 /* HistoryPresenterProtocol.swift */; };
 		0A2B8B752454D8E200D9E8E7 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B8B742454D8E200D9E8E7 /* HistoryView.swift */; };
 		0A2B8B772454D8F300D9E8E7 /* HistoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B8B762454D8F300D9E8E7 /* HistoryPresenter.swift */; };
+		0A8BEA822455D24A00AA9880 /* AwardsPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BEA7C2455D24A00AA9880 /* AwardsPresenterProtocol.swift */; };
+		0A8BEA832455D24A00AA9880 /* AwardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BEA7D2455D24A00AA9880 /* AwardsView.swift */; };
+		0A8BEA842455D24A00AA9880 /* AwardsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BEA7E2455D24A00AA9880 /* AwardsPresenter.swift */; };
+		0A8BEA852455D24A00AA9880 /* AwardsViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BEA7F2455D24A00AA9880 /* AwardsViewProtocol.swift */; };
+		0A8BEA862455D24A00AA9880 /* AwardsScreenBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BEA802455D24A00AA9880 /* AwardsScreenBuilder.swift */; };
+		0A8BEA872455D24A00AA9880 /* Awards.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A8BEA812455D24A00AA9880 /* Awards.storyboard */; };
+		0A8BEA902455D45A00AA9880 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BEA8A2455D45900AA9880 /* AboutView.swift */; };
+		0A8BEA912455D45A00AA9880 /* AboutPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BEA8B2455D45900AA9880 /* AboutPresenter.swift */; };
+		0A8BEA922455D45A00AA9880 /* AboutViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BEA8C2455D45900AA9880 /* AboutViewProtocol.swift */; };
+		0A8BEA932455D45A00AA9880 /* AboutPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BEA8D2455D45900AA9880 /* AboutPresenterProtocol.swift */; };
+		0A8BEA942455D45A00AA9880 /* AboutScreenBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BEA8E2455D45900AA9880 /* AboutScreenBuilder.swift */; };
+		0A8BEA952455D45A00AA9880 /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A8BEA8F2455D45900AA9880 /* About.storyboard */; };
 		0ACB982224546717007BF01D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB982124546717007BF01D /* AppDelegate.swift */; };
 		0ACB982B24546719007BF01D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ACB982A24546719007BF01D /* Assets.xcassets */; };
 		0ACB982E24546719007BF01D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ACB982C24546719007BF01D /* LaunchScreen.storyboard */; };
@@ -59,6 +71,18 @@
 		0A2B8B722454D8C700D9E8E7 /* HistoryPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPresenterProtocol.swift; sourceTree = "<group>"; };
 		0A2B8B742454D8E200D9E8E7 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		0A2B8B762454D8F300D9E8E7 /* HistoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPresenter.swift; sourceTree = "<group>"; };
+		0A8BEA7C2455D24A00AA9880 /* AwardsPresenterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AwardsPresenterProtocol.swift; sourceTree = "<group>"; };
+		0A8BEA7D2455D24A00AA9880 /* AwardsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AwardsView.swift; sourceTree = "<group>"; };
+		0A8BEA7E2455D24A00AA9880 /* AwardsPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AwardsPresenter.swift; sourceTree = "<group>"; };
+		0A8BEA7F2455D24A00AA9880 /* AwardsViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AwardsViewProtocol.swift; sourceTree = "<group>"; };
+		0A8BEA802455D24A00AA9880 /* AwardsScreenBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AwardsScreenBuilder.swift; sourceTree = "<group>"; };
+		0A8BEA812455D24A00AA9880 /* Awards.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Awards.storyboard; sourceTree = "<group>"; };
+		0A8BEA8A2455D45900AA9880 /* AboutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		0A8BEA8B2455D45900AA9880 /* AboutPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutPresenter.swift; sourceTree = "<group>"; };
+		0A8BEA8C2455D45900AA9880 /* AboutViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewProtocol.swift; sourceTree = "<group>"; };
+		0A8BEA8D2455D45900AA9880 /* AboutPresenterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutPresenterProtocol.swift; sourceTree = "<group>"; };
+		0A8BEA8E2455D45900AA9880 /* AboutScreenBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutScreenBuilder.swift; sourceTree = "<group>"; };
+		0A8BEA8F2455D45900AA9880 /* About.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = About.storyboard; sourceTree = "<group>"; };
 		0ACB981E24546717007BF01D /* Drip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Drip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ACB982124546717007BF01D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0ACB982A24546719007BF01D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -131,6 +155,48 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
+		0A8BEA962455D50C00AA9880 /* Awards */ = {
+			isa = PBXGroup;
+			children = (
+				0A8BEA802455D24A00AA9880 /* AwardsScreenBuilder.swift */,
+				0A8BEA812455D24A00AA9880 /* Awards.storyboard */,
+				0A8BEA972455D51A00AA9880 /* Classes */,
+			);
+			path = Awards;
+			sourceTree = "<group>";
+		};
+		0A8BEA972455D51A00AA9880 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				0A8BEA7C2455D24A00AA9880 /* AwardsPresenterProtocol.swift */,
+				0A8BEA7D2455D24A00AA9880 /* AwardsView.swift */,
+				0A8BEA7E2455D24A00AA9880 /* AwardsPresenter.swift */,
+				0A8BEA7F2455D24A00AA9880 /* AwardsViewProtocol.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		0A8BEA982455D53A00AA9880 /* About */ = {
+			isa = PBXGroup;
+			children = (
+				0A8BEA8E2455D45900AA9880 /* AboutScreenBuilder.swift */,
+				0A8BEA8F2455D45900AA9880 /* About.storyboard */,
+				0A8BEA992455D54600AA9880 /* Classes */,
+			);
+			path = About;
+			sourceTree = "<group>";
+		};
+		0A8BEA992455D54600AA9880 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				0A8BEA8A2455D45900AA9880 /* AboutView.swift */,
+				0A8BEA8B2455D45900AA9880 /* AboutPresenter.swift */,
+				0A8BEA8C2455D45900AA9880 /* AboutViewProtocol.swift */,
+				0A8BEA8D2455D45900AA9880 /* AboutPresenterProtocol.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		0ACB981524546717007BF01D = {
 			isa = PBXGroup;
 			children = (
@@ -198,6 +264,8 @@
 				0AD151102454EF9D00F45042 /* Trends */,
 				0ACB984C24546879007BF01D /* Welcome */,
 				0A2B8B6A2454D69D00D9E8E7 /* History */,
+				0A8BEA962455D50C00AA9880 /* Awards */,
+				0A8BEA982455D53A00AA9880 /* About */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -349,6 +417,8 @@
 			files = (
 				0ACB986224549DC4007BF01D /* TabBar.storyboard in Resources */,
 				0ACB982E24546719007BF01D /* LaunchScreen.storyboard in Resources */,
+				0A8BEA952455D45A00AA9880 /* About.storyboard in Resources */,
+				0A8BEA872455D24A00AA9880 /* Awards.storyboard in Resources */,
 				0ACB985924546924007BF01D /* Welcome.storyboard in Resources */,
 				0A2B8B6F2454D88500D9E8E7 /* History.storyboard in Resources */,
 				0AD1511D2454F00100F45042 /* Trends.storyboard in Resources */,
@@ -390,15 +460,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A8BEA902455D45A00AA9880 /* AboutView.swift in Sources */,
 				0ACB9846245467BC007BF01D /* UIViewController+ViewControllerName.swift in Sources */,
 				0A2B8B732454D8C700D9E8E7 /* HistoryPresenterProtocol.swift in Sources */,
+				0A8BEA912455D45A00AA9880 /* AboutPresenter.swift in Sources */,
 				0ACB984E24546887007BF01D /* WelcomeScreenBuilder.swift in Sources */,
 				0ACB986924549DF5007BF01D /* TabBarView.swift in Sources */,
 				0ACB986024549DBC007BF01D /* TabBarScreenBuilder.swift in Sources */,
+				0A8BEA852455D24A00AA9880 /* AwardsViewProtocol.swift in Sources */,
 				0ACB982224546717007BF01D /* AppDelegate.swift in Sources */,
 				0AD1511B2454EFF600F45042 /* TrendsPresenter.swift in Sources */,
 				0A2B8B712454D8B500D9E8E7 /* HistoryViewProtocol.swift in Sources */,
 				0A2B8B6D2454D87000D9E8E7 /* HistoryScreenBuilder.swift in Sources */,
+				0A8BEA862455D24A00AA9880 /* AwardsScreenBuilder.swift in Sources */,
 				0ACB986B24549DFE007BF01D /* TabBarPresenter.swift in Sources */,
 				0ACB986524549DE2007BF01D /* TabBarViewProtocol.swift in Sources */,
 				0AD151172454EFE300F45042 /* TrendsPresenterProtocol.swift in Sources */,
@@ -407,11 +481,17 @@
 				0ACB986724549DED007BF01D /* TabBarPresenterProtocol.swift in Sources */,
 				0ACB9857245468EC007BF01D /* WelcomePresenter.swift in Sources */,
 				0AD151192454EFEB00F45042 /* TrendsView.swift in Sources */,
+				0A8BEA942455D45A00AA9880 /* AboutScreenBuilder.swift in Sources */,
 				0AD151152454EFDC00F45042 /* TrendsViewProtocol.swift in Sources */,
 				0ACB9853245468DC007BF01D /* WelcomePresenterProtocol.swift in Sources */,
 				0ACB9855245468E7007BF01D /* WelcomeView.swift in Sources */,
 				0ACB984A245467F5007BF01D /* ScreenBuilder.swift in Sources */,
+				0A8BEA842455D24A00AA9880 /* AwardsPresenter.swift in Sources */,
+				0A8BEA932455D45A00AA9880 /* AboutPresenterProtocol.swift in Sources */,
+				0A8BEA832455D24A00AA9880 /* AwardsView.swift in Sources */,
 				0ACB9851245468AF007BF01D /* WelcomeViewProtocol.swift in Sources */,
+				0A8BEA922455D45A00AA9880 /* AboutViewProtocol.swift in Sources */,
+				0A8BEA822455D24A00AA9880 /* AwardsPresenterProtocol.swift in Sources */,
 				0A2B8B752454D8E200D9E8E7 /* HistoryView.swift in Sources */,
 				0ACB9848245467D6007BF01D /* ViewControllerName.swift in Sources */,
 				0A2B8B772454D8F300D9E8E7 /* HistoryPresenter.swift in Sources */,
