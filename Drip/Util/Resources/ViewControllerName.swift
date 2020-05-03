@@ -1,5 +1,5 @@
 enum ViewControllerName: String, CaseIterable {
-    case welcome = "Welcome"
+    case today = "Today"
     case home = "Home"
     case tabBar = "TabBar"
     case history = "History"

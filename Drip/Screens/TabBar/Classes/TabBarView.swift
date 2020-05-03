@@ -14,7 +14,10 @@ final class TabBarView: DarkTabBarController, TabBarViewProtocol, UITabBarContro
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
-        selectedIndex = 0
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        selectedIndex = 2
     }
 
 }

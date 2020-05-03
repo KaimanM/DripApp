@@ -3,6 +3,7 @@ import UIKit
 final class DarkNavController: UINavigationController {
 
     let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+    var lineView = UIView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +22,11 @@ final class DarkNavController: UINavigationController {
         navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
 
         visualEffectView.layer.zPosition = -1
+
+        lineView.backgroundColor = UIColor.white
+        lineView.layer.opacity = 0.25
+        lineView.frame = CGRect(x: 0, y: SBHeight(), width:navigationBar.frame.width, height: 0.5)
+        navigationBar.addSubview(lineView)
     }
 
     override func viewDidLayoutSubviews() {
@@ -28,6 +34,8 @@ final class DarkNavController: UINavigationController {
         visualEffectView.frame = navigationBar.bounds.insetBy(dx: 0,
                                                               dy: -(SBHeight())).offsetBy(dx: 0,
                                                                                           dy: -(SBHeight()))
+        lineView.frame = CGRect(x: 0, y: SBHeight(), width:navigationBar.frame.width, height: 0.5)
+
     }
 
     // Status bar height

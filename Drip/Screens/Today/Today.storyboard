@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OlH-Y5-r6o">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Today View-->
+        <scene sceneID="mdf-2C-vGd">
+            <objects>
+                <viewController id="OlH-Y5-r6o" customClass="TodayView" customModule="Drip" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uHk-Kc-yqP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pHl-WX-pdY" userLabel="Ring View" customClass="ProgressRingView" customModule="Drip" customModuleProvider="target">
+                                <rect key="frame" x="82" y="328" width="250" height="250"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="7UG-9Y-Qcl"/>
+                                    <constraint firstAttribute="height" constant="250" id="PWj-jz-MLu"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="pHl-WX-pdY" firstAttribute="centerY" secondItem="fdA-ho-5dV" secondAttribute="centerY" id="eJ0-y3-DA2"/>
+                            <constraint firstItem="pHl-WX-pdY" firstAttribute="centerX" secondItem="fdA-ho-5dV" secondAttribute="centerX" id="yqB-Ka-7UW"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="fdA-ho-5dV"/>
+                    </view>
+                    <connections>
+                        <outlet property="ringView" destination="pHl-WX-pdY" id="eVa-fP-Xe1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="542-Hr-tGe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="132" y="139"/>
+        </scene>
+    </scenes>
+</document>
