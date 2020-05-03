@@ -3,7 +3,7 @@ import UIKit
 enum TabBarElement: Int, CaseIterable {
     case history
     case trends
-    case welcome
+    case today
     case awards
     case about
 }
@@ -31,8 +31,8 @@ extension TabBarElement {
             return "History"
         case .trends:
             return "Trends"
-        case .welcome:
-            return "Welcome"
+        case .today:
+            return "Today"
         case .awards:
             return "Awards"
         case .about:
@@ -47,8 +47,8 @@ extension TabBarElement {
             view = DarkNavController(rootViewController: HistoryScreenBuilder().build())
         case .trends:
             view = DarkNavController(rootViewController: TrendsScreenBuilder().build())
-        case .welcome:
-            view = DarkNavController(rootViewController: WelcomeScreenBuilder().build())
+        case .today:
+            view = DarkNavController(rootViewController: TodayScreenBuilder().build())
         case .awards:
             view = DarkNavController(rootViewController: AwardsScreenBuilder().build())
         case .about:
@@ -68,7 +68,7 @@ extension TabBarElement {
             selectedIcon = UIImage(systemName: "list.bullet")
         case .trends:
             selectedIcon = UIImage(systemName: "calendar")
-        case .welcome:
+        case .today:
             selectedIcon = UIImage(systemName: "square.and.pencil")
         case .awards:
             selectedIcon = UIImage(systemName: "shield")
