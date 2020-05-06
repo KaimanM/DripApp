@@ -3,6 +3,7 @@ import UIKit
 final class TodayView: UIViewController, TodayViewProtocol {
     var presenter: TodayPresenterProtocol!
     @IBOutlet weak var ringView: ProgressRingView!
+    @IBOutlet weak var dateLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -11,6 +12,17 @@ final class TodayView: UIViewController, TodayViewProtocol {
         view.backgroundColor = .black
         presenter.onViewDidLoad()
 
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                                            target: self,
+                                                            action: #selector(action))
+
+        dateLabel.textColor = .white
+
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE, MMM d"
+        let result = formatter.string(from: date)
+        dateLabel.text = result
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -39,6 +51,11 @@ final class TodayView: UIViewController, TodayViewProtocol {
 
     func setRingProgress(progress: Double) {
         ringView.setProgress(CGFloat(progress))
+    }
+
+    @objc func action(sender: UIBarButtonItem) {
+        // Function body goes here
+        print("testy123")
     }
 
 }

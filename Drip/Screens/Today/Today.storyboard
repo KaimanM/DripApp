@@ -17,27 +17,40 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pHl-WX-pdY" userLabel="Ring View" customClass="ProgressRingView" customModule="Drip" customModuleProvider="target">
                                 <rect key="frame" x="82" y="328" width="250" height="250"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="250" id="7UG-9Y-Qcl"/>
                                     <constraint firstAttribute="height" constant="250" id="PWj-jz-MLu"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="testDate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vek-cT-P7Z">
+                                <rect key="frame" x="20" y="64" width="374" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="ZZx-f8-hEI"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="vek-cT-P7Z" firstAttribute="leading" secondItem="fdA-ho-5dV" secondAttribute="leading" constant="20" id="E9u-EF-rP5"/>
+                            <constraint firstItem="fdA-ho-5dV" firstAttribute="trailing" secondItem="vek-cT-P7Z" secondAttribute="trailing" constant="20" id="VI0-54-2ob"/>
+                            <constraint firstItem="vek-cT-P7Z" firstAttribute="top" secondItem="fdA-ho-5dV" secondAttribute="top" constant="20" id="Ycp-Wq-lD4"/>
                             <constraint firstItem="pHl-WX-pdY" firstAttribute="centerY" secondItem="fdA-ho-5dV" secondAttribute="centerY" id="eJ0-y3-DA2"/>
                             <constraint firstItem="pHl-WX-pdY" firstAttribute="centerX" secondItem="fdA-ho-5dV" secondAttribute="centerX" id="yqB-Ka-7UW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fdA-ho-5dV"/>
                     </view>
                     <connections>
+                        <outlet property="dateLabel" destination="vek-cT-P7Z" id="oVD-9j-B0D"/>
                         <outlet property="ringView" destination="pHl-WX-pdY" id="eVa-fP-Xe1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="542-Hr-tGe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="132" y="139"/>
+            <point key="canvasLocation" x="131.8840579710145" y="138.61607142857142"/>
         </scene>
     </scenes>
 </document>

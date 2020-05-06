@@ -22,6 +22,7 @@ final class DarkNavController: UINavigationController {
         navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
 
         visualEffectView.layer.zPosition = -1
+        visualEffectView.isUserInteractionEnabled = false
 
         lineView.backgroundColor = UIColor.white
         lineView.layer.opacity = 0.25
