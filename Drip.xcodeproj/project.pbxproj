@@ -14,6 +14,7 @@
 		0A2B8B752454D8E200D9E8E7 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B8B742454D8E200D9E8E7 /* TodayView.swift */; };
 		0A2B8B772454D8F300D9E8E7 /* TodayPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2B8B762454D8F300D9E8E7 /* TodayPresenter.swift */; };
 		0A44B3962457631C0023433A /* ProgressRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A44B3952457631C0023433A /* ProgressRingView.swift */; };
+		0A4B4E092464505B00C2350B /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4B4E082464505B00C2350B /* PlaceholderView.swift */; };
 		0A8BEA822455D24A00AA9880 /* AwardsPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BEA7C2455D24A00AA9880 /* AwardsPresenterProtocol.swift */; };
 		0A8BEA832455D24A00AA9880 /* AwardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BEA7D2455D24A00AA9880 /* AwardsView.swift */; };
 		0A8BEA842455D24A00AA9880 /* AwardsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BEA7E2455D24A00AA9880 /* AwardsPresenter.swift */; };
@@ -86,6 +87,7 @@
 		0A2B8B742454D8E200D9E8E7 /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
 		0A2B8B762454D8F300D9E8E7 /* TodayPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayPresenter.swift; sourceTree = "<group>"; };
 		0A44B3952457631C0023433A /* ProgressRingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRingView.swift; sourceTree = "<group>"; };
+		0A4B4E082464505B00C2350B /* PlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
 		0A8BEA7C2455D24A00AA9880 /* AwardsPresenterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AwardsPresenterProtocol.swift; sourceTree = "<group>"; };
 		0A8BEA7D2455D24A00AA9880 /* AwardsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AwardsView.swift; sourceTree = "<group>"; };
 		0A8BEA7E2455D24A00AA9880 /* AwardsPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AwardsPresenter.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 				0ACB985A24547236007BF01D /* DarkNavController.swift */,
 				0ACB986C2454AEEB007BF01D /* DarkTabBarController.swift */,
 				0A44B3952457631C0023433A /* ProgressRingView.swift */,
+				0A4B4E082464505B00C2350B /* PlaceholderView.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -497,6 +500,7 @@
 				0AD1511B2454EFF600F45042 /* TrendsPresenter.swift in Sources */,
 				0A2B8B712454D8B500D9E8E7 /* TodayViewProtocol.swift in Sources */,
 				0A2B8B6D2454D87000D9E8E7 /* TodayScreenBuilder.swift in Sources */,
+				0A4B4E092464505B00C2350B /* PlaceholderView.swift in Sources */,
 				0A8BEA862455D24A00AA9880 /* AwardsScreenBuilder.swift in Sources */,
 				0ACB986B24549DFE007BF01D /* TabBarPresenter.swift in Sources */,
 				0ACB986524549DE2007BF01D /* TabBarViewProtocol.swift in Sources */,

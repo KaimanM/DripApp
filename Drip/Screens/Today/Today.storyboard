@@ -15,37 +15,99 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pHl-WX-pdY" userLabel="Ring View" customClass="ProgressRingView" customModule="Drip" customModuleProvider="target">
-                                <rect key="frame" x="82" y="328" width="250" height="250"/>
-                                <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4nv-fS-xIt">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="H11-zG-XUr">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1048"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kyV-mj-ML2" userLabel="Date Label Container" customClass="PlaceholderView" customModule="Drip" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="89.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K8b-GL-K8D" userLabel="dateLabel">
+                                                        <rect key="frame" x="20" y="0.0" width="374" height="89.5"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="K8b-GL-K8D" firstAttribute="centerY" secondItem="kyV-mj-ML2" secondAttribute="centerY" id="Ah6-7X-mFc"/>
+                                                    <constraint firstItem="K8b-GL-K8D" firstAttribute="centerX" secondItem="kyV-mj-ML2" secondAttribute="centerX" id="LPI-il-m2S"/>
+                                                    <constraint firstItem="K8b-GL-K8D" firstAttribute="height" secondItem="kyV-mj-ML2" secondAttribute="height" id="cHE-Pc-UeJ"/>
+                                                    <constraint firstItem="K8b-GL-K8D" firstAttribute="leading" secondItem="kyV-mj-ML2" secondAttribute="leading" constant="20" id="ydq-99-5cg"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rJL-Ua-fHi" userLabel="Progress Ring Container" customClass="PlaceholderView" customModule="Drip" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="89.5" width="414" height="358.5"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N32-hy-VA6" userLabel="Progress Ring View" customClass="ProgressRingView" customModule="Drip" customModuleProvider="target">
+                                                        <rect key="frame" x="52" y="45" width="310.5" height="268.5"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4VK-Xr-AMZ">
+                                                                <rect key="frame" x="116" y="100.5" width="78" height="67.5"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstItem="4VK-Xr-AMZ" firstAttribute="centerY" secondItem="N32-hy-VA6" secondAttribute="centerY" id="IGu-La-wnG"/>
+                                                            <constraint firstItem="4VK-Xr-AMZ" firstAttribute="height" secondItem="N32-hy-VA6" secondAttribute="height" multiplier="0.25" id="Mc4-I1-PPU"/>
+                                                            <constraint firstItem="4VK-Xr-AMZ" firstAttribute="width" secondItem="N32-hy-VA6" secondAttribute="width" multiplier="0.25" id="XdE-Hk-Abu"/>
+                                                            <constraint firstItem="4VK-Xr-AMZ" firstAttribute="centerX" secondItem="N32-hy-VA6" secondAttribute="centerX" id="Xud-wc-5yq"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="N32-hy-VA6" firstAttribute="centerX" secondItem="rJL-Ua-fHi" secondAttribute="centerX" id="7ge-ct-tmk"/>
+                                                    <constraint firstItem="N32-hy-VA6" firstAttribute="height" secondItem="rJL-Ua-fHi" secondAttribute="height" multiplier="0.75" id="Odg-hr-Qde"/>
+                                                    <constraint firstItem="N32-hy-VA6" firstAttribute="centerY" secondItem="rJL-Ua-fHi" secondAttribute="centerY" id="att-rP-hOZ"/>
+                                                    <constraint firstItem="N32-hy-VA6" firstAttribute="width" secondItem="rJL-Ua-fHi" secondAttribute="width" multiplier="0.75" id="nMl-eI-mCB"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sic-TZ-ouG" userLabel="Extra Content View" customClass="PlaceholderView" customModule="Drip" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="448" width="414" height="600"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="600" id="Kyl-Be-CKe"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="kyV-mj-ML2" firstAttribute="width" secondItem="H11-zG-XUr" secondAttribute="width" id="UVL-Cq-inj"/>
+                                            <constraint firstItem="rJL-Ua-fHi" firstAttribute="width" secondItem="H11-zG-XUr" secondAttribute="width" id="cxQ-mD-Ksx"/>
+                                            <constraint firstItem="Sic-TZ-ouG" firstAttribute="width" secondItem="H11-zG-XUr" secondAttribute="width" id="zWq-Az-qd3"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="250" id="7UG-9Y-Qcl"/>
-                                    <constraint firstAttribute="height" constant="250" id="PWj-jz-MLu"/>
+                                    <constraint firstAttribute="bottom" secondItem="H11-zG-XUr" secondAttribute="bottom" id="6FR-S5-jnK"/>
+                                    <constraint firstAttribute="trailing" secondItem="H11-zG-XUr" secondAttribute="trailing" id="AXJ-6T-xXH"/>
+                                    <constraint firstItem="H11-zG-XUr" firstAttribute="width" secondItem="4nv-fS-xIt" secondAttribute="width" id="E9I-id-PBS"/>
+                                    <constraint firstItem="H11-zG-XUr" firstAttribute="top" secondItem="4nv-fS-xIt" secondAttribute="top" id="ac9-za-O98"/>
+                                    <constraint firstItem="H11-zG-XUr" firstAttribute="leading" secondItem="4nv-fS-xIt" secondAttribute="leading" id="lfb-O2-MsC"/>
                                 </constraints>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="testDate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vek-cT-P7Z">
-                                <rect key="frame" x="20" y="64" width="374" height="150"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="ZZx-f8-hEI"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="vek-cT-P7Z" firstAttribute="leading" secondItem="fdA-ho-5dV" secondAttribute="leading" constant="20" id="E9u-EF-rP5"/>
-                            <constraint firstItem="fdA-ho-5dV" firstAttribute="trailing" secondItem="vek-cT-P7Z" secondAttribute="trailing" constant="20" id="VI0-54-2ob"/>
-                            <constraint firstItem="vek-cT-P7Z" firstAttribute="top" secondItem="fdA-ho-5dV" secondAttribute="top" constant="20" id="Ycp-Wq-lD4"/>
-                            <constraint firstItem="pHl-WX-pdY" firstAttribute="centerY" secondItem="fdA-ho-5dV" secondAttribute="centerY" id="eJ0-y3-DA2"/>
-                            <constraint firstItem="pHl-WX-pdY" firstAttribute="centerX" secondItem="fdA-ho-5dV" secondAttribute="centerX" id="yqB-Ka-7UW"/>
+                            <constraint firstItem="rJL-Ua-fHi" firstAttribute="height" secondItem="uHk-Kc-yqP" secondAttribute="height" multiplier="0.4" id="JjF-L0-PyB"/>
+                            <constraint firstItem="4nv-fS-xIt" firstAttribute="bottom" secondItem="uHk-Kc-yqP" secondAttribute="bottom" id="OsY-xz-5Es"/>
+                            <constraint firstItem="kyV-mj-ML2" firstAttribute="height" secondItem="uHk-Kc-yqP" secondAttribute="height" multiplier="0.1" id="PuL-t4-CJA"/>
+                            <constraint firstItem="4nv-fS-xIt" firstAttribute="leading" secondItem="fdA-ho-5dV" secondAttribute="leading" id="R5r-OJ-b5e"/>
+                            <constraint firstItem="fdA-ho-5dV" firstAttribute="trailing" secondItem="4nv-fS-xIt" secondAttribute="trailing" id="nK2-Av-7rw"/>
+                            <constraint firstItem="4nv-fS-xIt" firstAttribute="top" secondItem="uHk-Kc-yqP" secondAttribute="top" id="vUJ-hO-HE9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fdA-ho-5dV"/>
                     </view>
                     <connections>
-                        <outlet property="dateLabel" destination="vek-cT-P7Z" id="oVD-9j-B0D"/>
-                        <outlet property="ringView" destination="pHl-WX-pdY" id="eVa-fP-Xe1"/>
+                        <outlet property="dateLabel" destination="K8b-GL-K8D" id="Y0M-9O-w3e"/>
+                        <outlet property="progressLabel" destination="4VK-Xr-AMZ" id="5EZ-z3-3BO"/>
+                        <outlet property="ringView" destination="N32-hy-VA6" id="Bjo-80-NJF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="542-Hr-tGe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -4,12 +4,14 @@ final class TodayView: UIViewController, TodayViewProtocol {
     var presenter: TodayPresenterProtocol!
     @IBOutlet weak var ringView: ProgressRingView!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var progressLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.largeTitleDisplayMode = .automatic
         self.navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .black
+        ringView.backgroundColor = .clear
         presenter.onViewDidLoad()
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
@@ -51,6 +53,7 @@ final class TodayView: UIViewController, TodayViewProtocol {
 
     func setRingProgress(progress: Double) {
         ringView.setProgress(CGFloat(progress))
+        progressLabel.text = "\(Int(round(progress*100)))%"
     }
 
     @objc func action(sender: UIBarButtonItem) {

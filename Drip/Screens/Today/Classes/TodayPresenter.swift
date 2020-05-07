@@ -13,7 +13,7 @@ final class TodayPresenter: TodayPresenterProtocol {
     func onViewDidLoad() {
         print("Presenter onViewDidLoad firing correctly")
         view?.updateTitle(title: "Today")
-        view?.setupRingView(startColor: .red, endColor: .systemPink, ringWidth: 25)
+        view?.setupRingView(startColor: .cyan, endColor: .blue, ringWidth: 25)
     }
 
 }

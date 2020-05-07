@@ -16,13 +16,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-clear" translatesAutoresizingMaskIntoConstraints="NO" id="djx-K6-PGk">
-                                <rect key="frame" x="52" y="298" width="310.5" height="310.5"/>
+                                <rect key="frame" x="52" y="248" width="310.5" height="310.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="djx-K6-PGk" secondAttribute="height" id="3B8-cC-iex"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Drip" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9oy-hf-2cb">
-                                <rect key="frame" x="173.5" y="608.5" width="67" height="41"/>
+                                <rect key="frame" x="173.5" y="558.5" width="67" height="41"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -30,7 +30,7 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="djx-K6-PGk" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="1xL-MS-cDJ"/>
+                            <constraint firstItem="djx-K6-PGk" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" constant="-50" id="1xL-MS-cDJ"/>
                             <constraint firstItem="djx-K6-PGk" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.75" id="Acs-sc-fSP"/>
                             <constraint firstItem="9oy-hf-2cb" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="KpN-DA-ZaM"/>
                             <constraint firstItem="djx-K6-PGk" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="KxZ-Nm-rx7"/>
