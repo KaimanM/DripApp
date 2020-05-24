@@ -103,6 +103,11 @@ class ProgressRingView: UIView {
         shadowLayer.lineWidth = lineWidth
         shadowLayer.allowsEdgeAntialiasing = true
         shapeLayer.allowsEdgeAntialiasing = true
+
+        // This allows for landscape rotation to redraw gradient
+        let radius = (bounds.height/2)
+        gradientLayer.frame = CGRect(x: bounds.midX-radius, y: 0, width: bounds.height, height: bounds.height)
+        shapeLayer.frame = CGRect(x: -(bounds.midX-radius), y: 0, width: bounds.height, height: bounds.height)
     }
 
     private func animateRing() {
