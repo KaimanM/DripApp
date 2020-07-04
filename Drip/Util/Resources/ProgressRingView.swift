@@ -2,9 +2,10 @@ import UIKit
 
 class ProgressRingView: UIView {
 
-    private let shapeLayer = CAShapeLayer()
+    private let flatColorLayer = CAShapeLayer()
     private let shadowLayer = CAShapeLayer()
     private let gradientLayer = CAGradientLayer.conicLayer
+    private let gradientMaskLayer = CAShapeLayer()
     private var strokeColour = UIColor()
     private var gradientColors = [UIColor()]
     private var shadowColor = UIColor()
@@ -26,7 +27,8 @@ class ProgressRingView: UIView {
         self.shadowColor = shadowColour
         self.lineWidth = lineWidth
         self.percent = progress
-        setupShapeShadowLayers()
+        setupShadowLayer()
+        setupFlatColorLayer()
     }
 
     func setupGradientRingView(progress: CGFloat,
@@ -43,8 +45,8 @@ class ProgressRingView: UIView {
                                secondColour,
                                firstColour]
         self.strokeColour = .black
-        setupShapeShadowLayers()
-        setupGradientLayer()
+        setupShadowLayer()
+        setupGradientLayers()
     }
 
     func setProgress(_ progress: CGFloat) {
@@ -65,17 +67,8 @@ class ProgressRingView: UIView {
         return circularPath
     }
 
-    private func setupShapeShadowLayers() {
+    private func setupShadowLayer() {
         layer.addSublayer(shadowLayer)
-        layer.addSublayer(shapeLayer)
-
-        shapeLayer.path = getPath().cgPath
-        shapeLayer.lineWidth = lineWidth
-        shapeLayer.lineCap = .round
-        shapeLayer.strokeEnd = percent == 0 ? 0.001 : percent
-        shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.strokeColor = strokeColour.cgColor
-
         shadowLayer.path = getPath().cgPath
         shadowLayer.lineWidth = lineWidth
         shadowLayer.strokeEnd = 1
@@ -83,31 +76,50 @@ class ProgressRingView: UIView {
         shadowLayer.strokeColor = shadowColor.cgColor
     }
 
-    private func setupGradientLayer() {
+    private func setupFlatColorLayer() {
+        layer.addSublayer(flatColorLayer)
+        flatColorLayer.path = getPath().cgPath
+        flatColorLayer.lineWidth = lineWidth
+        flatColorLayer.lineCap = .round
+        flatColorLayer.strokeEnd = percent == 0 ? 0.001 : percent
+        flatColorLayer.fillColor = UIColor.clear.cgColor
+        flatColorLayer.strokeColor = strokeColour.cgColor
+    }
+
+    private func setupGradientLayers() {
+        layer.addSublayer(gradientMaskLayer)
+        gradientMaskLayer.path = getPath().cgPath
+        gradientMaskLayer.lineWidth = lineWidth
+        gradientMaskLayer.lineCap = .round
+        gradientMaskLayer.strokeEnd = percent == 0 ? 0.001 : percent
+        gradientMaskLayer.fillColor = UIColor.clear.cgColor
+        gradientMaskLayer.strokeColor = UIColor.black.cgColor
+
         layer.addSublayer(gradientLayer)
         gradientLayer.colors = gradientColors.map { $0.cgColor }
         gradientLayer.frame = bounds
-
-        let mask = CAShapeLayer()
-        mask.fillColor = UIColor.clear.cgColor
-        mask.strokeColor = UIColor.yellow.cgColor
-        mask.lineWidth = 25
-        mask.path = getPath().cgPath
-        gradientLayer.mask = shapeLayer
+        gradientLayer.mask = gradientMaskLayer
     }
 
     private func redraw() {
-        shapeLayer.path = getPath().cgPath
-        shapeLayer.lineWidth = lineWidth
+        flatColorLayer.path = getPath().cgPath
         shadowLayer.path = getPath().cgPath
-        shadowLayer.lineWidth = lineWidth
-        shadowLayer.allowsEdgeAntialiasing = true
-        shapeLayer.allowsEdgeAntialiasing = true
+        gradientMaskLayer.path = getPath().cgPath
 
         // This allows for landscape rotation to redraw gradient
         let radius = (bounds.height/2)
-        gradientLayer.frame = CGRect(x: bounds.midX-radius, y: 0, width: bounds.height, height: bounds.height)
-        shapeLayer.frame = CGRect(x: -(bounds.midX-radius), y: 0, width: bounds.height, height: bounds.height)
+        gradientLayer.frame = CGRect(x: bounds.midX-radius,
+                                     y: 0,
+                                     width: bounds.height,
+                                     height: bounds.height)
+        gradientMaskLayer.frame = CGRect(x: -(bounds.midX-radius),
+                                         y: 0,
+                                         width: bounds.height,
+                                         height: bounds.height)
+        shadowLayer.frame = CGRect(x: bounds.minX,
+                                   y: 0,
+                                   width: bounds.height,
+                                   height: bounds.height)
     }
 
     private func animateRing() {
@@ -121,7 +133,8 @@ class ProgressRingView: UIView {
         basicAnimation.isRemovedOnCompletion = false
         basicAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
 
-        shapeLayer.add(basicAnimation, forKey: "basicAnimation")
+        flatColorLayer.add(basicAnimation, forKey: "basicAnimation")
+        gradientMaskLayer.add(basicAnimation, forKey: "basicAnimation")
     }
 
     override func layoutSubviews() {
@@ -137,8 +150,10 @@ private extension CAGradientLayer {
     static var conicLayer: CAGradientLayer = {
         let gradientLayer = CAGradientLayer()
         gradientLayer.type = .conic
-        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.5)
-        gradientLayer.endPoint = CGPoint(x: 0.5, y: 0)
+        gradientLayer.startPoint = CGPoint(x: 0.5,
+                                           y: 0.5001)
+        gradientLayer.endPoint = CGPoint(x: 0.5,
+                                         y: 0)
         return gradientLayer
     }()
 
