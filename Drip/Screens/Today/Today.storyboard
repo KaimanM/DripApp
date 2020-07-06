@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OlH-Y5-r6o">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OlH-Y5-r6o">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -46,7 +46,7 @@
                                                         <rect key="frame" x="52" y="45" width="310.5" height="268.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4VK-Xr-AMZ">
-                                                                <rect key="frame" x="116" y="100.5" width="78" height="67.5"/>
+                                                                <rect key="frame" x="134" y="124" width="42" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
@@ -55,8 +55,6 @@
                                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="4VK-Xr-AMZ" firstAttribute="centerY" secondItem="N32-hy-VA6" secondAttribute="centerY" id="IGu-La-wnG"/>
-                                                            <constraint firstItem="4VK-Xr-AMZ" firstAttribute="height" secondItem="N32-hy-VA6" secondAttribute="height" multiplier="0.25" id="Mc4-I1-PPU"/>
-                                                            <constraint firstItem="4VK-Xr-AMZ" firstAttribute="width" secondItem="N32-hy-VA6" secondAttribute="width" multiplier="0.25" id="XdE-Hk-Abu"/>
                                                             <constraint firstItem="4VK-Xr-AMZ" firstAttribute="centerX" secondItem="N32-hy-VA6" secondAttribute="centerX" id="Xud-wc-5yq"/>
                                                         </constraints>
                                                     </view>
@@ -71,9 +69,59 @@
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sic-TZ-ouG" userLabel="Extra Content View" customClass="PlaceholderView" customModule="Drip" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="448" width="414" height="600"/>
+                                                <subviews>
+                                                    <view alpha="0.10000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1r-vI-jSE" userLabel="Seperator 1">
+                                                        <rect key="frame" x="20" y="0.0" width="374" height="1"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="1" id="UTd-0e-Uta"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WQM-qp-wPh" userLabel="Today Content" customClass="PlaceholderView" customModule="Drip" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="1" width="414" height="106"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wXS-J3-KVO">
+                                                                <rect key="frame" x="30" y="10" width="48.5" height="20.5"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="000/000ml" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eqD-r9-p1h">
+                                                                <rect key="frame" x="30" y="35.5" width="85.5" height="20.5"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HDQ-9U-RJa" customClass="GradientView" customModule="Drip" customModuleProvider="target">
+                                                                <rect key="frame" x="30" y="66" width="354" height="30"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="30" id="aQM-pv-amG"/>
+                                                                </constraints>
+                                                            </view>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="HDQ-9U-RJa" secondAttribute="trailing" constant="30" id="Czs-CZ-Pso"/>
+                                                            <constraint firstItem="HDQ-9U-RJa" firstAttribute="top" secondItem="eqD-r9-p1h" secondAttribute="bottom" constant="10" id="Mqa-Da-lRk"/>
+                                                            <constraint firstItem="wXS-J3-KVO" firstAttribute="top" secondItem="WQM-qp-wPh" secondAttribute="top" constant="10" id="TFA-zV-enT"/>
+                                                            <constraint firstItem="wXS-J3-KVO" firstAttribute="leading" secondItem="WQM-qp-wPh" secondAttribute="leading" constant="30" id="Ugk-wA-yLO"/>
+                                                            <constraint firstItem="eqD-r9-p1h" firstAttribute="leading" secondItem="WQM-qp-wPh" secondAttribute="leading" constant="30" id="d2M-EN-vwO"/>
+                                                            <constraint firstAttribute="bottom" secondItem="HDQ-9U-RJa" secondAttribute="bottom" constant="10" id="eTt-9z-pdL"/>
+                                                            <constraint firstItem="HDQ-9U-RJa" firstAttribute="leading" secondItem="WQM-qp-wPh" secondAttribute="leading" constant="30" id="gGW-qL-1BT"/>
+                                                            <constraint firstItem="eqD-r9-p1h" firstAttribute="top" secondItem="wXS-J3-KVO" secondAttribute="bottom" constant="5" id="zPa-hb-6IA"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="a1r-vI-jSE" secondAttribute="trailing" constant="20" id="2cM-mG-bvP"/>
+                                                    <constraint firstItem="WQM-qp-wPh" firstAttribute="top" secondItem="a1r-vI-jSE" secondAttribute="bottom" id="AVn-0v-s3z"/>
+                                                    <constraint firstItem="a1r-vI-jSE" firstAttribute="top" secondItem="Sic-TZ-ouG" secondAttribute="top" id="EB2-BQ-M0R"/>
+                                                    <constraint firstItem="a1r-vI-jSE" firstAttribute="leading" secondItem="Sic-TZ-ouG" secondAttribute="leading" constant="20" id="EdG-fw-IDD"/>
                                                     <constraint firstAttribute="height" constant="600" id="Kyl-Be-CKe"/>
+                                                    <constraint firstAttribute="trailing" secondItem="WQM-qp-wPh" secondAttribute="trailing" id="WZ0-X8-sFY"/>
+                                                    <constraint firstItem="WQM-qp-wPh" firstAttribute="leading" secondItem="Sic-TZ-ouG" secondAttribute="leading" id="wRr-5N-g97"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -108,6 +156,8 @@
                         <outlet property="dateLabel" destination="K8b-GL-K8D" id="Y0M-9O-w3e"/>
                         <outlet property="progressLabel" destination="4VK-Xr-AMZ" id="5EZ-z3-3BO"/>
                         <outlet property="ringView" destination="N32-hy-VA6" id="Bjo-80-NJF"/>
+                        <outlet property="todayGradientView" destination="HDQ-9U-RJa" id="K8r-Vc-7Cl"/>
+                        <outlet property="todayVolumeLabel" destination="eqD-r9-p1h" id="ETd-oP-wMC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="542-Hr-tGe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
