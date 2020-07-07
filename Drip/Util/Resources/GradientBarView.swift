@@ -1,36 +1,47 @@
 import UIKit
 
-class GradientView: UIView {
+class GradientBarView: UIView {
 
     private let gradientLayer = CAGradientLayer()
     private var baseWidth = CGFloat()
+    private var percent = CGFloat()
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         layer.addSublayer(gradientLayer)
         backgroundColor = UIColor.clear
-        layer.anchorPoint = CGPoint(x: 1, y: 0.5)
         gradientLayer.colors = [UIColor.dripSecondary.cgColor, UIColor.dripPrimary.cgColor]
         gradientLayer.frame = bounds
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
         gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
         gradientLayer.cornerRadius = bounds.height/2
-        gradientLayer.anchorPoint = CGPoint(x: 0, y: 0.5)
+        gradientLayer.anchorPoint = CGPoint(x: 0, y: 0)
     }
 
     func setProgress(progress: CGFloat) {
+        self.percent = progress
+        animateBarWithDuration(2.25)
+    }
+
+    private func animateBarWithDuration(_ duration: CFTimeInterval) {
         if (baseWidth == 0) {
-            baseWidth = gradientLayer.bounds.width
+            baseWidth = 30
         }
-        print(baseWidth)
         let basicAnimation = CABasicAnimation(keyPath: "bounds.size.width")
         basicAnimation.fromValue = baseWidth
-        basicAnimation.toValue = gradientLayer.bounds.width*progress
-        basicAnimation.duration = 2.25
+        // this stops issue of miniumum being less than a perfect circle
+        let correctedValue = gradientLayer.bounds.width*percent < 30 ? 30 : gradientLayer.bounds.width*percent
+        basicAnimation.toValue = correctedValue
+        basicAnimation.duration = duration
         basicAnimation.fillMode = .forwards
         basicAnimation.isRemovedOnCompletion = false
-        basicAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+        baseWidth = gradientLayer.bounds.width*percent
         gradientLayer.add(basicAnimation, forKey: "basicAnimation")
-        baseWidth = gradientLayer.bounds.width*progress
+    }
+
+    override func layoutSubviews() {
+        gradientLayer.frame = bounds
+//        animateBar()
+        animateBarWithDuration(0.1)
     }
 }

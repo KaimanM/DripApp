@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OlH-Y5-r6o">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -12,20 +11,20 @@
             <objects>
                 <viewController id="OlH-Y5-r6o" customClass="TodayView" customModule="Drip" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uHk-Kc-yqP">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4nv-fS-xIt">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="H11-zG-XUr">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1048"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="900"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kyV-mj-ML2" userLabel="Date Label Container" customClass="PlaceholderView" customModule="Drip" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="89.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K8b-GL-K8D" userLabel="dateLabel">
-                                                        <rect key="frame" x="20" y="0.0" width="374" height="89.5"/>
+                                                        <rect key="frame" x="20" y="0.0" width="560" height="60"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -40,13 +39,13 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rJL-Ua-fHi" userLabel="Progress Ring Container" customClass="PlaceholderView" customModule="Drip" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="89.5" width="414" height="358.5"/>
+                                                <rect key="frame" x="0.0" y="60" width="600" height="240"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N32-hy-VA6" userLabel="Progress Ring View" customClass="ProgressRingView" customModule="Drip" customModuleProvider="target">
-                                                        <rect key="frame" x="52" y="45" width="310.5" height="268.5"/>
+                                                        <rect key="frame" x="75" y="30" width="450" height="180"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4VK-Xr-AMZ">
-                                                                <rect key="frame" x="134" y="124" width="42" height="20.5"/>
+                                                                <rect key="frame" x="204" y="80" width="42" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
@@ -68,17 +67,17 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sic-TZ-ouG" userLabel="Extra Content View" customClass="PlaceholderView" customModule="Drip" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="448" width="414" height="600"/>
+                                                <rect key="frame" x="0.0" y="300" width="600" height="600"/>
                                                 <subviews>
                                                     <view alpha="0.10000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1r-vI-jSE" userLabel="Seperator 1">
-                                                        <rect key="frame" x="20" y="0.0" width="374" height="1"/>
+                                                        <rect key="frame" x="20" y="0.0" width="560" height="1"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="UTd-0e-Uta"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WQM-qp-wPh" userLabel="Today Content" customClass="PlaceholderView" customModule="Drip" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="1" width="414" height="106"/>
+                                                        <rect key="frame" x="0.0" y="1" width="600" height="106"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wXS-J3-KVO">
                                                                 <rect key="frame" x="30" y="10" width="48.5" height="20.5"/>
@@ -92,8 +91,8 @@
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HDQ-9U-RJa" customClass="GradientView" customModule="Drip" customModuleProvider="target">
-                                                                <rect key="frame" x="30" y="66" width="354" height="30"/>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HDQ-9U-RJa" customClass="GradientBarView" customModule="Drip" customModuleProvider="target">
+                                                                <rect key="frame" x="30" y="66" width="540" height="30"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="aQM-pv-amG"/>
@@ -112,15 +111,63 @@
                                                             <constraint firstItem="eqD-r9-p1h" firstAttribute="top" secondItem="wXS-J3-KVO" secondAttribute="bottom" constant="5" id="zPa-hb-6IA"/>
                                                         </constraints>
                                                     </view>
+                                                    <view alpha="0.10000000149011612" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Zr-ri-PLD" userLabel="Seperator 1">
+                                                        <rect key="frame" x="20" y="107" width="560" height="1"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="1" id="di1-8o-M9z"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="46t-fB-9w4" userLabel="This Morning Content" customClass="PlaceholderView" customModule="Drip" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="108" width="600" height="106"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This Morning" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RaE-bo-kaN">
+                                                                <rect key="frame" x="30" y="10" width="104.5" height="20.5"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="000/000ml" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="962-ii-R5u">
+                                                                <rect key="frame" x="30" y="35.5" width="85.5" height="20.5"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rVC-Vd-BBx" customClass="GradientBarView" customModule="Drip" customModuleProvider="target">
+                                                                <rect key="frame" x="30" y="66" width="540" height="30"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="30" id="P6c-AV-Uok"/>
+                                                                </constraints>
+                                                            </view>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="rVC-Vd-BBx" secondAttribute="trailing" constant="30" id="6TJ-yB-nG6"/>
+                                                            <constraint firstItem="RaE-bo-kaN" firstAttribute="leading" secondItem="46t-fB-9w4" secondAttribute="leading" constant="30" id="8QU-Ze-F9G"/>
+                                                            <constraint firstItem="962-ii-R5u" firstAttribute="leading" secondItem="46t-fB-9w4" secondAttribute="leading" constant="30" id="Co5-s9-A9S"/>
+                                                            <constraint firstItem="962-ii-R5u" firstAttribute="top" secondItem="RaE-bo-kaN" secondAttribute="bottom" constant="5" id="N1b-SK-YO3"/>
+                                                            <constraint firstItem="rVC-Vd-BBx" firstAttribute="top" secondItem="962-ii-R5u" secondAttribute="bottom" constant="10" id="NMh-o1-UfR"/>
+                                                            <constraint firstItem="RaE-bo-kaN" firstAttribute="top" secondItem="46t-fB-9w4" secondAttribute="top" constant="10" id="auH-VY-R4I"/>
+                                                            <constraint firstAttribute="bottom" secondItem="rVC-Vd-BBx" secondAttribute="bottom" constant="10" id="d0I-aP-o4A"/>
+                                                            <constraint firstItem="rVC-Vd-BBx" firstAttribute="leading" secondItem="46t-fB-9w4" secondAttribute="leading" constant="30" id="zHs-Ft-INd"/>
+                                                        </constraints>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="a1r-vI-jSE" secondAttribute="trailing" constant="20" id="2cM-mG-bvP"/>
                                                     <constraint firstItem="WQM-qp-wPh" firstAttribute="top" secondItem="a1r-vI-jSE" secondAttribute="bottom" id="AVn-0v-s3z"/>
+                                                    <constraint firstAttribute="trailing" secondItem="5Zr-ri-PLD" secondAttribute="trailing" constant="20" id="Chq-IV-uFb"/>
                                                     <constraint firstItem="a1r-vI-jSE" firstAttribute="top" secondItem="Sic-TZ-ouG" secondAttribute="top" id="EB2-BQ-M0R"/>
                                                     <constraint firstItem="a1r-vI-jSE" firstAttribute="leading" secondItem="Sic-TZ-ouG" secondAttribute="leading" constant="20" id="EdG-fw-IDD"/>
+                                                    <constraint firstItem="5Zr-ri-PLD" firstAttribute="leading" secondItem="Sic-TZ-ouG" secondAttribute="leading" constant="20" id="Geo-xc-Y2h"/>
+                                                    <constraint firstItem="46t-fB-9w4" firstAttribute="top" secondItem="5Zr-ri-PLD" secondAttribute="bottom" id="I3o-yw-zzL"/>
+                                                    <constraint firstAttribute="trailing" secondItem="46t-fB-9w4" secondAttribute="trailing" id="IxU-ZS-JjT"/>
                                                     <constraint firstAttribute="height" constant="600" id="Kyl-Be-CKe"/>
+                                                    <constraint firstItem="46t-fB-9w4" firstAttribute="leading" secondItem="Sic-TZ-ouG" secondAttribute="leading" id="KzS-uJ-yhG"/>
                                                     <constraint firstAttribute="trailing" secondItem="WQM-qp-wPh" secondAttribute="trailing" id="WZ0-X8-sFY"/>
+                                                    <constraint firstItem="5Zr-ri-PLD" firstAttribute="top" secondItem="WQM-qp-wPh" secondAttribute="bottom" id="Yec-T5-eTy"/>
                                                     <constraint firstItem="WQM-qp-wPh" firstAttribute="leading" secondItem="Sic-TZ-ouG" secondAttribute="leading" id="wRr-5N-g97"/>
                                                 </constraints>
                                             </view>
@@ -156,7 +203,9 @@
                         <outlet property="dateLabel" destination="K8b-GL-K8D" id="Y0M-9O-w3e"/>
                         <outlet property="progressLabel" destination="4VK-Xr-AMZ" id="5EZ-z3-3BO"/>
                         <outlet property="ringView" destination="N32-hy-VA6" id="Bjo-80-NJF"/>
-                        <outlet property="todayGradientView" destination="HDQ-9U-RJa" id="K8r-Vc-7Cl"/>
+                        <outlet property="thisMorningGradientBarView" destination="rVC-Vd-BBx" id="Mng-El-cED"/>
+                        <outlet property="thisMorningVolumeLabel" destination="962-ii-R5u" id="h2i-mj-iIX"/>
+                        <outlet property="todayGradientBarView" destination="HDQ-9U-RJa" id="K8r-Vc-7Cl"/>
                         <outlet property="todayVolumeLabel" destination="eqD-r9-p1h" id="ETd-oP-wMC"/>
                     </connections>
                 </viewController>

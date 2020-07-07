@@ -6,7 +6,9 @@ final class TodayView: UIViewController, TodayViewProtocol {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var progressLabel: UILabel!
     @IBOutlet weak var todayVolumeLabel: UILabel!
-    @IBOutlet weak var todayGradientView: GradientView!
+    @IBOutlet weak var todayGradientBarView: GradientBarView!
+    @IBOutlet weak var thisMorningVolumeLabel: UILabel!
+    @IBOutlet weak var thisMorningGradientBarView: GradientBarView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +30,6 @@ final class TodayView: UIViewController, TodayViewProtocol {
         let result = formatter.string(from: date)
         dateLabel.text = result
         progressLabel.font = UIFont.SFProRounded(ofSize: 32)
-        todayVolumeLabel.font = UIFont.SFProRounded(ofSize: 28)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -58,7 +59,17 @@ final class TodayView: UIViewController, TodayViewProtocol {
     func setRingProgress(progress: Double) {
         ringView.setProgress(CGFloat(progress))
         progressLabel.text = "\(Int(round(progress*100)))%"
-        todayGradientView.setProgress(progress: CGFloat(Double.random(in: 0...1)))
+
+        var randomDouble = Double.random(in: 0...1)
+
+        todayVolumeLabel.text = "\(Int(round(randomDouble*2750)))/2750ml"
+        todayVolumeLabel.font = UIFont.SFProRounded(ofSize: 28)
+        todayGradientBarView.setProgress(progress: CGFloat(randomDouble))
+
+        randomDouble = Double.random(in: 0...1)
+        thisMorningVolumeLabel.text = "\(Int(round(randomDouble*700)))/700ml"
+        thisMorningVolumeLabel.font = UIFont.SFProRounded(ofSize: 28)
+        thisMorningGradientBarView.setProgress(progress: CGFloat(randomDouble))
     }
 
     @objc func action(sender: UIBarButtonItem) {
