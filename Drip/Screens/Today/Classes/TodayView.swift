@@ -3,7 +3,6 @@ import UIKit
 final class TodayView: UIViewController, TodayViewProtocol {
     var presenter: TodayPresenterProtocol!
     @IBOutlet weak var ringView: ProgressRingView!
-    @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var progressLabel: UILabel!
     @IBOutlet weak var todayVolumeLabel: UILabel!
     @IBOutlet weak var todayGradientBarView: GradientBarView!
@@ -22,14 +21,12 @@ final class TodayView: UIViewController, TodayViewProtocol {
                                                             target: self,
                                                             action: #selector(action))
 
-        dateLabel.textColor = .white
-
         let date = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE, MMM d"
         let result = formatter.string(from: date)
-        dateLabel.text = result
-        progressLabel.font = UIFont.SFProRounded(ofSize: 32)
+        navigationItem.title = result
+        progressLabel.font = UIFont.SFProRounded(ofSize: 32, fontWeight: .regular)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -63,12 +60,14 @@ final class TodayView: UIViewController, TodayViewProtocol {
         var randomDouble = Double.random(in: 0...1)
 
         todayVolumeLabel.text = "\(Int(round(randomDouble*2750)))/2750ml"
-        todayVolumeLabel.font = UIFont.SFProRounded(ofSize: 28)
+        todayVolumeLabel.font = UIFont.SFProRounded(ofSize: 28, fontWeight: .medium)
+        todayVolumeLabel.textColor = UIColor.hexStringToUIColor(hex: "38E3C5")
         todayGradientBarView.setProgress(progress: CGFloat(randomDouble))
 
         randomDouble = Double.random(in: 0...1)
         thisMorningVolumeLabel.text = "\(Int(round(randomDouble*700)))/700ml"
-        thisMorningVolumeLabel.font = UIFont.SFProRounded(ofSize: 28)
+        thisMorningVolumeLabel.font = UIFont.SFProRounded(ofSize: 28, fontWeight: .medium)
+        thisMorningVolumeLabel.textColor = UIColor.hexStringToUIColor(hex: "38E3C5")
         thisMorningGradientBarView.setProgress(progress: CGFloat(randomDouble))
     }
 

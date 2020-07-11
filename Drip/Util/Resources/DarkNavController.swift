@@ -24,8 +24,8 @@ final class DarkNavController: UINavigationController {
         visualEffectView.layer.zPosition = -1
         visualEffectView.isUserInteractionEnabled = false
 
-        lineView.backgroundColor = UIColor.white
-        lineView.layer.opacity = 0.25
+        lineView.backgroundColor = UIColor.darkGray
+        lineView.layer.opacity = 1
         lineView.frame = CGRect(x: 0, y: SBHeight(), width:navigationBar.frame.width, height: 0.5)
         navigationBar.addSubview(lineView)
     }
