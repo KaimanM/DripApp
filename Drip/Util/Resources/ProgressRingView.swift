@@ -12,6 +12,7 @@ class ProgressRingView: UIView {
     private var lineWidth = CGFloat()
     private var currentFill = Double()
     private var percent: CGFloat = 0.01
+    private var imageView = UIImageView()
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -47,6 +48,7 @@ class ProgressRingView: UIView {
         self.strokeColour = .black
         setupShadowLayer()
         setupGradientLayers()
+        setupImageLayer()
     }
 
     func setProgress(_ progress: CGFloat) {
@@ -55,6 +57,13 @@ class ProgressRingView: UIView {
     }
 
     // MARK: - Private
+
+    private func setupImageLayer() {
+        let image = UIImage(named: "icon-clear-noshadow")
+        imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFit
+        addSubview(imageView)
+    }
 
     private func getPath() -> UIBezierPath {
         let arcCenter = CGPoint(x: bounds.midX, y: bounds.midY)
@@ -120,6 +129,11 @@ class ProgressRingView: UIView {
                                    y: 0,
                                    width: bounds.height,
                                    height: bounds.height)
+        imageView.frame = CGRect(x: bounds.midX-(lineWidth*0.8*0.5),
+                                 y: lineWidth*0.1,
+                                 width: lineWidth*0.8,
+                                 height: lineWidth*0.8)
+
     }
 
     private func animateRing() {
