@@ -1,3 +1,5 @@
+import Foundation
+
 final class TodayPresenter: TodayPresenterProtocol {
     weak private(set) var view: TodayViewProtocol?
 
@@ -9,6 +11,7 @@ final class TodayPresenter: TodayPresenterProtocol {
         print("Presenter onViewDidAppear firing correctly")
         view?.setRingProgress(progress: Double.random(in: 0...1))
 //        view?.setRingProgress(progress: 1)
+        saveDrink()
     }
 
     func onViewDidLoad() {
@@ -17,4 +20,14 @@ final class TodayPresenter: TodayPresenterProtocol {
         view?.setupRingView(startColor: .cyan, endColor: .blue, ringWidth: 30)
     }
 
+    func saveDrink() {
+        let sip = Drink(timeStamp: Date(), volume: 250)
+        print(Calendar.current.component(.hour, from: sip.timeStamp))
+    }
+
+}
+
+struct Drink {
+    let timeStamp: Date
+    let volume: Double
 }
