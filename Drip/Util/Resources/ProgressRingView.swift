@@ -11,8 +11,11 @@ class ProgressRingView: UIView {
     private var shadowColor = UIColor()
     private var lineWidth = CGFloat()
     private var currentFill = Double()
+    private var currentRotation = CGFloat()
     private var percent: CGFloat = 0.01
     private var imageView = UIImageView()
+    private var circleContainer = CALayer()
+    private var circle = CAShapeLayer()
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -47,6 +50,7 @@ class ProgressRingView: UIView {
                                firstColour]
         self.strokeColour = .black
         setupShadowLayer()
+        setupCircleLayer()
         setupGradientLayers()
         setupImageLayer()
     }
@@ -63,6 +67,21 @@ class ProgressRingView: UIView {
         imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
         addSubview(imageView)
+    }
+
+    private func setupCircleLayer() {
+        layer.addSublayer(circleContainer)
+//        circleContainer.backgroundColor = UIColor.green.withAlphaComponent(0.5).cgColor
+
+
+//        circle.backgroundColor = UIColor.red.cgColor
+        circleContainer.addSublayer(circle)
+        circle.cornerRadius = lineWidth/2
+        circle.shadowRadius = 5
+        circle.shadowColor = UIColor.black.cgColor
+        circle.shadowOffset = CGSize(width: 5, height: 0)
+        circle.shadowOpacity = 0.9
+
     }
 
     private func getPath() -> UIBezierPath {
@@ -134,6 +153,14 @@ class ProgressRingView: UIView {
                                  width: lineWidth*0.8,
                                  height: lineWidth*0.8)
 
+        circleContainer.frame = CGRect(x: bounds.midX-radius,
+                                       y: 0,
+                                       width: bounds.height,
+                                       height: bounds.height)
+
+        circle.frame = CGRect(x: circleContainer.bounds.midX-lineWidth/2, y: 0, width: 30, height: 30)
+
+        circle.shadowPath = UIBezierPath(ovalIn: circle.bounds).cgPath
     }
 
     private func animateRing() {
@@ -149,6 +176,17 @@ class ProgressRingView: UIView {
 
         flatColorLayer.add(basicAnimation, forKey: "basicAnimation")
         gradientMaskLayer.add(basicAnimation, forKey: "basicAnimation")
+
+        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotationAnimation.fromValue = currentRotation
+        rotationAnimation.toValue = (2*CGFloat.pi)*percent
+        currentRotation = (2*CGFloat.pi)*percent
+        rotationAnimation.duration = 2.25
+        rotationAnimation.fillMode = CAMediaTimingFillMode.forwards
+        rotationAnimation.isRemovedOnCompletion = false
+        rotationAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+        circleContainer.add(rotationAnimation, forKey: nil)
+
     }
 
     override func layoutSubviews() {
