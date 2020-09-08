@@ -5,11 +5,11 @@ class ProgressRingView: UIView {
     private let containerLayer = CALayer()
     private let flatColorLayer = CAShapeLayer()
     private let shadowLayer = CAShapeLayer()
-    private var gradientLayer = CAGradientLayer()
-    private let gradientMaskLayer = CAShapeLayer()
+    private var gradientLayer1 = CAGradientLayer()
+    private let gradientMaskPart1 = CAShapeLayer()
 
-    private var secondLayer = CAGradientLayer()
-    private let secondMaskLayer = CAShapeLayer()
+    private var gradientLayer2 = CAGradientLayer()
+    private let gradientMaskPart2 = CAShapeLayer()
 
     private var strokeColour = UIColor()
     private var gradientColors = [UIColor()]
@@ -56,9 +56,9 @@ class ProgressRingView: UIView {
         self.strokeColour = .black
         setupContainerLayer()
         setupShadowLayer()
-        setupGradientLayers()
+        setupGradientPart1()
         setupCircleLayer()
-        setupSecondaryGradientLayers()
+        setupGradientPart2()
         setupImageLayer()
     }
 
@@ -83,9 +83,6 @@ class ProgressRingView: UIView {
 
     private func setupCircleLayer() {
         containerLayer.addSublayer(circleContainer)
-//        circleContainer.backgroundColor = UIColor.green.withAlphaComponent(0.5).cgColor
-
-//        circle.backgroundColor = UIColor.red.cgColor
         circleContainer.addSublayer(circle)
         circle.cornerRadius = lineWidth/2
         circle.shadowRadius = 5
@@ -93,7 +90,6 @@ class ProgressRingView: UIView {
         circle.shadowOffset = CGSize(width: 5, height: 0)
         circle.shadowOpacity = 0.9
         circleContainer.opacity = 0
-
     }
 
     private func getPath() -> UIBezierPath {
@@ -137,40 +133,39 @@ class ProgressRingView: UIView {
         flatColorLayer.strokeColor = strokeColour.cgColor
     }
 
-    private func setupGradientLayers() {
+    private func setupGradientPart1() {
+        gradientMaskPart1.path = getPath().cgPath
+        gradientMaskPart1.lineWidth = lineWidth
+        gradientMaskPart1.lineCap = .round
+        gradientMaskPart1.strokeEnd = percent == 0 ? 0.001 : percent
+        gradientMaskPart1.fillColor = UIColor.clear.cgColor
+        gradientMaskPart1.strokeColor = UIColor.black.cgColor
 
-        gradientMaskLayer.path = getPath().cgPath
-        gradientMaskLayer.lineWidth = lineWidth
-        gradientMaskLayer.lineCap = .round
-        gradientMaskLayer.strokeEnd = percent == 0 ? 0.001 : percent
-        gradientMaskLayer.fillColor = UIColor.clear.cgColor
-        gradientMaskLayer.strokeColor = UIColor.black.cgColor
+        gradientLayer1 = gradientLayer1.generateConicLayer()
+        gradientLayer1.colors = gradientColors.map { $0.cgColor }
+        gradientLayer1.frame = bounds
 
-        gradientLayer = gradientLayer.generateConicLayer()
-        gradientLayer.colors = gradientColors.map { $0.cgColor }
-        gradientLayer.frame = bounds
-
-        containerLayer.addSublayer(gradientLayer)
-        gradientLayer.addSublayer(gradientMaskLayer)
-        gradientLayer.mask = gradientMaskLayer
+        containerLayer.addSublayer(gradientLayer1)
+        gradientLayer1.addSublayer(gradientMaskPart1)
+        gradientLayer1.mask = gradientMaskPart1
     }
 
-    private func setupSecondaryGradientLayers() {
-        secondMaskLayer.path = getPathLast25().cgPath
-        secondMaskLayer.lineWidth = lineWidth
-        secondMaskLayer.lineCap = .round
-        secondMaskLayer.strokeEnd = percent == 0 ? 0.001 : percent
-        secondMaskLayer.fillColor = UIColor.clear.cgColor
-        secondMaskLayer.strokeColor = UIColor.black.cgColor
-        secondMaskLayer.isHidden = true
+    private func setupGradientPart2() {
+        gradientMaskPart2.path = getPathLast25().cgPath
+        gradientMaskPart2.lineWidth = lineWidth
+        gradientMaskPart2.lineCap = .round
+        gradientMaskPart2.strokeEnd = percent == 0 ? 0.001 : percent
+        gradientMaskPart2.fillColor = UIColor.clear.cgColor
+        gradientMaskPart2.strokeColor = UIColor.black.cgColor
+        gradientMaskPart2.isHidden = true
 
-        secondLayer = secondLayer.generateConicLayer()
-        secondLayer.colors = gradientColors.map { $0.cgColor }
-        secondLayer.frame = bounds
+        gradientLayer2 = gradientLayer2.generateConicLayer()
+        gradientLayer2.colors = gradientColors.map { $0.cgColor }
+        gradientLayer2.frame = bounds
 
-        containerLayer.addSublayer(secondLayer)
-        secondLayer.addSublayer(secondMaskLayer)
-        secondLayer.mask = secondMaskLayer
+        containerLayer.addSublayer(gradientLayer2)
+        gradientLayer2.addSublayer(gradientMaskPart2)
+        gradientLayer2.mask = gradientMaskPart2
     }
 
     private func redraw() {
@@ -182,16 +177,16 @@ class ProgressRingView: UIView {
 
         flatColorLayer.path = getPath().cgPath
         shadowLayer.path = getPath().cgPath
-        gradientMaskLayer.path = getPath().cgPath
-        secondMaskLayer.path = getPathLast25().cgPath
+        gradientMaskPart1.path = getPath().cgPath
+        gradientMaskPart2.path = getPathLast25().cgPath
 
         // This allows for landscape rotation to redraw gradient
 
-        gradientLayer.frame = containerLayer.bounds
-        gradientMaskLayer.frame = gradientLayer.bounds
+        gradientLayer1.frame = containerLayer.bounds
+        gradientMaskPart1.frame = gradientLayer1.bounds
 
-        secondLayer.frame = containerLayer.bounds
-        secondMaskLayer.frame = secondLayer.bounds
+        gradientLayer2.frame = containerLayer.bounds
+        gradientMaskPart2.frame = gradientLayer2.bounds
 
         shadowLayer.frame = containerLayer.bounds
         circleContainer.frame = containerLayer.bounds
@@ -207,71 +202,83 @@ class ProgressRingView: UIView {
 
     private func animateRing() {
 
+        let needsMultipleAnimations = percent <= 0.75 ? false : true
+
         CATransaction.begin()
 
-        CATransaction.setCompletionBlock({ [weak self] in
-
-            CATransaction.begin()
-
-            CATransaction.setCompletionBlock({ [weak self] in
-                let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
-                rotationAnimation.fromValue = 2*CGFloat.pi
-                rotationAnimation.toValue = (3*CGFloat.pi)
-                rotationAnimation.duration = 3
-                rotationAnimation.fillMode = CAMediaTimingFillMode.forwards
-                rotationAnimation.isRemovedOnCompletion = false
-                rotationAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
-                self?.containerLayer.add(rotationAnimation, forKey: "rotation")
-            })
-
-            let basicAnimation2 = CABasicAnimation(keyPath: "strokeEnd")
-            basicAnimation2.fromValue = 0
-            basicAnimation2.toValue = 1
-            basicAnimation2.duration = 1
-            basicAnimation2.fillMode = .forwards
-            basicAnimation2.isRemovedOnCompletion = false
-            basicAnimation2.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
-
-
-            let opacityAnimation = CABasicAnimation(keyPath: "opacity")
-            opacityAnimation.fromValue = 0
-            opacityAnimation.toValue = 1
-            opacityAnimation.duration = 1
-            opacityAnimation.fillMode = .forwards
-            opacityAnimation.isRemovedOnCompletion = false
-
-            let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
-            rotationAnimation.fromValue = self?.currentRotation
-            rotationAnimation.toValue = (2*CGFloat.pi)*1
-            self?.currentRotation = (2*CGFloat.pi)*self!.percent
-            rotationAnimation.duration = 1
-            rotationAnimation.fillMode = CAMediaTimingFillMode.forwards
-            rotationAnimation.isRemovedOnCompletion = false
-            rotationAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
-
-            self?.circleContainer.add(rotationAnimation, forKey: nil)
-            self?.circleContainer.add(opacityAnimation, forKey: "opacityAnimation")
-            self?.secondMaskLayer.isHidden = false
-            self?.secondMaskLayer.add(basicAnimation2, forKey: "basicAnimation2")
-
-            CATransaction.commit()
-
-        })
+        if needsMultipleAnimations { CATransaction.setCompletionBlock(ringEndAnimation) }
 
         let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
         basicAnimation.fromValue = currentFill
-        basicAnimation.toValue = 0.75
+        basicAnimation.toValue = percent > 0.75 ? 0.75 : percent
         currentFill = Double(percent)
-        basicAnimation.duration = 1
         basicAnimation.fillMode = .forwards
         basicAnimation.isRemovedOnCompletion = false
-//        basicAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+        basicAnimation.duration = needsMultipleAnimations ? 1 : 2.25
+        basicAnimation.timingFunction =
+            needsMultipleAnimations ? .none : CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
 
         flatColorLayer.add(basicAnimation, forKey: "basicAnimation")
-        gradientMaskLayer.add(basicAnimation, forKey: "basicAnimation")
+        gradientMaskPart1.add(basicAnimation, forKey: "basicAnimation")
 
         CATransaction.commit()
 
+    }
+
+    private func ringEndAnimation() {
+
+        let needsMultipleAnimations = percent <= 1 ? false : true
+
+        CATransaction.begin()
+
+        if needsMultipleAnimations { CATransaction.setCompletionBlock(rotateRingAnimation) }
+
+        let duration = needsMultipleAnimations ? 1 : 1.25
+        let timingFunction: CAMediaTimingFunction? =
+            needsMultipleAnimations ? .none : CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+
+        let basicAnimation2 = CABasicAnimation(keyPath: "strokeEnd")
+        basicAnimation2.fromValue = 0
+        basicAnimation2.toValue = percent <= 1 ? (percent-0.75)*4 : 1
+
+        basicAnimation2.duration = duration
+        basicAnimation2.fillMode = .forwards
+        basicAnimation2.isRemovedOnCompletion = false
+        basicAnimation2.timingFunction = timingFunction
+
+        let opacityAnimation = CABasicAnimation(keyPath: "opacity")
+        opacityAnimation.fromValue = 0
+        opacityAnimation.toValue = 1
+        opacityAnimation.duration = duration
+        opacityAnimation.fillMode = .forwards
+        opacityAnimation.isRemovedOnCompletion = false
+
+        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotationAnimation.fromValue = self.currentRotation
+        rotationAnimation.toValue = (2*CGFloat.pi)*(percent <= 1 ? percent : 1)
+        self.currentRotation = (2*CGFloat.pi)*(percent <= 1 ? percent : 1)
+        rotationAnimation.duration = duration
+        rotationAnimation.fillMode = CAMediaTimingFillMode.forwards
+        rotationAnimation.isRemovedOnCompletion = false
+        rotationAnimation.timingFunction = timingFunction
+
+        self.circleContainer.add(rotationAnimation, forKey: nil)
+        self.circleContainer.add(opacityAnimation, forKey: "opacityAnimation")
+        self.gradientMaskPart2.isHidden = false
+        self.gradientMaskPart2.add(basicAnimation2, forKey: "basicAnimation2")
+
+        CATransaction.commit()
+    }
+
+    private func rotateRingAnimation() {
+        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotationAnimation.fromValue = 2*CGFloat.pi
+        rotationAnimation.toValue = 2*CGFloat.pi+((2*(percent-1)*CGFloat.pi))
+        rotationAnimation.duration = 1
+        rotationAnimation.fillMode = CAMediaTimingFillMode.forwards
+        rotationAnimation.isRemovedOnCompletion = false
+        rotationAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+        self.containerLayer.add(rotationAnimation, forKey: "rotation")
     }
 
     override func layoutSubviews() {
