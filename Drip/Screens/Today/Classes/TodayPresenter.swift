@@ -9,8 +9,8 @@ final class TodayPresenter: TodayPresenterProtocol {
 
     func onViewDidAppear() {
         print("Presenter onViewDidAppear firing correctly")
-        view?.setRingProgress(progress: Double.random(in: 0...1))
-//        view?.setRingProgress(progress: 1)
+//        view?.setRingProgress(progress: Double.random(in: 0...1))
+        view?.setRingProgress(progress: 0.74)
         saveDrink()
     }
 

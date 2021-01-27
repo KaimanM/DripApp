@@ -76,4 +76,20 @@ final class TodayView: UIViewController, TodayViewProtocol {
         print("testy123")
     }
 
+    @IBAction func button1(_ sender: Any) {
+        setRingProgress(progress: 0.25)
+    }
+
+    @IBAction func button2(_ sender: Any) {
+        setRingProgress(progress: 0.6)
+    }
+
+    @IBAction func button3(_ sender: Any) {
+        setRingProgress(progress: 0.8)
+    }
+
+    @IBAction func button4(_ sender: Any) {
+        setRingProgress(progress: 1.25)
+    }
+
 }

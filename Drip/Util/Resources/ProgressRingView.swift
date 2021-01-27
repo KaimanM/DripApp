@@ -21,6 +21,7 @@ class ProgressRingView: UIView {
     private var imageView = UIImageView()
     private var circleContainer = CALayer()
     private var circle = CAShapeLayer()
+    private var timings = Timings()
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -68,6 +69,12 @@ class ProgressRingView: UIView {
     }
 
     // MARK: - Private
+
+    struct Timings {
+        var time1: Double = 0
+        var time2: Double = 0
+        var time3: Double = 0
+    }
 
     private func setupContainerLayer() {
         layer.addSublayer(containerLayer)
@@ -157,7 +164,8 @@ class ProgressRingView: UIView {
         gradientMaskPart2.strokeEnd = percent == 0 ? 0.001 : percent
         gradientMaskPart2.fillColor = UIColor.clear.cgColor
         gradientMaskPart2.strokeColor = UIColor.black.cgColor
-        gradientMaskPart2.isHidden = true
+//        gradientMaskPart2.isHidden = true
+        gradientMaskPart2.opacity = 0
 
         gradientLayer2 = gradientLayer2.generateConicLayer()
         gradientLayer2.colors = gradientColors.map { $0.cgColor }
@@ -200,13 +208,36 @@ class ProgressRingView: UIView {
                                  height: lineWidth*0.8)
     }
 
+//    private func animateRing() {
+//
+//        let needsMultipleAnimations = percent <= 0.75 ? false : true
+//
+//        CATransaction.begin()
+//
+//        if needsMultipleAnimations { CATransaction.setCompletionBlock(ringEndAnimation) }
+//
+//        let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
+//        basicAnimation.fromValue = currentFill
+//        basicAnimation.toValue = percent > 0.75 ? 0.75 : percent
+//        currentFill = Double(percent)
+//        basicAnimation.fillMode = .forwards
+//        basicAnimation.isRemovedOnCompletion = false
+//        basicAnimation.duration = needsMultipleAnimations ? 1 : 2.25
+//        basicAnimation.timingFunction =
+//            needsMultipleAnimations ? .none : CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+//
+//        flatColorLayer.add(basicAnimation, forKey: "basicAnimation")
+//        gradientMaskPart1.add(basicAnimation, forKey: "basicAnimation")
+//
+//        CATransaction.commit()
+//
+//    }
+
     private func animateRing() {
 
-        let needsMultipleAnimations = percent <= 0.75 ? false : true
-
-        CATransaction.begin()
-
-        if needsMultipleAnimations { CATransaction.setCompletionBlock(ringEndAnimation) }
+        timings.time1 = Double(percent > 0.75 ? ((0.75/percent)*2) : 2)
+        timings.time2 = Double(percent > 1 ? ((0.25/percent)*2) : (percent-0.75)*2)
+        timings.time3 = Double((percent-1)/percent * 2)
 
         let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
         basicAnimation.fromValue = currentFill
@@ -214,42 +245,38 @@ class ProgressRingView: UIView {
         currentFill = Double(percent)
         basicAnimation.fillMode = .forwards
         basicAnimation.isRemovedOnCompletion = false
-        basicAnimation.duration = needsMultipleAnimations ? 1 : 2.25
-        basicAnimation.timingFunction =
-            needsMultipleAnimations ? .none : CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+        basicAnimation.duration = timings.time1
+//        basicAnimation.timingFunction = CAMediaTimingFunction(name: .easeOut)
 
         flatColorLayer.add(basicAnimation, forKey: "basicAnimation")
         gradientMaskPart1.add(basicAnimation, forKey: "basicAnimation")
 
-        CATransaction.commit()
+        let needsMultipleAnimations = percent <= 0.75 ? false : true
+
+        if needsMultipleAnimations {ringEndAnimation()}
 
     }
 
     private func ringEndAnimation() {
 
-        let needsMultipleAnimations = percent <= 1 ? false : true
-
-        CATransaction.begin()
-
-        if needsMultipleAnimations { CATransaction.setCompletionBlock(rotateRingAnimation) }
-
-        let duration = needsMultipleAnimations ? 1 : 1.25
-        let timingFunction: CAMediaTimingFunction? =
-            needsMultipleAnimations ? .none : CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+//        let duration: Double = 0.33
+//        let timingFunction: CAMediaTimingFunction? = CAMediaTimingFunction(name: .easeOut)
 
         let basicAnimation2 = CABasicAnimation(keyPath: "strokeEnd")
         basicAnimation2.fromValue = 0
         basicAnimation2.toValue = percent <= 1 ? (percent-0.75)*4 : 1
 
-        basicAnimation2.duration = duration
+        basicAnimation2.beginTime = CACurrentMediaTime() + timings.time1
+        basicAnimation2.duration = timings.time2
         basicAnimation2.fillMode = .forwards
         basicAnimation2.isRemovedOnCompletion = false
-        basicAnimation2.timingFunction = timingFunction
+//        basicAnimation2.timingFunction = timingFunction
 
         let opacityAnimation = CABasicAnimation(keyPath: "opacity")
         opacityAnimation.fromValue = 0
         opacityAnimation.toValue = 1
-        opacityAnimation.duration = duration
+        opacityAnimation.beginTime = CACurrentMediaTime() + timings.time1
+        opacityAnimation.duration = timings.time2
         opacityAnimation.fillMode = .forwards
         opacityAnimation.isRemovedOnCompletion = false
 
@@ -257,27 +284,85 @@ class ProgressRingView: UIView {
         rotationAnimation.fromValue = self.currentRotation
         rotationAnimation.toValue = (2*CGFloat.pi)*(percent <= 1 ? percent : 1)
         self.currentRotation = (2*CGFloat.pi)*(percent <= 1 ? percent : 1)
-        rotationAnimation.duration = duration
+        rotationAnimation.beginTime = CACurrentMediaTime() + timings.time1
+        rotationAnimation.duration = timings.time2
         rotationAnimation.fillMode = CAMediaTimingFillMode.forwards
         rotationAnimation.isRemovedOnCompletion = false
-        rotationAnimation.timingFunction = timingFunction
+//        rotationAnimation.timingFunction = timingFunction
+
+        let opacityAni2 = CABasicAnimation(keyPath: "opacity")
+        opacityAni2.fromValue = 0
+        opacityAni2.toValue = 1
+        opacityAni2.beginTime = CACurrentMediaTime() + timings.time1
+        opacityAni2.duration = 0.01
+        opacityAni2.fillMode = .forwards
+        opacityAni2.isRemovedOnCompletion = false
 
         self.circleContainer.add(rotationAnimation, forKey: nil)
         self.circleContainer.add(opacityAnimation, forKey: "opacityAnimation")
-        self.gradientMaskPart2.isHidden = false
+//        self.gradientMaskPart2.isHidden = false
+        self.gradientMaskPart2.add(opacityAni2, forKey: "opacityAnimation")
         self.gradientMaskPart2.add(basicAnimation2, forKey: "basicAnimation2")
 
-        CATransaction.commit()
+        let needsMultipleAnimations = percent <= 1 ? false : true
+
+        if needsMultipleAnimations { rotateRingAnimation()}
     }
+
+//    private func ringEndAnimation() {
+//
+//        let needsMultipleAnimations = percent <= 1 ? false : true
+//
+//        CATransaction.begin()
+//
+//        if needsMultipleAnimations { CATransaction.setCompletionBlock(rotateRingAnimation) }
+//
+//        let duration = needsMultipleAnimations ? 1 : 1.25
+//        let timingFunction: CAMediaTimingFunction? =
+//            needsMultipleAnimations ? .none : CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+//
+//        let basicAnimation2 = CABasicAnimation(keyPath: "strokeEnd")
+//        basicAnimation2.fromValue = 0
+//        basicAnimation2.toValue = percent <= 1 ? (percent-0.75)*4 : 1
+//
+//        basicAnimation2.duration = duration
+//        basicAnimation2.fillMode = .forwards
+//        basicAnimation2.isRemovedOnCompletion = false
+//        basicAnimation2.timingFunction = timingFunction
+//
+//        let opacityAnimation = CABasicAnimation(keyPath: "opacity")
+//        opacityAnimation.fromValue = 0
+//        opacityAnimation.toValue = 1
+//        opacityAnimation.duration = duration
+//        opacityAnimation.fillMode = .forwards
+//        opacityAnimation.isRemovedOnCompletion = false
+//
+//        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+//        rotationAnimation.fromValue = self.currentRotation
+//        rotationAnimation.toValue = (2*CGFloat.pi)*(percent <= 1 ? percent : 1)
+//        self.currentRotation = (2*CGFloat.pi)*(percent <= 1 ? percent : 1)
+//        rotationAnimation.duration = duration
+//        rotationAnimation.fillMode = CAMediaTimingFillMode.forwards
+//        rotationAnimation.isRemovedOnCompletion = false
+//        rotationAnimation.timingFunction = timingFunction
+//
+//        self.circleContainer.add(rotationAnimation, forKey: nil)
+//        self.circleContainer.add(opacityAnimation, forKey: "opacityAnimation")
+//        self.gradientMaskPart2.isHidden = false
+//        self.gradientMaskPart2.add(basicAnimation2, forKey: "basicAnimation2")
+//
+//        CATransaction.commit()
+//    }
 
     private func rotateRingAnimation() {
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         rotationAnimation.fromValue = 2*CGFloat.pi
         rotationAnimation.toValue = 2*CGFloat.pi+((2*(percent-1)*CGFloat.pi))
-        rotationAnimation.duration = 1
+        rotationAnimation.beginTime = CACurrentMediaTime() + timings.time1 + timings.time2
+        rotationAnimation.duration = timings.time3
         rotationAnimation.fillMode = CAMediaTimingFillMode.forwards
         rotationAnimation.isRemovedOnCompletion = false
-        rotationAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+//        rotationAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
         self.containerLayer.add(rotationAnimation, forKey: "rotation")
     }
 
