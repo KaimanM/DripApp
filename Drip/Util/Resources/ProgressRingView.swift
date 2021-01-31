@@ -26,9 +26,9 @@ class ProgressRingView: UIView {
     private var ring1CurrentFill = CGFloat()
     private var ring1TartgetFill = CGFloat()
     private var ring2CurrentFill = CGFloat()
-    private var ring2TartgetFill = CGFloat()
-    private var ring3CurrentFill = CGFloat()
-    private var ring3TartgetFill = CGFloat()
+    private var ring2TargetFill = CGFloat()
+    private var ring3CurrentRotation: CGFloat = 2*CGFloat.pi
+    private var ring3TargetRotation = CGFloat()
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -259,43 +259,43 @@ class ProgressRingView: UIView {
         timings.time3 *= timings.totalDuration
 
         print("time 1: \(timings.time1). time2: \(timings.time2). time 3: \(timings.time3)")
-//        currentFill = percent // remove me later
 //        animateRing()
 
         if currentFill <= 0.75 {
             animateRing()
-        } else {
+        } else if currentFill <= 1 {
             ringEndAnimation()
+        } else {
+            rotateRingAnimation()
         }
+        currentFill = percent // remove me later
     }
 
     private func animateRing() {
 
-        let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
-        basicAnimation.fromValue = ring1CurrentFill
+        let ringFillAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        ringFillAnimation.fromValue = ring1CurrentFill
         ring1TartgetFill = percent > 0.75 ? 0.75 : percent
-        basicAnimation.toValue = ring1TartgetFill
+        ringFillAnimation.toValue = ring1TartgetFill
         ring1CurrentFill = ring1TartgetFill
 //        currentFill = percent
-        basicAnimation.fillMode = .both
-        basicAnimation.isRemovedOnCompletion = false
-        basicAnimation.duration = Double(timings.time1)
+        ringFillAnimation.fillMode = .both
+        ringFillAnimation.isRemovedOnCompletion = false
+        ringFillAnimation.duration = Double(timings.time1)
 //        basicAnimation.timingFunction = CAMediaTimingFunction(name: .easeOut)
 
-        if (currentFill > 0.75) {
-            basicAnimation.beginTime = CACurrentMediaTime() + timings.time2
-        } else {
-            basicAnimation.beginTime = CACurrentMediaTime()
+        if (currentFill > 1) {
+            ringFillAnimation.beginTime = CACurrentMediaTime() + timings.time2 + timings.time3
+        } else if currentFill > 0.75 {
+            ringFillAnimation.beginTime = CACurrentMediaTime() + timings.time2
         }
 
-        flatColorLayer.add(basicAnimation, forKey: "basicAnimation")
-        gradientMaskPart1.add(basicAnimation, forKey: "basicAnimation")
+        flatColorLayer.add(ringFillAnimation, forKey: "basicAnimation")
+        gradientMaskPart1.add(ringFillAnimation, forKey: "basicAnimation")
 
         let needsMultipleAnimations = percent <= 0.75 ? false : true
 
-        if needsMultipleAnimations {ringEndAnimation()} else {
-            currentFill = percent
-        }
+        if needsMultipleAnimations {ringEndAnimation()}
 
     }
 
@@ -309,9 +309,9 @@ class ProgressRingView: UIView {
 
         // Ring Filling Animation
         ringFillAnimation.fromValue = ring2CurrentFill
-        ring2TartgetFill = percent <= 1 ? (percent-0.75)*4 : 1
-        if ring2TartgetFill < 0 { ring2TartgetFill = 0 }
-        ringFillAnimation.toValue = ring2TartgetFill
+        ring2TargetFill = percent <= 1 ? (percent-0.75)*4 : 1
+        if ring2TargetFill < 0 { ring2TargetFill = 0 }
+        ringFillAnimation.toValue = ring2TargetFill
         ringFillAnimation.duration = timings.time2
         ringFillAnimation.fillMode = .both
         ringFillAnimation.isRemovedOnCompletion = false
@@ -323,7 +323,7 @@ class ProgressRingView: UIView {
 
         // Shadow Opacity Animation
         shadowOpacityAnimation.duration = timings.time2
-        shadowOpacityAnimation.fillMode = .forwards
+        shadowOpacityAnimation.fillMode = .both
         shadowOpacityAnimation.isRemovedOnCompletion = false
 
         // Shadow Rotation Animation
@@ -332,25 +332,86 @@ class ProgressRingView: UIView {
         if currentShadowRotation < 3*CGFloat.pi/2 { currentShadowRotation = 3*CGFloat.pi/2}
         shadowRotationAnimation.toValue = currentShadowRotation
         shadowRotationAnimation.duration = timings.time2
-        shadowRotationAnimation.fillMode = CAMediaTimingFillMode.forwards
+        shadowRotationAnimation.fillMode = .both
         shadowRotationAnimation.isRemovedOnCompletion = false
 
 
         // If statements to handle showing and hiding of last quarter as well as timing offsets
-        if ring2CurrentFill == 0 && ring2TartgetFill > 0 { // show
-            ringFillAnimation.beginTime = CACurrentMediaTime() + timings.time1
+//        if ring2CurrentFill == 0 && ring2TargetFill > 0 { // show
+//            ringFillAnimation.beginTime = CACurrentMediaTime() + timings.time1
+//
+//            shadowOpacityAnimation.fromValue = 0
+//            shadowOpacityAnimation.toValue = 1
+//            shadowOpacityAnimation.beginTime = CACurrentMediaTime() + timings.time1
+//
+//            ringOpacityAnimation.fromValue = 0
+//            ringOpacityAnimation.toValue = 1
+//            ringOpacityAnimation.beginTime = CACurrentMediaTime() + timings.time1
+//            shadowRotationAnimation.beginTime = CACurrentMediaTime() + timings.time1
+//            self.circleContainer.add(shadowOpacityAnimation, forKey: "opacityAnimation")
+//            self.gradientMaskPart2.add(ringOpacityAnimation, forKey: "opacityAnimation")
+//        } else if ring2CurrentFill > 0 && ring2TargetFill == 0 { // hide
+//            ringFillAnimation.beginTime = CACurrentMediaTime()
+//
+//            shadowOpacityAnimation.fromValue = 1
+//            shadowOpacityAnimation.toValue = 0
+//            shadowOpacityAnimation.beginTime = CACurrentMediaTime()
+//
+//            ringOpacityAnimation.fromValue = 1
+//            ringOpacityAnimation.toValue = 0
+//            ringOpacityAnimation.beginTime = CACurrentMediaTime() + timings.time2
+//            shadowRotationAnimation.beginTime = CACurrentMediaTime()
+//            self.circleContainer.add(shadowOpacityAnimation, forKey: "opacityAnimation")
+//            self.gradientMaskPart2.add(ringOpacityAnimation, forKey: "opacityAnimation")
+//        }
 
-            shadowOpacityAnimation.fromValue = 0
-            shadowOpacityAnimation.toValue = 1
-            shadowOpacityAnimation.beginTime = CACurrentMediaTime() + timings.time1
+        //  CHECK STARTING HERE
+        if (0.75...1).contains(percent) && !(0.75...1).contains(currentFill) {
+            if currentFill < 0.75 { // ring 1, ring 2
+                ringFillAnimation.beginTime = CACurrentMediaTime() + timings.time1
 
-            ringOpacityAnimation.fromValue = 0
-            ringOpacityAnimation.toValue = 1
-            ringOpacityAnimation.beginTime = CACurrentMediaTime() + timings.time1
-            shadowRotationAnimation.beginTime = CACurrentMediaTime() + timings.time1
+                shadowOpacityAnimation.fromValue = 0
+                shadowOpacityAnimation.toValue = 1
+                shadowOpacityAnimation.beginTime = CACurrentMediaTime() + timings.time1
+
+                ringOpacityAnimation.fromValue = 0
+                ringOpacityAnimation.toValue = 1
+                ringOpacityAnimation.beginTime = CACurrentMediaTime() + timings.time1
+                shadowRotationAnimation.beginTime = CACurrentMediaTime() + timings.time1
+                self.circleContainer.add(shadowOpacityAnimation, forKey: "opacityAnimation")
+                self.gradientMaskPart2.add(ringOpacityAnimation, forKey: "opacityAnimation")
+            } else { // ring 3, ring 1
+                ringFillAnimation.beginTime = CACurrentMediaTime() + timings.time3
+                shadowRotationAnimation.beginTime = CACurrentMediaTime() + timings.time3
+            }
+        } else if currentFill > 1 && percent <= 0.75 { // ring 3, ring 2, ring 1
+            ringFillAnimation.beginTime = CACurrentMediaTime() + timings.time3
+
+            shadowOpacityAnimation.fromValue = 1
+            shadowOpacityAnimation.toValue = 0
+            shadowOpacityAnimation.beginTime = CACurrentMediaTime() + timings.time3
+
+            ringOpacityAnimation.fromValue = 1
+            ringOpacityAnimation.toValue = 0
+            ringOpacityAnimation.beginTime = CACurrentMediaTime() + timings.time3 + timings.time2
+            shadowRotationAnimation.beginTime = CACurrentMediaTime() + timings.time3
             self.circleContainer.add(shadowOpacityAnimation, forKey: "opacityAnimation")
             self.gradientMaskPart2.add(ringOpacityAnimation, forKey: "opacityAnimation")
-        } else if ring2CurrentFill > 0 && ring2TartgetFill == 0 { // hide
+        } else if percent > 1 && (0.75...1).contains(currentFill) { // ring 2, ring 3
+//            ringFillAnimation.beginTime = CACurrentMediaTime()
+//
+//            shadowOpacityAnimation.fromValue = 0
+//            shadowOpacityAnimation.toValue = 1
+//            shadowOpacityAnimation.beginTime = CACurrentMediaTime()
+//
+//            ringOpacityAnimation.fromValue = 0
+//            ringOpacityAnimation.toValue = 1
+//            ringOpacityAnimation.beginTime = CACurrentMediaTime()
+//            shadowRotationAnimation.beginTime = CACurrentMediaTime()
+//            self.circleContainer.add(shadowOpacityAnimation, forKey: "opacityAnimation")
+//            self.gradientMaskPart2.add(ringOpacityAnimation, forKey: "opacityAnimation")
+            print("test2")
+        } else if percent <= 0.75 && (0.75...1).contains(currentFill) { // ring 2, ring 1
             ringFillAnimation.beginTime = CACurrentMediaTime()
 
             shadowOpacityAnimation.fromValue = 1
@@ -363,10 +424,25 @@ class ProgressRingView: UIView {
             shadowRotationAnimation.beginTime = CACurrentMediaTime()
             self.circleContainer.add(shadowOpacityAnimation, forKey: "opacityAnimation")
             self.gradientMaskPart2.add(ringOpacityAnimation, forKey: "opacityAnimation")
+        } else if percent > 1 && currentFill <= 0.75 { // ring 1, ring 2, ring 3
+            ringFillAnimation.beginTime = CACurrentMediaTime() + timings.time1
+
+            shadowOpacityAnimation.fromValue = 0
+            shadowOpacityAnimation.toValue = 1
+            shadowOpacityAnimation.beginTime = CACurrentMediaTime() + timings.time1
+
+            ringOpacityAnimation.fromValue = 0
+            ringOpacityAnimation.toValue = 1
+            ringOpacityAnimation.beginTime = CACurrentMediaTime() + timings.time1
+            shadowRotationAnimation.beginTime = CACurrentMediaTime() + timings.time1
+            self.circleContainer.add(shadowOpacityAnimation, forKey: "opacityAnimation")
+            self.gradientMaskPart2.add(ringOpacityAnimation, forKey: "opacityAnimation")
         }
 
+        // FINISHING HERE, IT WORKS BUT TOO TIRED TO SEE WHY 
+
         // Sets current fill as old target fill
-        ring2CurrentFill = ring2TartgetFill
+        ring2CurrentFill = ring2TargetFill
 
         // Mandatory animations that complete no matter direction of last quarter of the ring
         self.circleContainer.add(shadowRotationAnimation, forKey: nil)
@@ -376,17 +452,12 @@ class ProgressRingView: UIView {
         if percent > currentFill { //going up
             let needsMultipleAnimations = percent <= 1 ? false : true
 
-            if needsMultipleAnimations { rotateRingAnimation()} else {
-                currentFill = percent
-            }
+            if needsMultipleAnimations { rotateRingAnimation()}
         } else {
             let needsMultipleAnimations = percent <= 0.75 ? true : false
 
             if needsMultipleAnimations {
                 animateRing()
-
-            } else {
-                currentFill = percent
             }
         }
 
@@ -394,13 +465,33 @@ class ProgressRingView: UIView {
 
     private func rotateRingAnimation() {
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
-        rotationAnimation.fromValue = 2*CGFloat.pi
-        rotationAnimation.toValue = 2*CGFloat.pi+((2*(percent-1)*CGFloat.pi))
-        rotationAnimation.beginTime = CACurrentMediaTime() + timings.time1 + timings.time2
+        rotationAnimation.fromValue = ring3CurrentRotation
+        ring3TargetRotation = 2*CGFloat.pi+((2*(percent-1)*CGFloat.pi))
+        if ring3TargetRotation < 2*CGFloat.pi { ring3TargetRotation = 2*CGFloat.pi}
+        rotationAnimation.toValue = ring3TargetRotation
         rotationAnimation.duration = timings.time3
-        rotationAnimation.fillMode = CAMediaTimingFillMode.forwards
+        rotationAnimation.fillMode = CAMediaTimingFillMode.both
         rotationAnimation.isRemovedOnCompletion = false
 //        rotationAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+
+        if currentFill >= 1 && percent >= 1 {
+            rotationAnimation.beginTime = CACurrentMediaTime()
+        } else if (0.75...1).contains(currentFill) && percent > 1 {
+            rotationAnimation.beginTime = CACurrentMediaTime() + timings.time2
+        } else if currentFill < 0.75 && percent > 1 {
+            rotationAnimation.beginTime = CACurrentMediaTime() + timings.time1 + timings.time2
+        }
+
+        if percent < currentFill {
+            let needsMultipleAnimations = percent <= 1 ? true : false
+
+            if needsMultipleAnimations {
+                ringEndAnimation()
+            }
+        }
+
+        ring3CurrentRotation = ring3TargetRotation
+
         self.containerLayer.add(rotationAnimation, forKey: "rotation")
     }
 
