@@ -7,7 +7,7 @@ class RoundDrinkButton: UIButton {
         self.backgroundColor = .black
         self.layer.cornerRadius = 0.5 * self.bounds.size.height
         self.layer.borderWidth = 3
-        self.layer.borderColor = UIColor.dripMerged.cgColor
+        self.layer.borderColor = UIColor.dripPrimary.cgColor
         self.setImage(UIImage(named: "waterbottle.svg"), for: .normal)
         self.setTitle("", for: .normal)
         self.contentMode = .center

@@ -12,6 +12,10 @@ final class TodayView: UIViewController, TodayViewProtocol {
     @IBOutlet weak var drinkButton2: UIButton!
     @IBOutlet weak var drinkButton3: UIButton!
     @IBOutlet weak var drinkButton4: UIButton!
+    private var displayLink: CADisplayLink?
+    private var animationStartDate: Date?
+    private var startValue: Double = 0
+    private var endValue: Double = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,7 +73,8 @@ final class TodayView: UIViewController, TodayViewProtocol {
 
     func setRingProgress(progress: Double) {
         ringView.setProgress(CGFloat(progress))
-        progressLabel.text = "\(Int(round(progress*100)))%"
+//        progressLabel.text = "\(Int(round(progress*100)))%"
+        animateLabel(endValue: progress*100, animationDuration: 2)
 
         var randomDouble = Double.random(in: 0...1)
 
@@ -85,11 +90,35 @@ final class TodayView: UIViewController, TodayViewProtocol {
         thisMorningGradientBarView.setProgress(progress: CGFloat(randomDouble))
     }
 
+    func animateLabel(endValue: Double, animationDuration: Double) {
+        animationStartDate = Date()
+        self.endValue = endValue
+        displayLink = CADisplayLink(target: self, selector: #selector(handleUpdate))
+        displayLink?.add(to: .main, forMode: .default)
+    }
+
+    @objc func handleUpdate() {
+        let animationDuration: Double = 2
+        let now = Date()
+        let elapsedTime = now.timeIntervalSince(animationStartDate!)
+
+        if elapsedTime > animationDuration {
+            self.progressLabel.text = "\(Int(endValue))%"
+            displayLink?.invalidate()
+            self.startValue = endValue
+        } else {
+            let percentage = elapsedTime / animationDuration
+            let value = startValue + percentage * (endValue - startValue)
+            self.progressLabel.text = "\(Int(value))%"
+        }
+    }
+
     @objc func action(sender: UIBarButtonItem) {
         // Function body goes here
         print("testy123")
     }
     @IBAction func drinkButton1Tapped(_ sender: Any) {
+        setRingProgress(progress: Double.random(in: 0...1))
         print("drink button 1 tapped")
     }
 
