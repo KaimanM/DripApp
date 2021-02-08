@@ -8,6 +8,10 @@ final class TodayView: UIViewController, TodayViewProtocol {
     @IBOutlet weak var todayGradientBarView: GradientBarView!
     @IBOutlet weak var thisMorningVolumeLabel: UILabel!
     @IBOutlet weak var thisMorningGradientBarView: GradientBarView!
+    @IBOutlet weak var drinkButton1: UIButton!
+    @IBOutlet weak var drinkButton2: UIButton!
+    @IBOutlet weak var drinkButton3: UIButton!
+    @IBOutlet weak var drinkButton4: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +31,8 @@ final class TodayView: UIViewController, TodayViewProtocol {
         let result = formatter.string(from: date)
         navigationItem.title = result
         progressLabel.font = UIFont.SFProRounded(ofSize: 32, fontWeight: .regular)
+
+        updateButtonImages()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -45,6 +51,14 @@ final class TodayView: UIViewController, TodayViewProtocol {
         self.title = title
     }
 
+    func updateButtonImages() {
+        drinkButton1.setImage(UIImage(named: "waterbottle.svg"), for: .normal)
+        drinkButton2.setImage(UIImage(named: "coffee.svg"), for: .normal)
+        drinkButton3.setImage(UIImage(named: "cola.svg"), for: .normal)
+        drinkButton4.setImage(UIImage(named: "add.svg"), for: .normal)
+
+    }
+
     func setupRingView(startColor: UIColor, endColor: UIColor, ringWidth: CGFloat) {
         ringView.setupGradientRingView(progress: 0,
                                             firstColour: UIColor.dripPrimary,
@@ -61,13 +75,13 @@ final class TodayView: UIViewController, TodayViewProtocol {
 
         todayVolumeLabel.text = "\(Int(round(randomDouble*2750)))/2750ml"
         todayVolumeLabel.font = UIFont.SFProRounded(ofSize: 28, fontWeight: .medium)
-        todayVolumeLabel.textColor = UIColor.hexStringToUIColor(hex: "38E3C5")
+        todayVolumeLabel.textColor = .dripMerged
         todayGradientBarView.setProgress(progress: CGFloat(randomDouble))
 
         randomDouble = Double.random(in: 0...1)
         thisMorningVolumeLabel.text = "\(Int(round(randomDouble*700)))/700ml"
         thisMorningVolumeLabel.font = UIFont.SFProRounded(ofSize: 28, fontWeight: .medium)
-        thisMorningVolumeLabel.textColor = UIColor.hexStringToUIColor(hex: "38E3C5")
+        thisMorningVolumeLabel.textColor = .dripMerged
         thisMorningGradientBarView.setProgress(progress: CGFloat(randomDouble))
     }
 
@@ -75,21 +89,8 @@ final class TodayView: UIViewController, TodayViewProtocol {
         // Function body goes here
         print("testy123")
     }
-
-    @IBAction func button1(_ sender: Any) {
-        setRingProgress(progress: 0.25)
-    }
-
-    @IBAction func button2(_ sender: Any) {
-        setRingProgress(progress: 0.6)
-    }
-
-    @IBAction func button3(_ sender: Any) {
-        setRingProgress(progress: 0.8)
-    }
-
-    @IBAction func button4(_ sender: Any) {
-        setRingProgress(progress: 1.25)
+    @IBAction func drinkButton1Tapped(_ sender: Any) {
+        print("drink button 1 tapped")
     }
 
 }

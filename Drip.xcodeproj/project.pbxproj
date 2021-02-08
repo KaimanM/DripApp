@@ -59,6 +59,7 @@
 		3680E0CB24B3BC2E009E9DB8 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3680E0CA24B3BC2E009E9DB8 /* UIFont+Extensions.swift */; };
 		3680E0CD24B3BF50009E9DB8 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3680E0CC24B3BF50009E9DB8 /* UIColor+Extensions.swift */; };
 		3680E0CF24B3C8CC009E9DB8 /* GradientBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3680E0CE24B3C8CC009E9DB8 /* GradientBarView.swift */; };
+		36BFF50F25D17653003456F3 /* RoundDrinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BFF50E25D17653003456F3 /* RoundDrinkButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +142,7 @@
 		3680E0CA24B3BC2E009E9DB8 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		3680E0CC24B3BF50009E9DB8 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		3680E0CE24B3C8CC009E9DB8 /* GradientBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBarView.swift; sourceTree = "<group>"; };
+		36BFF50E25D17653003456F3 /* RoundDrinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundDrinkButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,6 +296,7 @@
 				3680E0CA24B3BC2E009E9DB8 /* UIFont+Extensions.swift */,
 				3680E0CC24B3BF50009E9DB8 /* UIColor+Extensions.swift */,
 				3680E0CE24B3C8CC009E9DB8 /* GradientBarView.swift */,
+				36BFF50E25D17653003456F3 /* RoundDrinkButton.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -542,6 +545,7 @@
 				0A2B8B6D2454D87000D9E8E7 /* TodayScreenBuilder.swift in Sources */,
 				0A4B4E092464505B00C2350B /* PlaceholderView.swift in Sources */,
 				0A8BEA862455D24A00AA9880 /* AwardsScreenBuilder.swift in Sources */,
+				36BFF50F25D17653003456F3 /* RoundDrinkButton.swift in Sources */,
 				0ACB986B24549DFE007BF01D /* TabBarPresenter.swift in Sources */,
 				0ACB986524549DE2007BF01D /* TabBarViewProtocol.swift in Sources */,
 				0AD151172454EFE300F45042 /* TrendsPresenterProtocol.swift in Sources */,

@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="H11-zG-XUr">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="998.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1038.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rJL-Ua-fHi" userLabel="Progress Ring Container" customClass="PlaceholderView" customModule="Drip" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="358.5"/>
@@ -51,97 +51,69 @@
                                                     <constraint firstItem="N32-hy-VA6" firstAttribute="width" secondItem="rJL-Ua-fHi" secondAttribute="width" multiplier="0.75" id="nMl-eI-mCB"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kLa-jP-wNQ">
-                                                <rect key="frame" x="0.0" y="358.5" width="414" height="40"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kLa-jP-wNQ" userLabel="Buttons Container">
+                                                <rect key="frame" x="0.0" y="358.5" width="414" height="80"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="UIt-aW-5E3">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oWh-Sy-WKe" userLabel="Stack View Container">
+                                                        <rect key="frame" x="30" y="8" width="354" height="64"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dyx-O9-omA">
-                                                                <rect key="frame" x="0.0" y="0.0" width="96" height="40"/>
-                                                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="jh7-Yj-JGM">
+                                                                <rect key="frame" x="0.0" y="0.0" width="354" height="64"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o0F-fC-aSf" userLabel="Button 1" customClass="RoundDrinkButton" customModule="Drip" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" secondItem="o0F-fC-aSf" secondAttribute="height" id="3mo-Ps-VDY"/>
+                                                                        </constraints>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <connections>
+                                                                            <action selector="drinkButton1Tapped:" destination="OlH-Y5-r6o" eventType="touchUpInside" id="3vd-XY-uR7"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YEc-6f-Tfn" userLabel="Button 2" customClass="RoundDrinkButton" customModule="Drip" customModuleProvider="target">
+                                                                        <rect key="frame" x="96.5" y="0.0" width="64" height="64"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                    </button>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RoF-Jn-jLp" userLabel="Button 3" customClass="RoundDrinkButton" customModule="Drip" customModuleProvider="target">
+                                                                        <rect key="frame" x="193.5" y="0.0" width="64" height="64"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                    </button>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bZH-U1-7m2" userLabel="Button 4" customClass="RoundDrinkButton" customModule="Drip" customModuleProvider="target">
+                                                                        <rect key="frame" x="290" y="0.0" width="64" height="64"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                    </button>
+                                                                </subviews>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="40" id="AFH-Md-3il"/>
+                                                                    <constraint firstItem="RoF-Jn-jLp" firstAttribute="height" secondItem="o0F-fC-aSf" secondAttribute="height" id="1IJ-zi-5Y1"/>
+                                                                    <constraint firstItem="YEc-6f-Tfn" firstAttribute="height" secondItem="o0F-fC-aSf" secondAttribute="height" id="8R8-ff-Lwn"/>
+                                                                    <constraint firstItem="bZH-U1-7m2" firstAttribute="width" secondItem="o0F-fC-aSf" secondAttribute="width" id="Qtl-Lv-YId"/>
+                                                                    <constraint firstItem="RoF-Jn-jLp" firstAttribute="width" secondItem="o0F-fC-aSf" secondAttribute="width" id="UYp-WB-wx7"/>
+                                                                    <constraint firstItem="bZH-U1-7m2" firstAttribute="height" secondItem="o0F-fC-aSf" secondAttribute="height" id="aIl-Mc-iOd"/>
+                                                                    <constraint firstItem="o0F-fC-aSf" firstAttribute="height" secondItem="jh7-Yj-JGM" secondAttribute="height" id="ig2-ub-9uS"/>
+                                                                    <constraint firstItem="YEc-6f-Tfn" firstAttribute="width" secondItem="o0F-fC-aSf" secondAttribute="width" id="nsk-Ib-Cpc"/>
                                                                 </constraints>
-                                                                <state key="normal" title="25%">
-                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                </state>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <integer key="value" value="5"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                </userDefinedRuntimeAttributes>
-                                                                <connections>
-                                                                    <action selector="button1:" destination="OlH-Y5-r6o" eventType="touchUpInside" id="X7I-Ud-GFt"/>
-                                                                </connections>
-                                                            </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qe0-rW-4wc">
-                                                                <rect key="frame" x="106" y="0.0" width="96" height="40"/>
-                                                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="40" id="vbx-Um-Gld"/>
-                                                                </constraints>
-                                                                <state key="normal" title="60%">
-                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                </state>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <integer key="value" value="5"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                </userDefinedRuntimeAttributes>
-                                                                <connections>
-                                                                    <action selector="button2:" destination="OlH-Y5-r6o" eventType="touchUpInside" id="Z2o-X1-2Nf"/>
-                                                                </connections>
-                                                            </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HtZ-LP-w9p">
-                                                                <rect key="frame" x="212" y="0.0" width="96" height="40"/>
-                                                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="40" id="lW2-Ot-Oij"/>
-                                                                </constraints>
-                                                                <state key="normal" title="80%">
-                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                </state>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <integer key="value" value="5"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                </userDefinedRuntimeAttributes>
-                                                                <connections>
-                                                                    <action selector="button3:" destination="OlH-Y5-r6o" eventType="touchUpInside" id="LNW-wb-UCj"/>
-                                                                </connections>
-                                                            </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dbh-bt-XcW">
-                                                                <rect key="frame" x="318" y="0.0" width="96" height="40"/>
-                                                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="40" id="NV0-p2-PBf"/>
-                                                                </constraints>
-                                                                <state key="normal" title="100%">
-                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                </state>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                        <integer key="value" value="5"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                </userDefinedRuntimeAttributes>
-                                                                <connections>
-                                                                    <action selector="button4:" destination="OlH-Y5-r6o" eventType="touchUpInside" id="wPc-Ut-nVy"/>
-                                                                </connections>
-                                                            </button>
+                                                            </stackView>
                                                         </subviews>
-                                                    </stackView>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="jh7-Yj-JGM" secondAttribute="trailing" id="68b-ae-tbB"/>
+                                                            <constraint firstAttribute="bottom" secondItem="jh7-Yj-JGM" secondAttribute="bottom" id="9SN-hr-3FA"/>
+                                                            <constraint firstItem="jh7-Yj-JGM" firstAttribute="leading" secondItem="oWh-Sy-WKe" secondAttribute="leading" id="ZEi-jv-1P8"/>
+                                                            <constraint firstItem="jh7-Yj-JGM" firstAttribute="top" secondItem="oWh-Sy-WKe" secondAttribute="top" id="lyU-cA-AD6"/>
+                                                        </constraints>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="bottom" secondItem="UIt-aW-5E3" secondAttribute="bottom" id="6Ys-4P-Pf3"/>
-                                                    <constraint firstItem="UIt-aW-5E3" firstAttribute="top" secondItem="kLa-jP-wNQ" secondAttribute="top" id="Cpu-P9-6cX"/>
-                                                    <constraint firstAttribute="trailing" secondItem="UIt-aW-5E3" secondAttribute="trailing" id="YYR-Bm-UBo"/>
-                                                    <constraint firstItem="UIt-aW-5E3" firstAttribute="leading" secondItem="kLa-jP-wNQ" secondAttribute="leading" id="eOk-z1-3bV"/>
+                                                    <constraint firstItem="oWh-Sy-WKe" firstAttribute="leading" secondItem="kLa-jP-wNQ" secondAttribute="leading" constant="30" id="2Gy-uJ-DjO"/>
+                                                    <constraint firstAttribute="height" constant="80" id="J7v-gG-r4o"/>
+                                                    <constraint firstItem="oWh-Sy-WKe" firstAttribute="height" secondItem="kLa-jP-wNQ" secondAttribute="height" multiplier="0.8" id="hp0-C1-es3"/>
+                                                    <constraint firstItem="oWh-Sy-WKe" firstAttribute="centerY" secondItem="kLa-jP-wNQ" secondAttribute="centerY" id="rYL-3d-m1B"/>
+                                                    <constraint firstAttribute="trailing" secondItem="oWh-Sy-WKe" secondAttribute="trailing" constant="30" id="ui5-V4-nwe"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sic-TZ-ouG" userLabel="Extra Content View" customClass="PlaceholderView" customModule="Drip" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="398.5" width="414" height="600"/>
+                                                <rect key="frame" x="0.0" y="438.5" width="414" height="600"/>
                                                 <subviews>
                                                     <view alpha="0.10000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1r-vI-jSE" userLabel="Seperator 1">
                                                         <rect key="frame" x="20" y="0.0" width="374" height="1"/>
@@ -272,6 +244,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="drinkButton1" destination="o0F-fC-aSf" id="vma-AD-dgd"/>
+                        <outlet property="drinkButton2" destination="YEc-6f-Tfn" id="ogP-EL-qjC"/>
+                        <outlet property="drinkButton3" destination="RoF-Jn-jLp" id="Kh4-bM-Nyh"/>
+                        <outlet property="drinkButton4" destination="bZH-U1-7m2" id="xwg-dO-ySv"/>
                         <outlet property="progressLabel" destination="4VK-Xr-AMZ" id="5EZ-z3-3BO"/>
                         <outlet property="ringView" destination="N32-hy-VA6" id="Bjo-80-NJF"/>
                         <outlet property="thisMorningGradientBarView" destination="rVC-Vd-BBx" id="Mng-El-cED"/>

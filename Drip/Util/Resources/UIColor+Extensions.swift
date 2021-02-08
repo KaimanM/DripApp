@@ -24,4 +24,5 @@ extension UIColor {
     }
     static var dripPrimary: UIColor = UIColor.hexStringToUIColor(hex: "#0091FF")
     static var dripSecondary: UIColor = UIColor.hexStringToUIColor(hex: "#4AFEB2")
+    static var dripMerged: UIColor = UIColor.hexStringToUIColor(hex: "#38E3C5")
 }
