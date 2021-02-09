@@ -24,6 +24,10 @@ final class TodayPresenter: TodayPresenterProtocol {
                                  image2Name: "coffee.svg",
                                  image3Name: "cola.svg",
                                  image4Name: "add.svg")
+        view?.updateButtonSubtitles(subtitle1: "Water",
+                                    subtitle2: "Coffee",
+                                    subtitle3: "Soda",
+                                    subtitle4: "Custom")
     }
 
     func saveDrink() {

@@ -12,6 +12,10 @@ final class TodayView: UIViewController, TodayViewProtocol {
     @IBOutlet weak var drinkButton2: UIButton!
     @IBOutlet weak var drinkButton3: UIButton!
     @IBOutlet weak var drinkButton4: UIButton!
+    @IBOutlet weak var button1Subtitle: UILabel!
+    @IBOutlet weak var button2Subtitle: UILabel!
+    @IBOutlet weak var button3Subtitle: UILabel!
+    @IBOutlet weak var button4Subtitle: UILabel!
     private var displayLink: CADisplayLink?
     private var animationStartDate: Date?
     private var startValue: Double = 0
@@ -59,6 +63,13 @@ final class TodayView: UIViewController, TodayViewProtocol {
         drinkButton3.setImage(UIImage(named: image3Name), for: .normal)
         drinkButton4.setImage(UIImage(named: image4Name), for: .normal)
         drinkButton4.imageEdgeInsets = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
+    }
+
+    func updateButtonSubtitles(subtitle1: String, subtitle2: String, subtitle3: String, subtitle4: String) {
+        button1Subtitle.text = subtitle1
+        button2Subtitle.text = subtitle2
+        button3Subtitle.text = subtitle3
+        button4Subtitle.text = subtitle4
     }
 
     func setupRingView(startColor: UIColor, endColor: UIColor, ringWidth: CGFloat) {

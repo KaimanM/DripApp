@@ -33,20 +33,26 @@ final class MockTodayView: TodayViewProtocol {
     }
 
     //swiftlint:disable:next large_tuple
-    private(set) var didUpdateButtonImages: (image1Name: String,
-                                             image2Name: String,
-                                             image3Name: String,
-                                             image4Name: String)?
+    private(set) var didUpdateButtonImages: (image1Name: String, image2Name: String,
+                                             image3Name: String, image4Name: String)?
     func updateButtonImages(image1Name: String, image2Name: String, image3Name: String, image4Name: String) {
-        didUpdateButtonImages = (image1Name: image1Name,
-                                 image2Name: image2Name,
-                                 image3Name: image3Name,
-                                 image4Name: image4Name)
+        didUpdateButtonImages = (image1Name: image1Name, image2Name: image2Name,
+                                 image3Name: image3Name, image4Name: image4Name)
     }
 
     private(set) var didAnimateLabel: (endValue: Double, animationDuration: Double)?
     func animateLabel(endValue: Double, animationDuration: Double) {
         didAnimateLabel = (endValue: endValue, animationDuration: animationDuration)
+    }
+
+    //swiftlint:disable:next large_tuple
+    private(set) var didUpdateButtonSubtitles: (subtitle1: String, subtitle2: String,
+                                                subtitle3: String, subtitle4: String)?
+    func updateButtonSubtitles(subtitle1: String, subtitle2: String, subtitle3: String, subtitle4: String) {
+        didUpdateButtonSubtitles = (subtitle1: subtitle1,
+                                    subtitle2: subtitle2,
+                                    subtitle3: subtitle3,
+                                    subtitle4: subtitle4)
     }
 }
 
@@ -90,6 +96,16 @@ class TodayPresenterTestCase: XCTestCase {
         XCTAssertEqual(mockedView.didUpdateButtonImages?.image4Name, "add.svg")
     }
 
+    func test_whenOnViewDidLoadCalled_thenUpdatesButtonSubtitles() {
+        // given & when
+        sut.onViewDidLoad()
+
+        // then
+        XCTAssertEqual(mockedView.didUpdateButtonSubtitles?.subtitle1, "Water")
+        XCTAssertEqual(mockedView.didUpdateButtonSubtitles?.subtitle2, "Coffee")
+        XCTAssertEqual(mockedView.didUpdateButtonSubtitles?.subtitle3, "Soda")
+        XCTAssertEqual(mockedView.didUpdateButtonSubtitles?.subtitle4, "Custom")
+    }
     // MARK: - onViewDidAppear -
 
     func test_whenOnViewDidAppearCalled_thenSetsRingProgress() {

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OlH-Y5-r6o">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OlH-Y5-r6o">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="H11-zG-XUr">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1038.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1078.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rJL-Ua-fHi" userLabel="Progress Ring Container" customClass="PlaceholderView" customModule="Drip" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="358.5"/>
@@ -52,45 +52,135 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kLa-jP-wNQ" userLabel="Buttons Container">
-                                                <rect key="frame" x="0.0" y="358.5" width="414" height="80"/>
+                                                <rect key="frame" x="0.0" y="358.5" width="414" height="120"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oWh-Sy-WKe" userLabel="Stack View Container">
-                                                        <rect key="frame" x="30" y="8" width="354" height="64"/>
+                                                        <rect key="frame" x="30" y="12" width="354" height="96"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="jh7-Yj-JGM">
-                                                                <rect key="frame" x="0.0" y="0.0" width="354" height="64"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="354" height="96"/>
                                                                 <subviews>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o0F-fC-aSf" userLabel="Button 1" customClass="RoundDrinkButton" customModule="Drip" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sUu-d5-Itl" userLabel="Button 1 Container">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="71" height="96"/>
+                                                                        <subviews>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o0F-fC-aSf" userLabel="Button 1" customClass="RoundDrinkButton" customModule="Drip" customModuleProvider="target">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="71" height="70.5"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="width" secondItem="o0F-fC-aSf" secondAttribute="height" id="IAO-9U-N18"/>
+                                                                                </constraints>
+                                                                                <state key="normal" title="Button"/>
+                                                                                <connections>
+                                                                                    <action selector="drinkButton1Tapped:" destination="OlH-Y5-r6o" eventType="touchUpInside" id="3vd-XY-uR7"/>
+                                                                                </connections>
+                                                                            </button>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ebc-QD-ZC7" userLabel="Button 1 Subtitle">
+                                                                                <rect key="frame" x="0.0" y="75.5" width="71" height="20.5"/>
+                                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="width" secondItem="o0F-fC-aSf" secondAttribute="height" id="3mo-Ps-VDY"/>
+                                                                            <constraint firstItem="o0F-fC-aSf" firstAttribute="top" secondItem="sUu-d5-Itl" secondAttribute="top" id="58l-n9-91u"/>
+                                                                            <constraint firstItem="ebc-QD-ZC7" firstAttribute="leading" secondItem="sUu-d5-Itl" secondAttribute="leading" id="G1F-OL-M3e"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="ebc-QD-ZC7" secondAttribute="bottom" id="RHU-ai-F2r"/>
+                                                                            <constraint firstItem="o0F-fC-aSf" firstAttribute="width" secondItem="sUu-d5-Itl" secondAttribute="width" id="gbw-QI-2Xn"/>
+                                                                            <constraint firstItem="o0F-fC-aSf" firstAttribute="centerX" secondItem="sUu-d5-Itl" secondAttribute="centerX" id="my8-8g-3uI"/>
+                                                                            <constraint firstItem="ebc-QD-ZC7" firstAttribute="centerX" secondItem="sUu-d5-Itl" secondAttribute="centerX" id="rdq-Er-0P4"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="ebc-QD-ZC7" secondAttribute="trailing" id="stY-gF-i9x"/>
                                                                         </constraints>
-                                                                        <state key="normal" title="Button"/>
-                                                                        <connections>
-                                                                            <action selector="drinkButton1Tapped:" destination="OlH-Y5-r6o" eventType="touchUpInside" id="3vd-XY-uR7"/>
-                                                                        </connections>
-                                                                    </button>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YEc-6f-Tfn" userLabel="Button 2" customClass="RoundDrinkButton" customModule="Drip" customModuleProvider="target">
-                                                                        <rect key="frame" x="96.5" y="0.0" width="64" height="64"/>
-                                                                        <state key="normal" title="Button"/>
-                                                                    </button>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RoF-Jn-jLp" userLabel="Button 3" customClass="RoundDrinkButton" customModule="Drip" customModuleProvider="target">
-                                                                        <rect key="frame" x="193.5" y="0.0" width="64" height="64"/>
-                                                                        <state key="normal" title="Button"/>
-                                                                    </button>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bZH-U1-7m2" userLabel="Button 4" customClass="RoundDrinkButton" customModule="Drip" customModuleProvider="target">
-                                                                        <rect key="frame" x="290" y="0.0" width="64" height="64"/>
-                                                                        <state key="normal" title="Button"/>
-                                                                    </button>
+                                                                    </view>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9k1-wG-3lX" userLabel="Button 2 Container">
+                                                                        <rect key="frame" x="94.5" y="0.0" width="70.5" height="96"/>
+                                                                        <subviews>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EfS-ui-UbD" userLabel="Button 2" customClass="RoundDrinkButton" customModule="Drip" customModuleProvider="target">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="70.5" height="70.5"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="width" secondItem="EfS-ui-UbD" secondAttribute="height" id="8L8-lJ-G8u"/>
+                                                                                </constraints>
+                                                                                <state key="normal" title="Button"/>
+                                                                            </button>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tqH-v7-B0Z" userLabel="Button 2 Subtitle">
+                                                                                <rect key="frame" x="0.0" y="75.5" width="70.5" height="20.5"/>
+                                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <constraints>
+                                                                            <constraint firstItem="tqH-v7-B0Z" firstAttribute="centerX" secondItem="9k1-wG-3lX" secondAttribute="centerX" id="Grl-e6-K9t"/>
+                                                                            <constraint firstItem="EfS-ui-UbD" firstAttribute="centerX" secondItem="9k1-wG-3lX" secondAttribute="centerX" id="aFh-ff-DlY"/>
+                                                                            <constraint firstItem="EfS-ui-UbD" firstAttribute="top" secondItem="9k1-wG-3lX" secondAttribute="top" id="bkl-gY-fSK"/>
+                                                                            <constraint firstItem="tqH-v7-B0Z" firstAttribute="leading" secondItem="9k1-wG-3lX" secondAttribute="leading" id="ddP-P5-9L1"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="tqH-v7-B0Z" secondAttribute="trailing" id="gFz-Sp-ojk"/>
+                                                                            <constraint firstItem="EfS-ui-UbD" firstAttribute="width" secondItem="9k1-wG-3lX" secondAttribute="width" id="uZz-lx-VGK"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="tqH-v7-B0Z" secondAttribute="bottom" id="zRU-jN-VRm"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Slw-q6-3TU" userLabel="Button 3 Container">
+                                                                        <rect key="frame" x="189" y="0.0" width="70.5" height="96"/>
+                                                                        <subviews>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Vn-hm-fwc" userLabel="Button 3" customClass="RoundDrinkButton" customModule="Drip" customModuleProvider="target">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="70.5" height="70.5"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="width" secondItem="8Vn-hm-fwc" secondAttribute="height" id="cDD-lV-JhG"/>
+                                                                                </constraints>
+                                                                                <state key="normal" title="Button"/>
+                                                                            </button>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P27-d5-Ilb" userLabel="Button 3 Subtitle">
+                                                                                <rect key="frame" x="0.0" y="75.5" width="70.5" height="20.5"/>
+                                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <constraints>
+                                                                            <constraint firstItem="8Vn-hm-fwc" firstAttribute="top" secondItem="Slw-q6-3TU" secondAttribute="top" id="d44-5u-6aJ"/>
+                                                                            <constraint firstItem="8Vn-hm-fwc" firstAttribute="width" secondItem="Slw-q6-3TU" secondAttribute="width" id="gAa-s7-eUe"/>
+                                                                            <constraint firstItem="8Vn-hm-fwc" firstAttribute="centerX" secondItem="Slw-q6-3TU" secondAttribute="centerX" id="gbN-QP-zsj"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="P27-d5-Ilb" secondAttribute="bottom" id="jDz-wA-8XJ"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="P27-d5-Ilb" secondAttribute="trailing" id="jef-VL-GKZ"/>
+                                                                            <constraint firstItem="P27-d5-Ilb" firstAttribute="centerX" secondItem="Slw-q6-3TU" secondAttribute="centerX" id="ksh-a8-FTh"/>
+                                                                            <constraint firstItem="P27-d5-Ilb" firstAttribute="leading" secondItem="Slw-q6-3TU" secondAttribute="leading" id="zI2-qL-ojw"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gxd-IS-yjz" userLabel="Button 4 Container">
+                                                                        <rect key="frame" x="283" y="0.0" width="71" height="96"/>
+                                                                        <subviews>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sjl-Ik-fvs" userLabel="Button 4" customClass="RoundDrinkButton" customModule="Drip" customModuleProvider="target">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="71" height="70.5"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="width" secondItem="Sjl-Ik-fvs" secondAttribute="height" id="lxR-R9-HaF"/>
+                                                                                </constraints>
+                                                                                <state key="normal" title="Button"/>
+                                                                            </button>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rth-Gm-QPL" userLabel="Button 4 Subtitle">
+                                                                                <rect key="frame" x="0.0" y="75.5" width="71" height="20.5"/>
+                                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="bottom" secondItem="Rth-Gm-QPL" secondAttribute="bottom" id="1KI-ma-3Fu"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="Rth-Gm-QPL" secondAttribute="trailing" id="KKT-SO-0l9"/>
+                                                                            <constraint firstItem="Rth-Gm-QPL" firstAttribute="leading" secondItem="gxd-IS-yjz" secondAttribute="leading" id="MZ2-mw-RYG"/>
+                                                                            <constraint firstItem="Sjl-Ik-fvs" firstAttribute="width" secondItem="gxd-IS-yjz" secondAttribute="width" id="S4L-2E-hzg"/>
+                                                                            <constraint firstItem="Sjl-Ik-fvs" firstAttribute="top" secondItem="gxd-IS-yjz" secondAttribute="top" id="qxC-W2-qrr"/>
+                                                                            <constraint firstItem="Sjl-Ik-fvs" firstAttribute="centerX" secondItem="gxd-IS-yjz" secondAttribute="centerX" id="rLP-y9-Yqp"/>
+                                                                            <constraint firstItem="Rth-Gm-QPL" firstAttribute="centerX" secondItem="gxd-IS-yjz" secondAttribute="centerX" id="uhj-Sy-4bE"/>
+                                                                        </constraints>
+                                                                    </view>
                                                                 </subviews>
                                                                 <constraints>
-                                                                    <constraint firstItem="RoF-Jn-jLp" firstAttribute="height" secondItem="o0F-fC-aSf" secondAttribute="height" id="1IJ-zi-5Y1"/>
-                                                                    <constraint firstItem="YEc-6f-Tfn" firstAttribute="height" secondItem="o0F-fC-aSf" secondAttribute="height" id="8R8-ff-Lwn"/>
-                                                                    <constraint firstItem="bZH-U1-7m2" firstAttribute="width" secondItem="o0F-fC-aSf" secondAttribute="width" id="Qtl-Lv-YId"/>
-                                                                    <constraint firstItem="RoF-Jn-jLp" firstAttribute="width" secondItem="o0F-fC-aSf" secondAttribute="width" id="UYp-WB-wx7"/>
-                                                                    <constraint firstItem="bZH-U1-7m2" firstAttribute="height" secondItem="o0F-fC-aSf" secondAttribute="height" id="aIl-Mc-iOd"/>
-                                                                    <constraint firstItem="o0F-fC-aSf" firstAttribute="height" secondItem="jh7-Yj-JGM" secondAttribute="height" id="ig2-ub-9uS"/>
-                                                                    <constraint firstItem="YEc-6f-Tfn" firstAttribute="width" secondItem="o0F-fC-aSf" secondAttribute="width" id="nsk-Ib-Cpc"/>
+                                                                    <constraint firstItem="Slw-q6-3TU" firstAttribute="width" secondItem="sUu-d5-Itl" secondAttribute="width" id="DLk-1z-PT4"/>
+                                                                    <constraint firstItem="gxd-IS-yjz" firstAttribute="width" secondItem="sUu-d5-Itl" secondAttribute="width" id="jfo-uR-otf"/>
+                                                                    <constraint firstItem="sUu-d5-Itl" firstAttribute="width" secondItem="jh7-Yj-JGM" secondAttribute="width" multiplier="0.2" id="uAA-sJ-EdV"/>
+                                                                    <constraint firstItem="9k1-wG-3lX" firstAttribute="width" secondItem="sUu-d5-Itl" secondAttribute="width" id="w6K-Cj-o49"/>
                                                                 </constraints>
                                                             </stackView>
                                                         </subviews>
@@ -106,14 +196,14 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="oWh-Sy-WKe" firstAttribute="leading" secondItem="kLa-jP-wNQ" secondAttribute="leading" constant="30" id="2Gy-uJ-DjO"/>
-                                                    <constraint firstAttribute="height" constant="80" id="J7v-gG-r4o"/>
+                                                    <constraint firstAttribute="height" constant="120" id="J7v-gG-r4o"/>
                                                     <constraint firstItem="oWh-Sy-WKe" firstAttribute="height" secondItem="kLa-jP-wNQ" secondAttribute="height" multiplier="0.8" id="hp0-C1-es3"/>
                                                     <constraint firstItem="oWh-Sy-WKe" firstAttribute="centerY" secondItem="kLa-jP-wNQ" secondAttribute="centerY" id="rYL-3d-m1B"/>
                                                     <constraint firstAttribute="trailing" secondItem="oWh-Sy-WKe" secondAttribute="trailing" constant="30" id="ui5-V4-nwe"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sic-TZ-ouG" userLabel="Extra Content View" customClass="PlaceholderView" customModule="Drip" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="438.5" width="414" height="600"/>
+                                                <rect key="frame" x="0.0" y="478.5" width="414" height="600"/>
                                                 <subviews>
                                                     <view alpha="0.10000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1r-vI-jSE" userLabel="Seperator 1">
                                                         <rect key="frame" x="20" y="0.0" width="374" height="1"/>
@@ -244,10 +334,14 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="button1Subtitle" destination="ebc-QD-ZC7" id="9VZ-QQ-rfx"/>
+                        <outlet property="button2Subtitle" destination="tqH-v7-B0Z" id="A64-oe-Bfd"/>
+                        <outlet property="button3Subtitle" destination="P27-d5-Ilb" id="qPb-aw-LeC"/>
+                        <outlet property="button4Subtitle" destination="Rth-Gm-QPL" id="hi4-S1-z0x"/>
                         <outlet property="drinkButton1" destination="o0F-fC-aSf" id="vma-AD-dgd"/>
-                        <outlet property="drinkButton2" destination="YEc-6f-Tfn" id="ogP-EL-qjC"/>
-                        <outlet property="drinkButton3" destination="RoF-Jn-jLp" id="Kh4-bM-Nyh"/>
-                        <outlet property="drinkButton4" destination="bZH-U1-7m2" id="xwg-dO-ySv"/>
+                        <outlet property="drinkButton2" destination="EfS-ui-UbD" id="mej-wF-KeR"/>
+                        <outlet property="drinkButton3" destination="8Vn-hm-fwc" id="5yQ-WX-9BN"/>
+                        <outlet property="drinkButton4" destination="Sjl-Ik-fvs" id="yWi-Ou-YQM"/>
                         <outlet property="progressLabel" destination="4VK-Xr-AMZ" id="5EZ-z3-3BO"/>
                         <outlet property="ringView" destination="N32-hy-VA6" id="Bjo-80-NJF"/>
                         <outlet property="thisMorningGradientBarView" destination="rVC-Vd-BBx" id="Mng-El-cED"/>
