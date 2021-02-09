@@ -58,6 +58,7 @@ final class TodayView: UIViewController, TodayViewProtocol {
         drinkButton2.setImage(UIImage(named: image2Name), for: .normal)
         drinkButton3.setImage(UIImage(named: image3Name), for: .normal)
         drinkButton4.setImage(UIImage(named: image4Name), for: .normal)
+        drinkButton4.imageEdgeInsets = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
     }
 
     func setupRingView(startColor: UIColor, endColor: UIColor, ringWidth: CGFloat) {
