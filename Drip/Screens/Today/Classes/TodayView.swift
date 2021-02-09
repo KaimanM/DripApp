@@ -35,8 +35,6 @@ final class TodayView: UIViewController, TodayViewProtocol {
         let result = formatter.string(from: date)
         navigationItem.title = result
         progressLabel.font = UIFont.SFProRounded(ofSize: 32, fontWeight: .regular)
-
-        updateButtonImages()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -55,12 +53,11 @@ final class TodayView: UIViewController, TodayViewProtocol {
         self.title = title
     }
 
-    func updateButtonImages() {
-        drinkButton1.setImage(UIImage(named: "waterbottle.svg"), for: .normal)
-        drinkButton2.setImage(UIImage(named: "coffee.svg"), for: .normal)
-        drinkButton3.setImage(UIImage(named: "cola.svg"), for: .normal)
-        drinkButton4.setImage(UIImage(named: "add.svg"), for: .normal)
-
+    func updateButtonImages(image1Name: String, image2Name: String, image3Name: String, image4Name: String) {
+        drinkButton1.setImage(UIImage(named: image1Name), for: .normal)
+        drinkButton2.setImage(UIImage(named: image2Name), for: .normal)
+        drinkButton3.setImage(UIImage(named: image3Name), for: .normal)
+        drinkButton4.setImage(UIImage(named: image4Name), for: .normal)
     }
 
     func setupRingView(startColor: UIColor, endColor: UIColor, ringWidth: CGFloat) {
@@ -73,8 +70,6 @@ final class TodayView: UIViewController, TodayViewProtocol {
 
     func setRingProgress(progress: Double) {
         ringView.setProgress(CGFloat(progress))
-//        progressLabel.text = "\(Int(round(progress*100)))%"
-        animateLabel(endValue: progress*100, animationDuration: 2)
 
         var randomDouble = Double.random(in: 0...1)
 
@@ -118,8 +113,7 @@ final class TodayView: UIViewController, TodayViewProtocol {
         print("testy123")
     }
     @IBAction func drinkButton1Tapped(_ sender: Any) {
-        setRingProgress(progress: Double.random(in: 0...1))
-        print("drink button 1 tapped")
+        presenter.onDrinkButton1Tapped()
     }
 
 }

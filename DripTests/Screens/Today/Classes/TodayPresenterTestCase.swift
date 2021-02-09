@@ -31,6 +31,23 @@ final class MockTodayView: TodayViewProtocol {
     func setRingProgress(progress: Double) {
         didSetRingProgress = progress
     }
+
+    //swiftlint:disable:next large_tuple
+    private(set) var didUpdateButtonImages: (image1Name: String,
+                                             image2Name: String,
+                                             image3Name: String,
+                                             image4Name: String)?
+    func updateButtonImages(image1Name: String, image2Name: String, image3Name: String, image4Name: String) {
+        didUpdateButtonImages = (image1Name: image1Name,
+                                 image2Name: image2Name,
+                                 image3Name: image3Name,
+                                 image4Name: image4Name)
+    }
+
+    private(set) var didAnimateLabel: (endValue: Double, animationDuration: Double)?
+    func animateLabel(endValue: Double, animationDuration: Double) {
+        didAnimateLabel = (endValue: endValue, animationDuration: animationDuration)
+    }
 }
 
 class TodayPresenterTestCase: XCTestCase {
@@ -62,6 +79,17 @@ class TodayPresenterTestCase: XCTestCase {
         XCTAssertEqual(mockedView.didSetupRingView!.ringWidth, 30)
     }
 
+    func test_whenOnViewDidLoadCalled_thenUpdateButtonImages() {
+        // given & when
+        sut.onViewDidLoad()
+
+        // then
+        XCTAssertEqual(mockedView.didUpdateButtonImages?.image1Name, "waterbottle.svg")
+        XCTAssertEqual(mockedView.didUpdateButtonImages?.image2Name, "coffee.svg")
+        XCTAssertEqual(mockedView.didUpdateButtonImages?.image3Name, "cola.svg")
+        XCTAssertEqual(mockedView.didUpdateButtonImages?.image4Name, "add.svg")
+    }
+
     // MARK: - onViewDidAppear -
 
     func test_whenOnViewDidAppearCalled_thenSetsRingProgress() {
@@ -69,7 +97,16 @@ class TodayPresenterTestCase: XCTestCase {
         sut.onViewDidAppear()
 
         //then
-        XCTAssertTrue(mockedView.didSetRingProgress! >= 0 || mockedView.didSetRingProgress! <= 1)
+        XCTAssertTrue((0...1).contains(mockedView.didSetRingProgress!))
+    }
+
+    func test_whenOnViewDidAppearCalled_thenAnimateLabel() {
+        // given & when
+        sut.onViewDidAppear()
+
+        // then
+        XCTAssertTrue((0...100).contains(mockedView.didAnimateLabel!.endValue))
+        XCTAssertEqual(mockedView.didAnimateLabel?.animationDuration, 2)
     }
 
 }
