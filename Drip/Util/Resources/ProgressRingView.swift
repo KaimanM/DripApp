@@ -225,6 +225,7 @@ class ProgressRingView: UIView {
         let newProgress = Double(percent)
         let delta = abs(Double(newProgress - oldProgress))
 
+        // TODO: Implement switch statements for 3 oldProgress states
         if oldProgress <= 0.75 && newProgress < 0.75 { // do we need less than or equal to?
             timings.time1 = 1
         } else if oldProgress <= 0.75 && newProgress <= 1 {

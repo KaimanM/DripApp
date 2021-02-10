@@ -22,7 +22,7 @@ extension UIColor {
             alpha: CGFloat(1.0)
         )
     }
-    static var dripPrimary: UIColor = UIColor.hexStringToUIColor(hex: "#0091FF")
-    static var dripSecondary: UIColor = UIColor.hexStringToUIColor(hex: "#4AFEB2")
-    static var dripMerged: UIColor = UIColor.hexStringToUIColor(hex: "#38E3C5")
+    static var dripPrimary: UIColor = UIColor(named: "dripPrimary") ?? .blue
+    static var dripSecondary: UIColor = UIColor(named: "dripSecondary") ?? .cyan
+    static var dripMerged: UIColor = UIColor(named: "dripMerged") ?? .blue
 }

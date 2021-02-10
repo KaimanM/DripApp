@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -207,7 +208,7 @@
                                                 <subviews>
                                                     <view alpha="0.10000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1r-vI-jSE" userLabel="Seperator 1">
                                                         <rect key="frame" x="20" y="0.0" width="374" height="1"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <color key="backgroundColor" name="separatorColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="UTd-0e-Uta"/>
                                                         </constraints>
@@ -249,7 +250,7 @@
                                                     </view>
                                                     <view alpha="0.10000000149011612" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Zr-ri-PLD" userLabel="Seperator 1">
                                                         <rect key="frame" x="20" y="97" width="374" height="1"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <color key="backgroundColor" name="separatorColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="di1-8o-M9z"/>
                                                         </constraints>
@@ -356,6 +357,9 @@
         </scene>
     </scenes>
     <resources>
+        <namedColor name="separatorColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

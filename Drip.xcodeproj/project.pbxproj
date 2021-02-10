@@ -53,6 +53,7 @@
 		0AD151192454EFEB00F45042 /* TrendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD151182454EFEB00F45042 /* TrendsView.swift */; };
 		0AD1511B2454EFF600F45042 /* TrendsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1511A2454EFF600F45042 /* TrendsPresenter.swift */; };
 		0AD1511D2454F00100F45042 /* Trends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AD1511C2454F00100F45042 /* Trends.storyboard */; };
+		36031F6725D429070016EBC7 /* Colours.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36031F6625D429070016EBC7 /* Colours.xcassets */; };
 		364A9277256BE84F00F84985 /* DripTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB983824546719007BF01D /* DripTests.swift */; };
 		364A927C256BE91400F84985 /* TodayScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364A927B256BE91400F84985 /* TodayScreenBuilderTestCase.swift */; };
 		364A9280256BE93500F84985 /* TodayPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364A927F256BE93500F84985 /* TodayPresenterTestCase.swift */; };
@@ -137,6 +138,7 @@
 		0AD151182454EFEB00F45042 /* TrendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsView.swift; sourceTree = "<group>"; };
 		0AD1511A2454EFF600F45042 /* TrendsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsPresenter.swift; sourceTree = "<group>"; };
 		0AD1511C2454F00100F45042 /* Trends.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Trends.storyboard; sourceTree = "<group>"; };
+		36031F6625D429070016EBC7 /* Colours.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colours.xcassets; sourceTree = "<group>"; };
 		364A927B256BE91400F84985 /* TodayScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayScreenBuilderTestCase.swift; sourceTree = "<group>"; };
 		364A927F256BE93500F84985 /* TodayPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayPresenterTestCase.swift; sourceTree = "<group>"; };
 		3680E0CA24B3BC2E009E9DB8 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 				3680E0CC24B3BF50009E9DB8 /* UIColor+Extensions.swift */,
 				3680E0CE24B3C8CC009E9DB8 /* GradientBarView.swift */,
 				36BFF50E25D17653003456F3 /* RoundDrinkButton.swift */,
+				36031F6625D429070016EBC7 /* Colours.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -492,6 +495,7 @@
 				0ACB985924546924007BF01D /* History.storyboard in Resources */,
 				0A2B8B6F2454D88500D9E8E7 /* Today.storyboard in Resources */,
 				0AD1511D2454F00100F45042 /* Trends.storyboard in Resources */,
+				36031F6725D429070016EBC7 /* Colours.xcassets in Resources */,
 				0ACB982B24546719007BF01D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
