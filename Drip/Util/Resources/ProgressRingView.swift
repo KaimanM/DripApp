@@ -216,6 +216,7 @@ class ProgressRingView: UIView {
                                  height: lineWidth*0.8)
     }
 
+    // swiftlint:disable:next function_body_length
     private func calculateTiming() {
         timings.totalDuration = 2
         timings.time1 = 0
@@ -225,33 +226,41 @@ class ProgressRingView: UIView {
         let newProgress = Double(percent)
         let delta = abs(Double(newProgress - oldProgress))
 
-        // TODO: Implement switch statements for 3 oldProgress states
-        if oldProgress <= 0.75 && newProgress < 0.75 { // do we need less than or equal to?
-            timings.time1 = 1
-        } else if oldProgress <= 0.75 && newProgress <= 1 {
-            timings.time1 = (0.75-oldProgress)/delta
-            timings.time2 = ((newProgress)-0.75)/delta
-        } else if oldProgress < 0.75 && newProgress > 1 {
-            timings.time1 = (0.75-oldProgress)/delta
-            timings.time2 = 0.25/delta
-            timings.time3 = (newProgress-1)/delta
-        } else if (0.75...1).contains(oldProgress) && (0.75...1).contains(newProgress) {
-            timings.time2 = 1
-        } else if (0.75...1).contains(oldProgress) && newProgress < 0.75 {
-            timings.time1 = (0.75-newProgress)/delta
-            timings.time2 = (oldProgress-0.75)/delta
-        } else if (0.75...1).contains(oldProgress) && newProgress > 1 {
-            timings.time2 = (1-oldProgress)/delta
-            timings.time3 = (newProgress-1)/delta
-        } else if oldProgress >= 1 && newProgress >= 1 {
-            timings.time3 = 1
-        } else if oldProgress >= 1 && (0.75...1).contains(newProgress) {
-            timings.time2 = (1-newProgress)/delta
-            timings.time3 = (oldProgress-1)/delta
-        } else if oldProgress >= 1 && newProgress < 0.75 {
-            timings.time1 = (0.75-newProgress)/delta
-            timings.time2 = 0.25/delta
-            timings.time3 = (oldProgress-1)/delta
+        switch oldProgress {
+        case 0...0.75: // Animation begins in ring 1
+            if newProgress < 0.75 { // do we need less than or equal to?
+                timings.time1 = 1
+            } else if newProgress <= 1 {
+                timings.time1 = (0.75-oldProgress)/delta
+                timings.time2 = ((newProgress)-0.75)/delta
+            } else {
+                timings.time1 = (0.75-oldProgress)/delta
+                timings.time2 = 0.25/delta
+                timings.time3 = (newProgress-1)/delta
+            }
+        case 0.75...1: // Animation begins in ring 2
+            if (0.75...1).contains(newProgress) {
+                timings.time2 = 1
+            } else if newProgress < 0.75 {
+                timings.time1 = (0.75-newProgress)/delta
+                timings.time2 = (oldProgress-0.75)/delta
+            } else {
+                timings.time2 = (1-oldProgress)/delta
+                timings.time3 = (newProgress-1)/delta
+            }
+        case 1...Double.greatestFiniteMagnitude: // Animation begins in ring 3
+            if newProgress >= 1 {
+                timings.time3 = 1
+            } else if (0.75...1).contains(newProgress) {
+                timings.time2 = (1-newProgress)/delta
+                timings.time3 = (oldProgress-1)/delta
+            } else {
+                timings.time1 = (0.75-newProgress)/delta
+                timings.time2 = 0.25/delta
+                timings.time3 = (oldProgress-1)/delta
+            }
+        default:
+          print("Other")
         }
 
         timings.time1 *= timings.totalDuration
