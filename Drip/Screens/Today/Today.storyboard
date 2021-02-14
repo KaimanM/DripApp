@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OlH-Y5-r6o">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -15,23 +15,23 @@
             <objects>
                 <viewController id="OlH-Y5-r6o" customClass="TodayView" customModule="Drip" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uHk-Kc-yqP">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4nv-fS-xIt">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="H11-zG-XUr">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1078.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="987"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rJL-Ua-fHi" userLabel="Progress Ring Container" customClass="PlaceholderView" customModule="Drip" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="358.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="267"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N32-hy-VA6" userLabel="Progress Ring View" customClass="ProgressRingView" customModule="Drip" customModuleProvider="target">
-                                                        <rect key="frame" x="52" y="45" width="310.5" height="268.5"/>
+                                                        <rect key="frame" x="47" y="33.5" width="281" height="200"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4VK-Xr-AMZ">
-                                                                <rect key="frame" x="134.5" y="124" width="41.5" height="20.5"/>
+                                                                <rect key="frame" x="120" y="89.5" width="41.5" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
@@ -53,21 +53,22 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kLa-jP-wNQ" userLabel="Buttons Container">
-                                                <rect key="frame" x="0.0" y="358.5" width="414" height="120"/>
+                                                <rect key="frame" x="0.0" y="267" width="375" height="120"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oWh-Sy-WKe" userLabel="Stack View Container">
-                                                        <rect key="frame" x="30" y="12" width="354" height="96"/>
+                                                        <rect key="frame" x="30" y="12" width="315" height="96"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="jh7-Yj-JGM">
-                                                                <rect key="frame" x="0.0" y="0.0" width="354" height="96"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="315" height="96"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sUu-d5-Itl" userLabel="Button 1 Container">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="71" height="96"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="96"/>
                                                                         <subviews>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o0F-fC-aSf" userLabel="Button 1" customClass="RoundDrinkButton" customModule="Drip" customModuleProvider="target">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="71" height="70.5"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
                                                                                 <constraints>
-                                                                                    <constraint firstAttribute="width" secondItem="o0F-fC-aSf" secondAttribute="height" id="IAO-9U-N18"/>
+                                                                                    <constraint firstAttribute="height" constant="70" id="173-Df-3PU"/>
+                                                                                    <constraint firstAttribute="width" constant="70" id="l2n-cd-lDt"/>
                                                                                 </constraints>
                                                                                 <state key="normal" title="Button"/>
                                                                                 <connections>
@@ -75,7 +76,7 @@
                                                                                 </connections>
                                                                             </button>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ebc-QD-ZC7" userLabel="Button 1 Subtitle">
-                                                                                <rect key="frame" x="0.0" y="75.5" width="71" height="20.5"/>
+                                                                                <rect key="frame" x="0.0" y="75.5" width="70" height="20.5"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
@@ -85,25 +86,22 @@
                                                                         <constraints>
                                                                             <constraint firstItem="o0F-fC-aSf" firstAttribute="top" secondItem="sUu-d5-Itl" secondAttribute="top" id="58l-n9-91u"/>
                                                                             <constraint firstItem="ebc-QD-ZC7" firstAttribute="leading" secondItem="sUu-d5-Itl" secondAttribute="leading" id="G1F-OL-M3e"/>
+                                                                            <constraint firstAttribute="width" secondItem="o0F-fC-aSf" secondAttribute="width" id="IuU-Tr-jQm"/>
                                                                             <constraint firstAttribute="bottom" secondItem="ebc-QD-ZC7" secondAttribute="bottom" id="RHU-ai-F2r"/>
-                                                                            <constraint firstItem="o0F-fC-aSf" firstAttribute="width" secondItem="sUu-d5-Itl" secondAttribute="width" id="gbw-QI-2Xn"/>
                                                                             <constraint firstItem="o0F-fC-aSf" firstAttribute="centerX" secondItem="sUu-d5-Itl" secondAttribute="centerX" id="my8-8g-3uI"/>
                                                                             <constraint firstItem="ebc-QD-ZC7" firstAttribute="centerX" secondItem="sUu-d5-Itl" secondAttribute="centerX" id="rdq-Er-0P4"/>
                                                                             <constraint firstAttribute="trailing" secondItem="ebc-QD-ZC7" secondAttribute="trailing" id="stY-gF-i9x"/>
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9k1-wG-3lX" userLabel="Button 2 Container">
-                                                                        <rect key="frame" x="94.5" y="0.0" width="70.5" height="96"/>
+                                                                        <rect key="frame" x="81.5" y="0.0" width="70" height="96"/>
                                                                         <subviews>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EfS-ui-UbD" userLabel="Button 2" customClass="RoundDrinkButton" customModule="Drip" customModuleProvider="target">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="70.5" height="70.5"/>
-                                                                                <constraints>
-                                                                                    <constraint firstAttribute="width" secondItem="EfS-ui-UbD" secondAttribute="height" id="8L8-lJ-G8u"/>
-                                                                                </constraints>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
                                                                                 <state key="normal" title="Button"/>
                                                                             </button>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tqH-v7-B0Z" userLabel="Button 2 Subtitle">
-                                                                                <rect key="frame" x="0.0" y="75.5" width="70.5" height="20.5"/>
+                                                                                <rect key="frame" x="0.0" y="75.5" width="70" height="20.5"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
@@ -116,22 +114,18 @@
                                                                             <constraint firstItem="EfS-ui-UbD" firstAttribute="top" secondItem="9k1-wG-3lX" secondAttribute="top" id="bkl-gY-fSK"/>
                                                                             <constraint firstItem="tqH-v7-B0Z" firstAttribute="leading" secondItem="9k1-wG-3lX" secondAttribute="leading" id="ddP-P5-9L1"/>
                                                                             <constraint firstAttribute="trailing" secondItem="tqH-v7-B0Z" secondAttribute="trailing" id="gFz-Sp-ojk"/>
-                                                                            <constraint firstItem="EfS-ui-UbD" firstAttribute="width" secondItem="9k1-wG-3lX" secondAttribute="width" id="uZz-lx-VGK"/>
                                                                             <constraint firstAttribute="bottom" secondItem="tqH-v7-B0Z" secondAttribute="bottom" id="zRU-jN-VRm"/>
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Slw-q6-3TU" userLabel="Button 3 Container">
-                                                                        <rect key="frame" x="189" y="0.0" width="70.5" height="96"/>
+                                                                        <rect key="frame" x="163.5" y="0.0" width="70" height="96"/>
                                                                         <subviews>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Vn-hm-fwc" userLabel="Button 3" customClass="RoundDrinkButton" customModule="Drip" customModuleProvider="target">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="70.5" height="70.5"/>
-                                                                                <constraints>
-                                                                                    <constraint firstAttribute="width" secondItem="8Vn-hm-fwc" secondAttribute="height" id="cDD-lV-JhG"/>
-                                                                                </constraints>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
                                                                                 <state key="normal" title="Button"/>
                                                                             </button>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P27-d5-Ilb" userLabel="Button 3 Subtitle">
-                                                                                <rect key="frame" x="0.0" y="75.5" width="70.5" height="20.5"/>
+                                                                                <rect key="frame" x="0.0" y="75.5" width="70" height="20.5"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
@@ -140,7 +134,6 @@
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
                                                                             <constraint firstItem="8Vn-hm-fwc" firstAttribute="top" secondItem="Slw-q6-3TU" secondAttribute="top" id="d44-5u-6aJ"/>
-                                                                            <constraint firstItem="8Vn-hm-fwc" firstAttribute="width" secondItem="Slw-q6-3TU" secondAttribute="width" id="gAa-s7-eUe"/>
                                                                             <constraint firstItem="8Vn-hm-fwc" firstAttribute="centerX" secondItem="Slw-q6-3TU" secondAttribute="centerX" id="gbN-QP-zsj"/>
                                                                             <constraint firstAttribute="bottom" secondItem="P27-d5-Ilb" secondAttribute="bottom" id="jDz-wA-8XJ"/>
                                                                             <constraint firstAttribute="trailing" secondItem="P27-d5-Ilb" secondAttribute="trailing" id="jef-VL-GKZ"/>
@@ -149,17 +142,14 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gxd-IS-yjz" userLabel="Button 4 Container">
-                                                                        <rect key="frame" x="283" y="0.0" width="71" height="96"/>
+                                                                        <rect key="frame" x="245" y="0.0" width="70" height="96"/>
                                                                         <subviews>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sjl-Ik-fvs" userLabel="Button 4" customClass="RoundDrinkButton" customModule="Drip" customModuleProvider="target">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="71" height="70.5"/>
-                                                                                <constraints>
-                                                                                    <constraint firstAttribute="width" secondItem="Sjl-Ik-fvs" secondAttribute="height" id="lxR-R9-HaF"/>
-                                                                                </constraints>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
                                                                                 <state key="normal" title="Button"/>
                                                                             </button>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rth-Gm-QPL" userLabel="Button 4 Subtitle">
-                                                                                <rect key="frame" x="0.0" y="75.5" width="71" height="20.5"/>
+                                                                                <rect key="frame" x="0.0" y="75.5" width="70" height="20.5"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
@@ -170,7 +160,6 @@
                                                                             <constraint firstAttribute="bottom" secondItem="Rth-Gm-QPL" secondAttribute="bottom" id="1KI-ma-3Fu"/>
                                                                             <constraint firstAttribute="trailing" secondItem="Rth-Gm-QPL" secondAttribute="trailing" id="KKT-SO-0l9"/>
                                                                             <constraint firstItem="Rth-Gm-QPL" firstAttribute="leading" secondItem="gxd-IS-yjz" secondAttribute="leading" id="MZ2-mw-RYG"/>
-                                                                            <constraint firstItem="Sjl-Ik-fvs" firstAttribute="width" secondItem="gxd-IS-yjz" secondAttribute="width" id="S4L-2E-hzg"/>
                                                                             <constraint firstItem="Sjl-Ik-fvs" firstAttribute="top" secondItem="gxd-IS-yjz" secondAttribute="top" id="qxC-W2-qrr"/>
                                                                             <constraint firstItem="Sjl-Ik-fvs" firstAttribute="centerX" secondItem="gxd-IS-yjz" secondAttribute="centerX" id="rLP-y9-Yqp"/>
                                                                             <constraint firstItem="Rth-Gm-QPL" firstAttribute="centerX" secondItem="gxd-IS-yjz" secondAttribute="centerX" id="uhj-Sy-4bE"/>
@@ -178,9 +167,14 @@
                                                                     </view>
                                                                 </subviews>
                                                                 <constraints>
+                                                                    <constraint firstItem="EfS-ui-UbD" firstAttribute="width" secondItem="o0F-fC-aSf" secondAttribute="width" id="A5P-Vb-4op"/>
                                                                     <constraint firstItem="Slw-q6-3TU" firstAttribute="width" secondItem="sUu-d5-Itl" secondAttribute="width" id="DLk-1z-PT4"/>
+                                                                    <constraint firstItem="EfS-ui-UbD" firstAttribute="height" secondItem="o0F-fC-aSf" secondAttribute="height" id="SKm-ow-VwQ"/>
+                                                                    <constraint firstItem="8Vn-hm-fwc" firstAttribute="height" secondItem="o0F-fC-aSf" secondAttribute="height" id="cjb-6Q-kyd"/>
+                                                                    <constraint firstItem="8Vn-hm-fwc" firstAttribute="width" secondItem="o0F-fC-aSf" secondAttribute="width" id="ePm-TN-Trp"/>
                                                                     <constraint firstItem="gxd-IS-yjz" firstAttribute="width" secondItem="sUu-d5-Itl" secondAttribute="width" id="jfo-uR-otf"/>
-                                                                    <constraint firstItem="sUu-d5-Itl" firstAttribute="width" secondItem="jh7-Yj-JGM" secondAttribute="width" multiplier="0.2" id="uAA-sJ-EdV"/>
+                                                                    <constraint firstItem="Sjl-Ik-fvs" firstAttribute="width" secondItem="o0F-fC-aSf" secondAttribute="width" id="p23-gk-ePB"/>
+                                                                    <constraint firstItem="Sjl-Ik-fvs" firstAttribute="height" secondItem="o0F-fC-aSf" secondAttribute="height" id="rKq-k2-RM5"/>
                                                                     <constraint firstItem="9k1-wG-3lX" firstAttribute="width" secondItem="sUu-d5-Itl" secondAttribute="width" id="w6K-Cj-o49"/>
                                                                 </constraints>
                                                             </stackView>
@@ -204,17 +198,17 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sic-TZ-ouG" userLabel="Extra Content View" customClass="PlaceholderView" customModule="Drip" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="478.5" width="414" height="600"/>
+                                                <rect key="frame" x="0.0" y="387" width="375" height="600"/>
                                                 <subviews>
                                                     <view alpha="0.10000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1r-vI-jSE" userLabel="Seperator 1">
-                                                        <rect key="frame" x="20" y="0.0" width="374" height="1"/>
+                                                        <rect key="frame" x="20" y="0.0" width="335" height="1"/>
                                                         <color key="backgroundColor" name="separatorColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="UTd-0e-Uta"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WQM-qp-wPh" userLabel="Today Content" customClass="PlaceholderView" customModule="Drip" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="1" width="414" height="96"/>
+                                                        <rect key="frame" x="0.0" y="1" width="375" height="96"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wXS-J3-KVO">
                                                                 <rect key="frame" x="30" y="10" width="46" height="20.5"/>
@@ -229,7 +223,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HDQ-9U-RJa" customClass="GradientBarView" customModule="Drip" customModuleProvider="target">
-                                                                <rect key="frame" x="30" y="56" width="354" height="30"/>
+                                                                <rect key="frame" x="30" y="56" width="315" height="30"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="aQM-pv-amG"/>
@@ -249,14 +243,14 @@
                                                         </constraints>
                                                     </view>
                                                     <view alpha="0.10000000149011612" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Zr-ri-PLD" userLabel="Seperator 1">
-                                                        <rect key="frame" x="20" y="97" width="374" height="1"/>
+                                                        <rect key="frame" x="20" y="97" width="335" height="1"/>
                                                         <color key="backgroundColor" name="separatorColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="di1-8o-M9z"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="46t-fB-9w4" userLabel="This Morning Content" customClass="PlaceholderView" customModule="Drip" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="98" width="414" height="96"/>
+                                                        <rect key="frame" x="0.0" y="98" width="375" height="96"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This Morning" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RaE-bo-kaN">
                                                                 <rect key="frame" x="30" y="10" width="99.5" height="20.5"/>
@@ -271,7 +265,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rVC-Vd-BBx" customClass="GradientBarView" customModule="Drip" customModuleProvider="target">
-                                                                <rect key="frame" x="30" y="56" width="354" height="30"/>
+                                                                <rect key="frame" x="30" y="56" width="315" height="30"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="P6c-AV-Uok"/>
