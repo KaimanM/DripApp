@@ -404,11 +404,11 @@ class ProgressRingView: UIView {
         rotationAnimation.fillMode = CAMediaTimingFillMode.both
         rotationAnimation.isRemovedOnCompletion = false
 
-        if currentFill >= 1 && percent >= 1 {
+        if currentFill >= 1 {
             rotationAnimation.beginTime = CACurrentMediaTime()
-        } else if (0.75...1).contains(currentFill) && percent > 1 {
+        } else if (0.75...1).contains(currentFill) {
             rotationAnimation.beginTime = CACurrentMediaTime() + timings.time2
-        } else if currentFill < 0.75 && percent > 1 {
+        } else {
             rotationAnimation.beginTime = CACurrentMediaTime() + timings.time1 + timings.time2
         }
 
