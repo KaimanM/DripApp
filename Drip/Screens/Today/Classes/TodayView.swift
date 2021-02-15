@@ -8,6 +8,10 @@ final class TodayView: UIViewController, TodayViewProtocol {
     @IBOutlet weak var todayGradientBarView: GradientBarView!
     @IBOutlet weak var thisMorningVolumeLabel: UILabel!
     @IBOutlet weak var thisMorningGradientBarView: GradientBarView!
+    @IBOutlet weak var thisAfternoonVolumeLabel: UILabel!
+    @IBOutlet weak var thisAfternoonGradientBarView: GradientBarView!
+    @IBOutlet weak var thisEveningVolumeLabel: UILabel!
+    @IBOutlet weak var thisEveningGradientBarView: GradientBarView!
     @IBOutlet weak var drinkButton1: UIButton!
     @IBOutlet weak var drinkButton2: UIButton!
     @IBOutlet weak var drinkButton3: UIButton!
@@ -95,6 +99,19 @@ final class TodayView: UIViewController, TodayViewProtocol {
         thisMorningVolumeLabel.font = UIFont.SFProRounded(ofSize: 28, fontWeight: .medium)
         thisMorningVolumeLabel.textColor = .dripMerged
         thisMorningGradientBarView.setProgress(progress: CGFloat(randomDouble))
+
+        randomDouble = Double.random(in: 0...1)
+        thisAfternoonVolumeLabel.text = "\(Int(round(randomDouble*700)))/700ml"
+        thisAfternoonVolumeLabel.font = UIFont.SFProRounded(ofSize: 28, fontWeight: .medium)
+        thisAfternoonVolumeLabel.textColor = .dripMerged
+        thisAfternoonGradientBarView.setProgress(progress: CGFloat(randomDouble))
+
+        randomDouble = Double.random(in: 0...1)
+        thisEveningVolumeLabel.text = "\(Int(round(randomDouble*700)))/700ml"
+        thisEveningVolumeLabel.font = UIFont.SFProRounded(ofSize: 28, fontWeight: .medium)
+        thisEveningVolumeLabel.textColor = .dripMerged
+        thisEveningGradientBarView.setProgress(progress: CGFloat(randomDouble))
+
     }
 
     func animateLabel(endValue: Double, animationDuration: Double) {

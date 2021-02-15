@@ -27,7 +27,7 @@ class GradientBarView: UIView {
 
     func setProgress(progress: CGFloat) {
         self.percent = progress
-        animateBarWithDuration(2.25)
+        animateBarWithDuration(2)
     }
 
     private func animateBarWithDuration(_ duration: CFTimeInterval) {
