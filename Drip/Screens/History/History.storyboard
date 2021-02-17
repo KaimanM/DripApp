@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -45,17 +46,54 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y2t-dj-h5q">
+                                <rect key="frame" x="0.0" y="364" width="414" height="532"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="SoR-1b-96c">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="590"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Csu-Mf-4qL">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="340"/>
+                                                <color key="backgroundColor" systemColor="systemTealColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="340" id="Su9-07-Htx"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0rL-lc-blr">
+                                                <rect key="frame" x="0.0" y="340" width="414" height="250"/>
+                                                <color key="backgroundColor" systemColor="systemRedColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="250" id="ES1-Uu-tMP"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="SoR-1b-96c" firstAttribute="leading" secondItem="Y2t-dj-h5q" secondAttribute="leading" id="24M-QS-Xvl"/>
+                                    <constraint firstAttribute="bottom" secondItem="SoR-1b-96c" secondAttribute="bottom" id="MeT-Cx-lTF"/>
+                                    <constraint firstAttribute="trailing" secondItem="SoR-1b-96c" secondAttribute="trailing" id="ZGh-fB-qwp"/>
+                                    <constraint firstItem="SoR-1b-96c" firstAttribute="width" secondItem="Y2t-dj-h5q" secondAttribute="width" id="eW3-8J-V5c"/>
+                                    <constraint firstItem="SoR-1b-96c" firstAttribute="top" secondItem="Y2t-dj-h5q" secondAttribute="top" id="pTN-oC-hye"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ohu-Pe-6R6"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="25Z-n5-glV" firstAttribute="top" secondItem="ohu-Pe-6R6" secondAttribute="top" id="85A-jw-MPR"/>
+                            <constraint firstAttribute="bottom" secondItem="Y2t-dj-h5q" secondAttribute="bottom" id="IEw-3f-2Wo"/>
                             <constraint firstItem="ohu-Pe-6R6" firstAttribute="trailing" secondItem="25Z-n5-glV" secondAttribute="trailing" id="Ls0-mR-fb3"/>
                             <constraint firstItem="25Z-n5-glV" firstAttribute="leading" secondItem="ohu-Pe-6R6" secondAttribute="leading" id="Mu5-7N-j5h"/>
+                            <constraint firstItem="Y2t-dj-h5q" firstAttribute="leading" secondItem="ohu-Pe-6R6" secondAttribute="leading" id="NGC-lC-TSR"/>
+                            <constraint firstItem="ohu-Pe-6R6" firstAttribute="trailing" secondItem="Y2t-dj-h5q" secondAttribute="trailing" id="TGE-dz-CM1"/>
+                            <constraint firstItem="Y2t-dj-h5q" firstAttribute="top" secondItem="25Z-n5-glV" secondAttribute="bottom" constant="20" id="TQW-MB-LVd"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="calendar" destination="25Z-n5-glV" id="FeH-SE-d3m"/>
+                        <outlet property="calendarHeightConstraint" destination="fbw-gO-XCl" id="bUh-mj-cCB"/>
+                        <outlet property="scrollView" destination="Y2t-dj-h5q" id="LLk-K8-kCT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7qG-cT-ALq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -69,6 +107,12 @@
         </namedColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemTealColor">
+            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
