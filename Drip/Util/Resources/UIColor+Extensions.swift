@@ -25,4 +25,6 @@ extension UIColor {
     static var dripPrimary: UIColor = UIColor(named: "dripPrimary") ?? .blue
     static var dripSecondary: UIColor = UIColor(named: "dripSecondary") ?? .cyan
     static var dripMerged: UIColor = UIColor(named: "dripMerged") ?? .blue
+    static var dripShadow: UIColor = UIColor(named: "dripShadow") ?? .darkGray
+    static var infoPanelBG: UIColor = UIColor(named: "infoPanelBG") ?? .gray
 }

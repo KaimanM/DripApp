@@ -7,6 +7,12 @@ final class HistoryView: UIViewController, HistoryViewProtocol {
     @IBOutlet var calendar: FSCalendar!
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var infoPanelView: UIView!
+    @IBOutlet weak var ringView: ProgressRingView!
+    @IBOutlet weak var dayLabel: UILabel!
+    @IBOutlet weak var subtitleLabel: UILabel!
+    @IBOutlet weak var volumeLabel: UILabel!
+
 
     fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
         [unowned self] in
@@ -32,6 +38,7 @@ final class HistoryView: UIViewController, HistoryViewProtocol {
 
         self.view.addGestureRecognizer(self.scopeGesture)
         self.scrollView.panGestureRecognizer.require(toFail: self.scopeGesture)
+        setupInfoPanel()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -44,6 +51,23 @@ final class HistoryView: UIViewController, HistoryViewProtocol {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewDidLoad()
+    }
+
+    func setupInfoPanel() {
+        infoPanelView.layer.cornerRadius = 10
+        infoPanelView.backgroundColor = .infoPanelBG
+        ringView.setupGradientRingView(progress: 0,
+                                       firstColour: .dripPrimary,
+                                       secondColour: .dripSecondary,
+                                       shadowColour: .dripShadow,
+                                       lineWidth: 20)
+        ringView.backgroundColor = .clear
+        dayLabel.font = UIFont.SFProRounded(ofSize: 20, fontWeight: .regular)
+        dayLabel.textColor = .white
+        subtitleLabel.textColor = .white
+        subtitleLabel.font = UIFont.SFProRounded(ofSize: 14, fontWeight: .regular)
+        volumeLabel.font = UIFont.SFProRounded(ofSize: 30, fontWeight: .medium)
+        volumeLabel.textColor = .dripMerged
     }
 
     func presentView(_ view: UIViewController) {
@@ -110,6 +134,15 @@ extension HistoryView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDeleg
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
         }
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE, MMM d"
+        dayLabel.text = formatter.string(from: date)
+
+        let randomDouble = Double.random(in: 0...1) // remove me, placeholder
+        ringView.setProgress(CGFloat(randomDouble))
+        volumeLabel.text = "\(Int(randomDouble*2750))/2750ml"
+
     }
 
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {

@@ -30,38 +30,89 @@
                                         <real key="value" value="12"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="titleDefaultColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="value" name="whiteText"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="todayColor">
-                                        <color key="value" name="dripPrimary"/>
+                                        <color key="value" name="todaysDate"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="headerTitleColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="value" name="whiteText"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="weekdayTextColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="value" name="whiteText"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="selectionColor">
-                                        <color key="value" systemColor="secondaryLabelColor"/>
+                                        <color key="value" systemColor="systemGrayColor"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y2t-dj-h5q">
-                                <rect key="frame" x="0.0" y="364" width="414" height="532"/>
+                                <rect key="frame" x="0.0" y="344" width="414" height="552"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="SoR-1b-96c">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="590"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="380"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Csu-Mf-4qL">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="340"/>
-                                                <color key="backgroundColor" systemColor="systemTealColor"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Csu-Mf-4qL" userLabel="Info Container">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="130"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sz7-DT-nSs" userLabel="Info Panel View">
+                                                        <rect key="frame" x="10" y="10" width="394" height="110"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="56A-9y-HKe" userLabel="Progress Ring View" customClass="ProgressRingView" customModule="Drip" customModuleProvider="target">
+                                                                <rect key="frame" x="15" y="10" width="90" height="90"/>
+                                                                <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" secondItem="56A-9y-HKe" secondAttribute="height" id="tX4-C7-sZi"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wednesday, 17th Feb" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XVh-lE-bdG">
+                                                                <rect key="frame" x="125" y="9.9999999999999982" width="249" height="20.333333333333329"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="000/000ml" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2wO-LR-R45">
+                                                                <rect key="frame" x="125" y="79.666666666666686" width="249" height="20.333333333333329"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total water" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QN0-lv-hnr">
+                                                                <rect key="frame" x="125" y="59.333333333333321" width="249" height="20.333333333333336"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="QN0-lv-hnr" secondAttribute="trailing" constant="20" id="1D0-KY-Yab"/>
+                                                            <constraint firstItem="56A-9y-HKe" firstAttribute="leading" secondItem="sz7-DT-nSs" secondAttribute="leading" constant="15" id="3BX-uw-o0g"/>
+                                                            <constraint firstItem="XVh-lE-bdG" firstAttribute="leading" secondItem="56A-9y-HKe" secondAttribute="trailing" constant="20" id="61e-W1-HjA"/>
+                                                            <constraint firstItem="56A-9y-HKe" firstAttribute="top" secondItem="sz7-DT-nSs" secondAttribute="top" constant="10" id="9ke-Iv-VUC"/>
+                                                            <constraint firstItem="2wO-LR-R45" firstAttribute="top" secondItem="QN0-lv-hnr" secondAttribute="bottom" id="Cgz-rj-3rS"/>
+                                                            <constraint firstItem="2wO-LR-R45" firstAttribute="leading" secondItem="56A-9y-HKe" secondAttribute="trailing" constant="20" id="TWW-22-omp"/>
+                                                            <constraint firstAttribute="trailing" secondItem="2wO-LR-R45" secondAttribute="trailing" constant="20" id="Ulh-fW-icl"/>
+                                                            <constraint firstAttribute="bottom" secondItem="56A-9y-HKe" secondAttribute="bottom" constant="10" id="ZQf-gk-CdV"/>
+                                                            <constraint firstItem="QN0-lv-hnr" firstAttribute="leading" secondItem="56A-9y-HKe" secondAttribute="trailing" constant="20" id="hji-gp-TDX"/>
+                                                            <constraint firstItem="XVh-lE-bdG" firstAttribute="top" secondItem="sz7-DT-nSs" secondAttribute="top" constant="10" id="pU5-uH-ghG"/>
+                                                            <constraint firstItem="2wO-LR-R45" firstAttribute="bottom" secondItem="56A-9y-HKe" secondAttribute="bottom" id="tnc-Lo-54A"/>
+                                                            <constraint firstAttribute="trailing" secondItem="XVh-lE-bdG" secondAttribute="trailing" constant="20" id="uc6-RF-jhu"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="340" id="Su9-07-Htx"/>
+                                                    <constraint firstAttribute="height" constant="130" id="Su9-07-Htx"/>
+                                                    <constraint firstAttribute="bottom" secondItem="sz7-DT-nSs" secondAttribute="bottom" constant="10" id="fyn-Ad-JkP"/>
+                                                    <constraint firstAttribute="trailing" secondItem="sz7-DT-nSs" secondAttribute="trailing" constant="10" id="gBg-B5-Bri"/>
+                                                    <constraint firstItem="sz7-DT-nSs" firstAttribute="leading" secondItem="Csu-Mf-4qL" secondAttribute="leading" constant="10" id="hUa-ki-QKM"/>
+                                                    <constraint firstItem="sz7-DT-nSs" firstAttribute="top" secondItem="Csu-Mf-4qL" secondAttribute="top" constant="10" id="pdu-ry-AkA"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0rL-lc-blr">
-                                                <rect key="frame" x="0.0" y="340" width="414" height="250"/>
-                                                <color key="backgroundColor" systemColor="systemRedColor"/>
+                                                <rect key="frame" x="0.0" y="130" width="414" height="250"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="250" id="ES1-Uu-tMP"/>
                                                 </constraints>
@@ -87,13 +138,18 @@
                             <constraint firstItem="25Z-n5-glV" firstAttribute="leading" secondItem="ohu-Pe-6R6" secondAttribute="leading" id="Mu5-7N-j5h"/>
                             <constraint firstItem="Y2t-dj-h5q" firstAttribute="leading" secondItem="ohu-Pe-6R6" secondAttribute="leading" id="NGC-lC-TSR"/>
                             <constraint firstItem="ohu-Pe-6R6" firstAttribute="trailing" secondItem="Y2t-dj-h5q" secondAttribute="trailing" id="TGE-dz-CM1"/>
-                            <constraint firstItem="Y2t-dj-h5q" firstAttribute="top" secondItem="25Z-n5-glV" secondAttribute="bottom" constant="20" id="TQW-MB-LVd"/>
+                            <constraint firstItem="Y2t-dj-h5q" firstAttribute="top" secondItem="25Z-n5-glV" secondAttribute="bottom" id="TQW-MB-LVd"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="calendar" destination="25Z-n5-glV" id="FeH-SE-d3m"/>
                         <outlet property="calendarHeightConstraint" destination="fbw-gO-XCl" id="bUh-mj-cCB"/>
+                        <outlet property="dayLabel" destination="XVh-lE-bdG" id="q7R-1K-6FC"/>
+                        <outlet property="infoPanelView" destination="sz7-DT-nSs" id="yrj-mG-xIl"/>
+                        <outlet property="ringView" destination="56A-9y-HKe" id="apE-kn-Ogz"/>
                         <outlet property="scrollView" destination="Y2t-dj-h5q" id="LLk-K8-kCT"/>
+                        <outlet property="subtitleLabel" destination="QN0-lv-hnr" id="wOm-ag-pIm"/>
+                        <outlet property="volumeLabel" destination="2wO-LR-R45" id="Oiy-k4-Ftg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7qG-cT-ALq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -102,17 +158,20 @@
         </scene>
     </scenes>
     <resources>
-        <namedColor name="dripPrimary">
-            <color red="0.0" green="0.5690000057220459" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="todaysDate">
+            <color red="0.5" green="0.12202737889512794" blue="0.10341736403629948" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="secondaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="whiteText">
+            <color red="1" green="1" blue="1" alpha="0.87" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
-        <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
-        <systemColor name="systemTealColor">
-            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

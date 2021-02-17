@@ -80,7 +80,7 @@ final class TodayView: UIViewController, TodayViewProtocol {
         ringView.setupGradientRingView(progress: 0,
                                             firstColour: UIColor.dripPrimary,
                                             secondColour: UIColor.dripSecondary,
-                                            shadowColour: UIColor.dripPrimary.withAlphaComponent(0.15),
+                                            shadowColour: UIColor.dripShadow,
                                             lineWidth: ringWidth)
     }
 

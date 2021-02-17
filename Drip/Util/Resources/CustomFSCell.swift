@@ -21,7 +21,7 @@ class CustomFSCell: FSCalendarCell {
         super.init(frame: frame)
         let ringView = ProgressRingView()
         self.ringView = ringView
-        ringView.setupRingView(progress: 0.5, colour: .dripMerged, shadowColour: .darkGray, lineWidth: 6)
+        ringView.setupRingView(progress: 0.5, colour: .dripMerged, shadowColour: .dripShadow, lineWidth: 6)
         self.contentView.addSubview(self.ringView)
 
     }

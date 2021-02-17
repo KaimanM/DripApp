@@ -19,7 +19,7 @@ class GradientBarView: UIView {
         gradientLayer.cornerRadius = bounds.height/2
         gradientLayer.anchorPoint = CGPoint(x: 0, y: 0)
 
-        shadowLayer.backgroundColor = UIColor.dripPrimary.withAlphaComponent(0.15).cgColor
+        shadowLayer.backgroundColor = UIColor.dripShadow.cgColor
         shadowLayer.frame = bounds
         shadowLayer.cornerRadius = bounds.height/2
         shadowLayer.anchorPoint = CGPoint(x: 0, y: 0)
