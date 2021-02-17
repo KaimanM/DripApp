@@ -34,6 +34,10 @@ class ProgressRingView: UIView {
         super.init(coder: aDecoder)
     }
 
+    override init(frame: CGRect) {
+            super.init(frame: frame)
+        }
+
     // MARK: - Public
 
     func setupRingView(progress: CGFloat,
@@ -44,6 +48,7 @@ class ProgressRingView: UIView {
         self.shadowColor = shadowColour
         self.lineWidth = lineWidth
         self.percent = progress
+        setupContainerLayer()
         setupShadowLayer()
         setupFlatColorLayer()
     }
@@ -140,7 +145,7 @@ class ProgressRingView: UIView {
     }
 
     private func setupFlatColorLayer() {
-        layer.addSublayer(flatColorLayer)
+        containerLayer.addSublayer(flatColorLayer)
         flatColorLayer.path = getPath().cgPath
         flatColorLayer.lineWidth = lineWidth
         flatColorLayer.lineCap = .round

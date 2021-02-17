@@ -1,35 +1,18 @@
 import UIKit
+import FSCalendar
 
-final class HistoryView: UIViewController, UITableViewDelegate, UITableViewDataSource, HistoryViewProtocol {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-//        cell.textLabel?.text = "Cell \(indexPath.row)"
-//        cell.backgroundColor = .black
-//        cell.textLabel?.textColor = .red
-//        return cell
-
-        //swiftlint:disable:next force_cast
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ExampleCell") as! ExampleCell
-
-        cell.exampleLabel.text = "this is a test number \(indexPath.row)"
-        return cell
-    }
+final class HistoryView: UIViewController, HistoryViewProtocol {
 
     var presenter: HistoryPresenterProtocol!
+    @IBOutlet var calendar: FSCalendar!
 
-    @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         presenter.onViewDidLoad()
         self.navigationItem.largeTitleDisplayMode = .automatic
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.backgroundColor = .black
-        tableView.rowHeight = 44
+        calendar.dataSource = self
+        calendar.delegate = self
+        calendar.register(CustomFSCell.self, forCellReuseIdentifier: "cell")
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -58,12 +41,27 @@ final class HistoryView: UIViewController, UITableViewDelegate, UITableViewDataS
 
 }
 
-class ExampleCell: UITableViewCell {
-    @IBOutlet weak var exampleLabel: UILabel!
-    @IBOutlet weak var exampleImage: UIImageView!
+extension HistoryView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
 
-    override func awakeFromNib() {
-        backgroundColor = .black
-        exampleLabel.textColor = .green
+    func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
+//        let cell = calendar.dequeueReusableCell(withIdentifier: "cell", for: date, at: position) as! CustomFSCell
+
+        guard let cell = calendar.dequeueReusableCell(withIdentifier: "cell",
+                                                      for: date,
+                                                      at: position) as? CustomFSCell else {
+            return FSCalendarCell()
+        }
+
+        if Calendar.current.isDate(date, inSameDayAs: Date()) {
+            cell.ringView.setProgress(0.8)
+        } else {
+            cell.ringView.setProgress(0)
+        }
+        return cell
     }
+
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        print("selected: \(date)")
+    }
+
 }
