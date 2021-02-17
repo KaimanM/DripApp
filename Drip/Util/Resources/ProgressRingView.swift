@@ -57,7 +57,8 @@ class ProgressRingView: UIView {
                                firstColour: UIColor,
                                secondColour: UIColor,
                                shadowColour: UIColor,
-                               lineWidth: CGFloat) {
+                               lineWidth: CGFloat,
+                               ringImage: UIImage? = nil) {
         self.shadowColor = shadowColour
         self.lineWidth = lineWidth
         self.percent = progress
@@ -72,7 +73,9 @@ class ProgressRingView: UIView {
         setupGradientPart1()
         setupCircleLayer()
         setupGradientPart2()
-        setupImageLayer()
+        if let ringImage = ringImage {
+            setupImageLayer(image: ringImage)
+        }
     }
 
     func setProgress(_ progress: CGFloat) {
@@ -95,8 +98,7 @@ class ProgressRingView: UIView {
 //        containerLayer.backgroundColor = UIColor.red.cgColor
     }
 
-    private func setupImageLayer() {
-        let image = UIImage(named: "icon-clear-noshadow")
+    private func setupImageLayer(image: UIImage) {
         imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
         addSubview(imageView)
@@ -212,7 +214,7 @@ class ProgressRingView: UIView {
         shadowLayer.frame = containerLayer.bounds
         circleContainer.frame = containerLayer.bounds
 
-        circle.frame = CGRect(x: circleContainer.bounds.midX-lineWidth/2, y: 0, width: 30, height: 30)
+        circle.frame = CGRect(x: circleContainer.bounds.midX-lineWidth/2, y: 0, width: lineWidth, height: lineWidth)
         circle.shadowPath = UIBezierPath(ovalIn: circle.bounds).cgPath
 
         imageView.frame = CGRect(x: bounds.midX-(lineWidth*0.8*0.5),

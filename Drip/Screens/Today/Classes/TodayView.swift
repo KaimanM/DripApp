@@ -81,7 +81,8 @@ final class TodayView: UIViewController, TodayViewProtocol {
                                             firstColour: UIColor.dripPrimary,
                                             secondColour: UIColor.dripSecondary,
                                             shadowColour: UIColor.dripShadow,
-                                            lineWidth: ringWidth)
+                                            lineWidth: ringWidth,
+                                            ringImage: UIImage(named: "icon-clear-noshadow"))
     }
 
     func setRingProgress(progress: Double) {
