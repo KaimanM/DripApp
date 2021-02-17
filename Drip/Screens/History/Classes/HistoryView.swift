@@ -12,7 +12,8 @@ final class HistoryView: UIViewController, HistoryViewProtocol {
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var volumeLabel: UILabel!
-
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
 
     fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
         [unowned self] in
@@ -35,6 +36,11 @@ final class HistoryView: UIViewController, HistoryViewProtocol {
         calendar.dataSource = self
         calendar.delegate = self
         calendar.register(CustomFSCell.self, forCellReuseIdentifier: "cell")
+
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.backgroundColor = .clear
+        tableView.isScrollEnabled = false
 
         self.view.addGestureRecognizer(self.scopeGesture)
         self.scrollView.panGestureRecognizer.require(toFail: self.scopeGesture)
@@ -81,6 +87,11 @@ final class HistoryView: UIViewController, HistoryViewProtocol {
 
     func updateTitle(title: String) {
         self.title = title
+    }
+
+    override func viewWillLayoutSubviews() {
+        super.updateViewConstraints()
+        self.tableViewHeightConstraint?.constant = self.tableView.contentSize.height
     }
 
 }
@@ -153,6 +164,33 @@ extension HistoryView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDeleg
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
         self.calendarHeightConstraint.constant = bounds.height
         self.view.layoutIfNeeded()
+    }
+
+}
+
+extension HistoryView: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "drinkCell") as! DrinkTableViewCell
+
+                // set the text from the data model
+        cell.drinkLabel.text = "Cola"
+        cell.volumeLabel.text = "1580ml"
+        cell.drinkImageView?.image = UIImage(named: "cola.svg")?.withTintColor(UIColor.white.withAlphaComponent(0.5))
+            .withAlignmentRectInsets(UIEdgeInsets(top: -10,
+                                                  left: -10,
+                                                  bottom: -10,
+                                                  right: -10))
+
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
 
 }
