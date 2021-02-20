@@ -24,12 +24,32 @@ class DrinkTableViewCell: UITableViewCell {
         containerView.backgroundColor = .infoPanelBG
         volumeLabel.font = UIFont.SFProRounded(ofSize: 30, fontWeight: .medium)
         volumeLabel.textColor = .dripMerged
-        drinkLabel.font = UIFont.SFProRounded(ofSize: 25, fontWeight: .medium)
-        drinkLabel.textColor = UIColor.white.withAlphaComponent(0.87)
+//        drinkLabel.font = UIFont.SFProRounded(ofSize: 25, fontWeight: .medium)
+//        drinkLabel.textColor = UIColor.white.withAlphaComponent(0.87)
         imageViewContainer.backgroundColor = .clear
-        imageViewContainer.layer.borderWidth = 3
-        imageViewContainer.layer.borderColor = UIColor.dripMerged.cgColor
         drinkImageView.contentMode = .scaleAspectFit
+
+        // Create Gradient Layer
+        let gradientLayer:CAGradientLayer = CAGradientLayer()
+        gradientLayer.frame = imageViewContainer.bounds
+        gradientLayer.colors = [UIColor.hexStringToUIColor(hex: "004997").cgColor,
+                                UIColor.black.cgColor]
+
+        gradientLayer.startPoint = CGPoint(x: 1, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0, y: 1)
+        imageViewContainer.layer.insertSublayer(gradientLayer, at: 0)
+
+        // Create Mask for Gradient Layer
+        let maskPath = UIBezierPath(roundedRect: imageViewContainer.bounds,
+                                    byRoundingCorners: .allCorners,
+                                    cornerRadii: CGSize(width: imageViewContainer.frame.height/2,
+                                                        height: imageViewContainer.frame.height/2))
+
+        let maskLayer = CAShapeLayer()
+        maskLayer.frame = imageViewContainer.bounds
+        maskLayer.path = maskPath.cgPath
+
+        gradientLayer.mask = maskLayer
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

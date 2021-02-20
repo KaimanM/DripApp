@@ -14,6 +14,8 @@ final class HistoryView: UIViewController, HistoryViewProtocol {
     @IBOutlet weak var volumeLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
+    let drinkNames = ["Water", "Coffee", "Soda"]
+    let drinkImageNames = ["waterbottle.svg", "coffee.svg", "cola.svg"]
 
     fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
         [unowned self] in
@@ -41,6 +43,7 @@ final class HistoryView: UIViewController, HistoryViewProtocol {
         tableView.dataSource = self
         tableView.backgroundColor = .clear
         tableView.isScrollEnabled = false
+        tableView.separatorColor = .clear
 
         self.view.addGestureRecognizer(self.scopeGesture)
         self.scrollView.panGestureRecognizer.require(toFail: self.scopeGesture)
@@ -69,12 +72,13 @@ final class HistoryView: UIViewController, HistoryViewProtocol {
                                        lineWidth: 20,
                                        ringImage: UIImage(named: "icon-clear-noshadow"))
         ringView.backgroundColor = .clear
-        dayLabel.font = UIFont.SFProRounded(ofSize: 20, fontWeight: .regular)
+        dayLabel.font = UIFont.SFProRounded(ofSize: 24, fontWeight: .regular)
         dayLabel.textColor = .white
         subtitleLabel.textColor = .white
-        subtitleLabel.font = UIFont.SFProRounded(ofSize: 14, fontWeight: .regular)
+        subtitleLabel.font = UIFont.SFProRounded(ofSize: 16, fontWeight: .regular)
         volumeLabel.font = UIFont.SFProRounded(ofSize: 30, fontWeight: .medium)
         volumeLabel.textColor = .dripMerged
+        calendar.scope = .week
     }
 
     func presentView(_ view: UIViewController) {
@@ -91,7 +95,16 @@ final class HistoryView: UIViewController, HistoryViewProtocol {
 
     override func viewWillLayoutSubviews() {
         super.updateViewConstraints()
-        self.tableViewHeightConstraint?.constant = self.tableView.contentSize.height
+//        print("tableview height at willlayoutsubviews: \(tableView.contentSize.height)")
+        self.tableViewHeightConstraint?.constant = tableView.contentSize.height
+    }
+
+    @IBAction func calendarToggleTapped(_ sender: Any) {
+        if self.calendar.scope == .month {
+            self.calendar.setScope(.week, animated: true)
+        } else {
+            self.calendar.setScope(.month, animated: true)
+        }
     }
 
 }
@@ -154,6 +167,11 @@ extension HistoryView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDeleg
         let randomDouble = Double.random(in: 0...1) // remove me, placeholder
         ringView.setProgress(CGFloat(randomDouble))
         volumeLabel.text = "\(Int(randomDouble*2750))/2750ml"
+        tableView.reloadData()
+//        self.tableViewHeightConstraint?.constant = 1000 // do we need this somewhere to fix bug
+//        self.view.layoutIfNeeded()
+
+//        print("tableview height: \(tableView.contentSize.height)")
 
     }
 
@@ -170,21 +188,27 @@ extension HistoryView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDeleg
 
 extension HistoryView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return Int.random(in: 0...5)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: "drinkCell") as! DrinkTableViewCell
+//        let cell = self.tableView.dequeueReusableCell(withIdentifier: "drinkCell") as! DrinkTableViewCell
 
-                // set the text from the data model
-        cell.drinkLabel.text = "Cola"
-        cell.volumeLabel.text = "1580ml"
-        cell.drinkImageView?.image = UIImage(named: "cola.svg")?.withTintColor(UIColor.white.withAlphaComponent(0.5))
-            .withAlignmentRectInsets(UIEdgeInsets(top: -10,
-                                                  left: -10,
-                                                  bottom: -10,
-                                                  right: -10))
+        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "drinkCell") as? DrinkTableViewCell else {
+            return UITableViewCell()
+        }
+
+        let randomInt = Int.random(in: 0...2)
+        cell.drinkLabel.text = drinkNames[randomInt]
+        let randomInt2 = Int.random(in: 100...500)
+        cell.volumeLabel.text = "\(randomInt2)ml"
+        cell.drinkImageView?.image = UIImage(named: drinkImageNames[randomInt])?
+            .withTintColor(UIColor.white.withAlphaComponent(0.5))
+            .withAlignmentRectInsets(UIEdgeInsets(top: -15,
+                                                  left: -15,
+                                                  bottom: -15,
+                                                  right: -15))
 
         return cell
     }
