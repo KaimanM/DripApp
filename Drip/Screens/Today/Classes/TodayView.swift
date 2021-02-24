@@ -80,8 +80,9 @@ final class TodayView: UIViewController, TodayViewProtocol {
         ringView.setupGradientRingView(progress: 0,
                                             firstColour: UIColor.dripPrimary,
                                             secondColour: UIColor.dripSecondary,
-                                            shadowColour: UIColor.dripPrimary.withAlphaComponent(0.15),
-                                            lineWidth: ringWidth)
+                                            shadowColour: UIColor.dripShadow,
+                                            lineWidth: ringWidth,
+                                            ringImage: UIImage(named: "icon-clear-noshadow"))
     }
 
     func setRingProgress(progress: Double) {
