@@ -17,34 +17,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="25Z-n5-glV" customClass="FSCalendar">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1YI-MF-4uq" customClass="FSCalendar">
                                 <rect key="frame" x="0.0" y="44" width="414" height="300"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="fbw-gO-XCl"/>
+                                    <constraint firstAttribute="height" constant="300" id="mH1-Ka-Gyf"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="firstWeekday">
-                                        <integer key="value" value="2"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="titleTextSize">
-                                        <real key="value" value="12"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="titleDefaultColor">
-                                        <color key="value" name="whiteText"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="todayColor">
-                                        <color key="value" name="todaysDate"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="headerTitleColor">
-                                        <color key="value" name="whiteText"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="weekdayTextColor">
-                                        <color key="value" name="whiteText"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="selectionColor">
-                                        <color key="value" systemColor="systemGrayColor"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y2t-dj-h5q">
                                 <rect key="frame" x="0.0" y="344" width="414" height="518"/>
@@ -276,18 +254,18 @@
                         <viewLayoutGuide key="safeArea" id="ohu-Pe-6R6"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="25Z-n5-glV" firstAttribute="top" secondItem="ohu-Pe-6R6" secondAttribute="top" id="85A-jw-MPR"/>
                             <constraint firstItem="ohu-Pe-6R6" firstAttribute="bottom" secondItem="Y2t-dj-h5q" secondAttribute="bottom" id="IEw-3f-2Wo"/>
-                            <constraint firstItem="ohu-Pe-6R6" firstAttribute="trailing" secondItem="25Z-n5-glV" secondAttribute="trailing" id="Ls0-mR-fb3"/>
-                            <constraint firstItem="25Z-n5-glV" firstAttribute="leading" secondItem="ohu-Pe-6R6" secondAttribute="leading" id="Mu5-7N-j5h"/>
                             <constraint firstItem="Y2t-dj-h5q" firstAttribute="leading" secondItem="ohu-Pe-6R6" secondAttribute="leading" id="NGC-lC-TSR"/>
                             <constraint firstItem="ohu-Pe-6R6" firstAttribute="trailing" secondItem="Y2t-dj-h5q" secondAttribute="trailing" id="TGE-dz-CM1"/>
-                            <constraint firstItem="Y2t-dj-h5q" firstAttribute="top" secondItem="25Z-n5-glV" secondAttribute="bottom" id="TQW-MB-LVd"/>
+                            <constraint firstItem="ohu-Pe-6R6" firstAttribute="trailing" secondItem="1YI-MF-4uq" secondAttribute="trailing" id="UxY-k7-Hxg"/>
+                            <constraint firstItem="Y2t-dj-h5q" firstAttribute="top" secondItem="1YI-MF-4uq" secondAttribute="bottom" id="Van-LY-556"/>
+                            <constraint firstItem="1YI-MF-4uq" firstAttribute="top" secondItem="ohu-Pe-6R6" secondAttribute="top" id="Wq1-Vw-CfF"/>
+                            <constraint firstItem="1YI-MF-4uq" firstAttribute="leading" secondItem="ohu-Pe-6R6" secondAttribute="leading" id="rXC-oN-u5J"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="calendar" destination="25Z-n5-glV" id="FeH-SE-d3m"/>
-                        <outlet property="calendarHeightConstraint" destination="fbw-gO-XCl" id="bUh-mj-cCB"/>
+                        <outlet property="calendar" destination="1YI-MF-4uq" id="O1R-tO-C7M"/>
+                        <outlet property="calendarHeightConstraint" destination="mH1-Ka-Gyf" id="zSC-UW-nXS"/>
                         <outlet property="dayLabel" destination="XVh-lE-bdG" id="q7R-1K-6FC"/>
                         <outlet property="infoPanelView" destination="sz7-DT-nSs" id="yrj-mG-xIl"/>
                         <outlet property="ringView" destination="56A-9y-HKe" id="apE-kn-Ogz"/>
@@ -306,9 +284,6 @@
     <resources>
         <namedColor name="dripMerged">
             <color red="0.2196078431372549" green="0.8901960784313725" blue="0.77254901960784317" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="todaysDate">
-            <color red="0.49803921568627452" green="0.12156862745098039" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="whiteText">
             <color red="1" green="1" blue="1" alpha="0.87000000476837158" colorSpace="custom" customColorSpace="sRGB"/>

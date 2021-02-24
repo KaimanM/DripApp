@@ -38,6 +38,7 @@ final class HistoryView: UIViewController, HistoryViewProtocol {
         calendar.dataSource = self
         calendar.delegate = self
         calendar.register(CustomFSCell.self, forCellReuseIdentifier: "cell")
+        setupCalendar()
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -79,6 +80,17 @@ final class HistoryView: UIViewController, HistoryViewProtocol {
         volumeLabel.font = UIFont.SFProRounded(ofSize: 30, fontWeight: .medium)
         volumeLabel.textColor = .dripMerged
         calendar.scope = .week
+    }
+
+    func setupCalendar() {
+        calendar.appearance.todayColor = UIColor(named: "todaysDate")
+        calendar.firstWeekday = 2
+        calendar.appearance.weekdayTextColor = UIColor(named: "whiteText")
+        calendar.appearance.headerTitleColor = UIColor(named: "whiteText")
+        calendar.appearance.selectionColor = UIColor.gray
+        calendar.appearance.titleDefaultColor = UIColor(named: "whiteText")
+        calendar.appearance.titleFont = UIFont.systemFont(ofSize: 12)
+        calendar.backgroundColor = .clear
     }
 
     func presentView(_ view: UIViewController) {
