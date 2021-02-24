@@ -224,6 +224,7 @@
                                                                     <outlet property="drinkImageView" destination="mfn-K2-A0x" id="Tl8-al-TLR"/>
                                                                     <outlet property="drinkLabel" destination="oKL-Yo-yDU" id="h4g-bY-WgP"/>
                                                                     <outlet property="imageViewContainer" destination="Ua4-eN-Bb2" id="PYn-Qy-cF6"/>
+                                                                    <outlet property="timeStampLabel" destination="vQc-rS-Smc" id="8oZ-VZ-hnh"/>
                                                                     <outlet property="volumeLabel" destination="Kd7-61-bpA" id="UTm-oX-yd8"/>
                                                                 </connections>
                                                             </tableViewCell>

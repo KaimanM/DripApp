@@ -15,6 +15,7 @@ class DrinkTableViewCell: UITableViewCell {
     @IBOutlet weak var drinkLabel: UILabel!
     @IBOutlet weak var volumeLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var timeStampLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

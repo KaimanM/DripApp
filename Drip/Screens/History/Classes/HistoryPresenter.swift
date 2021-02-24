@@ -12,6 +12,8 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     func onViewDidLoad() {
         print("Presenter onViewDidLoad firing correctly")
         view?.updateTitle(title: "History")
+        view?.setupCalendar()
+        view?.setupInfoPanel()
     }
 
 }

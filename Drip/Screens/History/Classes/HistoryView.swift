@@ -38,7 +38,6 @@ final class HistoryView: UIViewController, HistoryViewProtocol {
         calendar.dataSource = self
         calendar.delegate = self
         calendar.register(CustomFSCell.self, forCellReuseIdentifier: "cell")
-        setupCalendar()
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -48,19 +47,10 @@ final class HistoryView: UIViewController, HistoryViewProtocol {
 
         self.view.addGestureRecognizer(self.scopeGesture)
         self.scrollView.panGestureRecognizer.require(toFail: self.scopeGesture)
-        setupInfoPanel()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         presenter.onViewDidAppear()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewDidLoad()
     }
 
     func setupInfoPanel() {
@@ -79,7 +69,6 @@ final class HistoryView: UIViewController, HistoryViewProtocol {
         subtitleLabel.font = UIFont.SFProRounded(ofSize: 16, fontWeight: .regular)
         volumeLabel.font = UIFont.SFProRounded(ofSize: 30, fontWeight: .medium)
         volumeLabel.textColor = .dripMerged
-        calendar.scope = .week
     }
 
     func setupCalendar() {
@@ -91,6 +80,7 @@ final class HistoryView: UIViewController, HistoryViewProtocol {
         calendar.appearance.titleDefaultColor = UIColor(named: "whiteText")
         calendar.appearance.titleFont = UIFont.systemFont(ofSize: 12)
         calendar.backgroundColor = .clear
+        calendar.scope = .week
     }
 
     func presentView(_ view: UIViewController) {
@@ -107,7 +97,6 @@ final class HistoryView: UIViewController, HistoryViewProtocol {
 
     override func viewWillLayoutSubviews() {
         super.updateViewConstraints()
-//        print("tableview height at willlayoutsubviews: \(tableView.contentSize.height)")
         self.tableViewHeightConstraint?.constant = tableView.contentSize.height
     }
 
@@ -123,6 +112,7 @@ final class HistoryView: UIViewController, HistoryViewProtocol {
 
 extension HistoryView: UIGestureRecognizerDelegate {
 
+    // Handles Swipe to open calendar gesture
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         let shouldBegin = self.scrollView.contentOffset.y <= -self.scrollView.contentInset.top
         if shouldBegin {
@@ -143,9 +133,8 @@ extension HistoryView: UIGestureRecognizerDelegate {
 
 extension HistoryView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
 
-    // populates cell
+    // Populates Calendar Cells
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
-//        let cell = calendar.dequeueReusableCell(withIdentifier: "cell", for: date, at: position) as! CustomFSCell
 
         guard let cell = calendar.dequeueReusableCell(withIdentifier: "cell",
                                                       for: date,
@@ -163,7 +152,7 @@ extension HistoryView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDeleg
         return cell
     }
 
-    // did select
+    // Selected Calendar Cell
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print("did select date \(self.dateFormatter.string(from: date))")
         let selectedDates = calendar.selectedDates.map({self.dateFormatter.string(from: $0)})
@@ -180,11 +169,6 @@ extension HistoryView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDeleg
         ringView.setProgress(CGFloat(randomDouble))
         volumeLabel.text = "\(Int(randomDouble*2750))/2750ml"
         tableView.reloadData()
-//        self.tableViewHeightConstraint?.constant = 1000 // do we need this somewhere to fix bug
-//        self.view.layoutIfNeeded()
-
-//        print("tableview height: \(tableView.contentSize.height)")
-
     }
 
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
@@ -199,13 +183,12 @@ extension HistoryView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDeleg
 }
 
 extension HistoryView: UITableViewDelegate, UITableViewDataSource {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return Int.random(in: 0...5)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-//        let cell = self.tableView.dequeueReusableCell(withIdentifier: "drinkCell") as! DrinkTableViewCell
 
         guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "drinkCell") as? DrinkTableViewCell else {
             return UITableViewCell()
@@ -221,6 +204,10 @@ extension HistoryView: UITableViewDelegate, UITableViewDataSource {
                                                   left: -15,
                                                   bottom: -15,
                                                   right: -15))
+        let calObject = Calendar.current
+        let hour = calObject.component(.hour, from: Date())
+        let minutes = calObject.component(.minute, from: Date())
+        cell.timeStampLabel.text = "At \(hour):\(minutes)"
 
         return cell
     }
