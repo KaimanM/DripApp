@@ -26,7 +26,8 @@ class GradientBarView: UIView {
     }
 
     func setProgress(progress: CGFloat) {
-        self.percent = progress
+        let correctedProgress = progress > 1 ? 1 : progress
+        self.percent = correctedProgress
         animateBarWithDuration(2)
     }
 
@@ -40,7 +41,7 @@ class GradientBarView: UIView {
         let correctedValue = gradientLayer.bounds.width*percent < 30 ? 30 : gradientLayer.bounds.width*percent
         basicAnimation.toValue = correctedValue
         basicAnimation.duration = duration
-        basicAnimation.fillMode = .forwards
+        basicAnimation.fillMode = .both
         basicAnimation.isRemovedOnCompletion = false
         baseWidth = gradientLayer.bounds.width*percent
         gradientLayer.add(basicAnimation, forKey: "basicAnimation")
