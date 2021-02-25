@@ -98,6 +98,9 @@
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EfS-ui-UbD" userLabel="Button 2" customClass="RoundDrinkButton" customModule="Drip" customModuleProvider="target">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
                                                                                 <state key="normal" title="Button"/>
+                                                                                <connections>
+                                                                                    <action selector="drinkButton2Tapped:" destination="OlH-Y5-r6o" eventType="touchUpInside" id="ui7-cz-Zlq"/>
+                                                                                </connections>
                                                                             </button>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tqH-v7-B0Z" userLabel="Button 2 Subtitle">
                                                                                 <rect key="frame" x="0.0" y="75.5" width="70" height="20.5"/>

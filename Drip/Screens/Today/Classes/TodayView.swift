@@ -158,4 +158,8 @@ final class TodayView: UIViewController, TodayViewProtocol {
         presenter.onDrinkButton1Tapped()
     }
 
+    @IBAction func drinkButton2Tapped(_ sender: Any) {
+        presenter.onDrinkButton2Tapped()
+    }
+
 }

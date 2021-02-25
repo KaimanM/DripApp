@@ -6,7 +6,7 @@ final class TodayPresenter: TodayPresenterProtocol {
     let drinkGoal: Double = 2000
 
     var button1Drink = DrinkEntry(drinkName: "Water",
-                                  drinkVolume: 250,
+                                  drinkVolume: 450,
                                   imageName: "waterbottle.svg",
                                   timeStamp: Date())
 
@@ -49,6 +49,12 @@ final class TodayPresenter: TodayPresenterProtocol {
         updateGradientBars()
     }
 
+    func onDrinkButton2Tapped() {
+        todaysTotal -= button1Drink.drinkVolume
+        updateProgressRing()
+        updateGradientBars()
+    }
+
     func updateProgressRing() {
         print("this works")
         let progress = todaysTotal/drinkGoal
@@ -56,7 +62,7 @@ final class TodayPresenter: TodayPresenterProtocol {
         view?.animateLabel(endValue: progress*100, animationDuration: 2)
     }
 
-    func updateGradientBars(){
+    func updateGradientBars() {
         view?.setTodayGradientBarProgress(total: todaysTotal, goal: drinkGoal)
         view?.setMorningGradientBarProgress(total: todaysTotal, goal: drinkGoal/3)
     }
