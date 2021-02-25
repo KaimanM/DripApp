@@ -125,6 +125,9 @@
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Vn-hm-fwc" userLabel="Button 3" customClass="RoundDrinkButton" customModule="Drip" customModuleProvider="target">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
                                                                                 <state key="normal" title="Button"/>
+                                                                                <connections>
+                                                                                    <action selector="drinkButton3Tapped:" destination="OlH-Y5-r6o" eventType="touchUpInside" id="frJ-vS-XvQ"/>
+                                                                                </connections>
                                                                             </button>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P27-d5-Ilb" userLabel="Button 3 Subtitle">
                                                                                 <rect key="frame" x="0.0" y="75.5" width="70" height="20.5"/>

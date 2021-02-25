@@ -390,10 +390,10 @@ class ProgressRingView: UIView {
         self.circleContainer.add(shadowRotationAnimation, forKey: nil)
         self.gradientMaskPart2.add(ringFillAnimation, forKey: "basicAnimation2")
 
-        if percent > currentFill { //going up
-            if percent > 1 { rotateRingAnimation()}
-        } else {
-            if percent <= 0.75 {animateRing()}
+        if percent > 1 { //going up
+            rotateRingAnimation()
+        } else if percent <= 0.75 {
+            animateRing()
         }
 
     }
