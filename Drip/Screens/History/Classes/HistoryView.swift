@@ -49,8 +49,17 @@ final class HistoryView: UIViewController, HistoryViewProtocol, DataModelViewPro
         self.scrollView.panGestureRecognizer.require(toFail: self.scopeGesture)
     }
 
+    // Usually I would do data loading here, but this is calling before the viewwilldisappear of other views.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+
+    // load data here
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         presenter.onViewDidAppear()
+        self.tableView.reloadData()
+        self.viewWillLayoutSubviews() // readjusts height of tableview
     }
 
     func setupInfoPanel() {
@@ -185,7 +194,7 @@ extension HistoryView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDeleg
 extension HistoryView: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Int.random(in: 0...5)
+        return presenter.numberOfRowsInSection()
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -194,22 +203,7 @@ extension HistoryView: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
 
-        let randomInt = Int.random(in: 0...2)
-        cell.drinkLabel.text = drinkNames[randomInt]
-        let randomInt2 = Int.random(in: 100...500)
-        cell.volumeLabel.text = "\(randomInt2)ml"
-        cell.drinkImageView?.image = UIImage(named: drinkImageNames[randomInt])?
-            .withTintColor(UIColor.white.withAlphaComponent(0.5))
-            .withAlignmentRectInsets(UIEdgeInsets(top: -15,
-                                                  left: -15,
-                                                  bottom: -15,
-                                                  right: -15))
-        let calObject = Calendar.current
-        let hour = calObject.component(.hour, from: Date())
-        let minutes = calObject.component(.minute, from: Date())
-        cell.timeStampLabel.text = "At \(hour):\(minutes)"
-
-        return cell
+        return presenter.cellForRowAt(cell: cell, row: indexPath.row)
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
