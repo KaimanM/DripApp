@@ -30,6 +30,18 @@ final class TodayPresenter: TodayPresenterProtocol {
         updateProgressRing()
     }
 
+    func onViewWillAppear() {
+        if let dataModel = view?.dataModel {
+            todaysDrinks = dataModel.drinks
+        }
+    }
+
+    func onViewWillDisappear() {
+        if let dataModel = view?.dataModel {
+            dataModel.drinks = todaysDrinks
+        }
+    }
+
     func onViewDidLoad() {
         print("Presenter onViewDidLoad firing correctly")
         view?.updateTitle(title: "Today")

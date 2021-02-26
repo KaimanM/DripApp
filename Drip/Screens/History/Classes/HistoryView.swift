@@ -1,9 +1,9 @@
 import UIKit
 import FSCalendar
 
-final class HistoryView: UIViewController, HistoryViewProtocol {
-
+final class HistoryView: UIViewController, HistoryViewProtocol, DataModelViewProtocol {
     var presenter: HistoryPresenterProtocol!
+    var dataModel: DataModel?
     @IBOutlet var calendar: FSCalendar!
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!

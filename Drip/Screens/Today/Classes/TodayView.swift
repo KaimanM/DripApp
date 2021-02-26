@@ -1,7 +1,8 @@
 import UIKit
 
-final class TodayView: UIViewController, TodayViewProtocol {
+final class TodayView: UIViewController, TodayViewProtocol, DataModelViewProtocol {
     var presenter: TodayPresenterProtocol!
+    var dataModel: DataModel?
     @IBOutlet weak var ringView: ProgressRingView!
     @IBOutlet weak var progressLabel: UILabel!
     @IBOutlet weak var todayVolumeLabel: UILabel!
@@ -47,6 +48,14 @@ final class TodayView: UIViewController, TodayViewProtocol {
 
     override func viewDidAppear(_ animated: Bool) {
         presenter.onViewDidAppear()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        presenter.onViewWillAppear()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        presenter.onViewWillDisappear()
     }
 
     func presentView(_ view: UIViewController) {
