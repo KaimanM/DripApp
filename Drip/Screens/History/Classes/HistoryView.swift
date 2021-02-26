@@ -59,6 +59,7 @@ final class HistoryView: UIViewController, HistoryViewProtocol, DataModelViewPro
         super.viewDidAppear(animated)
         presenter.onViewDidAppear()
         self.tableView.reloadData()
+        self.calendar.reloadData()
         self.viewWillLayoutSubviews() // readjusts height of tableview
     }
 
@@ -102,6 +103,15 @@ final class HistoryView: UIViewController, HistoryViewProtocol, DataModelViewPro
 
     func updateTitle(title: String) {
         self.title = title
+    }
+
+    func updateRingView(progress: CGFloat, date: Date, total: Double, goal: Double) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE, MMM d"
+        dayLabel.text = formatter.string(from: date)
+
+        ringView.setProgress(progress)
+        volumeLabel.text = "\(Int(total))/\(Int(goal))ml"
     }
 
     override func viewWillLayoutSubviews() {
@@ -151,14 +161,15 @@ extension HistoryView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDeleg
             return FSCalendarCell()
         }
 
-        if Calendar.current.isDate(date, inSameDayAs: Date()) {
-            cell.ringView.setProgress(0.8)
-        } else {
-            let randomDouble = Double.random(in: 0...1) // remove me, placeholder
+//        if Calendar.current.isDate(date, inSameDayAs: Date()) {
+//            cell.ringView.setProgress(0.8)
+//        } else {
+//            let randomDouble = Double.random(in: 0...1) // remove me, placeholder
+//
+//            cell.ringView.setProgress(CGFloat(randomDouble))
+//        }
 
-            cell.ringView.setProgress(CGFloat(randomDouble))
-        }
-        return cell
+        return presenter.cellForDate(cell: cell, date: date)
     }
 
     // Selected Calendar Cell
@@ -170,13 +181,15 @@ extension HistoryView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDeleg
             calendar.setCurrentPage(date, animated: true)
         }
 
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE, MMM d"
-        dayLabel.text = formatter.string(from: date)
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "EEEE, MMM d"
+//        dayLabel.text = formatter.string(from: date)
+//
+//        let randomDouble = Double.random(in: 0...1) // remove me, placeholder
+//        ringView.setProgress(CGFloat(randomDouble))
+//        volumeLabel.text = "\(Int(randomDouble*2750))/2750ml"
 
-        let randomDouble = Double.random(in: 0...1) // remove me, placeholder
-        ringView.setProgress(CGFloat(randomDouble))
-        volumeLabel.text = "\(Int(randomDouble*2750))/2750ml"
+        presenter.didSelectDate(date: date)
         tableView.reloadData()
     }
 

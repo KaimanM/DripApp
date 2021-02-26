@@ -1,3 +1,5 @@
+import Foundation
+
 protocol HistoryPresenterProtocol: class {
     var view: HistoryViewProtocol? { get }
 
@@ -7,4 +9,7 @@ protocol HistoryPresenterProtocol: class {
 
     func numberOfRowsInSection() -> Int
     func cellForRowAt(cell: DrinkTableViewCell, row: Int) -> DrinkTableViewCell
+
+    func didSelectDate(date: Date)
+    func cellForDate(cell: CustomFSCell, date: Date) -> CustomFSCell
 }
