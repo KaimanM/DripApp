@@ -5,4 +5,6 @@ protocol TodayPresenterProtocol: class {
     func onViewDidLoad()
 
     func onDrinkButton1Tapped()
+    func onDrinkButton2Tapped()
+    func onDrinkButton3Tapped()
 }

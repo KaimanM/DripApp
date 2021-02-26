@@ -85,34 +85,46 @@ final class TodayView: UIViewController, TodayViewProtocol {
                                             ringImage: UIImage(named: "icon-clear-noshadow"))
     }
 
-    func setRingProgress(progress: Double) {
-        ringView.setProgress(CGFloat(progress))
-
-        var randomDouble = Double.random(in: 0...1)
-
-        todayVolumeLabel.text = "\(Int(round(randomDouble*2750)))/2750ml"
+    func setupGradientBars(dailyGoal: Int, morningGoal: Int, afternoonGoal: Int, eveningGoal: Int) {
+        todayVolumeLabel.text = "0/\(dailyGoal)ml"
         todayVolumeLabel.font = UIFont.SFProRounded(ofSize: 28, fontWeight: .medium)
         todayVolumeLabel.textColor = .dripMerged
-        todayGradientBarView.setProgress(progress: CGFloat(randomDouble))
 
-        randomDouble = Double.random(in: 0...1)
-        thisMorningVolumeLabel.text = "\(Int(round(randomDouble*700)))/700ml"
+        thisMorningVolumeLabel.text = "0/\(morningGoal)ml"
         thisMorningVolumeLabel.font = UIFont.SFProRounded(ofSize: 28, fontWeight: .medium)
         thisMorningVolumeLabel.textColor = .dripMerged
-        thisMorningGradientBarView.setProgress(progress: CGFloat(randomDouble))
 
-        randomDouble = Double.random(in: 0...1)
-        thisAfternoonVolumeLabel.text = "\(Int(round(randomDouble*700)))/700ml"
+        thisAfternoonVolumeLabel.text = "0/\(afternoonGoal)ml"
         thisAfternoonVolumeLabel.font = UIFont.SFProRounded(ofSize: 28, fontWeight: .medium)
         thisAfternoonVolumeLabel.textColor = .dripMerged
-        thisAfternoonGradientBarView.setProgress(progress: CGFloat(randomDouble))
 
-        randomDouble = Double.random(in: 0...1)
-        thisEveningVolumeLabel.text = "\(Int(round(randomDouble*700)))/700ml"
+        thisEveningVolumeLabel.text = "0/\(eveningGoal)ml"
         thisEveningVolumeLabel.font = UIFont.SFProRounded(ofSize: 28, fontWeight: .medium)
         thisEveningVolumeLabel.textColor = .dripMerged
-        thisEveningGradientBarView.setProgress(progress: CGFloat(randomDouble))
+    }
 
+    func setRingProgress(progress: Double) {
+        ringView.setProgress(CGFloat(progress))
+    }
+
+    func setTodayGradientBarProgress(total: Double, goal: Double) {
+        todayVolumeLabel.text = "\(Int(total))/\(Int(goal))ml"
+        todayGradientBarView.setProgress(progress: CGFloat(total/goal))
+    }
+
+    func setMorningGradientBarProgress(total: Double, goal: Double) {
+        thisMorningVolumeLabel.text = "\(Int(total))/\(Int(goal))ml"
+        thisMorningGradientBarView.setProgress(progress: CGFloat(total/goal))
+    }
+
+    func setAfternoonGradientBarProgress(total: Double, goal: Double) {
+        thisAfternoonVolumeLabel.text = "\(Int(total))/\(Int(goal))ml"
+        thisAfternoonGradientBarView.setProgress(progress: CGFloat(total/goal))
+    }
+
+    func setEveningGradientBarProgress(total: Double, goal: Double) {
+        thisEveningVolumeLabel.text = "\(Int(total))/\(Int(goal))ml"
+        thisEveningGradientBarView.setProgress(progress: CGFloat(total/goal))
     }
 
     func animateLabel(endValue: Double, animationDuration: Double) {
@@ -144,6 +156,14 @@ final class TodayView: UIViewController, TodayViewProtocol {
     }
     @IBAction func drinkButton1Tapped(_ sender: Any) {
         presenter.onDrinkButton1Tapped()
+    }
+
+    @IBAction func drinkButton2Tapped(_ sender: Any) {
+        presenter.onDrinkButton2Tapped()
+    }
+
+    @IBAction func drinkButton3Tapped(_ sender: Any) {
+        presenter.onDrinkButton3Tapped()
     }
 
 }

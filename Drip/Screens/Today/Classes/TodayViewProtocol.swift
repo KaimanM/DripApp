@@ -11,4 +11,9 @@ protocol TodayViewProtocol: class {
     func updateButtonImages(image1Name: String, image2Name: String, image3Name: String, image4Name: String)
     func animateLabel(endValue: Double, animationDuration: Double)
     func updateButtonSubtitles(subtitle1: String, subtitle2: String, subtitle3: String, subtitle4: String)
+    func setupGradientBars(dailyGoal: Int, morningGoal: Int, afternoonGoal: Int, eveningGoal: Int)
+    func setTodayGradientBarProgress(total: Double, goal: Double)
+    func setMorningGradientBarProgress(total: Double, goal: Double)
+    func setAfternoonGradientBarProgress(total: Double, goal: Double)
+    func setEveningGradientBarProgress(total: Double, goal: Double)
 }
