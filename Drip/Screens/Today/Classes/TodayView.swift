@@ -113,7 +113,7 @@ final class TodayView: UIViewController, TodayViewProtocol, DataModelViewProtoco
     }
 
     func setRingProgress(progress: Double) {
-        ringView.setProgress(CGFloat(progress))
+        ringView.setProgress(CGFloat(progress), duration: 2)
     }
 
     func setTodayGradientBarProgress(total: Double, goal: Double) {

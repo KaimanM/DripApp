@@ -52,7 +52,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
                 total += drink.drinkVolume
             }
         }
-        cell.ringView.setProgress(CGFloat(total/goal))
+        cell.ringView.setProgress(CGFloat(total/goal), duration: 0.5)
         return cell
     }
 

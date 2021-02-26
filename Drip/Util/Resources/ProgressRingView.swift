@@ -78,8 +78,9 @@ class ProgressRingView: UIView {
         }
     }
 
-    func setProgress(_ progress: CGFloat) {
-        self.percent = progress
+    func setProgress(_ progress: CGFloat, duration: Double) {
+        self.percent = progress == 0 ? 0.001 : progress
+        timings.totalDuration = duration
         calculateTiming()
         currentFill = percent
     }
@@ -225,7 +226,6 @@ class ProgressRingView: UIView {
 
     // swiftlint:disable:next function_body_length
     private func calculateTiming() {
-        timings.totalDuration = 2
         timings.time1 = 0
         timings.time2 = 0
         timings.time3 = 0

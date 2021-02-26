@@ -110,7 +110,7 @@ final class HistoryView: UIViewController, HistoryViewProtocol, DataModelViewPro
         formatter.dateFormat = "EEEE, MMM d"
         dayLabel.text = formatter.string(from: date)
 
-        ringView.setProgress(progress)
+        ringView.setProgress(progress, duration: 2)
         volumeLabel.text = "\(Int(total))/\(Int(goal))ml"
     }
 
