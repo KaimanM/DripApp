@@ -3,6 +3,8 @@ protocol TodayPresenterProtocol: class {
 
     func onViewDidAppear()
     func onViewDidLoad()
+    func onViewWillAppear()
+    func onViewWillDisappear()
 
     func onDrinkButton1Tapped()
     func onDrinkButton2Tapped()

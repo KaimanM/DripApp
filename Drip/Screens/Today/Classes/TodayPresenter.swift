@@ -16,7 +16,7 @@ final class TodayPresenter: TodayPresenterProtocol {
                                   imageName: "coffee.svg",
                                   timeStamp: Date())
 
-    var button3Drink = DrinkEntry(drinkName: "cola",
+    var button3Drink = DrinkEntry(drinkName: "Cola",
                                   drinkVolume: 330,
                                   imageName: "cola.svg",
                                   timeStamp: Date())
@@ -28,6 +28,18 @@ final class TodayPresenter: TodayPresenterProtocol {
     func onViewDidAppear() {
         print("Presenter onViewDidAppear firing correctly")
         updateProgressRing()
+    }
+
+    func onViewWillAppear() {
+        if let dataModel = view?.dataModel {
+            todaysDrinks = dataModel.drinks
+        }
+    }
+
+    func onViewWillDisappear() {
+        if let dataModel = view?.dataModel {
+            dataModel.drinks = todaysDrinks
+        }
     }
 
     func onViewDidLoad() {

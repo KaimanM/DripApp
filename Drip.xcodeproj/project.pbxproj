@@ -66,6 +66,10 @@
 		36B0F15225E7F26100D1FB8B /* DrinkEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B0F15025E7F26100D1FB8B /* DrinkEntry.swift */; };
 		36B6F46825DD78FA004A7EA5 /* DrinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B6F46725DD78FA004A7EA5 /* DrinkTableViewCell.swift */; };
 		36BFF50F25D17653003456F3 /* RoundDrinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BFF50E25D17653003456F3 /* RoundDrinkButton.swift */; };
+		36F22A3425E93F2300AAC151 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F22A3325E93F2300AAC151 /* DataModel.swift */; };
+		36F22A3525E93F2300AAC151 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F22A3325E93F2300AAC151 /* DataModel.swift */; };
+		36F22A3825E9450300AAC151 /* DataModelViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F22A3725E9450300AAC151 /* DataModelViewProtocol.swift */; };
+		36F22A3925E9450300AAC151 /* DataModelViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F22A3725E9450300AAC151 /* DataModelViewProtocol.swift */; };
 		D0179531D394CBAC3C3D056D /* Pods_DripTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B74925358D2B1C16313FD9F /* Pods_DripTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -155,6 +159,8 @@
 		36B0F15025E7F26100D1FB8B /* DrinkEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkEntry.swift; sourceTree = "<group>"; };
 		36B6F46725DD78FA004A7EA5 /* DrinkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkTableViewCell.swift; sourceTree = "<group>"; };
 		36BFF50E25D17653003456F3 /* RoundDrinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundDrinkButton.swift; sourceTree = "<group>"; };
+		36F22A3325E93F2300AAC151 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		36F22A3725E9450300AAC151 /* DataModelViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModelViewProtocol.swift; sourceTree = "<group>"; };
 		3B74925358D2B1C16313FD9F /* Pods_DripTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DripTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A08E894FB77C5466D4144B1 /* Pods_Drip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Drip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DBABB04197C4C0432EA9601 /* Pods-DripTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DripTests.debug.xcconfig"; path = "Target Support Files/Pods-DripTests/Pods-DripTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -323,6 +329,8 @@
 				368BAE2925DC7A4F00D799F2 /* CustomFSCell.swift */,
 				36B6F46725DD78FA004A7EA5 /* DrinkTableViewCell.swift */,
 				36B0F15025E7F26100D1FB8B /* DrinkEntry.swift */,
+				36F22A3325E93F2300AAC151 /* DataModel.swift */,
+				36F22A3725E9450300AAC151 /* DataModelViewProtocol.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -642,6 +650,7 @@
 				0ACB986924549DF5007BF01D /* TabBarView.swift in Sources */,
 				0ACB986024549DBC007BF01D /* TabBarScreenBuilder.swift in Sources */,
 				0A8BEA852455D24A00AA9880 /* AwardsViewProtocol.swift in Sources */,
+				36F22A3825E9450300AAC151 /* DataModelViewProtocol.swift in Sources */,
 				368BAE2A25DC7A4F00D799F2 /* CustomFSCell.swift in Sources */,
 				0ACB982224546717007BF01D /* AppDelegate.swift in Sources */,
 				0AD1511B2454EFF600F45042 /* TrendsPresenter.swift in Sources */,
@@ -677,6 +686,7 @@
 				0ACB9848245467D6007BF01D /* ViewControllerName.swift in Sources */,
 				0A2B8B772454D8F300D9E8E7 /* TodayPresenter.swift in Sources */,
 				0ACB985B24547236007BF01D /* DarkNavController.swift in Sources */,
+				36F22A3425E93F2300AAC151 /* DataModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -684,10 +694,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36F22A3525E93F2300AAC151 /* DataModel.swift in Sources */,
 				364A927C256BE91400F84985 /* TodayScreenBuilderTestCase.swift in Sources */,
 				36B0F15225E7F26100D1FB8B /* DrinkEntry.swift in Sources */,
 				364A9277256BE84F00F84985 /* DripTests.swift in Sources */,
 				364A9280256BE93500F84985 /* TodayPresenterTestCase.swift in Sources */,
+				36F22A3925E9450300AAC151 /* DataModelViewProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
