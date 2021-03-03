@@ -48,27 +48,21 @@ final class TodayPresenter: TodayPresenterProtocol {
 
     func onDrinkButton1Tapped() {
         todaysTotal += 500
-        if let coreDataController = view?.coreDataController {
-            coreDataController.addDrink(name: "Water", volume: 500, imageName: "waterbottle.svg", timeStamp: Date())
-        }
+        view?.coreDataController.addDrink(name: "Water", volume: 500, imageName: "waterbottle.svg", timeStamp: Date())
         updateProgressRing()
         updateGradientBars()
     }
 
     func onDrinkButton2Tapped() {
         todaysTotal += 500
-        if let coreDataController = view?.coreDataController {
-            coreDataController.addDrink(name: "Coffee", volume: 250, imageName: "coffee.svg", timeStamp: Date())
-        }
+        view?.coreDataController.addDrink(name: "Coffee", volume: 250, imageName: "coffee.svg", timeStamp: Date())
         updateProgressRing()
         updateGradientBars()
     }
 
     func onDrinkButton3Tapped() {
         todaysTotal += 500
-        if let coreDataController = view?.coreDataController {
-            coreDataController.addDrink(name: "Cola", volume: 330, imageName: "cola.svg", timeStamp: Date())
-        }
+        view?.coreDataController.addDrink(name: "Cola", volume: 330, imageName: "cola.svg", timeStamp: Date())
         updateProgressRing()
         updateGradientBars()
     }
