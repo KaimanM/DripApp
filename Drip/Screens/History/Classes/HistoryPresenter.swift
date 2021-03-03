@@ -3,8 +3,7 @@ import UIKit
 final class HistoryPresenter: HistoryPresenterProtocol {
 
     weak private(set) var view: HistoryViewProtocol?
-    var drinkArray: [DrinkEntry] = []
-    var selectedDayDrinks: [DrinkEntry] = []
+    var selectedDayDrinks: [Drink] = []
     var selectedDate = Date()
 
     init(view: HistoryViewProtocol) {
@@ -22,36 +21,38 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     func onViewWillAppear() {}
 
     func onViewDidAppear() {
-        if let dataModel = view?.dataModel {
-            drinkArray = dataModel.drinks
-            print(drinkArray)
-        }
+        view?.coreDataController.fetchDrinks()
+        print(view?.coreDataController.allEntries as Any)
 
         didSelectDate(date: selectedDate)
     }
 
     func didSelectDate(date: Date) {
+        selectedDate = date
+        populateDrinks()
+    }
+
+    func populateDrinks() {
         selectedDayDrinks = []
         var total: Double = 0
         let goal: Double = 2000
-        for drink in drinkArray {
-            if Calendar.current.isDate(drink.timeStamp, inSameDayAs: date) {
-                total += drink.drinkVolume
+
+        for drink in view?.coreDataController?.fetchEntriesForDate(date: selectedDate) ?? [] {
+                total += drink.volume
                 selectedDayDrinks.append(drink)
-            }
         }
-        view?.updateRingView(progress: CGFloat(total/goal), date: date, total: total, goal: goal)
-        selectedDate = date
+
+        view?.updateRingView(progress: CGFloat(total/goal), date: selectedDate, total: total, goal: goal)
     }
 
     func cellForDate(cell: CustomFSCell, date: Date) -> CustomFSCell {
         var total: Double = 0
         let goal: Double = 2000
-        for drink in drinkArray {
-            if Calendar.current.isDate(drink.timeStamp, inSameDayAs: date) {
-                total += drink.drinkVolume
-            }
+
+        for drink in view?.coreDataController?.fetchEntriesForDate(date: date) ?? [] {
+                total += drink.volume
         }
+
         cell.ringView.setProgress(CGFloat(total/goal), duration: 0.5)
         return cell
     }
@@ -61,19 +62,36 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     }
 
     func cellForRowAt(cell: DrinkTableViewCell, row: Int) -> DrinkTableViewCell {
-        cell.drinkLabel.text = selectedDayDrinks[row].drinkName
-        cell.volumeLabel.text = "\(Int(selectedDayDrinks[row].drinkVolume))ml"
+        cell.drinkLabel.text = selectedDayDrinks[row].name
+        cell.volumeLabel.text = "\(Int(selectedDayDrinks[row].volume))ml"
         cell.drinkImageView?.image = UIImage(named: selectedDayDrinks[row].imageName)?
             .withTintColor(UIColor.white.withAlphaComponent(0.5))
             .withAlignmentRectInsets(UIEdgeInsets(top: -15,
                                                   left: -15,
                                                   bottom: -15,
                                                   right: -15))
+        cell.deleteButton.tag = row
         let calObject = Calendar.current
         let hour = calObject.component(.hour, from: selectedDayDrinks[row].timeStamp)
         let minutes = calObject.component(.minute, from: selectedDayDrinks[row].timeStamp)
         cell.timeStampLabel.text = "At \(hour):\(minutes)"
         return cell
+    }
+
+    func didTapDeleteButton(row: Int) {
+        let confirmDeleteAlert = UIAlertController(title: "Delete Entry?",
+                                                   message:"Are you sure you want to delete this entry?",
+                                                   preferredStyle: .alert)
+
+        confirmDeleteAlert.addAction(UIAlertAction(title: "Delete", style: .default, handler: {_ in
+            self.view?.coreDataController.deleteEntry(entry: self.selectedDayDrinks[row])
+            self.populateDrinks()
+            self.view?.refreshUI()
+        }))
+
+        confirmDeleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        view?.presentView(confirmDeleteAlert)
     }
 
 }

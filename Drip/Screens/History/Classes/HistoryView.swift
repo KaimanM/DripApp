@@ -1,9 +1,10 @@
 import UIKit
 import FSCalendar
 
-final class HistoryView: UIViewController, HistoryViewProtocol, DataModelViewProtocol {
+final class HistoryView: UIViewController, HistoryViewProtocol, CoreDataViewProtocol {
+
     var presenter: HistoryPresenterProtocol!
-    var dataModel: DataModel?
+    var coreDataController: CoreDataControllerProtocol!
     @IBOutlet var calendar: FSCalendar!
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -105,6 +106,14 @@ final class HistoryView: UIViewController, HistoryViewProtocol, DataModelViewPro
         self.title = title
     }
 
+    func refreshUI() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.calendar.reloadData()
+            self.viewWillLayoutSubviews()
+        }
+    }
+
     func updateRingView(progress: CGFloat, date: Date, total: Double, goal: Double) {
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE, MMM d"
@@ -204,7 +213,7 @@ extension HistoryView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDeleg
 
 }
 
-extension HistoryView: UITableViewDelegate, UITableViewDataSource {
+extension HistoryView: UITableViewDelegate, UITableViewDataSource, DrinkTableViewCellDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.numberOfRowsInSection()
@@ -215,12 +224,17 @@ extension HistoryView: UITableViewDelegate, UITableViewDataSource {
         guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "drinkCell") as? DrinkTableViewCell else {
             return UITableViewCell()
         }
+        cell.delegate = self
 
         return presenter.cellForRowAt(cell: cell, row: indexPath.row)
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
+    }
+
+    func didTapButton(_ sender: UIButton) {
+        presenter.didTapDeleteButton(row: sender.tag)
     }
 
 }

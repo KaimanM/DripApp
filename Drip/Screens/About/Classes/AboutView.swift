@@ -1,9 +1,9 @@
 import UIKit
 
-final class AboutView: UIViewController, AboutViewProtocol, DataModelViewProtocol {
+final class AboutView: UIViewController, AboutViewProtocol, CoreDataViewProtocol {
 
     var presenter: AboutPresenterProtocol!
-    var dataModel: DataModel?
+    var coreDataController: CoreDataControllerProtocol!
 
     override func viewDidLoad() {
         presenter.onViewDidLoad()

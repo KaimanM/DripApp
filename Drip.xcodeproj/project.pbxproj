@@ -55,6 +55,12 @@
 		0AD1511D2454F00100F45042 /* Trends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AD1511C2454F00100F45042 /* Trends.storyboard */; };
 		10E1C8DA174C431CA9639FFB /* Pods_Drip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A08E894FB77C5466D4144B1 /* Pods_Drip.framework */; };
 		36031F6725D429070016EBC7 /* Colours.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36031F6625D429070016EBC7 /* Colours.xcassets */; };
+		362A52A125EFA59800B6AA8D /* CoreDataControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362A52A025EFA59800B6AA8D /* CoreDataControllerProtocol.swift */; };
+		362A52A525EFA68100B6AA8D /* Drip.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 362A52A325EFA68100B6AA8D /* Drip.xcdatamodeld */; };
+		362A52DE25EFAA2600B6AA8D /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362A52DD25EFAA2600B6AA8D /* CoreDataController.swift */; };
+		362A52E125EFACFB00B6AA8D /* CoreDataViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362A52E025EFACFB00B6AA8D /* CoreDataViewProtocol.swift */; };
+		362A52E625EFC09200B6AA8D /* Drink+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362A52E425EFC09200B6AA8D /* Drink+CoreDataClass.swift */; };
+		362A52E725EFC09200B6AA8D /* Drink+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362A52E525EFC09200B6AA8D /* Drink+CoreDataProperties.swift */; };
 		364A9277256BE84F00F84985 /* DripTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB983824546719007BF01D /* DripTests.swift */; };
 		364A927C256BE91400F84985 /* TodayScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364A927B256BE91400F84985 /* TodayScreenBuilderTestCase.swift */; };
 		364A9280256BE93500F84985 /* TodayPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364A927F256BE93500F84985 /* TodayPresenterTestCase.swift */; };
@@ -150,6 +156,12 @@
 		0AD1511A2454EFF600F45042 /* TrendsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsPresenter.swift; sourceTree = "<group>"; };
 		0AD1511C2454F00100F45042 /* Trends.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Trends.storyboard; sourceTree = "<group>"; };
 		36031F6625D429070016EBC7 /* Colours.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colours.xcassets; sourceTree = "<group>"; };
+		362A52A025EFA59800B6AA8D /* CoreDataControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataControllerProtocol.swift; sourceTree = "<group>"; };
+		362A52A425EFA68100B6AA8D /* Drip.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Drip.xcdatamodel; sourceTree = "<group>"; };
+		362A52DD25EFAA2600B6AA8D /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
+		362A52E025EFACFB00B6AA8D /* CoreDataViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataViewProtocol.swift; sourceTree = "<group>"; };
+		362A52E425EFC09200B6AA8D /* Drink+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Drink+CoreDataClass.swift"; sourceTree = "<group>"; };
+		362A52E525EFC09200B6AA8D /* Drink+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Drink+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		364A927B256BE91400F84985 /* TodayScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayScreenBuilderTestCase.swift; sourceTree = "<group>"; };
 		364A927F256BE93500F84985 /* TodayPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayPresenterTestCase.swift; sourceTree = "<group>"; };
 		3680E0CA24B3BC2E009E9DB8 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
@@ -306,6 +318,7 @@
 		0ACB98432454676B007BF01D /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				362A52CB25EFA94500B6AA8D /* Models */,
 				0ACB9844245467AA007BF01D /* Resources */,
 			);
 			path = Util;
@@ -331,6 +344,10 @@
 				36B0F15025E7F26100D1FB8B /* DrinkEntry.swift */,
 				36F22A3325E93F2300AAC151 /* DataModel.swift */,
 				36F22A3725E9450300AAC151 /* DataModelViewProtocol.swift */,
+				362A52E025EFACFB00B6AA8D /* CoreDataViewProtocol.swift */,
+				362A52A025EFA59800B6AA8D /* CoreDataControllerProtocol.swift */,
+				362A52DD25EFAA2600B6AA8D /* CoreDataController.swift */,
+				362A52A325EFA68100B6AA8D /* Drip.xcdatamodeld */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -409,6 +426,15 @@
 				0AD1511A2454EFF600F45042 /* TrendsPresenter.swift */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		362A52CB25EFA94500B6AA8D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				362A52E425EFC09200B6AA8D /* Drink+CoreDataClass.swift */,
+				362A52E525EFC09200B6AA8D /* Drink+CoreDataProperties.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		364A9279256BE8EA00F84985 /* Screens */ = {
@@ -646,6 +672,7 @@
 				36B0F15125E7F26100D1FB8B /* DrinkEntry.swift in Sources */,
 				3680E0CF24B3C8CC009E9DB8 /* GradientBarView.swift in Sources */,
 				0A8BEA912455D45A00AA9880 /* AboutPresenter.swift in Sources */,
+				362A52E725EFC09200B6AA8D /* Drink+CoreDataProperties.swift in Sources */,
 				0ACB984E24546887007BF01D /* HistoryScreenBuilder.swift in Sources */,
 				0ACB986924549DF5007BF01D /* TabBarView.swift in Sources */,
 				0ACB986024549DBC007BF01D /* TabBarScreenBuilder.swift in Sources */,
@@ -658,18 +685,23 @@
 				0A2B8B6D2454D87000D9E8E7 /* TodayScreenBuilder.swift in Sources */,
 				36B6F46825DD78FA004A7EA5 /* DrinkTableViewCell.swift in Sources */,
 				0A4B4E092464505B00C2350B /* PlaceholderView.swift in Sources */,
+				362A52E125EFACFB00B6AA8D /* CoreDataViewProtocol.swift in Sources */,
 				0A8BEA862455D24A00AA9880 /* AwardsScreenBuilder.swift in Sources */,
 				36BFF50F25D17653003456F3 /* RoundDrinkButton.swift in Sources */,
 				0ACB986B24549DFE007BF01D /* TabBarPresenter.swift in Sources */,
 				0ACB986524549DE2007BF01D /* TabBarViewProtocol.swift in Sources */,
 				0AD151172454EFE300F45042 /* TrendsPresenterProtocol.swift in Sources */,
 				0A44B3962457631C0023433A /* ProgressRingView.swift in Sources */,
+				362A52A125EFA59800B6AA8D /* CoreDataControllerProtocol.swift in Sources */,
 				0ACB986D2454AEEB007BF01D /* DarkTabBarController.swift in Sources */,
 				0AD151122454EFB400F45042 /* TrendsScreenBuilder.swift in Sources */,
+				362A52E625EFC09200B6AA8D /* Drink+CoreDataClass.swift in Sources */,
 				0ACB986724549DED007BF01D /* TabBarPresenterProtocol.swift in Sources */,
 				0ACB9857245468EC007BF01D /* HistoryPresenter.swift in Sources */,
 				0AD151192454EFEB00F45042 /* TrendsView.swift in Sources */,
+				362A52A525EFA68100B6AA8D /* Drip.xcdatamodeld in Sources */,
 				0A8BEA942455D45A00AA9880 /* AboutScreenBuilder.swift in Sources */,
+				362A52DE25EFAA2600B6AA8D /* CoreDataController.swift in Sources */,
 				0AD151152454EFDC00F45042 /* TrendsViewProtocol.swift in Sources */,
 				0ACB9853245468DC007BF01D /* HistoryPresenterProtocol.swift in Sources */,
 				0ACB9855245468E7007BF01D /* HistoryView.swift in Sources */,
@@ -960,6 +992,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		362A52A325EFA68100B6AA8D /* Drip.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				362A52A425EFA68100B6AA8D /* Drip.xcdatamodel */,
+			);
+			currentVersion = 362A52A425EFA68100B6AA8D /* Drip.xcdatamodel */;
+			path = Drip.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 0ACB981624546717007BF01D /* Project object */;
 }

@@ -1,8 +1,8 @@
 import UIKit
 
-final class TodayView: UIViewController, TodayViewProtocol, DataModelViewProtocol {
+final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol {
     var presenter: TodayPresenterProtocol!
-    var dataModel: DataModel?
+    var coreDataController: CoreDataControllerProtocol!
     @IBOutlet weak var ringView: ProgressRingView!
     @IBOutlet weak var progressLabel: UILabel!
     @IBOutlet weak var todayVolumeLabel: UILabel!
