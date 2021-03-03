@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol DrinkTableViewCellDelegate: class {
+    func didTapButton(_ sender: UIButton)
+}
+
 class DrinkTableViewCell: UITableViewCell {
+
+    weak var delegate: DrinkTableViewCellDelegate?
 
     @IBOutlet weak var imageViewContainer: UIView!
     @IBOutlet weak var drinkImageView: UIImageView!
@@ -16,6 +22,7 @@ class DrinkTableViewCell: UITableViewCell {
     @IBOutlet weak var volumeLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var timeStampLabel: UILabel!
+    @IBOutlet weak var deleteButton: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -61,6 +68,9 @@ class DrinkTableViewCell: UITableViewCell {
 
     override func layoutSubviews() {
         imageViewContainer.layer.cornerRadius = imageViewContainer.frame.height/2
+    }
+    @IBAction func deleteButtonTapped(_ sender: UIButton) {
+        delegate?.didTapButton(sender)
     }
 
 }

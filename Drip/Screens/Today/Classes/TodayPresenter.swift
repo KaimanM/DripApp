@@ -13,6 +13,7 @@ final class TodayPresenter: TodayPresenterProtocol {
     func onViewDidAppear() {
         print("Presenter onViewDidAppear firing correctly")
         updateProgressRing()
+        updateGradientBars()
     }
 
     func onViewWillAppear() {
@@ -57,7 +58,7 @@ final class TodayPresenter: TodayPresenterProtocol {
     func onDrinkButton2Tapped() {
         todaysTotal += 500
         if let coreDataController = view?.coreDataController {
-            coreDataController.addDrink(name: "Water", volume: 500, imageName: "waterbottle.svg", timeStamp: Date())
+            coreDataController.addDrink(name: "Coffee", volume: 250, imageName: "coffee.svg", timeStamp: Date())
         }
         updateProgressRing()
         updateGradientBars()
@@ -66,13 +67,17 @@ final class TodayPresenter: TodayPresenterProtocol {
     func onDrinkButton3Tapped() {
         todaysTotal += 500
         if let coreDataController = view?.coreDataController {
-            coreDataController.addDrink(name: "Water", volume: 500, imageName: "waterbottle.svg", timeStamp: Date())
+            coreDataController.addDrink(name: "Cola", volume: 330, imageName: "cola.svg", timeStamp: Date())
         }
         updateProgressRing()
         updateGradientBars()
     }
 
     func updateProgressRing() {
+        todaysTotal = 0
+        for drink in view?.coreDataController?.fetchEntriesForDate(date: Date()) ?? [] {
+                todaysTotal += drink.volume
+        }
         let progress = todaysTotal/drinkGoal
         view?.setRingProgress(progress: progress)
         view?.animateLabel(endValue: progress*100, animationDuration: 2)
@@ -83,18 +88,16 @@ final class TodayPresenter: TodayPresenterProtocol {
         var afternoonTotal: Double = 0
         var eveningTotal: Double = 0
 
-        if let coreDataController = view?.coreDataController {
-            for drink in coreDataController.allEntries {
-                switch Calendar.current.component(.hour, from: drink.timeStamp) {
-                case 0...12:
-                    morningTotal += drink.volume
-                case 12...18:
-                    afternoonTotal += drink.volume
-                case 18...24:
-                    eveningTotal += drink.volume
-                default:
-                    fatalError("time out of bounds")
-                }
+        for drink in view?.coreDataController.fetchEntriesForDate(date: Date()) ?? [] {
+            switch Calendar.current.component(.hour, from: drink.timeStamp) {
+            case 0...12:
+                morningTotal += drink.volume
+            case 12...18:
+                afternoonTotal += drink.volume
+            case 18...24:
+                eveningTotal += drink.volume
+            default:
+                fatalError("time out of bounds")
             }
         }
 

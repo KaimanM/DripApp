@@ -197,6 +197,14 @@
                                                                                     <color key="textColor" systemColor="systemGrayColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
+                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1DA-3n-lVl">
+                                                                                    <rect key="frame" x="359" y="10" width="20" height="22"/>
+                                                                                    <color key="tintColor" systemColor="systemGrayColor"/>
+                                                                                    <state key="normal" image="multiply.circle" catalog="system"/>
+                                                                                    <connections>
+                                                                                        <action selector="deleteButtonTapped:" destination="nrF-D7-aSj" eventType="touchUpInside" id="XxV-JP-9bs"/>
+                                                                                    </connections>
+                                                                                </button>
                                                                             </subviews>
                                                                             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <constraints>
@@ -206,6 +214,8 @@
                                                                                 <constraint firstItem="Kd7-61-bpA" firstAttribute="leading" secondItem="Ua4-eN-Bb2" secondAttribute="trailing" constant="20" id="KLF-my-cOU"/>
                                                                                 <constraint firstItem="Ua4-eN-Bb2" firstAttribute="top" secondItem="avW-kO-D2v" secondAttribute="top" constant="10" id="LHW-y0-bPh"/>
                                                                                 <constraint firstItem="Kd7-61-bpA" firstAttribute="centerY" secondItem="Ua4-eN-Bb2" secondAttribute="centerY" constant="10" id="Okw-fZ-iPE"/>
+                                                                                <constraint firstItem="1DA-3n-lVl" firstAttribute="top" secondItem="avW-kO-D2v" secondAttribute="top" constant="10" id="Pe2-5V-EIS"/>
+                                                                                <constraint firstAttribute="trailing" secondItem="1DA-3n-lVl" secondAttribute="trailing" constant="15" id="haF-Fx-qOc"/>
                                                                                 <constraint firstAttribute="bottom" secondItem="Ua4-eN-Bb2" secondAttribute="bottom" constant="10" id="jQ4-If-9UI"/>
                                                                                 <constraint firstAttribute="trailing" secondItem="vQc-rS-Smc" secondAttribute="trailing" constant="15" id="vnc-Ka-InE"/>
                                                                                 <constraint firstItem="Ua4-eN-Bb2" firstAttribute="leading" secondItem="avW-kO-D2v" secondAttribute="leading" constant="20" id="w9k-ld-6Yw"/>
@@ -221,6 +231,7 @@
                                                                 </tableViewCellContentView>
                                                                 <connections>
                                                                     <outlet property="containerView" destination="avW-kO-D2v" id="ApF-Wx-tuI"/>
+                                                                    <outlet property="deleteButton" destination="1DA-3n-lVl" id="BYb-sI-5y5"/>
                                                                     <outlet property="drinkImageView" destination="mfn-K2-A0x" id="Tl8-al-TLR"/>
                                                                     <outlet property="drinkLabel" destination="oKL-Yo-yDU" id="h4g-bY-WgP"/>
                                                                     <outlet property="imageViewContainer" destination="Ua4-eN-Bb2" id="PYn-Qy-cF6"/>
@@ -283,6 +294,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="multiply.circle" catalog="system" width="128" height="121"/>
         <namedColor name="dripMerged">
             <color red="0.2196078431372549" green="0.8901960784313725" blue="0.77254901960784317" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

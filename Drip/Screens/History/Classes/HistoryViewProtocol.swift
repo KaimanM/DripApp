@@ -11,4 +11,5 @@ protocol HistoryViewProtocol: class {
 
     func setupCalendar()
     func setupInfoPanel()
+    func refreshUI()
 }

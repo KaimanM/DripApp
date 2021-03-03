@@ -12,4 +12,5 @@ protocol HistoryPresenterProtocol: class {
 
     func didSelectDate(date: Date)
     func cellForDate(cell: CustomFSCell, date: Date) -> CustomFSCell
+    func didTapDeleteButton(row: Int)
 }

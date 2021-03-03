@@ -3,7 +3,6 @@ import UIKit
 final class HistoryPresenter: HistoryPresenterProtocol {
 
     weak private(set) var view: HistoryViewProtocol?
-    var drinkArray: [DrinkEntry] = []
     var selectedDayDrinks: [Drink] = []
     var selectedDate = Date()
 
@@ -29,24 +28,21 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     }
 
     func didSelectDate(date: Date) {
+        selectedDate = date
+        populateDrinks()
+    }
+
+    func populateDrinks() {
         selectedDayDrinks = []
         var total: Double = 0
         let goal: Double = 2000
 
-//        for drink in view?.coreDataController?.allEntries ?? [] {
-//            if Calendar.current.isDate(drink.timeStamp, inSameDayAs: date) {
-//                total += drink.volume
-//                selectedDayDrinks.append(drink)
-//            }
-//        }
-
-        for drink in view?.coreDataController?.fetchEntriesForDate(date: date) ?? [] {
+        for drink in view?.coreDataController?.fetchEntriesForDate(date: selectedDate) ?? [] {
                 total += drink.volume
                 selectedDayDrinks.append(drink)
         }
 
-        view?.updateRingView(progress: CGFloat(total/goal), date: date, total: total, goal: goal)
-        selectedDate = date
+        view?.updateRingView(progress: CGFloat(total/goal), date: selectedDate, total: total, goal: goal)
     }
 
     func cellForDate(cell: CustomFSCell, date: Date) -> CustomFSCell {
@@ -74,11 +70,28 @@ final class HistoryPresenter: HistoryPresenterProtocol {
                                                   left: -15,
                                                   bottom: -15,
                                                   right: -15))
+        cell.deleteButton.tag = row
         let calObject = Calendar.current
         let hour = calObject.component(.hour, from: selectedDayDrinks[row].timeStamp)
         let minutes = calObject.component(.minute, from: selectedDayDrinks[row].timeStamp)
         cell.timeStampLabel.text = "At \(hour):\(minutes)"
         return cell
+    }
+
+    func didTapDeleteButton(row: Int) {
+        let confirmDeleteAlert = UIAlertController(title: "Delete Entry?",
+                                                   message:"Are you sure you want to delete this entry?",
+                                                   preferredStyle: .alert)
+
+        confirmDeleteAlert.addAction(UIAlertAction(title: "Delete", style: .default, handler: {_ in
+            self.view?.coreDataController.deleteEntry(entry: self.selectedDayDrinks[row])
+            self.populateDrinks()
+            self.view?.refreshUI()
+        }))
+
+        confirmDeleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        view?.presentView(confirmDeleteAlert)
     }
 
 }
