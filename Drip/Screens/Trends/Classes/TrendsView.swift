@@ -1,9 +1,9 @@
 import UIKit
 
-final class TrendsView: UIViewController, TrendsViewProtocol, DataModelViewProtocol {
+final class TrendsView: UIViewController, TrendsViewProtocol, CoreDataViewProtocol {
 
     var presenter: TrendsPresenterProtocol!
-    var dataModel: DataModel?
+    var coreDataController: CoreDataControllerProtocol!
 
     override func viewDidLoad() {
         presenter.onViewDidLoad()

@@ -1,9 +1,9 @@
 import UIKit
 
-final class AwardsView: UIViewController, AwardsViewProtocol, DataModelViewProtocol {
+final class AwardsView: UIViewController, AwardsViewProtocol, CoreDataViewProtocol {
 
     var presenter: AwardsPresenterProtocol!
-    var dataModel: DataModel?
+    var coreDataController: CoreDataControllerProtocol!
 
     override func viewDidLoad() {
         presenter.onViewDidLoad()

@@ -4,22 +4,7 @@ final class TodayPresenter: TodayPresenterProtocol {
     weak private(set) var view: TodayViewProtocol?
     var todaysTotal: Double = 0
     let drinkGoal: Double = 2000
-    var todaysDrinks: [DrinkEntry] = []
-
-    var button1Drink = DrinkEntry(drinkName: "Water",
-                                  drinkVolume: 500,
-                                  imageName: "waterbottle.svg",
-                                  timeStamp: Date())
-
-    var button2Drink = DrinkEntry(drinkName: "Coffee",
-                                  drinkVolume: 250,
-                                  imageName: "coffee.svg",
-                                  timeStamp: Date())
-
-    var button3Drink = DrinkEntry(drinkName: "Cola",
-                                  drinkVolume: 330,
-                                  imageName: "cola.svg",
-                                  timeStamp: Date())
+    var todaysDrinks: [Drink] = []
 
     init(view: TodayViewProtocol) {
         self.view = view
@@ -31,14 +16,14 @@ final class TodayPresenter: TodayPresenterProtocol {
     }
 
     func onViewWillAppear() {
-        if let dataModel = view?.dataModel {
-            todaysDrinks = dataModel.drinks
+        if let coreDataController = view?.coreDataController {
+            todaysDrinks = coreDataController.allEntries
         }
     }
 
     func onViewWillDisappear() {
-        if let dataModel = view?.dataModel {
-            dataModel.drinks = todaysDrinks
+        if let coreDataController = view?.coreDataController {
+            coreDataController.saveContext()
         }
     }
 
@@ -61,22 +46,28 @@ final class TodayPresenter: TodayPresenterProtocol {
     }
 
     func onDrinkButton1Tapped() {
-        todaysTotal += button1Drink.drinkVolume
-        todaysDrinks.append(button1Drink)
+        todaysTotal += 500
+        if let coreDataController = view?.coreDataController {
+            coreDataController.addDrink(name: "Water", volume: 500, imageName: "waterbottle.svg", timeStamp: Date())
+        }
         updateProgressRing()
         updateGradientBars()
     }
 
     func onDrinkButton2Tapped() {
-        todaysTotal += button2Drink.drinkVolume
-        todaysDrinks.append(button2Drink)
+        todaysTotal += 500
+        if let coreDataController = view?.coreDataController {
+            coreDataController.addDrink(name: "Water", volume: 500, imageName: "waterbottle.svg", timeStamp: Date())
+        }
         updateProgressRing()
         updateGradientBars()
     }
 
     func onDrinkButton3Tapped() {
-        todaysTotal += button3Drink.drinkVolume
-        todaysDrinks.append(button3Drink)
+        todaysTotal += 500
+        if let coreDataController = view?.coreDataController {
+            coreDataController.addDrink(name: "Water", volume: 500, imageName: "waterbottle.svg", timeStamp: Date())
+        }
         updateProgressRing()
         updateGradientBars()
     }
@@ -92,16 +83,18 @@ final class TodayPresenter: TodayPresenterProtocol {
         var afternoonTotal: Double = 0
         var eveningTotal: Double = 0
 
-        for drink in todaysDrinks {
-            switch Calendar.current.component(.hour, from: drink.timeStamp) {
-            case 0...12:
-                morningTotal += drink.drinkVolume
-            case 12...18:
-                afternoonTotal += drink.drinkVolume
-            case 18...24:
-                eveningTotal += drink.drinkVolume
-            default:
-                fatalError("time out of bounds")
+        if let coreDataController = view?.coreDataController {
+            for drink in coreDataController.allEntries {
+                switch Calendar.current.component(.hour, from: drink.timeStamp) {
+                case 0...12:
+                    morningTotal += drink.volume
+                case 12...18:
+                    afternoonTotal += drink.volume
+                case 18...24:
+                    eveningTotal += drink.volume
+                default:
+                    fatalError("time out of bounds")
+                }
             }
         }
 

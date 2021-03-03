@@ -2,7 +2,7 @@ import UIKit
 
 protocol TodayViewProtocol: class {
     var presenter: TodayPresenterProtocol! { get set }
-    var dataModel: DataModel? { get set }
+    var coreDataController: CoreDataControllerProtocol! { get set }
 
     func presentView(_ view: UIViewController)
     func showView(_ view: UIViewController)
