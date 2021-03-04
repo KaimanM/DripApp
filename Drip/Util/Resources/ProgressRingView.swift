@@ -30,6 +30,8 @@ class ProgressRingView: UIView {
     private var ring3CurrentRotation: CGFloat = 2*CGFloat.pi
     private var ring3TargetRotation = CGFloat()
 
+    private var isMiniRing = false
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -58,7 +60,8 @@ class ProgressRingView: UIView {
                                secondColour: UIColor,
                                shadowColour: UIColor,
                                lineWidth: CGFloat,
-                               ringImage: UIImage? = nil) {
+                               ringImage: UIImage? = nil,
+                               miniRing: Bool = false) {
         self.shadowColor = shadowColour
         self.lineWidth = lineWidth
         self.percent = progress
@@ -68,6 +71,7 @@ class ProgressRingView: UIView {
                                secondColour,
                                firstColour]
         self.strokeColour = .black
+        self.isMiniRing = miniRing
         setupContainerLayer()
         setupShadowLayer()
         setupGradientPart1()
@@ -81,7 +85,15 @@ class ProgressRingView: UIView {
     func setProgress(_ progress: CGFloat, duration: Double) {
         self.percent = progress == 0 ? 0.001 : progress
         timings.totalDuration = duration
-        calculateTiming()
+
+        if duration == 0 {
+            CATransaction.begin()
+            CATransaction.setAnimationDuration(0.001)
+            calculateTiming()
+            CATransaction.commit()
+        } else {
+            calculateTiming()
+        }
         currentFill = percent
     }
 
@@ -109,10 +121,17 @@ class ProgressRingView: UIView {
         containerLayer.addSublayer(circleContainer)
         circleContainer.addSublayer(circle)
         circle.cornerRadius = lineWidth/2
-        circle.shadowRadius = 5
-        circle.shadowColor = UIColor.black.cgColor
-        circle.shadowOffset = CGSize(width: 5, height: 0)
-        circle.shadowOpacity = 0.9
+
+        switch isMiniRing {
+        case true:
+            circle.backgroundColor = UIColor.black.cgColor
+        case false:
+            circle.shadowRadius = 5
+            circle.shadowColor = UIColor.black.cgColor
+            circle.shadowOffset = CGSize(width: 5, height: 0)
+            circle.shadowOpacity = 0.9
+        }
+
         circleContainer.opacity = 0
     }
 
@@ -338,7 +357,8 @@ class ProgressRingView: UIView {
 
         // Shadow Rotation Animation
         shadowRotationAnimation.fromValue = currentShadowRotation
-        currentShadowRotation = (2*CGFloat.pi)*(percent <= 1 ? percent : 1)
+        let shadowOffset: CGFloat = isMiniRing ? 0.15 : 0
+        currentShadowRotation = (2*CGFloat.pi)*(percent <= 1 ? percent : 1) + shadowOffset
         if currentShadowRotation < 3*CGFloat.pi/2 { currentShadowRotation = 3*CGFloat.pi/2}
         shadowRotationAnimation.toValue = currentShadowRotation
         shadowRotationAnimation.duration = timings.time2
