@@ -15,6 +15,7 @@ final class HistoryView: UIViewController, HistoryViewProtocol, CoreDataViewProt
     @IBOutlet weak var volumeLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var editButton: UIButton!
     let drinkNames = ["Water", "Coffee", "Soda"]
     let drinkImageNames = ["waterbottle.svg", "coffee.svg", "cola.svg"]
 
@@ -136,6 +137,14 @@ final class HistoryView: UIViewController, HistoryViewProtocol, CoreDataViewProt
         }
     }
 
+    func updateEditButton(title: String) {
+        editButton.setTitle(title, for: .normal)
+    }
+
+    @IBAction func editToggleTapped(_ sender: Any) {
+        presenter.editToggleTapped()
+    }
+
 }
 
 extension HistoryView: UIGestureRecognizerDelegate {
@@ -225,6 +234,7 @@ extension HistoryView: UITableViewDelegate, UITableViewDataSource, DrinkTableVie
             return UITableViewCell()
         }
         cell.delegate = self
+        cell.deleteButton.isHidden = presenter.isHidingEditButton()
 
         return presenter.cellForRowAt(cell: cell, row: indexPath.row)
     }
