@@ -26,7 +26,8 @@ class CustomFSCell: FSCalendarCell {
                                        firstColour: .dripPrimary,
                                        secondColour: .dripSecondary,
                                        shadowColour: .dripShadow,
-                                       lineWidth: 6)
+                                       lineWidth: 6,
+                                       miniRing: true)
         self.contentView.addSubview(self.ringView)
 
     }

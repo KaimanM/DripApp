@@ -5,6 +5,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     weak private(set) var view: HistoryViewProtocol?
     var selectedDayDrinks: [Drink] = []
     var selectedDate = Date()
+    var editingMode = false
 
     init(view: HistoryViewProtocol) {
         self.view = view
@@ -13,6 +14,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     func onViewDidLoad() {
 //        print("Presenter onViewDidLoad firing correctly")
         view?.updateTitle(title: "History")
+        view?.updateEditButton(title: "Toggle Edit")
         view?.setupCalendar()
         view?.setupInfoPanel()
     }
@@ -45,6 +47,21 @@ final class HistoryPresenter: HistoryPresenterProtocol {
         view?.updateRingView(progress: CGFloat(total/goal), date: selectedDate, total: total, goal: goal)
     }
 
+    func editToggleTapped() {
+        if editingMode == true {
+            editingMode = false
+        } else {
+            editingMode = true
+        }
+        let buttonTitle = !editingMode ? "Toggle Edit" : "Finished"
+        view?.updateEditButton(title: buttonTitle)
+        view?.refreshUI()
+    }
+
+    func isHidingEditButton() -> Bool {
+        return !editingMode
+    }
+
     func cellForDate(cell: CustomFSCell, date: Date) -> CustomFSCell {
         var total: Double = 0
         let goal: Double = 2000
@@ -53,7 +70,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
                 total += drink.volume
         }
 
-        cell.ringView.setProgress(CGFloat(total/goal), duration: 0.5)
+        cell.ringView.setProgress(CGFloat(total/goal), duration: 0)
         return cell
     }
 

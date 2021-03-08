@@ -9,6 +9,8 @@ protocol HistoryPresenterProtocol: class {
 
     func numberOfRowsInSection() -> Int
     func cellForRowAt(cell: DrinkTableViewCell, row: Int) -> DrinkTableViewCell
+    func editToggleTapped()
+    func isHidingEditButton() -> Bool
 
     func didSelectDate(date: Date)
     func cellForDate(cell: CustomFSCell, date: Date) -> CustomFSCell

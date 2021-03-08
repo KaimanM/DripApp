@@ -126,18 +126,22 @@
                                                         <color key="textColor" name="whiteText"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fBw-3u-jWk">
-                                                        <rect key="frame" x="318" y="1.5" width="86" height="33"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fBw-3u-jWk">
+                                                        <rect key="frame" x="197" y="1.5" width="207" height="33"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <state key="normal" title="Show More">
+                                                        <state key="normal" title="Toggle Edit">
                                                             <color key="titleColor" name="dripMerged"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="editToggleTapped:" destination="FL6-uU-jDV" eventType="touchUpInside" id="3dw-hs-Tqo"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="fBw-3u-jWk" secondAttribute="trailing" constant="10" id="2Bd-Vr-rxN"/>
                                                     <constraint firstItem="fBw-3u-jWk" firstAttribute="centerY" secondItem="Vxa-bn-fHG" secondAttribute="centerY" id="5Nq-cg-7qd"/>
+                                                    <constraint firstItem="fBw-3u-jWk" firstAttribute="leading" secondItem="Vxa-bn-fHG" secondAttribute="trailing" constant="20" id="W7d-bi-XeJ"/>
                                                     <constraint firstAttribute="height" constant="30" id="Yja-Nm-xLa"/>
                                                     <constraint firstAttribute="bottom" secondItem="Vxa-bn-fHG" secondAttribute="bottom" id="bg7-hZ-mzd"/>
                                                     <constraint firstItem="Vxa-bn-fHG" firstAttribute="leading" secondItem="WVK-sT-mAO" secondAttribute="leading" constant="10" id="eQf-GL-p0k"/>
@@ -198,9 +202,9 @@
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1DA-3n-lVl">
-                                                                                    <rect key="frame" x="359" y="10" width="20" height="22"/>
+                                                                                    <rect key="frame" x="359.5" y="10" width="19.5" height="22"/>
                                                                                     <color key="tintColor" systemColor="systemGrayColor"/>
-                                                                                    <state key="normal" image="multiply.circle" catalog="system"/>
+                                                                                    <state key="normal" image="trash" catalog="system"/>
                                                                                     <connections>
                                                                                         <action selector="deleteButtonTapped:" destination="nrF-D7-aSj" eventType="touchUpInside" id="XxV-JP-9bs"/>
                                                                                     </connections>
@@ -279,6 +283,7 @@
                         <outlet property="calendar" destination="1YI-MF-4uq" id="O1R-tO-C7M"/>
                         <outlet property="calendarHeightConstraint" destination="mH1-Ka-Gyf" id="zSC-UW-nXS"/>
                         <outlet property="dayLabel" destination="XVh-lE-bdG" id="q7R-1K-6FC"/>
+                        <outlet property="editButton" destination="fBw-3u-jWk" id="BCQ-rQ-dta"/>
                         <outlet property="infoPanelView" destination="sz7-DT-nSs" id="yrj-mG-xIl"/>
                         <outlet property="ringView" destination="56A-9y-HKe" id="apE-kn-Ogz"/>
                         <outlet property="scrollView" destination="Y2t-dj-h5q" id="LLk-K8-kCT"/>
@@ -294,7 +299,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="multiply.circle" catalog="system" width="128" height="121"/>
+        <image name="trash" catalog="system" width="121" height="128"/>
         <namedColor name="dripMerged">
             <color red="0.2196078431372549" green="0.8901960784313725" blue="0.77254901960784317" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

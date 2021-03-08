@@ -8,6 +8,7 @@ protocol HistoryViewProtocol: class {
     func presentView(_ view: UIViewController)
     func showView(_ view: UIViewController)
     func updateTitle(title: String)
+    func updateEditButton(title: String)
 
     func setupCalendar()
     func setupInfoPanel()
