@@ -55,12 +55,12 @@
 		0AD1511D2454F00100F45042 /* Trends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AD1511C2454F00100F45042 /* Trends.storyboard */; };
 		10E1C8DA174C431CA9639FFB /* Pods_Drip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A08E894FB77C5466D4144B1 /* Pods_Drip.framework */; };
 		36031F6725D429070016EBC7 /* Colours.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36031F6625D429070016EBC7 /* Colours.xcassets */; };
+		360CA9F725F65E0500C7676A /* Drink+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360CA9F525F65E0500C7676A /* Drink+CoreDataProperties.swift */; };
+		360CA9F825F65E0500C7676A /* Drink+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360CA9F625F65E0500C7676A /* Drink+CoreDataClass.swift */; };
 		362A52A125EFA59800B6AA8D /* CoreDataControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362A52A025EFA59800B6AA8D /* CoreDataControllerProtocol.swift */; };
 		362A52A525EFA68100B6AA8D /* Drip.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 362A52A325EFA68100B6AA8D /* Drip.xcdatamodeld */; };
 		362A52DE25EFAA2600B6AA8D /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362A52DD25EFAA2600B6AA8D /* CoreDataController.swift */; };
 		362A52E125EFACFB00B6AA8D /* CoreDataViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362A52E025EFACFB00B6AA8D /* CoreDataViewProtocol.swift */; };
-		362A52E625EFC09200B6AA8D /* Drink+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362A52E425EFC09200B6AA8D /* Drink+CoreDataClass.swift */; };
-		362A52E725EFC09200B6AA8D /* Drink+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362A52E525EFC09200B6AA8D /* Drink+CoreDataProperties.swift */; };
 		364A9277256BE84F00F84985 /* DripTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB983824546719007BF01D /* DripTests.swift */; };
 		364A927C256BE91400F84985 /* TodayScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364A927B256BE91400F84985 /* TodayScreenBuilderTestCase.swift */; };
 		364A9280256BE93500F84985 /* TodayPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364A927F256BE93500F84985 /* TodayPresenterTestCase.swift */; };
@@ -150,12 +150,12 @@
 		0AD1511A2454EFF600F45042 /* TrendsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsPresenter.swift; sourceTree = "<group>"; };
 		0AD1511C2454F00100F45042 /* Trends.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Trends.storyboard; sourceTree = "<group>"; };
 		36031F6625D429070016EBC7 /* Colours.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colours.xcassets; sourceTree = "<group>"; };
+		360CA9F525F65E0500C7676A /* Drink+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Drink+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		360CA9F625F65E0500C7676A /* Drink+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Drink+CoreDataClass.swift"; sourceTree = "<group>"; };
 		362A52A025EFA59800B6AA8D /* CoreDataControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataControllerProtocol.swift; sourceTree = "<group>"; };
 		362A52A425EFA68100B6AA8D /* Drip.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Drip.xcdatamodel; sourceTree = "<group>"; };
 		362A52DD25EFAA2600B6AA8D /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
 		362A52E025EFACFB00B6AA8D /* CoreDataViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataViewProtocol.swift; sourceTree = "<group>"; };
-		362A52E425EFC09200B6AA8D /* Drink+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Drink+CoreDataClass.swift"; sourceTree = "<group>"; };
-		362A52E525EFC09200B6AA8D /* Drink+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Drink+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		364A927B256BE91400F84985 /* TodayScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayScreenBuilderTestCase.swift; sourceTree = "<group>"; };
 		364A927F256BE93500F84985 /* TodayPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayPresenterTestCase.swift; sourceTree = "<group>"; };
 		3680E0CA24B3BC2E009E9DB8 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
@@ -451,8 +451,8 @@
 		362A52CB25EFA94500B6AA8D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				362A52E425EFC09200B6AA8D /* Drink+CoreDataClass.swift */,
-				362A52E525EFC09200B6AA8D /* Drink+CoreDataProperties.swift */,
+				360CA9F625F65E0500C7676A /* Drink+CoreDataClass.swift */,
+				360CA9F525F65E0500C7676A /* Drink+CoreDataProperties.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -691,9 +691,9 @@
 				0A2B8B732454D8C700D9E8E7 /* TodayPresenterProtocol.swift in Sources */,
 				3680E0CF24B3C8CC009E9DB8 /* GradientBarView.swift in Sources */,
 				0A8BEA912455D45A00AA9880 /* AboutPresenter.swift in Sources */,
-				362A52E725EFC09200B6AA8D /* Drink+CoreDataProperties.swift in Sources */,
 				0ACB984E24546887007BF01D /* HistoryScreenBuilder.swift in Sources */,
 				0ACB986924549DF5007BF01D /* TabBarView.swift in Sources */,
+				360CA9F725F65E0500C7676A /* Drink+CoreDataProperties.swift in Sources */,
 				0ACB986024549DBC007BF01D /* TabBarScreenBuilder.swift in Sources */,
 				0A8BEA852455D24A00AA9880 /* AwardsViewProtocol.swift in Sources */,
 				368BAE2A25DC7A4F00D799F2 /* CustomFSCell.swift in Sources */,
@@ -712,8 +712,8 @@
 				0A44B3962457631C0023433A /* ProgressRingView.swift in Sources */,
 				362A52A125EFA59800B6AA8D /* CoreDataControllerProtocol.swift in Sources */,
 				0ACB986D2454AEEB007BF01D /* DarkTabBarController.swift in Sources */,
+				360CA9F825F65E0500C7676A /* Drink+CoreDataClass.swift in Sources */,
 				0AD151122454EFB400F45042 /* TrendsScreenBuilder.swift in Sources */,
-				362A52E625EFC09200B6AA8D /* Drink+CoreDataClass.swift in Sources */,
 				0ACB986724549DED007BF01D /* TabBarPresenterProtocol.swift in Sources */,
 				0ACB9857245468EC007BF01D /* HistoryPresenter.swift in Sources */,
 				0AD151192454EFEB00F45042 /* TrendsView.swift in Sources */,
