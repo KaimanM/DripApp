@@ -1,5 +1,6 @@
 import UIKit
 
+// swiftlint:disable:next type_body_length
 class ProgressRingView: UIView {
 
     private let containerLayer = CALayer()
@@ -108,7 +109,6 @@ class ProgressRingView: UIView {
 
     private func setupContainerLayer() {
         layer.addSublayer(containerLayer)
-//        containerLayer.backgroundColor = UIColor.red.cgColor
     }
 
     private func setupImageLayer(image: UIImage) {
