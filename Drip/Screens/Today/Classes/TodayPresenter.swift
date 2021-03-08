@@ -4,7 +4,6 @@ final class TodayPresenter: TodayPresenterProtocol {
     weak private(set) var view: TodayViewProtocol?
     var todaysTotal: Double = 0
     let drinkGoal: Double = 2000
-    var todaysDrinks: [Drink] = []
 
     init(view: TodayViewProtocol) {
         self.view = view
@@ -16,11 +15,7 @@ final class TodayPresenter: TodayPresenterProtocol {
         updateGradientBars()
     }
 
-    func onViewWillAppear() {
-        if let coreDataController = view?.coreDataController {
-            todaysDrinks = coreDataController.allEntries
-        }
-    }
+    func onViewWillAppear() {}
 
     func onViewWillDisappear() {
         if let coreDataController = view?.coreDataController {
