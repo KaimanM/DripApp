@@ -108,7 +108,7 @@ final class MockCoreDataController: CoreDataControllerProtocol {
         didSaveContext = true
     }
 
-    private(set) var didFetchDrinks: Bool?
+    private(set) var didFetchDrinks: Bool = false
     func fetchDrinks() {
         didFetchDrinks = true
     }
@@ -164,7 +164,6 @@ class TodayPresenterTestCase: XCTestCase {
         super.setUp()
         sut = TodayPresenter(view: mockedView)
         mockedView.coreDataController = mockedCoreDataController
-
     }
 
     // MARK: - onViewDidLoad -
