@@ -179,15 +179,9 @@ extension HistoryView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDeleg
             return FSCalendarCell()
         }
 
-//        if Calendar.current.isDate(date, inSameDayAs: Date()) {
-//            cell.ringView.setProgress(0.8)
-//        } else {
-//            let randomDouble = Double.random(in: 0...1) // remove me, placeholder
-//
-//            cell.ringView.setProgress(CGFloat(randomDouble))
-//        }
+        cell.ringView.setProgress(CGFloat(presenter.cellForDate(date: date)), duration: 0)
 
-        return presenter.cellForDate(cell: cell, date: date)
+        return cell
     }
 
     // Selected Calendar Cell
@@ -235,8 +229,19 @@ extension HistoryView: UITableViewDelegate, UITableViewDataSource, DrinkTableVie
         }
         cell.delegate = self
         cell.deleteButton.isHidden = presenter.isHidingEditButton()
+        let cellData = presenter.cellForRowAt(row: indexPath.row)
+        cell.drinkLabel.text = cellData.name
+        cell.volumeLabel.text = cellData.volume
+        cell.drinkImageView?.image = UIImage(named: cellData.imageName)?
+            .withTintColor(UIColor.white.withAlphaComponent(0.5))
+            .withAlignmentRectInsets(UIEdgeInsets(top: -15,
+                                                  left: -15,
+                                                  bottom: -15,
+                                                  right: -15))
+        cell.deleteButton.tag = indexPath.row
+        cell.timeStampLabel.text = cellData.timeStampTitle
 
-        return presenter.cellForRowAt(cell: cell, row: indexPath.row)
+        return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

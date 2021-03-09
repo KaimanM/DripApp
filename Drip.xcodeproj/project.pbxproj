@@ -63,7 +63,6 @@
 		362A52A525EFA68100B6AA8D /* Drip.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 362A52A325EFA68100B6AA8D /* Drip.xcdatamodeld */; };
 		362A52DE25EFAA2600B6AA8D /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362A52DD25EFAA2600B6AA8D /* CoreDataController.swift */; };
 		362A52E125EFACFB00B6AA8D /* CoreDataViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362A52E025EFACFB00B6AA8D /* CoreDataViewProtocol.swift */; };
-		364A9277256BE84F00F84985 /* DripTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB983824546719007BF01D /* DripTests.swift */; };
 		364A927C256BE91400F84985 /* TodayScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364A927B256BE91400F84985 /* TodayScreenBuilderTestCase.swift */; };
 		364A9280256BE93500F84985 /* TodayPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364A927F256BE93500F84985 /* TodayPresenterTestCase.swift */; };
 		3680E0CB24B3BC2E009E9DB8 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3680E0CA24B3BC2E009E9DB8 /* UIFont+Extensions.swift */; };
@@ -126,7 +125,6 @@
 		0ACB982D24546719007BF01D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0ACB982F24546719007BF01D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0ACB983424546719007BF01D /* DripTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DripTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0ACB983824546719007BF01D /* DripTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DripTests.swift; sourceTree = "<group>"; };
 		0ACB983A24546719007BF01D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0ACB9845245467BC007BF01D /* UIViewController+ViewControllerName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ViewControllerName.swift"; sourceTree = "<group>"; };
 		0ACB9847245467D6007BF01D /* ViewControllerName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerName.swift; sourceTree = "<group>"; };
@@ -304,7 +302,6 @@
 			isa = PBXGroup;
 			children = (
 				364A9279256BE8EA00F84985 /* Screens */,
-				0ACB983824546719007BF01D /* DripTests.swift */,
 				0ACB983A24546719007BF01D /* Info.plist */,
 			);
 			path = DripTests;
@@ -766,7 +763,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				364A927C256BE91400F84985 /* TodayScreenBuilderTestCase.swift in Sources */,
-				364A9277256BE84F00F84985 /* DripTests.swift in Sources */,
 				360CAA0225F69F9900C7676A /* HistoryScreenBuilderTestCase.swift in Sources */,
 				360CAA0825F6A01300C7676A /* HistoryPresenterTestCase.swift in Sources */,
 				364A9280256BE93500F84985 /* TodayPresenterTestCase.swift in Sources */,

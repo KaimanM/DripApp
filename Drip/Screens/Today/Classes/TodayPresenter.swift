@@ -10,7 +10,6 @@ final class TodayPresenter: TodayPresenterProtocol {
     }
 
     func onViewDidAppear() {
-        print("Presenter onViewDidAppear firing correctly")
         updateProgressRing()
         updateGradientBars()
     }
@@ -24,7 +23,6 @@ final class TodayPresenter: TodayPresenterProtocol {
     }
 
     func onViewDidLoad() {
-        print("Presenter onViewDidLoad firing correctly")
         view?.updateTitle(title: "Today")
         view?.setupRingView(startColor: .cyan, endColor: .blue, ringWidth: 30)
         view?.setupGradientBars(dailyGoal: Int(drinkGoal),

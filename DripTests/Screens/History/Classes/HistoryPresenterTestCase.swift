@@ -6,7 +6,7 @@ import CoreData
 final class MockHistoryView: HistoryViewProtocol {
     var presenter: HistoryPresenterProtocol!
 
-    var coreDataController: CoreDataControllerProtocol!
+    var coreDataController: CoreDataControllerProtocol! = CoreDataController.shared
 
     //swiftlint:disable:next large_tuple
     private(set) var didUpdateRingView: (progress: CGFloat, date: Date, total: Double, goal: Double)?
@@ -54,17 +54,22 @@ final class MockHistoryView: HistoryViewProtocol {
 class HistoryPresenterTestCase: XCTestCase {
     private var sut: HistoryPresenter!
     private var mockedView = MockHistoryView()
-    private var mockedCoreDataController = MockCoreDataController()
+    private var coreDataController = CoreDataController.shared
 
     override func setUp() {
         super.setUp()
         sut = HistoryPresenter(view: mockedView)
-        mockedView.coreDataController = mockedCoreDataController
     }
 
     override func tearDown() {
+        flushCoreData()
         super.tearDown()
-        print("this runs")
+    }
+
+    func flushCoreData() {
+        for entry in coreDataController.allEntries {
+            coreDataController.deleteEntry(entry: entry)
+        }
     }
 
     // MARK: - onViewDidLoad -
@@ -103,16 +108,30 @@ class HistoryPresenterTestCase: XCTestCase {
 
     // MARK: - onViewDidAppear -
 
-    func test_whenOnViewDidAppearCalled_thenFetchesDrinks() {
+    func test_given0DrinksInCoreData_whenOnViewDidAppearCalled_thenFetchesDrinks() {
         // given & when
         sut.onViewDidAppear()
 
         // then
-        XCTAssertTrue(mockedCoreDataController.didFetchDrinks)
+        XCTAssertEqual(coreDataController.allEntries.count, 0)
+    }
+
+    func test_given1DrinkInCoreData_whenOnViewDidAppearCalled_thenFetchesDrinks() {
+        // given
+        coreDataController.addDrink(name: "test", volume: 250, imageName: "test", timeStamp: Date())
+
+        // when
+        sut.onViewDidAppear()
+
+        // then
+        XCTAssertEqual(coreDataController.allEntries.count, 1)
     }
 
     func test_whenOnViewDidAppearCalled_thenPopulatesDrinksAndUpdatesRingView() {
         // given & when
+        coreDataController.addDrink(name: "testDrink", volume: 250, imageName: "testImage", timeStamp: Date())
+        coreDataController.addDrink(name: "testDrink", volume: 500, imageName: "testImage", timeStamp: Date())
+        coreDataController.addDrink(name: "testDrink", volume: 1000, imageName: "testImage", timeStamp: Date())
         sut.onViewDidAppear()
 
         // then
@@ -171,37 +190,57 @@ class HistoryPresenterTestCase: XCTestCase {
 
     // MARK: - cellForDate -
 
-    func test_givenInputOfCellAndDate_whenCellForDateCalled_thenCellForDateReturnsACell() {
-        XCTAssertTrue(type(of: sut.cellForDate(cell: CustomFSCell(), date: Date())) === CustomFSCell.self)
+    func test_givenSingleDrinkOf250_whenCellForDateCalled_thenReturnsCorrectProgressForRingView() {
+        // given
+        coreDataController.addDrink(name: "testDrink", volume: 250, imageName: "testImage", timeStamp: Date())
+
+        // then
+        XCTAssertEqual(sut.cellForDate(date: Date()), 250/2000)
+    }
+    func test_givenNoDrink_whenCellForDateCalled_thenReturnsCorrectProgressForRingView() {
+        // then
+        XCTAssertEqual(sut.cellForDate(date: Date()), 0)
     }
 
     // MARK: - TableView -
 
     func test_given3ItemsInCoreData_numberOfRowsInSectionReturnsCorrectValue() {
         // given
+        coreDataController.addDrink(name: "testDrink", volume: 250, imageName: "testImage", timeStamp: Date())
+        coreDataController.addDrink(name: "testDrink", volume: 250, imageName: "testImage", timeStamp: Date())
+        coreDataController.addDrink(name: "testDrink", volume: 250, imageName: "testImage", timeStamp: Date())
         sut.populateDrinks()
 
         // then
         XCTAssertEqual(sut.numberOfRowsInSection(), 3)
     }
 
-    func test_tableviewcell() {
-//        var testCell = DrinkTableViewCell()
-//        var dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second],
-//                                                             from: Date())
-//
-//        dateComponents.hour = 9
-//        let morningDrink = Drink(context: mockedCoreDataController.context)
-//        morningDrink.name = "test"
-//        morningDrink.volume = 250
-//        morningDrink.imageName = "testImageName"
-//        morningDrink.timeStamp = Calendar.current.date(from: dateComponents)!
-//        mockedCoreDataController.allEntries.append(morningDrink)
-//        sut.populateDrinks()
-//        
-//        testCell = sut.cellForRowAt(cell: testCell, row: 0)
-//
-//
-//        XCTAssertEqual(testCell.drinkLabel.text, "test")
+    func test_givenMockDrink_whenCellForRowAtCalled_thenReturnsCorrectTupleOfData() {
+        //given
+        var dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second],
+                                                             from: Date())
+
+        dateComponents.hour = 20
+        dateComponents.minute = 15
+        coreDataController.addDrink(name: "test", volume: 250, imageName: "testImageName",
+                                    timeStamp: Calendar.current.date(from: dateComponents)!)
+        sut.populateDrinks()
+
+        // when
+        let testCell = sut.cellForRowAt(row: 0)
+
+        // then
+        XCTAssertEqual(testCell.name, "test")
+        XCTAssertEqual(testCell.volume, "250ml")
+        XCTAssertEqual(testCell.timeStampTitle, "At 20:15")
+        XCTAssertEqual(testCell.imageName, "testImageName")
+    }
+
+    func test_givenDeleteButtonTapped_thenPresentsUIAlertControllerConfirmingDelete() {
+        // given
+        sut.didTapDeleteButton(row: 0)
+
+        // then
+        XCTAssertTrue(mockedView.didPresentViewController!.isKind(of: UIAlertController.self))
     }
 }
