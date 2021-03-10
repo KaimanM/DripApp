@@ -35,15 +35,21 @@ final class TrendsView: UIViewController, TrendsViewProtocol, CoreDataViewProtoc
 
 extension TrendsView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 30
+        let number = section == 0 ? 10 : 6
+        return number
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        2
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         var cell = UICollectionViewCell()
 
-        if let trendCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? TrendsCollectionViewCell {
-//            trendCell.testLabel.text = "test"
+        if let trendCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell",
+                                                              for: indexPath) as? TrendsCollectionViewCell {
             trendCell.imageView?.image = UIImage(named: "waterbottle.svg")?
                 .withTintColor(UIColor.white.withAlphaComponent(0.5))
                 .withAlignmentRectInsets(UIEdgeInsets(top: -7,
@@ -56,19 +62,37 @@ extension TrendsView: UICollectionViewDelegate, UICollectionViewDataSource, UICo
         return cell
     }
 
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        referenceSizeForHeaderInSection section: Int) -> CGSize {
+            return CGSize(width: collectionView.frame.width, height: 40)
+        }
 
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let yourWidth = collectionView.bounds.width/2
-//        let yourHeight = yourWidth
-//
-//        return CGSize(width: yourWidth, height: yourHeight)
-//    }
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            var reusableHeaderView = UICollectionReusableView()
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            //swiftlint:disable line_length
+            if let reusableview = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
+                                                                                  withReuseIdentifier: "headerCell", for: indexPath) as? TrendsHeaderView {
+            //swiftlint:enable line_length
+                reusableview.title.text = indexPath.section == 0 ? "Section 1" : "Section 2"
+                reusableHeaderView = reusableview
+            }
+            return reusableHeaderView
+        default:  fatalError("Unexpected element kind")
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
 
         let noOfCellsInRow = 2
 
-        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+        guard let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout else {
+            return CGSize(width: 50, height: 50)
+        }
 
         let totalSpace = flowLayout.sectionInset.left
             + flowLayout.sectionInset.right
@@ -78,6 +102,4 @@ extension TrendsView: UICollectionViewDelegate, UICollectionViewDataSource, UICo
 
         return CGSize(width: size, height: 70)
     }
-
-
 }
