@@ -8,11 +8,12 @@ protocol HistoryPresenterProtocol: class {
     func onViewDidAppear()
 
     func numberOfRowsInSection() -> Int
-    func cellForRowAt(cell: DrinkTableViewCell, row: Int) -> DrinkTableViewCell
+    //swiftlint:disable:next large_tuple
+    func cellForRowAt(row: Int) -> (name: String, volume: String, imageName: String, timeStampTitle: String)
     func editToggleTapped()
     func isHidingEditButton() -> Bool
 
     func didSelectDate(date: Date)
-    func cellForDate(cell: CustomFSCell, date: Date) -> CustomFSCell
+    func cellForDate(date: Date) -> Double
     func didTapDeleteButton(row: Int)
 }

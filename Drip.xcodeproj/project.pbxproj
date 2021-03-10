@@ -57,11 +57,12 @@
 		36031F6725D429070016EBC7 /* Colours.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36031F6625D429070016EBC7 /* Colours.xcassets */; };
 		360CA9F725F65E0500C7676A /* Drink+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360CA9F525F65E0500C7676A /* Drink+CoreDataProperties.swift */; };
 		360CA9F825F65E0500C7676A /* Drink+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360CA9F625F65E0500C7676A /* Drink+CoreDataClass.swift */; };
+		360CAA0225F69F9900C7676A /* HistoryScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360CAA0125F69F9900C7676A /* HistoryScreenBuilderTestCase.swift */; };
+		360CAA0825F6A01300C7676A /* HistoryPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360CAA0725F6A01300C7676A /* HistoryPresenterTestCase.swift */; };
 		362A52A125EFA59800B6AA8D /* CoreDataControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362A52A025EFA59800B6AA8D /* CoreDataControllerProtocol.swift */; };
 		362A52A525EFA68100B6AA8D /* Drip.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 362A52A325EFA68100B6AA8D /* Drip.xcdatamodeld */; };
 		362A52DE25EFAA2600B6AA8D /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362A52DD25EFAA2600B6AA8D /* CoreDataController.swift */; };
 		362A52E125EFACFB00B6AA8D /* CoreDataViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362A52E025EFACFB00B6AA8D /* CoreDataViewProtocol.swift */; };
-		364A9277256BE84F00F84985 /* DripTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACB983824546719007BF01D /* DripTests.swift */; };
 		364A927C256BE91400F84985 /* TodayScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364A927B256BE91400F84985 /* TodayScreenBuilderTestCase.swift */; };
 		364A9280256BE93500F84985 /* TodayPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364A927F256BE93500F84985 /* TodayPresenterTestCase.swift */; };
 		3680E0CB24B3BC2E009E9DB8 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3680E0CA24B3BC2E009E9DB8 /* UIFont+Extensions.swift */; };
@@ -124,7 +125,6 @@
 		0ACB982D24546719007BF01D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0ACB982F24546719007BF01D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0ACB983424546719007BF01D /* DripTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DripTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0ACB983824546719007BF01D /* DripTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DripTests.swift; sourceTree = "<group>"; };
 		0ACB983A24546719007BF01D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0ACB9845245467BC007BF01D /* UIViewController+ViewControllerName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ViewControllerName.swift"; sourceTree = "<group>"; };
 		0ACB9847245467D6007BF01D /* ViewControllerName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerName.swift; sourceTree = "<group>"; };
@@ -152,6 +152,8 @@
 		36031F6625D429070016EBC7 /* Colours.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colours.xcassets; sourceTree = "<group>"; };
 		360CA9F525F65E0500C7676A /* Drink+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Drink+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		360CA9F625F65E0500C7676A /* Drink+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Drink+CoreDataClass.swift"; sourceTree = "<group>"; };
+		360CAA0125F69F9900C7676A /* HistoryScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryScreenBuilderTestCase.swift; sourceTree = "<group>"; };
+		360CAA0725F6A01300C7676A /* HistoryPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPresenterTestCase.swift; sourceTree = "<group>"; };
 		362A52A025EFA59800B6AA8D /* CoreDataControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataControllerProtocol.swift; sourceTree = "<group>"; };
 		362A52A425EFA68100B6AA8D /* Drip.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Drip.xcdatamodel; sourceTree = "<group>"; };
 		362A52DD25EFAA2600B6AA8D /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
@@ -300,7 +302,6 @@
 			isa = PBXGroup;
 			children = (
 				364A9279256BE8EA00F84985 /* Screens */,
-				0ACB983824546719007BF01D /* DripTests.swift */,
 				0ACB983A24546719007BF01D /* Info.plist */,
 			);
 			path = DripTests;
@@ -448,6 +449,23 @@
 			path = "View Controller";
 			sourceTree = "<group>";
 		};
+		360CAA0025F69F8600C7676A /* History */ = {
+			isa = PBXGroup;
+			children = (
+				360CAA0125F69F9900C7676A /* HistoryScreenBuilderTestCase.swift */,
+				360CAA0525F69FDF00C7676A /* Classes */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		360CAA0525F69FDF00C7676A /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				360CAA0725F6A01300C7676A /* HistoryPresenterTestCase.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		362A52CB25EFA94500B6AA8D /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -460,6 +478,7 @@
 		364A9279256BE8EA00F84985 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				360CAA0025F69F8600C7676A /* History */,
 				364A927A256BE8FF00F84985 /* Today */,
 			);
 			path = Screens;
@@ -744,7 +763,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				364A927C256BE91400F84985 /* TodayScreenBuilderTestCase.swift in Sources */,
-				364A9277256BE84F00F84985 /* DripTests.swift in Sources */,
+				360CAA0225F69F9900C7676A /* HistoryScreenBuilderTestCase.swift in Sources */,
+				360CAA0825F6A01300C7676A /* HistoryPresenterTestCase.swift in Sources */,
 				364A9280256BE93500F84985 /* TodayPresenterTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

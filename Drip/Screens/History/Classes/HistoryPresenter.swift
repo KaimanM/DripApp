@@ -12,7 +12,6 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     }
 
     func onViewDidLoad() {
-//        print("Presenter onViewDidLoad firing correctly")
         view?.updateTitle(title: "History")
         view?.updateEditButton(title: "Toggle Edit")
         view?.setupCalendar()
@@ -24,7 +23,6 @@ final class HistoryPresenter: HistoryPresenterProtocol {
 
     func onViewDidAppear() {
         view?.coreDataController.fetchDrinks()
-        print(view?.coreDataController.allEntries as Any)
 
         didSelectDate(date: selectedDate)
     }
@@ -62,37 +60,30 @@ final class HistoryPresenter: HistoryPresenterProtocol {
         return !editingMode
     }
 
-    func cellForDate(cell: CustomFSCell, date: Date) -> CustomFSCell {
+    func cellForDate(date: Date) -> Double {
         var total: Double = 0
         let goal: Double = 2000
 
         for drink in view?.coreDataController?.fetchEntriesForDate(date: date) ?? [] {
                 total += drink.volume
         }
-
-        cell.ringView.setProgress(CGFloat(total/goal), duration: 0)
-        return cell
+        return total/goal
     }
 
     func numberOfRowsInSection() -> Int {
         return selectedDayDrinks.count
     }
 
-    func cellForRowAt(cell: DrinkTableViewCell, row: Int) -> DrinkTableViewCell {
-        cell.drinkLabel.text = selectedDayDrinks[row].name
-        cell.volumeLabel.text = "\(Int(selectedDayDrinks[row].volume))ml"
-        cell.drinkImageView?.image = UIImage(named: selectedDayDrinks[row].imageName)?
-            .withTintColor(UIColor.white.withAlphaComponent(0.5))
-            .withAlignmentRectInsets(UIEdgeInsets(top: -15,
-                                                  left: -15,
-                                                  bottom: -15,
-                                                  right: -15))
-        cell.deleteButton.tag = row
+    //swiftlint:disable:next large_tuple
+    func cellForRowAt(row: Int) -> (name: String, volume: String, imageName: String, timeStampTitle: String) {
         let calObject = Calendar.current
         let hour = calObject.component(.hour, from: selectedDayDrinks[row].timeStamp)
         let minutes = calObject.component(.minute, from: selectedDayDrinks[row].timeStamp)
-        cell.timeStampLabel.text = "At \(hour):\(minutes)"
-        return cell
+        let volumeLabel = "\(Int(selectedDayDrinks[row].volume))ml"
+        return (name: selectedDayDrinks[row].name,
+                volume: volumeLabel,
+                imageName: selectedDayDrinks[row].imageName,
+                timeStampTitle: "At \(hour):\(minutes)")
     }
 
     func didTapDeleteButton(row: Int) {

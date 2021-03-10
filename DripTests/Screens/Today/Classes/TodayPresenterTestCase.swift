@@ -1,8 +1,10 @@
 import XCTest
+import CoreData
 
 @testable import Drip
 
 final class MockTodayView: TodayViewProtocol {
+    var coreDataController: CoreDataControllerProtocol! = CoreDataController.shared
 
     var presenter: TodayPresenterProtocol!
 
@@ -54,15 +56,54 @@ final class MockTodayView: TodayViewProtocol {
                                     subtitle3: subtitle3,
                                     subtitle4: subtitle4)
     }
+
+    //swiftlint:disable:next large_tuple
+    private(set) var didSetupGradientBars: (dailyGoal: Int, morningGoal: Int, afternoonGoal: Int, eveningGoal: Int)?
+    func setupGradientBars(dailyGoal: Int, morningGoal: Int, afternoonGoal: Int, eveningGoal: Int) {
+        didSetupGradientBars = (dailyGoal: dailyGoal, morningGoal: morningGoal,
+                                afternoonGoal: afternoonGoal, eveningGoal: eveningGoal)
+    }
+
+    private(set) var didSetTodayGradientBarProgress: (total: Double, goal: Double)?
+    func setTodayGradientBarProgress(total: Double, goal: Double) {
+        didSetTodayGradientBarProgress = (total: total, goal: goal)
+    }
+
+    private(set) var didSetMorningGradientBarProgress: (total: Double, goal: Double)?
+    func setMorningGradientBarProgress(total: Double, goal: Double) {
+        didSetMorningGradientBarProgress = (total: total, goal: goal)
+    }
+
+    private(set) var didSetAfternoonGradientBarProgress: (total: Double, goal: Double)?
+    func setAfternoonGradientBarProgress(total: Double, goal: Double) {
+        didSetAfternoonGradientBarProgress = (total: total, goal: goal)
+    }
+
+    private(set) var didSetEveningGradientBarProgress: (total: Double, goal: Double)?
+    func setEveningGradientBarProgress(total: Double, goal: Double) {
+        didSetEveningGradientBarProgress = (total: total, goal: goal)
+    }
 }
 
 class TodayPresenterTestCase: XCTestCase {
     private var sut: TodayPresenter!
     private var mockedView = MockTodayView()
+    private var coreDataController = CoreDataController.shared
 
     override func setUp() {
         super.setUp()
         sut = TodayPresenter(view: mockedView)
+    }
+
+    override func tearDown() {
+        flushCoreData()
+        super.tearDown()
+    }
+
+    func flushCoreData() {
+        for entry in coreDataController.allEntries {
+            coreDataController.deleteEntry(entry: entry)
+        }
     }
 
     // MARK: - onViewDidLoad -
@@ -106,6 +147,17 @@ class TodayPresenterTestCase: XCTestCase {
         XCTAssertEqual(mockedView.didUpdateButtonSubtitles?.subtitle3, "Soda")
         XCTAssertEqual(mockedView.didUpdateButtonSubtitles?.subtitle4, "Custom")
     }
+
+    func test_whenOnViewDidLoadCalled_thenUSetsUpGradientBars() {
+        // given & when
+        sut.onViewDidLoad()
+
+        // then
+        XCTAssertEqual(mockedView.didSetupGradientBars?.dailyGoal, 2000)
+        XCTAssertEqual(mockedView.didSetupGradientBars?.morningGoal, 666)
+        XCTAssertEqual(mockedView.didSetupGradientBars?.afternoonGoal, 666)
+        XCTAssertEqual(mockedView.didSetupGradientBars?.eveningGoal, 666)
+    }
     // MARK: - onViewDidAppear -
 
     func test_whenOnViewDidAppearCalled_thenSetsRingProgress() {
@@ -123,6 +175,83 @@ class TodayPresenterTestCase: XCTestCase {
         // then
         XCTAssertTrue((0...100).contains(mockedView.didAnimateLabel!.endValue))
         XCTAssertEqual(mockedView.didAnimateLabel?.animationDuration, 2)
+    }
+
+    func test_whenOnViewDidAppearCalled_thenUpdatesGradientBars() {
+        // given & when
+        var dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second],
+                                                             from: Date())
+
+        dateComponents.hour = 9
+        var timeStamp = Calendar.current.date(from: dateComponents)!
+        coreDataController.addDrink(name: "testDrink", volume: 250, imageName: "testImage", timeStamp: timeStamp)
+
+        dateComponents.hour = 15
+        timeStamp = Calendar.current.date(from: dateComponents)!
+        coreDataController.addDrink(name: "testDrink", volume: 500, imageName: "testImage", timeStamp: timeStamp)
+
+        dateComponents.hour = 20
+        timeStamp = Calendar.current.date(from: dateComponents)!
+        coreDataController.addDrink(name: "testDrink", volume: 1000, imageName: "testImage", timeStamp: timeStamp)
+        sut.onViewDidAppear()
+
+        // then
+        XCTAssertEqual(mockedView.didSetTodayGradientBarProgress?.total, 1750)
+        XCTAssertEqual(mockedView.didSetTodayGradientBarProgress?.goal, 2000)
+        XCTAssertEqual(mockedView.didSetMorningGradientBarProgress?.total, 250)
+        XCTAssertEqual(mockedView.didSetMorningGradientBarProgress?.goal, 2000/3)
+        XCTAssertEqual(mockedView.didSetAfternoonGradientBarProgress?.total, 500)
+        XCTAssertEqual(mockedView.didSetAfternoonGradientBarProgress?.goal, 2000/3)
+        XCTAssertEqual(mockedView.didSetEveningGradientBarProgress?.total, 1000)
+        XCTAssertEqual(mockedView.didSetEveningGradientBarProgress?.goal, 2000/3)
+    }
+
+    // MARK: - onViewWillDisappear -
+
+    func test_whenOnViewWillDisappear_thenSavesContext() {
+        // given & when
+        sut.onViewWillDisappear()
+
+        // then
+//        XCTAssertTrue(mockedCoreDataController.didSaveContext)
+    }
+
+    // MARK: - Buttons -
+
+    func test_OnDrinkButton1Tapped_thenSavesDrink1() {
+        // given & when
+        sut.onDrinkButton1Tapped()
+
+        // then
+        coreDataController.fetchDrinks()
+        XCTAssertEqual(coreDataController.allEntries[0].name, "Water")
+        XCTAssertEqual(coreDataController.allEntries[0].volume, 500)
+        XCTAssertEqual(coreDataController.allEntries[0].imageName, "waterbottle.svg")
+        XCTAssertTrue(Calendar.current.isDate(coreDataController.allEntries[0].timeStamp, inSameDayAs: Date()))
+    }
+
+    func test_OnDrinkButton2Tapped_thenSavesDrink2() {
+        // given & when
+        sut.onDrinkButton2Tapped()
+
+        // then
+        coreDataController.fetchDrinks()
+        XCTAssertEqual(coreDataController.allEntries[0].name, "Coffee")
+        XCTAssertEqual(coreDataController.allEntries[0].volume, 250)
+        XCTAssertEqual(coreDataController.allEntries[0].imageName, "coffee.svg")
+        XCTAssertTrue(Calendar.current.isDate(coreDataController.allEntries[0].timeStamp, inSameDayAs: Date()))
+    }
+
+    func test_OnDrinkButton3Tapped_thenSavesDrink3() {
+        // given & when
+        sut.onDrinkButton3Tapped()
+
+        // then
+        coreDataController.fetchDrinks()
+        XCTAssertEqual(coreDataController.allEntries[0].name, "Cola")
+        XCTAssertEqual(coreDataController.allEntries[0].volume, 330)
+        XCTAssertEqual(coreDataController.allEntries[0].imageName, "cola.svg")
+        XCTAssertTrue(Calendar.current.isDate(coreDataController.allEntries[0].timeStamp, inSameDayAs: Date()))
     }
 
 }

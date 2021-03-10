@@ -5,6 +5,8 @@ class CoreDataController: CoreDataControllerProtocol {
 
     // MARK: - Core Data stack
 
+    static var shared = CoreDataController()
+
     lazy var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
@@ -13,6 +15,13 @@ class CoreDataController: CoreDataControllerProtocol {
          error conditions that could cause the creation of the store to fail.
         */
         let container = NSPersistentContainer(name: "Drip")
+        var isRunningTests: Bool {
+            return ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+        }
+        if isRunningTests {
+            print("IS RUNNING TESTS")
+            container.persistentStoreDescriptions.first?.type = NSInMemoryStoreType
+        }
         container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")

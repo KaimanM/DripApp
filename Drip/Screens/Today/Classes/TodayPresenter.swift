@@ -4,23 +4,17 @@ final class TodayPresenter: TodayPresenterProtocol {
     weak private(set) var view: TodayViewProtocol?
     var todaysTotal: Double = 0
     let drinkGoal: Double = 2000
-    var todaysDrinks: [Drink] = []
 
     init(view: TodayViewProtocol) {
         self.view = view
     }
 
     func onViewDidAppear() {
-        print("Presenter onViewDidAppear firing correctly")
         updateProgressRing()
         updateGradientBars()
     }
 
-    func onViewWillAppear() {
-        if let coreDataController = view?.coreDataController {
-            todaysDrinks = coreDataController.allEntries
-        }
-    }
+    func onViewWillAppear() {}
 
     func onViewWillDisappear() {
         if let coreDataController = view?.coreDataController {
@@ -29,7 +23,6 @@ final class TodayPresenter: TodayPresenterProtocol {
     }
 
     func onViewDidLoad() {
-        print("Presenter onViewDidLoad firing correctly")
         view?.updateTitle(title: "Today")
         view?.setupRingView(startColor: .cyan, endColor: .blue, ringWidth: 30)
         view?.setupGradientBars(dailyGoal: Int(drinkGoal),
