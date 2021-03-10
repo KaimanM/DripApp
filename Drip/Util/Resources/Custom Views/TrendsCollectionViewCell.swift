@@ -52,6 +52,4 @@ class TrendsCollectionViewCell: UICollectionViewCell {
         trendValueLabel.font = UIFont.SFProRounded(ofSize: 18, fontWeight: .medium)
         trendValueLabel.textColor = .dripMerged
     }
-
-
 }

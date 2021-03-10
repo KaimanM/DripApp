@@ -35,12 +35,11 @@ final class TrendsView: UIViewController, TrendsViewProtocol, CoreDataViewProtoc
 
 extension TrendsView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let number = section == 0 ? 10 : 6
-        return number
+        return presenter.getNumberOfItemsInSection(for: section)
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        2
+        presenter.getSectionCount()
     }
 
     func collectionView(_ collectionView: UICollectionView,
@@ -56,6 +55,7 @@ extension TrendsView: UICollectionViewDelegate, UICollectionViewDataSource, UICo
                                                       left: -7,
                                                       bottom: -7,
                                                       right: -7))
+            trendCell.trendLabel.text = presenter.getTitleForCell(section: indexPath.section, row: indexPath.row)
             cell = trendCell
         }
 
@@ -77,7 +77,7 @@ extension TrendsView: UICollectionViewDelegate, UICollectionViewDataSource, UICo
             if let reusableview = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
                                                                                   withReuseIdentifier: "headerCell", for: indexPath) as? TrendsHeaderView {
             //swiftlint:enable line_length
-                reusableview.title.text = indexPath.section == 0 ? "Section 1" : "Section 2"
+                reusableview.title.text = presenter.getSectionHeader(for: indexPath.section)
                 reusableHeaderView = reusableview
             }
             return reusableHeaderView
