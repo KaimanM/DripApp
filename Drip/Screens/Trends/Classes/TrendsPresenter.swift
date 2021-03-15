@@ -61,6 +61,7 @@ final class TrendsPresenter: TrendsPresenterProtocol {
         }
     }
 
+    // swiftlint:disable:next cyclomatic_complexity
     func getDataForCell(section: Int, row: Int) -> String {
         if didLoadData == false { return "Loading" }
         switch section {
@@ -100,6 +101,7 @@ final class TrendsPresenter: TrendsPresenterProtocol {
             }
             amount = Double(coreDataController.allEntries.count)
         }
+        guard !(total == 0 || amount == 0) else { return "-- ml"}
         return "\(Int(total/amount))ml"
     }
 
@@ -116,6 +118,7 @@ final class TrendsPresenter: TrendsPresenterProtocol {
                 }
             }
         }
+        guard !(total == 0 || days == 0) else { return "-- ml"}
         return "\(Int(total/days))ml"
     }
 
@@ -133,6 +136,7 @@ final class TrendsPresenter: TrendsPresenterProtocol {
                 if total > best { best = total }
             }
         }
+        guard !(best == 0) else { return "-- ml"}
         return "\(Int(best))ml"
     }
 
@@ -151,6 +155,7 @@ final class TrendsPresenter: TrendsPresenterProtocol {
             }
             if total < worst { worst = total }
         }
+        guard !(worst > Double(Int.max)) else { return "-- ml"}
         return "\(Int(worst))ml"
     }
 
@@ -220,7 +225,7 @@ final class TrendsPresenter: TrendsPresenterProtocol {
         }
 
         var mostCommonAmount = 0
-        var mostCommonName = ""
+        var mostCommonName = "No Data"
         for key in drinkDictionary.keys {
             print("\(key): \(drinkDictionary[key]!)")
             if drinkDictionary[key]! > mostCommonAmount {
@@ -233,10 +238,10 @@ final class TrendsPresenter: TrendsPresenterProtocol {
 
     func getDailyDrinksAllTime() -> String {
         var days: Double = 0
-        var count: Double = 1
+        var drinkCount: Double = 0
         var date = Date(timeIntervalSince1970: 0)
         if let coreDataController = view?.coreDataController {
-            count = Double(coreDataController.allEntries.count)
+            drinkCount = Double(coreDataController.allEntries.count)
             for drink in coreDataController.allEntries.sorted(by: { $0.timeStamp > $1.timeStamp}) {
                 if !Calendar.current.isDate(drink.timeStamp, inSameDayAs: date) {
                     days += 1
@@ -244,6 +249,7 @@ final class TrendsPresenter: TrendsPresenterProtocol {
                 }
             }
         }
-        return String(format: "%.1f drinks", count/days)
+        guard !(days == 0 || drinkCount == 0) else { return "-- drinks"}
+        return String(format: "%.1f drinks", drinkCount/days)
     }
 }
