@@ -31,6 +31,10 @@ final class TrendsView: UIViewController, TrendsViewProtocol, CoreDataViewProtoc
         self.title = title
     }
 
+    func reloadData() {
+        collectionView.reloadData()
+    }
+
 }
 
 extension TrendsView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -56,6 +60,7 @@ extension TrendsView: UICollectionViewDelegate, UICollectionViewDataSource, UICo
                                                       bottom: -7,
                                                       right: -7))
             trendCell.trendLabel.text = presenter.getTitleForCell(section: indexPath.section, row: indexPath.row)
+            trendCell.trendValueLabel.text = presenter.getDataForCell(section: indexPath.section, row: indexPath.row)
             cell = trendCell
         }
 

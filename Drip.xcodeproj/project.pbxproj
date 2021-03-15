@@ -63,6 +63,7 @@
 		362A52A525EFA68100B6AA8D /* Drip.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 362A52A325EFA68100B6AA8D /* Drip.xcdatamodeld */; };
 		362A52DE25EFAA2600B6AA8D /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362A52DD25EFAA2600B6AA8D /* CoreDataController.swift */; };
 		362A52E125EFACFB00B6AA8D /* CoreDataViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362A52E025EFACFB00B6AA8D /* CoreDataViewProtocol.swift */; };
+		3644493F25FFC54D006E1B0F /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3644493E25FFC54D006E1B0F /* Date+Extensions.swift */; };
 		364A927C256BE91400F84985 /* TodayScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364A927B256BE91400F84985 /* TodayScreenBuilderTestCase.swift */; };
 		364A9280256BE93500F84985 /* TodayPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364A927F256BE93500F84985 /* TodayPresenterTestCase.swift */; };
 		3680E0CB24B3BC2E009E9DB8 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3680E0CA24B3BC2E009E9DB8 /* UIFont+Extensions.swift */; };
@@ -160,6 +161,7 @@
 		362A52A425EFA68100B6AA8D /* Drip.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Drip.xcdatamodel; sourceTree = "<group>"; };
 		362A52DD25EFAA2600B6AA8D /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
 		362A52E025EFACFB00B6AA8D /* CoreDataViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataViewProtocol.swift; sourceTree = "<group>"; };
+		3644493E25FFC54D006E1B0F /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		364A927B256BE91400F84985 /* TodayScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayScreenBuilderTestCase.swift; sourceTree = "<group>"; };
 		364A927F256BE93500F84985 /* TodayPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayPresenterTestCase.swift; sourceTree = "<group>"; };
 		3680E0CA24B3BC2E009E9DB8 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
@@ -425,6 +427,7 @@
 				0ACB9845245467BC007BF01D /* UIViewController+ViewControllerName.swift */,
 				3680E0CA24B3BC2E009E9DB8 /* UIFont+Extensions.swift */,
 				3680E0CC24B3BF50009E9DB8 /* UIColor+Extensions.swift */,
+				3644493E25FFC54D006E1B0F /* Date+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -734,6 +737,7 @@
 				36BFF50F25D17653003456F3 /* RoundDrinkButton.swift in Sources */,
 				0ACB986B24549DFE007BF01D /* TabBarPresenter.swift in Sources */,
 				0ACB986524549DE2007BF01D /* TabBarViewProtocol.swift in Sources */,
+				3644493F25FFC54D006E1B0F /* Date+Extensions.swift in Sources */,
 				0AD151172454EFE300F45042 /* TrendsPresenterProtocol.swift in Sources */,
 				0A44B3962457631C0023433A /* ProgressRingView.swift in Sources */,
 				362A52A125EFA59800B6AA8D /* CoreDataControllerProtocol.swift in Sources */,

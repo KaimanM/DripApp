@@ -49,7 +49,7 @@ class TrendsCollectionViewCell: UICollectionViewCell {
 
         trendLabel.textColor = UIColor.init(named: "whiteText")
 
-        trendValueLabel.font = UIFont.SFProRounded(ofSize: 18, fontWeight: .medium)
+        trendValueLabel.font = UIFont.SFProRounded(ofSize: 18, fontWeight: .semibold)
         trendValueLabel.textColor = .dripMerged
     }
 }
