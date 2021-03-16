@@ -55,6 +55,8 @@
 		0AD1511D2454F00100F45042 /* Trends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AD1511C2454F00100F45042 /* Trends.storyboard */; };
 		10E1C8DA174C431CA9639FFB /* Pods_Drip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A08E894FB77C5466D4144B1 /* Pods_Drip.framework */; };
 		36031F6725D429070016EBC7 /* Colours.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36031F6625D429070016EBC7 /* Colours.xcassets */; };
+		3605E3F42600E14B00FFE3C2 /* TrendsScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3605E3F32600E14B00FFE3C2 /* TrendsScreenBuilderTestCase.swift */; };
+		3605E3F92600E22400FFE3C2 /* TrendsPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3605E3F82600E22400FFE3C2 /* TrendsPresenterTestCase.swift */; };
 		360CA9F725F65E0500C7676A /* Drink+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360CA9F525F65E0500C7676A /* Drink+CoreDataProperties.swift */; };
 		360CA9F825F65E0500C7676A /* Drink+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360CA9F625F65E0500C7676A /* Drink+CoreDataClass.swift */; };
 		360CAA0225F69F9900C7676A /* HistoryScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360CAA0125F69F9900C7676A /* HistoryScreenBuilderTestCase.swift */; };
@@ -153,6 +155,8 @@
 		0AD1511A2454EFF600F45042 /* TrendsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsPresenter.swift; sourceTree = "<group>"; };
 		0AD1511C2454F00100F45042 /* Trends.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Trends.storyboard; sourceTree = "<group>"; };
 		36031F6625D429070016EBC7 /* Colours.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colours.xcassets; sourceTree = "<group>"; };
+		3605E3F32600E14B00FFE3C2 /* TrendsScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsScreenBuilderTestCase.swift; sourceTree = "<group>"; };
+		3605E3F82600E22400FFE3C2 /* TrendsPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsPresenterTestCase.swift; sourceTree = "<group>"; };
 		360CA9F525F65E0500C7676A /* Drink+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Drink+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		360CA9F625F65E0500C7676A /* Drink+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Drink+CoreDataClass.swift"; sourceTree = "<group>"; };
 		360CAA0125F69F9900C7676A /* HistoryScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryScreenBuilderTestCase.swift; sourceTree = "<group>"; };
@@ -410,6 +414,23 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
+		3605E3F22600E12A00FFE3C2 /* Trends */ = {
+			isa = PBXGroup;
+			children = (
+				3605E3F32600E14B00FFE3C2 /* TrendsScreenBuilderTestCase.swift */,
+				3605E3F72600E21300FFE3C2 /* Classes */,
+			);
+			path = Trends;
+			sourceTree = "<group>";
+		};
+		3605E3F72600E21300FFE3C2 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				3605E3F82600E22400FFE3C2 /* TrendsPresenterTestCase.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		360CA9EB25F65C1000C7676A /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -487,6 +508,7 @@
 		364A9279256BE8EA00F84985 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				3605E3F22600E12A00FFE3C2 /* Trends */,
 				360CAA0025F69F8600C7676A /* History */,
 				364A927A256BE8FF00F84985 /* Today */,
 			);
@@ -774,9 +796,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3605E3F42600E14B00FFE3C2 /* TrendsScreenBuilderTestCase.swift in Sources */,
 				364A927C256BE91400F84985 /* TodayScreenBuilderTestCase.swift in Sources */,
 				360CAA0225F69F9900C7676A /* HistoryScreenBuilderTestCase.swift in Sources */,
 				360CAA0825F6A01300C7676A /* HistoryPresenterTestCase.swift in Sources */,
+				3605E3F92600E22400FFE3C2 /* TrendsPresenterTestCase.swift in Sources */,
 				364A9280256BE93500F84985 /* TodayPresenterTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
