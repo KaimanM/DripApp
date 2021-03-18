@@ -17,4 +17,5 @@ protocol TodayViewProtocol: class {
     func setMorningGradientBarProgress(total: Double, goal: Double)
     func setAfternoonGradientBarProgress(total: Double, goal: Double)
     func setEveningGradientBarProgress(total: Double, goal: Double)
+    func setButtonTitles(remainingText: String, goalText: String)
 }

@@ -5,8 +5,6 @@ protocol TodayPresenterProtocol: class {
     func onViewDidLoad()
     func onViewWillAppear()
     func onViewWillDisappear()
-
-    func onDrinkButton1Tapped()
-    func onDrinkButton2Tapped()
-    func onDrinkButton3Tapped()
+    func updateGoal(goal: Double)
+    func addDrinkTapped()
 }

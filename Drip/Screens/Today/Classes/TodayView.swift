@@ -21,6 +21,12 @@ final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol
     @IBOutlet weak var button2Subtitle: UILabel!
     @IBOutlet weak var button3Subtitle: UILabel!
     @IBOutlet weak var button4Subtitle: UILabel!
+    @IBOutlet weak var remainingView: UIView!
+    @IBOutlet weak var goalView: UIView!
+    @IBOutlet weak var addDrinkView: UIView!
+    @IBOutlet weak var remainingLabel: UILabel!
+    @IBOutlet weak var goalLabel: UILabel!
+    @IBOutlet weak var addImageView: UIImageView!
     private var displayLink: CADisplayLink?
     private var animationStartDate: Date?
     private var startValue: Double = 0
@@ -33,6 +39,7 @@ final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol
         view.backgroundColor = .black
         ringView.backgroundColor = .clear
         presenter.onViewDidLoad()
+        setupButtonViews()
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self,
@@ -71,18 +78,44 @@ final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol
     }
 
     func updateButtonImages(image1Name: String, image2Name: String, image3Name: String, image4Name: String) {
-        drinkButton1.setImage(UIImage(named: image1Name), for: .normal)
-        drinkButton2.setImage(UIImage(named: image2Name), for: .normal)
-        drinkButton3.setImage(UIImage(named: image3Name), for: .normal)
-        drinkButton4.setImage(UIImage(named: image4Name), for: .normal)
-        drinkButton4.imageEdgeInsets = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
+//        drinkButton1.setImage(UIImage(named: image1Name), for: .normal)
+//        drinkButton2.setImage(UIImage(named: image2Name), for: .normal)
+//        drinkButton3.setImage(UIImage(named: image3Name), for: .normal)
+//        drinkButton4.setImage(UIImage(named: image4Name), for: .normal)
+//        drinkButton4.imageEdgeInsets = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
     }
 
     func updateButtonSubtitles(subtitle1: String, subtitle2: String, subtitle3: String, subtitle4: String) {
-        button1Subtitle.text = subtitle1
-        button2Subtitle.text = subtitle2
-        button3Subtitle.text = subtitle3
-        button4Subtitle.text = subtitle4
+//        button1Subtitle.text = subtitle1
+//        button2Subtitle.text = subtitle2
+//        button3Subtitle.text = subtitle3
+//        button4Subtitle.text = subtitle4
+    }
+
+    func setupButtonViews() {
+        remainingView.layer.cornerRadius = 10
+        remainingView.backgroundColor = .clear
+        goalView.layer.cornerRadius = 10
+        goalView.backgroundColor = .clear
+        addDrinkView.layer.cornerRadius = 10
+        addDrinkView.backgroundColor = .infoPanelBG
+
+        remainingLabel.font = UIFont.SFProRounded(ofSize: 28, fontWeight: .medium)
+        remainingLabel.textColor = .dripMerged
+        remainingLabel.adjustsFontSizeToFitWidth = true // include for iphone se first gen
+
+        goalLabel.font = UIFont.SFProRounded(ofSize: 28, fontWeight: .medium)
+        goalLabel.textColor = .dripMerged
+        goalLabel.adjustsFontSizeToFitWidth = true // include for iphone se first gen
+
+        addImageView.image = UIImage(named: "add.svg")
+        addImageView.tintColor = UIColor.dripMerged
+
+        let addTap = UITapGestureRecognizer(target: self, action: #selector(self.addDrinkTapped(_:)))
+        let goalTap = UITapGestureRecognizer(target: self, action: #selector(self.goalViewTapped(_:)))
+        goalView.addGestureRecognizer(goalTap)
+        addDrinkView.addGestureRecognizer(addTap)
+
     }
 
     func setupRingView(startColor: UIColor, endColor: UIColor, ringWidth: CGFloat) {
@@ -136,6 +169,11 @@ final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol
         thisEveningGradientBarView.setProgress(progress: CGFloat(total/goal))
     }
 
+    func setButtonTitles(remainingText: String, goalText: String) {
+        remainingLabel.text = remainingText
+        goalLabel.text = goalText
+    }
+
     func animateLabel(endValue: Double, animationDuration: Double) {
         animationStartDate = Date()
         self.endValue = endValue
@@ -163,16 +201,38 @@ final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol
         // Function body goes here
         print("testy123")
     }
-    @IBAction func drinkButton1Tapped(_ sender: Any) {
-        presenter.onDrinkButton1Tapped()
+
+    @objc func addDrinkTapped(_ sender: UITapGestureRecognizer? = nil) {
+        // handling code
+        print("did tap")
+        presenter.addDrinkTapped()
     }
 
-    @IBAction func drinkButton2Tapped(_ sender: Any) {
-        presenter.onDrinkButton2Tapped()
-    }
+    @objc func goalViewTapped(_ sender: UITapGestureRecognizer? = nil) {
+        // handling code
+        print("did tap")
+        let alertContoller = UIAlertController(title: "Amend Goal",
+                                    message: "Enter a new goal volume in ml.", preferredStyle: .alert)
+        alertContoller.addTextField()
+        alertContoller.textFields![0].keyboardType = UIKeyboardType.numberPad
 
-    @IBAction func drinkButton3Tapped(_ sender: Any) {
-        presenter.onDrinkButton3Tapped()
+        let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertContoller] _ in
+            if let answer: String = alertContoller.textFields![0].text,
+               let answerAsDouble = Double(answer) {
+                guard answerAsDouble != 0 else {
+                    print("can not be 0")
+                    return
+                }
+                self.presenter.updateGoal(goal: answerAsDouble)
+            } else {
+                print("invalid")
+            }
+
+        }
+
+        alertContoller.addAction(submitAction)
+
+        present(alertContoller, animated: true)
     }
 
 }
