@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="H11-zG-XUr">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="935"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="940"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rJL-Ua-fHi" userLabel="Progress Ring Container" customClass="PlaceholderView" customModule="Drip" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="267"/>
@@ -69,22 +69,22 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kLa-jP-wNQ" userLabel="Info Container">
-                                                <rect key="frame" x="0.0" y="297" width="375" height="80"/>
+                                                <rect key="frame" x="0.0" y="297" width="375" height="85"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RKl-WN-aQo" userLabel="Remaining">
-                                                        <rect key="frame" x="15" y="10" width="167.5" height="60"/>
+                                                        <rect key="frame" x="15" y="10" width="167.5" height="65"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remaining" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5FO-Sf-jNZ">
                                                                 <rect key="frame" x="10" y="5" width="147.5" height="17"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="17" id="Aj9-bt-JhF"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" name="whiteText"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2000ml" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yrP-dl-dtv">
-                                                                <rect key="frame" x="10" y="22" width="147.5" height="33"/>
+                                                                <rect key="frame" x="10" y="22" width="147.5" height="38"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" name="dripMerged"/>
                                                                 <nil key="highlightedColor"/>
@@ -98,13 +98,13 @@
                                                             <constraint firstItem="5FO-Sf-jNZ" firstAttribute="top" secondItem="RKl-WN-aQo" secondAttribute="top" constant="5" id="QOp-kN-NcY"/>
                                                             <constraint firstItem="yrP-dl-dtv" firstAttribute="leading" secondItem="RKl-WN-aQo" secondAttribute="leading" constant="10" id="TEP-3h-fvW"/>
                                                             <constraint firstItem="5FO-Sf-jNZ" firstAttribute="leading" secondItem="RKl-WN-aQo" secondAttribute="leading" constant="10" id="eXF-6i-VOx"/>
-                                                            <constraint firstAttribute="height" constant="60" id="fxK-DQ-hp0"/>
+                                                            <constraint firstAttribute="height" constant="65" id="fxK-DQ-hp0"/>
                                                             <constraint firstAttribute="trailing" secondItem="5FO-Sf-jNZ" secondAttribute="trailing" constant="10" id="iI5-NL-Is6"/>
                                                             <constraint firstItem="yrP-dl-dtv" firstAttribute="top" secondItem="5FO-Sf-jNZ" secondAttribute="bottom" id="rJo-QC-cAk"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tOk-T8-diP" userLabel="Goal">
-                                                        <rect key="frame" x="192.5" y="10" width="167.5" height="60"/>
+                                                        <rect key="frame" x="192.5" y="10" width="167.5" height="65"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Goal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a8y-gw-Ujd">
                                                                 <rect key="frame" x="10" y="5" width="147.5" height="17"/>
@@ -112,12 +112,12 @@
                                                                     <constraint firstAttribute="height" constant="17" id="akR-Bw-Ina"/>
                                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="bsA-hO-cnK"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" name="whiteText"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2000ml" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WRX-pf-LcR">
-                                                                <rect key="frame" x="10" y="22" width="147.5" height="33"/>
+                                                                <rect key="frame" x="10" y="22" width="147.5" height="38"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" name="dripMerged"/>
                                                                 <nil key="highlightedColor"/>
@@ -125,7 +125,7 @@
                                                         </subviews>
                                                         <color key="backgroundColor" name="infoPanelBG"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="60" id="HvH-Jq-bOc"/>
+                                                            <constraint firstAttribute="height" constant="65" id="HvH-Jq-bOc"/>
                                                             <constraint firstAttribute="trailing" secondItem="a8y-gw-Ujd" secondAttribute="trailing" constant="10" id="a0k-aR-yAz"/>
                                                             <constraint firstItem="WRX-pf-LcR" firstAttribute="leading" secondItem="tOk-T8-diP" secondAttribute="leading" constant="10" id="gu1-fx-Ili"/>
                                                             <constraint firstItem="a8y-gw-Ujd" firstAttribute="top" secondItem="tOk-T8-diP" secondAttribute="top" constant="5" id="hK7-QH-oNl"/>
@@ -150,7 +150,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HMt-BH-zWb" userLabel="Button Container" customClass="PlaceholderView" customModule="Drip" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="377" width="375" height="85"/>
+                                                <rect key="frame" x="0.0" y="382" width="375" height="85"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fRE-6e-k7g" userLabel="Add">
                                                         <rect key="frame" x="15" y="10" width="345" height="60"/>
@@ -178,7 +178,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gsf-RN-0Z2">
-                                                <rect key="frame" x="0.0" y="462" width="375" height="30"/>
+                                                <rect key="frame" x="0.0" y="467" width="375" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Summary" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vAj-3F-9X7">
                                                         <rect key="frame" x="15" y="6" width="91" height="24"/>
@@ -195,7 +195,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sic-TZ-ouG" userLabel="Extra Content View" customClass="PlaceholderView" customModule="Drip" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="492" width="375" height="443"/>
+                                                <rect key="frame" x="0.0" y="497" width="375" height="443"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WQM-qp-wPh" userLabel="Today Content" customClass="PlaceholderView" customModule="Drip" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="110"/>

@@ -13,14 +13,6 @@ final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol
     @IBOutlet weak var thisAfternoonGradientBarView: GradientBarView!
     @IBOutlet weak var thisEveningVolumeLabel: UILabel!
     @IBOutlet weak var thisEveningGradientBarView: GradientBarView!
-    @IBOutlet weak var drinkButton1: UIButton!
-    @IBOutlet weak var drinkButton2: UIButton!
-    @IBOutlet weak var drinkButton3: UIButton!
-    @IBOutlet weak var drinkButton4: UIButton!
-    @IBOutlet weak var button1Subtitle: UILabel!
-    @IBOutlet weak var button2Subtitle: UILabel!
-    @IBOutlet weak var button3Subtitle: UILabel!
-    @IBOutlet weak var button4Subtitle: UILabel!
     @IBOutlet weak var remainingView: UIView!
     @IBOutlet weak var goalView: UIView!
     @IBOutlet weak var addDrinkView: UIView!
@@ -75,21 +67,6 @@ final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol
 
     func updateTitle(title: String) {
         self.title = title
-    }
-
-    func updateButtonImages(image1Name: String, image2Name: String, image3Name: String, image4Name: String) {
-//        drinkButton1.setImage(UIImage(named: image1Name), for: .normal)
-//        drinkButton2.setImage(UIImage(named: image2Name), for: .normal)
-//        drinkButton3.setImage(UIImage(named: image3Name), for: .normal)
-//        drinkButton4.setImage(UIImage(named: image4Name), for: .normal)
-//        drinkButton4.imageEdgeInsets = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
-    }
-
-    func updateButtonSubtitles(subtitle1: String, subtitle2: String, subtitle3: String, subtitle4: String) {
-//        button1Subtitle.text = subtitle1
-//        button2Subtitle.text = subtitle2
-//        button3Subtitle.text = subtitle3
-//        button4Subtitle.text = subtitle4
     }
 
     func setupButtonViews() {
