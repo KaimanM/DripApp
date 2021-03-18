@@ -6,6 +6,10 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     var selectedDayDrinks: [Drink] = []
     var selectedDate = Date()
     var editingMode = false
+    let defaults = UserDefaults.standard
+    var goal: Double {
+        return defaults.double(forKey: "goal") == 0 ? 2000 : defaults.double(forKey: "goal")
+    }
 
     init(view: HistoryViewProtocol) {
         self.view = view
@@ -35,7 +39,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     func populateDrinks() {
         selectedDayDrinks = []
         var total: Double = 0
-        let goal: Double = 2000
+//        let goal: Double = 2000
 
         for drink in view?.coreDataController?.fetchEntriesForDate(date: selectedDate) ?? [] {
                 total += drink.volume
@@ -62,7 +66,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
 
     func cellForDate(date: Date) -> Double {
         var total: Double = 0
-        let goal: Double = 2000
+//        let goal: Double = 2000
 
         for drink in view?.coreDataController?.fetchEntriesForDate(date: date) ?? [] {
                 total += drink.volume

@@ -3,7 +3,8 @@ import Foundation
 final class TodayPresenter: TodayPresenterProtocol {
     weak private(set) var view: TodayViewProtocol?
     var todaysTotal: Double = 0
-    let drinkGoal: Double = 2000
+    let defaults = UserDefaults.standard
+    var drinkGoal: Double = 2000
 
     init(view: TodayViewProtocol) {
         self.view = view
@@ -12,6 +13,7 @@ final class TodayPresenter: TodayPresenterProtocol {
     func onViewDidAppear() {
         updateProgressRing()
         updateGradientBars()
+        updateButtonTitles()
     }
 
     func onViewWillAppear() {}
@@ -24,40 +26,17 @@ final class TodayPresenter: TodayPresenterProtocol {
 
     func onViewDidLoad() {
         view?.updateTitle(title: "Today")
+        loadGoal()
         view?.setupRingView(startColor: .cyan, endColor: .blue, ringWidth: 30)
         view?.setupGradientBars(dailyGoal: Int(drinkGoal),
                                 morningGoal: Int(drinkGoal/3),
                                 afternoonGoal: Int(drinkGoal/3),
                                 eveningGoal: Int(drinkGoal/3))
-        view?.updateButtonImages(image1Name: "waterbottle.svg",
-                                 image2Name: "coffee.svg",
-                                 image3Name: "cola.svg",
-                                 image4Name: "add.svg")
-        view?.updateButtonSubtitles(subtitle1: "Water",
-                                    subtitle2: "Coffee",
-                                    subtitle3: "Soda",
-                                    subtitle4: "Custom")
+
     }
 
-    func onDrinkButton1Tapped() {
-        todaysTotal += 500
-        view?.coreDataController.addDrink(name: "Water", volume: 500, imageName: "waterbottle.svg", timeStamp: Date())
-        updateProgressRing()
-        updateGradientBars()
-    }
-
-    func onDrinkButton2Tapped() {
-        todaysTotal += 500
-        view?.coreDataController.addDrink(name: "Coffee", volume: 250, imageName: "coffee.svg", timeStamp: Date())
-        updateProgressRing()
-        updateGradientBars()
-    }
-
-    func onDrinkButton3Tapped() {
-        todaysTotal += 500
-        view?.coreDataController.addDrink(name: "Cola", volume: 330, imageName: "cola.svg", timeStamp: Date())
-        updateProgressRing()
-        updateGradientBars()
+    func loadGoal() {
+        drinkGoal = defaults.double(forKey: "goal") == 0 ? 2000 : defaults.double(forKey: "goal")
     }
 
     func updateProgressRing() {
@@ -95,4 +74,26 @@ final class TodayPresenter: TodayPresenterProtocol {
 
     }
 
+    func updateGoal(goal: Double) {
+        drinkGoal = goal
+        defaults.setValue(drinkGoal, forKey: "goal")
+        print(goal)
+        updateProgressRing()
+        updateGradientBars()
+        updateButtonTitles()
+    }
+
+    func addDrinkTapped() {
+        todaysTotal += 500
+        view?.coreDataController.addDrink(name: "Water", volume: 500, imageName: "waterbottle.svg", timeStamp: Date())
+        updateProgressRing()
+        updateGradientBars()
+        updateButtonTitles()
+
+    }
+
+    func updateButtonTitles() {
+        let remaining = Int(drinkGoal-todaysTotal) < 0 ? 0 : Int(drinkGoal-todaysTotal)
+        view?.setButtonTitles(remainingText: "\(Int(remaining))ml", goalText: "\(Int(drinkGoal))ml")
+    }
 }
