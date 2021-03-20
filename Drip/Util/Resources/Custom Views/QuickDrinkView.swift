@@ -24,9 +24,9 @@ class QuickDrinkView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .orange
+        backgroundColor = .infoPanelBG
         translatesAutoresizingMaskIntoConstraints = false
-        widthAnchor.constraint(equalToConstant: 60).isActive = true
+        widthAnchor.constraint(equalToConstant: 70).isActive = true
         layer.cornerRadius = 5
 
         addSubview(imageView)

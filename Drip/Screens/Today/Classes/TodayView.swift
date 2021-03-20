@@ -185,6 +185,7 @@ final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol
         // handling code
         print("did tap")
 //        presenter.addDrinkTapped()
+        drinksLauncher.setQuickDrink1(title: "WaterLOL", imageName: "waterbottle.svg")
         drinksLauncher.showDrinks()
     }
 

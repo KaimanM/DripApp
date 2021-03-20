@@ -10,7 +10,7 @@ class DrinksLauncher: NSObject {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .clear
         return collectionView
     }()
 
@@ -41,6 +41,13 @@ class DrinksLauncher: NSObject {
     let pageControl = UIPageControl()
 
     let cellId = "cellId"
+
+    let drinkNames = ["Water", "Coffee", "Tea", "Milk", "Orange Juice", "Juicebox",
+                      "Cola", "Cocktail", "Punch", "Milkshake", "Energy Drink", "Beer"] // icetea
+
+    let drinkImageNames = ["waterbottle.svg", "coffee.svg", "tea.svg", "milk.svg", "orangejuice.svg",
+                            "juicebox.svg", "cola.svg", "cocktail.svg", "punch.svg", "milkshake.svg",
+                            "energydrink.svg", "beer.svg"]
 
     func showDrinks() {
         print("tapped")
@@ -77,7 +84,7 @@ class DrinksLauncher: NSObject {
         blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
         blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
 
-        containerview.backgroundColor = .purple
+        containerview.backgroundColor = .infoPanelBG
         containerview.layer.cornerRadius = 20
         containerview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
 
@@ -91,7 +98,7 @@ class DrinksLauncher: NSObject {
                           leading: nil, bottom: nil, trailing: nil,
                           padding: .init(top: 10, left: 0, bottom: 0, right: 0))
 
-        buttonsContainer.backgroundColor = .gray
+        buttonsContainer.backgroundColor = UIColor(named: "infoPanelDark")
         buttonsContainer.layer.cornerRadius = 5
         buttonsContainer.anchor(top: titleLabel.bottomAnchor,
                                 leading: containerview.leadingAnchor,
@@ -129,8 +136,6 @@ class DrinksLauncher: NSObject {
         let spacer4 = UIView()
         let spacer5 = UIView()
 
-        contentView1.imageView.image = UIImage(named: "water.svg")
-
         horizontalSV.addArrangedSubview(spacer1)
         horizontalSV.addArrangedSubview(contentView1)
         horizontalSV.addArrangedSubview(spacer2)
@@ -151,6 +156,14 @@ class DrinksLauncher: NSObject {
         spacer1.widthAnchor.constraint(equalTo: spacer3.widthAnchor).isActive = true
         spacer1.widthAnchor.constraint(equalTo: spacer4.widthAnchor).isActive = true
         spacer1.widthAnchor.constraint(equalTo: spacer5.widthAnchor).isActive = true
+
+        let quickDrink1Tapped = UITapGestureRecognizer(target: self, action: #selector(self.quickDrink1Tap(_:)))
+        contentView1.addGestureRecognizer(quickDrink1Tapped)
+    }
+
+    func setQuickDrink1(title: String, imageName: String) {
+        contentView1.titleLabel.text = title
+        contentView1.imageView.image = UIImage(named: imageName)
     }
 
     @objc func handleDismiss() {
@@ -164,6 +177,12 @@ class DrinksLauncher: NSObject {
                                                    height: self.containerview.frame.height)
             }
         })
+
+    }
+
+    @objc func quickDrink1Tap(_ sender: UITapGestureRecognizer? = nil) {
+        // handling code
+        print("did tap qd1")
 
     }
 
@@ -187,7 +206,7 @@ class DrinksLauncher: NSObject {
 extension DrinksLauncher: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let count = 18
+        let count = drinkNames.count
         pageControl.numberOfPages = Int(ceil(Double(count)/6))
         return count
     }
@@ -213,12 +232,8 @@ extension DrinksLauncher: UICollectionViewDataSource, UICollectionViewDelegate, 
 
         if let drinkCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId,
                                                               for: indexPath) as? DrinksCell {
-            drinkCell.nameLabel.text = "test\(indexPath.item)"
-
-            let colours: [UIColor] = [.blue, .red, .red, .blue, .blue, .red, .red, .blue, .blue,
-                                      .red, .red, .blue, .blue, .red, .red,
-                                      .blue, .blue, .red, .red, .blue, .blue]
-            drinkCell.backgroundColor = colours[indexPath.item]
+            drinkCell.nameLabel.text = drinkNames[indexPath.item]
+            drinkCell.imageView.image = UIImage(named: drinkImageNames[indexPath.item])
 
             cell = drinkCell
         }

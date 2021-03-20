@@ -12,6 +12,7 @@ class DrinksCell: UICollectionViewCell {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Drink"
+        label.textColor = .whiteText
         label.textAlignment = .center
         return label
     }()
@@ -36,7 +37,7 @@ class DrinksCell: UICollectionViewCell {
                          trailing: contentView.trailingAnchor,
                          padding: .zero, size: .init(width: 0, height: 20))
 
-        imageContainerView.backgroundColor = .green
+        imageContainerView.backgroundColor = .dripShadow
         imageContainerView.anchor(top: contentView.topAnchor,
                                   leading: contentView.leadingAnchor,
                                   bottom: nameLabel.topAnchor,
