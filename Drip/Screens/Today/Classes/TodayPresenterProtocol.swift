@@ -6,5 +6,5 @@ protocol TodayPresenterProtocol: class {
     func onViewWillAppear()
     func onViewWillDisappear()
     func updateGoal(goal: Double)
-    func addDrinkTapped()
+    func addDrinkTapped(drinkName: String, volume: Double, imageName: String)
 }

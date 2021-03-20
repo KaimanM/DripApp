@@ -179,7 +179,11 @@ final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol
         print("testy123")
     }
 
-    let drinksLauncher = DrinksLauncher()
+    lazy var drinksLauncher: DrinksLauncher = {
+        let launcher = DrinksLauncher()
+        launcher.senderView = self
+        return launcher
+    }()
 
     @objc func addDrinkTapped(_ sender: UITapGestureRecognizer? = nil) {
         // handling code

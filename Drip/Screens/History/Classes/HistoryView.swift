@@ -233,7 +233,7 @@ extension HistoryView: UITableViewDelegate, UITableViewDataSource, DrinkTableVie
         cell.drinkLabel.text = cellData.name
         cell.volumeLabel.text = cellData.volume
         cell.drinkImageView?.image = UIImage(named: cellData.imageName)?
-            .withTintColor(UIColor.white.withAlphaComponent(0.5))
+//            .withTintColor(UIColor.white.withAlphaComponent(0.5))
             .withAlignmentRectInsets(UIEdgeInsets(top: -15,
                                                   left: -15,
                                                   bottom: -15,

@@ -83,9 +83,9 @@ final class TodayPresenter: TodayPresenterProtocol {
         updateButtonTitles()
     }
 
-    func addDrinkTapped() {
-        todaysTotal += 500
-        view?.coreDataController.addDrink(name: "Water", volume: 500, imageName: "waterbottle.svg", timeStamp: Date())
+    func addDrinkTapped(drinkName: String, volume: Double, imageName: String) {
+        todaysTotal += volume
+        view?.coreDataController.addDrink(name: drinkName, volume: volume, imageName: imageName, timeStamp: Date())
         updateProgressRing()
         updateGradientBars()
         updateButtonTitles()

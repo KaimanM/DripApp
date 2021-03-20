@@ -2,6 +2,8 @@ import UIKit
 
 class DrinksLauncher: NSObject {
 
+    var senderView: TodayView?
+
     let blackView = UIView()
 
     let containerview = UIView()
@@ -223,6 +225,43 @@ extension DrinksLauncher: UICollectionViewDataSource, UICollectionViewDelegate, 
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("item \(indexPath.item)")
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveLinear, animations: {
+            self.blackView.alpha = 0
+
+            if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
+                self.containerview.frame = CGRect(x: 0, y: window.frame.height,
+                                                   width: self.containerview.frame.width,
+                                                   height: self.containerview.frame.height)
+            }
+        }, completion: {_ in
+            let alertContoller = UIAlertController(title: self.drinkNames[indexPath.item],
+                                        message: "Enter how much \(self.drinkNames[indexPath.item]) you drank in ml.", preferredStyle: .alert)
+            alertContoller.addTextField()
+            alertContoller.textFields![0].keyboardType = UIKeyboardType.numberPad
+
+            let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertContoller] _ in
+                if let answer: String = alertContoller.textFields![0].text,
+                   let answerAsDouble = Double(answer) {
+                    guard answerAsDouble != 0 else {
+                        print("can not be 0")
+                        return
+                    }
+                    self.senderView?.presenter.addDrinkTapped(drinkName: self.drinkNames[indexPath.item],
+                                                              volume: answerAsDouble,
+                                                              imageName: self.drinkImageNames[indexPath.item])
+                } else {
+                    print("invalid")
+                }
+
+            }
+
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+
+            alertContoller.addAction(cancelAction)
+            alertContoller.addAction(submitAction)
+
+            self.senderView?.present(alertContoller, animated: true)
+        })
     }
 
     func collectionView(_ collectionView: UICollectionView,
