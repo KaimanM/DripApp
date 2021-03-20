@@ -179,10 +179,13 @@ final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol
         print("testy123")
     }
 
+    let drinksLauncher = DrinksLauncher()
+
     @objc func addDrinkTapped(_ sender: UITapGestureRecognizer? = nil) {
         // handling code
         print("did tap")
-        presenter.addDrinkTapped()
+//        presenter.addDrinkTapped()
+        drinksLauncher.showDrinks()
     }
 
     @objc func goalViewTapped(_ sender: UITapGestureRecognizer? = nil) {
