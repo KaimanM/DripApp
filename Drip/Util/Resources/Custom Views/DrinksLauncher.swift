@@ -24,6 +24,8 @@ class DrinksLauncher: NSObject {
         return collectionView
     }()
 
+    let swipeIndicator = UIView()
+
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Select a drink"
@@ -52,6 +54,8 @@ class DrinksLauncher: NSObject {
 
     let cellId = "cellId"
 
+    var origin = CGPoint(x: 0, y: 0)
+
     func showDrinks() {
         print("tapped")
         reloadQuickDrinks()
@@ -65,11 +69,11 @@ class DrinksLauncher: NSObject {
             blackView.frame = window.frame
             blackView.alpha = 0
 
-            let height: CGFloat = 450
+            let height: CGFloat = 460
             let yOffset = window.frame.height - height
             containerview.frame = CGRect(x: 0, y: window.frame.height,
                                           width: window.frame.width,
-                                          height: height)
+                                          height: height + 50) // extra 50 padding for swipe up gesture
 
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1,
                            initialSpringVelocity: 1, options: .curveEaseOut, animations: {
@@ -77,14 +81,16 @@ class DrinksLauncher: NSObject {
                 self.containerview.frame = CGRect(x: 0, y: yOffset,
                                                    width: self.containerview.frame.width,
                                                    height: self.containerview.frame.height)
-            }, completion: nil)
+                           }, completion: {_ in
+                            self.origin = self.containerview.frame.origin
+                            print("origin is \(self.origin)")
+                           })
 
         }
 
     }
 
     func setupViews() {
-        // black background view
         blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
         blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
 
@@ -92,22 +98,24 @@ class DrinksLauncher: NSObject {
         containerview.layer.cornerRadius = 20
         containerview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
 
-        containerview.addSubview(titleLabel)
-        containerview.addSubview(buttonsContainer)
-        containerview.addSubview(collectionView)
-        containerview.addSubview(pageControl)
+        let subviews = [swipeIndicator, titleLabel, buttonsContainer, collectionView, pageControl]
+        subviews.forEach({containerview.addSubview($0)})
+
+        swipeIndicator.centerHorizontallyInSuperview()
+        swipeIndicator.anchor(top: containerview.topAnchor, leading: nil, bottom: nil, trailing: nil,
+                              padding: .init(top: 10, left: 0, bottom: 0, right: 5), size: .init(width: 50, height: 6))
+        swipeIndicator.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        swipeIndicator.layer.cornerRadius = 3
 
         titleLabel.centerHorizontallyInSuperview()
-        titleLabel.anchor(top: containerview.topAnchor,
+        titleLabel.anchor(top: swipeIndicator.bottomAnchor,
                           leading: nil, bottom: nil, trailing: nil,
-                          padding: .init(top: 10, left: 0, bottom: 0, right: 0))
+                          padding: .init(top: 5, left: 0, bottom: 0, right: 0))
 
         buttonsContainer.backgroundColor = UIColor(named: "infoPanelDark")
         buttonsContainer.layer.cornerRadius = 5
-        buttonsContainer.anchor(top: titleLabel.bottomAnchor,
-                                leading: containerview.leadingAnchor,
-                                bottom: nil,
-                                trailing: containerview.trailingAnchor,
+        buttonsContainer.anchor(top: titleLabel.bottomAnchor, leading: containerview.leadingAnchor,
+                                bottom: nil, trailing: containerview.trailingAnchor,
                                 padding: .init(top: 10, left: 10, bottom: 0, right: 10),
                                 size: .init(width: 0, height: 100))
 
@@ -120,16 +128,49 @@ class DrinksLauncher: NSObject {
                                                          height: 80))
         horizontalSV.centerVerticallyInSuperview()
 
-        collectionView.anchor(top: buttonsContainer.bottomAnchor,
-                              leading: containerview.leadingAnchor,
-                              bottom: nil,
-                              trailing: containerview.trailingAnchor,
+        collectionView.anchor(top: buttonsContainer.bottomAnchor, leading: containerview.leadingAnchor,
+                              bottom: nil, trailing: containerview.trailingAnchor,
                               padding: .init(top: 10, left: 10, bottom: 0, right: 10),
                               size: .init(width: 0, height: 260))
         pageControl.anchor(top: collectionView.bottomAnchor,
                            leading: nil, bottom: nil, trailing: nil, padding: .zero)
         pageControl.centerHorizontallyInSuperview()
 
+        let swipeDown = UIPanGestureRecognizer(target: self, action: #selector(self.swipeDown))
+        containerview.addGestureRecognizer(swipeDown)
+    }
+
+    var viewTranslation = CGPoint(x: 0, y: 0)
+    @objc func swipeDown(sender: UIPanGestureRecognizer) {
+        print("current view translation \(viewTranslation)")
+        switch sender.state {
+        case .changed:
+                viewTranslation = sender.translation(in: containerview)
+            if viewTranslation.y > -50 {
+
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7,
+                               initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+//                    self.containerview.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
+                    self.containerview.frame.origin = CGPoint(x: 0, y: self.origin.y + self.viewTranslation.y)
+                    print("transforming by offset \(self.viewTranslation.y)")
+                })
+            }
+        case .ended:
+                if viewTranslation.y < 100 {
+                    UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7,
+                                   initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+//                        self.containerview.transform = .identity
+                        self.containerview.frame.origin = self.origin
+                        print("reseting to identity")
+                    })
+                } else {
+                    handleDismiss()
+                }
+        case .began:
+            self.containerview.transform = .identity
+        default:
+                break
+            }
     }
 
     func setupStackView() {
