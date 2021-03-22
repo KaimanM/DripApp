@@ -55,6 +55,7 @@ class DrinksLauncher: NSObject {
     let cellId = "cellId"
 
     var origin = CGPoint(x: 0, y: 0)
+    var viewTranslation = CGPoint(x: 0, y: 0)
 
     func showDrinks() {
         print("tapped")
@@ -140,34 +141,26 @@ class DrinksLauncher: NSObject {
         containerview.addGestureRecognizer(swipeDown)
     }
 
-    var viewTranslation = CGPoint(x: 0, y: 0)
     @objc func swipeDown(sender: UIPanGestureRecognizer) {
-        print("current view translation \(viewTranslation)")
         switch sender.state {
         case .changed:
-                viewTranslation = sender.translation(in: containerview)
+            viewTranslation = sender.translation(in: containerview)
             if viewTranslation.y > -50 {
-
                 UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7,
                                initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-//                    self.containerview.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
                     self.containerview.frame.origin = CGPoint(x: 0, y: self.origin.y + self.viewTranslation.y)
-                    print("transforming by offset \(self.viewTranslation.y)")
                 })
+
             }
         case .ended:
-                if viewTranslation.y < 100 {
-                    UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7,
-                                   initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-//                        self.containerview.transform = .identity
+            if viewTranslation.y < 100 {
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7,
+                               initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                         self.containerview.frame.origin = self.origin
-                        print("reseting to identity")
                     })
-                } else {
-                    handleDismiss()
-                }
-        case .began:
-            self.containerview.transform = .identity
+            } else {
+                handleDismiss()
+            }
         default:
                 break
             }
@@ -226,36 +219,32 @@ class DrinksLauncher: NSObject {
     }
 
     @objc func handleDismiss() {
-        print("dismiss")
-        UIView.animate(withDuration: 0.5, animations: {
-            self.blackView.alpha = 0
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.7,
+                       initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+        self.blackView.alpha = 0
 
-            if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
-                self.containerview.frame = CGRect(x: 0, y: window.frame.height,
-                                                   width: self.containerview.frame.width,
-                                                   height: self.containerview.frame.height)
-            }
+                        if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
+                            self.containerview.frame = CGRect(x: 0, y: window.frame.height,
+                                                               width: self.containerview.frame.width,
+                                                               height: self.containerview.frame.height)
+                        }
         })
 
     }
 
     @objc func quickDrink1Tap(_ sender: UITapGestureRecognizer? = nil) {
-        // handling code
         delegate?.didTapQuickDrinkAt(index: 0)
     }
 
     @objc func quickDrink2Tap(_ sender: UITapGestureRecognizer? = nil) {
-        // handling code
         delegate?.didTapQuickDrinkAt(index: 1)
     }
 
     @objc func quickDrink3Tap(_ sender: UITapGestureRecognizer? = nil) {
-        // handling code
         delegate?.didTapQuickDrinkAt(index: 2)
     }
 
     @objc func quickDrink4Tap(_ sender: UITapGestureRecognizer? = nil) {
-        // handling code
         delegate?.didTapQuickDrinkAt(index: 3)
     }
 
