@@ -1,8 +1,16 @@
 import UIKit
 
+protocol DrinksLauncherDelegate: class {
+    func drinkForItemAt(indexPath: IndexPath) -> (name: String, imageName: String)
+    func numberOfItemsInSection() -> Int
+    func didSelectItemAt(indexPath: IndexPath)
+    func getQuickDrinkAt(index: Int) -> (name: String, imageName: String)
+    func didTapQuickDrinkAt(index: Int)
+}
+
 class DrinksLauncher: NSObject {
 
-    var senderView: TodayView?
+    weak var delegate: DrinksLauncherDelegate?
 
     let blackView = UIView()
 
@@ -44,15 +52,9 @@ class DrinksLauncher: NSObject {
 
     let cellId = "cellId"
 
-    let drinkNames = ["Water", "Coffee", "Tea", "Milk", "Orange Juice", "Juicebox",
-                      "Cola", "Cocktail", "Punch", "Milkshake", "Energy Drink", "Beer"] // icetea
-
-    let drinkImageNames = ["waterbottle.svg", "coffee.svg", "tea.svg", "milk.svg", "orangejuice.svg",
-                            "juicebox.svg", "cola.svg", "cocktail.svg", "punch.svg", "milkshake.svg",
-                            "energydrink.svg", "beer.svg"]
-
     func showDrinks() {
         print("tapped")
+        reloadQuickDrinks()
 
         if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
 
@@ -161,11 +163,25 @@ class DrinksLauncher: NSObject {
 
         let quickDrink1Tapped = UITapGestureRecognizer(target: self, action: #selector(self.quickDrink1Tap(_:)))
         contentView1.addGestureRecognizer(quickDrink1Tapped)
+
+        let quickDrink2Tapped = UITapGestureRecognizer(target: self, action: #selector(self.quickDrink2Tap(_:)))
+        contentView2.addGestureRecognizer(quickDrink2Tapped)
+
+        let quickDrink3Tapped = UITapGestureRecognizer(target: self, action: #selector(self.quickDrink3Tap(_:)))
+        contentView3.addGestureRecognizer(quickDrink3Tapped)
+
+        let quickDrink4Tapped = UITapGestureRecognizer(target: self, action: #selector(self.quickDrink4Tap(_:)))
+        contentView4.addGestureRecognizer(quickDrink4Tapped)
     }
 
-    func setQuickDrink1(title: String, imageName: String) {
-        contentView1.titleLabel.text = title
-        contentView1.imageView.image = UIImage(named: imageName)
+    func reloadQuickDrinks() {
+        let quickDrinkViews = [contentView1, contentView2, contentView3, contentView4]
+        for (index, view) in quickDrinkViews.enumerated() {
+            if let data = delegate?.getQuickDrinkAt(index: index) {
+                view.titleLabel.text = data.name
+                view.imageView.image = UIImage(named: data.imageName)
+            }
+        }
     }
 
     @objc func handleDismiss() {
@@ -184,8 +200,22 @@ class DrinksLauncher: NSObject {
 
     @objc func quickDrink1Tap(_ sender: UITapGestureRecognizer? = nil) {
         // handling code
-        print("did tap qd1")
+        delegate?.didTapQuickDrinkAt(index: 0)
+    }
 
+    @objc func quickDrink2Tap(_ sender: UITapGestureRecognizer? = nil) {
+        // handling code
+        delegate?.didTapQuickDrinkAt(index: 1)
+    }
+
+    @objc func quickDrink3Tap(_ sender: UITapGestureRecognizer? = nil) {
+        // handling code
+        delegate?.didTapQuickDrinkAt(index: 2)
+    }
+
+    @objc func quickDrink4Tap(_ sender: UITapGestureRecognizer? = nil) {
+        // handling code
+        delegate?.didTapQuickDrinkAt(index: 3)
     }
 
     override init() {
@@ -200,7 +230,6 @@ class DrinksLauncher: NSObject {
         collectionView.register(DrinksCell.self, forCellWithReuseIdentifier: cellId)
         setupViews()
         setupStackView()
-
     }
 
 }
@@ -208,7 +237,7 @@ class DrinksLauncher: NSObject {
 extension DrinksLauncher: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let count = drinkNames.count
+        guard let count = delegate?.numberOfItemsInSection() else { return 0 }
         pageControl.numberOfPages = Int(ceil(Double(count)/6))
         return count
     }
@@ -224,7 +253,6 @@ extension DrinksLauncher: UICollectionViewDataSource, UICollectionViewDelegate, 
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("item \(indexPath.item)")
         UIView.animate(withDuration: 0.25, delay: 0, options: .curveLinear, animations: {
             self.blackView.alpha = 0
 
@@ -234,33 +262,7 @@ extension DrinksLauncher: UICollectionViewDataSource, UICollectionViewDelegate, 
                                                    height: self.containerview.frame.height)
             }
         }, completion: {_ in
-            let alertContoller = UIAlertController(title: self.drinkNames[indexPath.item],
-                                        message: "Enter how much \(self.drinkNames[indexPath.item]) you drank in ml.", preferredStyle: .alert)
-            alertContoller.addTextField()
-            alertContoller.textFields![0].keyboardType = UIKeyboardType.numberPad
-
-            let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertContoller] _ in
-                if let answer: String = alertContoller.textFields![0].text,
-                   let answerAsDouble = Double(answer) {
-                    guard answerAsDouble != 0 else {
-                        print("can not be 0")
-                        return
-                    }
-                    self.senderView?.presenter.addDrinkTapped(drinkName: self.drinkNames[indexPath.item],
-                                                              volume: answerAsDouble,
-                                                              imageName: self.drinkImageNames[indexPath.item])
-                } else {
-                    print("invalid")
-                }
-
-            }
-
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-
-            alertContoller.addAction(cancelAction)
-            alertContoller.addAction(submitAction)
-
-            self.senderView?.present(alertContoller, animated: true)
+            self.delegate?.didSelectItemAt(indexPath: indexPath)
         })
     }
 
@@ -270,9 +272,11 @@ extension DrinksLauncher: UICollectionViewDataSource, UICollectionViewDelegate, 
         var cell = UICollectionViewCell()
 
         if let drinkCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId,
-                                                              for: indexPath) as? DrinksCell {
-            drinkCell.nameLabel.text = drinkNames[indexPath.item]
-            drinkCell.imageView.image = UIImage(named: drinkImageNames[indexPath.item])
+                                                              for: indexPath) as? DrinksCell,
+           let cellData = delegate?.drinkForItemAt(indexPath: indexPath) {
+
+            drinkCell.nameLabel.text = cellData.name
+            drinkCell.imageView.image = UIImage(named: cellData.imageName)
 
             cell = drinkCell
         }
