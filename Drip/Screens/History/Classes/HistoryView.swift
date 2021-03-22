@@ -16,8 +16,7 @@ final class HistoryView: UIViewController, HistoryViewProtocol, CoreDataViewProt
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var editButton: UIButton!
-    let drinkNames = ["Water", "Coffee", "Soda"]
-    let drinkImageNames = ["waterbottle.svg", "coffee.svg", "cola.svg"]
+    @IBOutlet weak var addDrinkButton: UIButton!
 
     fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
         [unowned self] in
@@ -40,6 +39,9 @@ final class HistoryView: UIViewController, HistoryViewProtocol, CoreDataViewProt
         calendar.dataSource = self
         calendar.delegate = self
         calendar.register(CustomFSCell.self, forCellReuseIdentifier: "cell")
+
+        setupAddDrinkBtn()
+        drinksLauncher.delegate = self
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -95,6 +97,11 @@ final class HistoryView: UIViewController, HistoryViewProtocol, CoreDataViewProt
         calendar.scope = .week
     }
 
+    func setupAddDrinkBtn() {
+        addDrinkButton.backgroundColor = .infoPanelBG
+        addDrinkButton.layer.cornerRadius = 10
+    }
+
     func presentView(_ view: UIViewController) {
         present(view, animated: true)
     }
@@ -144,6 +151,19 @@ final class HistoryView: UIViewController, HistoryViewProtocol, CoreDataViewProt
     @IBAction func editToggleTapped(_ sender: Any) {
         presenter.editToggleTapped()
     }
+
+    let drinksLauncher = DrinksLauncher()
+
+    @IBAction func addMissingDrinkBtnTapped(_ sender: Any) {
+        drinksLauncher.showDrinks()
+    }
+
+    let drinkNames = ["Water", "Coffee", "Tea", "Milk", "Orange Juice", "Juicebox",
+                      "Cola", "Cocktail", "Punch", "Milkshake", "Energy Drink", "Beer"] // icetea
+
+    let drinkImageNames = ["waterbottle.svg", "coffee.svg", "tea.svg", "milk.svg", "orangejuice.svg",
+                            "juicebox.svg", "cola.svg", "cocktail.svg", "punch.svg", "milkshake.svg",
+                            "energydrink.svg", "beer.svg"]
 
 }
 
@@ -252,4 +272,54 @@ extension HistoryView: UITableViewDelegate, UITableViewDataSource, DrinkTableVie
         presenter.didTapDeleteButton(row: sender.tag)
     }
 
+}
+
+extension HistoryView: DrinksLauncherDelegate {
+
+    func drinkForItemAt(indexPath: IndexPath) -> (name: String, imageName: String) {
+        return (drinkNames[indexPath.item], drinkImageNames[indexPath.item])
+    }
+
+    func numberOfItemsInSection() -> Int {
+        return drinkNames.count
+    }
+
+    func didSelectItemAt(indexPath: IndexPath) {
+
+        let alertContoller = UIAlertController(title: self.drinkNames[indexPath.item],
+                                    message: "Enter how much \(self.drinkNames[indexPath.item]) you drank in ml.", preferredStyle: .alert)
+        alertContoller.addTextField()
+        alertContoller.textFields![0].keyboardType = UIKeyboardType.numberPad
+
+        let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertContoller] _ in
+            if let answer: String = alertContoller.textFields![0].text,
+               let answerAsDouble = Double(answer) {
+                guard answerAsDouble != 0 else {
+                    print("can not be 0")
+                    return
+                }
+//                self.presenter.addDrinkTapped(drinkName: self.drinkNames[indexPath.item],
+//                                                          volume: answerAsDouble,
+//                                                          imageName: self.drinkImageNames[indexPath.item])
+            } else {
+                print("invalid")
+            }
+
+        }
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+
+        alertContoller.addAction(cancelAction)
+        alertContoller.addAction(submitAction)
+
+        present(alertContoller, animated: true)
+    }
+
+    func getQuickDrinkAt(index: Int) -> (name: String, imageName: String) {
+        return (drinkNames[index], drinkImageNames[index])
+    }
+
+    func didTapQuickDrinkAt(index: Int) {
+        print("tapped quick drink \(index)")
+    }
 }
