@@ -16,6 +16,24 @@ class DrinksLauncher: NSObject {
 
     let containerview = UIView()
 
+    let page1 = UIView()
+    let page2 = UIView()
+
+
+    let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        return stackView
+    }()
+
+    let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+//        scrollView.backgroundColor = .systemPink
+        scrollView.isPagingEnabled = true
+        scrollView.isScrollEnabled = false
+        return scrollView
+    }()
+
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -24,7 +42,12 @@ class DrinksLauncher: NSObject {
         return collectionView
     }()
 
-    let swipeIndicator = UIView()
+    let swipeIndicator: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        view.layer.cornerRadius = 3
+        return view
+    }()
 
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -76,6 +99,8 @@ class DrinksLauncher: NSObject {
                                           width: window.frame.width,
                                           height: height + 50) // extra 50 padding for swipe up gesture
 
+            setupPages(window: window)
+
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1,
                            initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 self.blackView.alpha = 1
@@ -91,6 +116,35 @@ class DrinksLauncher: NSObject {
 
     }
 
+    func setupPages(window: UIWindow) {
+        let subviews = [swipeIndicator, scrollView]
+        subviews.forEach({containerview.addSubview($0)})
+
+        swipeIndicator.centerHorizontallyInSuperview()
+        swipeIndicator.anchor(top: containerview.topAnchor, leading: nil, bottom: nil, trailing: nil,
+                              padding: .init(top: 10, left: 0, bottom: 0, right: 5),
+                              size: .init(width: 50, height: 6))
+
+        scrollView.anchor(top: swipeIndicator.bottomAnchor, leading: containerview.leadingAnchor,
+                          bottom: containerview.bottomAnchor, trailing: containerview.trailingAnchor)
+
+        scrollView.addSubview(stackView)
+        stackView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor,
+                         bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor)
+
+//        page1.backgroundColor = .orange
+        stackView.addArrangedSubview(page1)
+
+        page1.anchor(top: nil, leading: nil, bottom: nil, trailing: nil,
+                     size: .init(width: window.frame.width, height: 434))
+
+//        page2.backgroundColor = .blue
+        stackView.addArrangedSubview(page2)
+
+        page2.anchor(top: nil, leading: nil, bottom: nil, trailing: nil,
+                     size: .init(width: window.frame.width, height: 434))
+    }
+
     func setupViews() {
         blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
         blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
@@ -99,24 +153,28 @@ class DrinksLauncher: NSObject {
         containerview.layer.cornerRadius = 20
         containerview.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
 
-        let subviews = [swipeIndicator, titleLabel, buttonsContainer, collectionView, pageControl]
-        subviews.forEach({containerview.addSubview($0)})
+        setupPage1()
+        setupPage2()
 
-        swipeIndicator.centerHorizontallyInSuperview()
-        swipeIndicator.anchor(top: containerview.topAnchor, leading: nil, bottom: nil, trailing: nil,
-                              padding: .init(top: 10, left: 0, bottom: 0, right: 5), size: .init(width: 50, height: 6))
-        swipeIndicator.backgroundColor = UIColor.white.withAlphaComponent(0.5)
-        swipeIndicator.layer.cornerRadius = 3
+        let swipeDown = UIPanGestureRecognizer(target: self, action: #selector(self.swipeDown))
+        containerview.addGestureRecognizer(swipeDown)
+    }
+
+    func setupPage1() {
+        page1.addSubview(titleLabel)
+        page1.addSubview(buttonsContainer)
+        page1.addSubview(collectionView)
+        page1.addSubview(pageControl)
 
         titleLabel.centerHorizontallyInSuperview()
-        titleLabel.anchor(top: swipeIndicator.bottomAnchor,
+        titleLabel.anchor(top: page1.topAnchor,
                           leading: nil, bottom: nil, trailing: nil,
                           padding: .init(top: 5, left: 0, bottom: 0, right: 0))
 
         buttonsContainer.backgroundColor = UIColor(named: "infoPanelDark")
         buttonsContainer.layer.cornerRadius = 5
-        buttonsContainer.anchor(top: titleLabel.bottomAnchor, leading: containerview.leadingAnchor,
-                                bottom: nil, trailing: containerview.trailingAnchor,
+        buttonsContainer.anchor(top: titleLabel.bottomAnchor, leading: page1.leadingAnchor,
+                                bottom: nil, trailing: page1.trailingAnchor,
                                 padding: .init(top: 10, left: 10, bottom: 0, right: 10),
                                 size: .init(width: 0, height: 100))
 
@@ -129,16 +187,40 @@ class DrinksLauncher: NSObject {
                                                          height: 80))
         horizontalSV.centerVerticallyInSuperview()
 
-        collectionView.anchor(top: buttonsContainer.bottomAnchor, leading: containerview.leadingAnchor,
-                              bottom: nil, trailing: containerview.trailingAnchor,
+        collectionView.anchor(top: buttonsContainer.bottomAnchor, leading: page1.leadingAnchor,
+                              bottom: nil, trailing: page1.trailingAnchor,
                               padding: .init(top: 10, left: 10, bottom: 0, right: 10),
                               size: .init(width: 0, height: 260))
         pageControl.anchor(top: collectionView.bottomAnchor,
                            leading: nil, bottom: nil, trailing: nil, padding: .zero)
         pageControl.centerHorizontallyInSuperview()
+    }
 
-        let swipeDown = UIPanGestureRecognizer(target: self, action: #selector(self.swipeDown))
-        containerview.addGestureRecognizer(swipeDown)
+    func setupPage2() {
+        let page2TitleLabel = UILabel()
+        page2TitleLabel.text = "Choose Volume"
+        page2TitleLabel.textColor = .white
+        page2.addSubview(page2TitleLabel)
+        page2TitleLabel.anchor(top: page2.topAnchor,
+                               leading: nil, bottom: nil, trailing: nil,
+                               padding: .init(top: 5, left: 0, bottom: 0, right: 0))
+        page2TitleLabel.centerHorizontallyInSuperview()
+
+        let backButton = UIButton()
+        page2.addSubview(backButton)
+        backButton.anchor(top: page2.topAnchor, leading: page2.leadingAnchor, bottom: nil, trailing: nil,
+                          padding:.init(top: 10, left: 10, bottom: 0, right: 0) , size: .init(width: 25, height: 25))
+        backButton.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
+        backButton.tintColor = .whiteText
+        backButton.contentVerticalAlignment = .fill
+        backButton.contentHorizontalAlignment = .fill
+        backButton.imageView?.contentMode = .scaleAspectFit
+        backButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+
+    }
+
+    @objc func buttonAction(sender: UIButton!) {
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
 
     @objc func swipeDown(sender: UIPanGestureRecognizer) {
@@ -227,6 +309,8 @@ class DrinksLauncher: NSObject {
                             self.containerview.frame = CGRect(x: 0, y: window.frame.height,
                                                                width: self.containerview.frame.width,
                                                                height: self.containerview.frame.height)
+                            // can put in completion handler
+                            self.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
                         }
         })
 
@@ -283,17 +367,20 @@ extension DrinksLauncher: UICollectionViewDataSource, UICollectionViewDelegate, 
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        UIView.animate(withDuration: 0.25, delay: 0, options: .curveLinear, animations: {
-            self.blackView.alpha = 0
-
-            if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
-                self.containerview.frame = CGRect(x: 0, y: window.frame.height,
-                                                   width: self.containerview.frame.width,
-                                                   height: self.containerview.frame.height)
+//        UIView.animate(withDuration: 0.25, delay: 0, options: .curveLinear, animations: {
+//            self.blackView.alpha = 0
+//
+//            if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
+//                self.containerview.frame = CGRect(x: 0, y: window.frame.height,
+//                                                   width: self.containerview.frame.width,
+//                                                   height: self.containerview.frame.height)
+//            }
+//        }, completion: {_ in
+//            self.delegate?.didSelectItemAt(indexPath: indexPath)
+//        })
+        if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
+            scrollView.setContentOffset(CGPoint(x: window.frame.width, y: 0), animated: true)
             }
-        }, completion: {_ in
-            self.delegate?.didSelectItemAt(indexPath: indexPath)
-        })
     }
 
     func collectionView(_ collectionView: UICollectionView,
