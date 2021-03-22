@@ -71,4 +71,16 @@ extension UIView {
             bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
         }
     }
+
+    func addVerticalDottedLine(color: UIColor = UIColor.white.withAlphaComponent(0.25)) {
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.strokeColor = color.cgColor
+        shapeLayer.lineWidth = 1
+        shapeLayer.lineDashPattern = [1, 1]
+
+        let path = CGMutablePath()
+        path.addLines(between: [CGPoint(x: 0, y: self.bounds.minY), CGPoint(x: 0, y: self.bounds.maxY)])
+        shapeLayer.path = path
+        layer.addSublayer(shapeLayer)
+    }
 }

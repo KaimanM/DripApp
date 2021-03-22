@@ -15,10 +15,10 @@ final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol
     @IBOutlet weak var thisEveningGradientBarView: GradientBarView!
     @IBOutlet weak var remainingView: UIView!
     @IBOutlet weak var goalView: UIView!
-    @IBOutlet weak var addDrinkView: UIView!
     @IBOutlet weak var remainingLabel: UILabel!
     @IBOutlet weak var goalLabel: UILabel!
-    @IBOutlet weak var addImageView: UIImageView!
+    @IBOutlet weak var addDrinkBtn: UIButton!
+    @IBOutlet weak var dottedView: UIView!
     private var displayLink: CADisplayLink?
     private var animationStartDate: Date?
     private var startValue: Double = 0
@@ -33,19 +33,9 @@ final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol
         view.backgroundColor = .black
         ringView.backgroundColor = .clear
         presenter.onViewDidLoad()
-        setupButtonViews()
-
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
-                                                            target: self,
-                                                            action: #selector(action))
-
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE, MMM d"
-        let result = formatter.string(from: date)
-        navigationItem.title = result
+        setupInfoViews()
+        setNavigationTitle()
         progressLabel.font = UIFont.SFProRounded(ofSize: 32, fontWeight: .regular)
-
         drinksLauncher.delegate = self
     }
 
@@ -61,6 +51,14 @@ final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol
         presenter.onViewWillDisappear()
     }
 
+    func setNavigationTitle() {
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE, MMM d"
+        let result = formatter.string(from: date)
+        navigationItem.title = result
+    }
+
     func presentView(_ view: UIViewController) {
         present(view, animated: true)
     }
@@ -73,13 +71,13 @@ final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol
         self.title = title
     }
 
-    func setupButtonViews() {
+    func setupInfoViews() {
         remainingView.layer.cornerRadius = 10
         remainingView.backgroundColor = .clear
         goalView.layer.cornerRadius = 10
         goalView.backgroundColor = .clear
-        addDrinkView.layer.cornerRadius = 10
-        addDrinkView.backgroundColor = .infoPanelBG
+        addDrinkBtn.layer.cornerRadius = 10
+        addDrinkBtn.backgroundColor = .infoPanelBG
 
         remainingLabel.font = UIFont.SFProRounded(ofSize: 28, fontWeight: .medium)
         remainingLabel.textColor = .dripMerged
@@ -89,13 +87,13 @@ final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol
         goalLabel.textColor = .dripMerged
         goalLabel.adjustsFontSizeToFitWidth = true // include for iphone se first gen
 
-        addImageView.image = UIImage(named: "add.svg")
-        addImageView.tintColor = UIColor.dripMerged
+        addDrinkBtn.setTitleColor(.whiteText, for: .normal)
 
-        let addTap = UITapGestureRecognizer(target: self, action: #selector(self.addDrinkTapped(_:)))
+        dottedView.addVerticalDottedLine()
+        dottedView.backgroundColor = .clear
+
         let goalTap = UITapGestureRecognizer(target: self, action: #selector(self.goalViewTapped(_:)))
         goalView.addGestureRecognizer(goalTap)
-        addDrinkView.addGestureRecognizer(addTap)
 
     }
 
@@ -178,12 +176,7 @@ final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol
         }
     }
 
-    @objc func action(sender: UIBarButtonItem) {
-        // Function body goes here
-        print("testy123")
-    }
-
-    @objc func addDrinkTapped(_ sender: UITapGestureRecognizer? = nil) {
+    @IBAction func addDrinkBtnTapped(_ sender: Any) {
         drinksLauncher.showDrinks()
     }
 
