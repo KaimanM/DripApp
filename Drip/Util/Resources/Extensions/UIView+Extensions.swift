@@ -10,10 +10,10 @@ import UIKit
 
 extension UIView {
 
-    func anchor(top: NSLayoutYAxisAnchor?,
-                leading: NSLayoutXAxisAnchor?,
-                bottom: NSLayoutYAxisAnchor?,
-                trailing: NSLayoutXAxisAnchor?,
+    func anchor(top: NSLayoutYAxisAnchor? = nil,
+                leading: NSLayoutXAxisAnchor? = nil,
+                bottom: NSLayoutYAxisAnchor? = nil,
+                trailing: NSLayoutXAxisAnchor? = nil,
                 padding: UIEdgeInsets = .zero,
                 size: CGSize = .zero) {
 
@@ -45,6 +45,7 @@ extension UIView {
     }
 
     func centerInSuperview() {
+        translatesAutoresizingMaskIntoConstraints = false
         if let superview = superview {
             centerXAnchor.constraint(equalTo: superview.centerXAnchor).isActive = true
             centerYAnchor.constraint(equalTo: superview.centerYAnchor).isActive = true
@@ -52,24 +53,32 @@ extension UIView {
     }
 
     func centerHorizontallyInSuperview() {
+        translatesAutoresizingMaskIntoConstraints = false
         if let superview = superview {
             centerXAnchor.constraint(equalTo: superview.centerXAnchor).isActive = true
         }
     }
 
     func centerVerticallyInSuperview() {
+        translatesAutoresizingMaskIntoConstraints = false
         if let superview = superview {
             centerYAnchor.constraint(equalTo: superview.centerYAnchor).isActive = true
         }
     }
 
     func fillSuperView() {
+        translatesAutoresizingMaskIntoConstraints = false
         if let superview = superview {
             trailingAnchor.constraint(equalTo: superview.trailingAnchor).isActive = true
             topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
             leadingAnchor.constraint(equalTo: superview.leadingAnchor).isActive = true
             bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
         }
+    }
+
+    func setEqualWidthTo(_ view: UIView) {
+        translatesAutoresizingMaskIntoConstraints = false
+        widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
     }
 
     func addVerticalDottedLine(color: UIColor = UIColor.white.withAlphaComponent(0.25)) {
