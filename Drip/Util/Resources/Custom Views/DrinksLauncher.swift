@@ -30,12 +30,6 @@ class DrinksLauncher: NSObject {
     let page1 = UIView()
     let page2 = UIView()
 
-    let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        return stackView
-    }()
-
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.isPagingEnabled = true
@@ -92,44 +86,48 @@ class DrinksLauncher: NSObject {
     var currentVolume: Double = 300
     var currentDrinkName = "Water"
     var currentDrinkImageName = "waterbottle.svg"
+    var isFirstOpen = true
 
     func showDrinks() {
-        print("tapped")
         reloadQuickDrinks()
 
         if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
-
-            window.addSubview(blackView)
-            window.addSubview(containerView)
-            print(window.subviews.count)
-
-            blackView.frame = window.frame
-            blackView.alpha = 0
-
             let height: CGFloat = 460
             let yOffset = window.frame.height - height
-            containerView.frame = CGRect(x: 0, y: window.frame.height,
-                                          width: window.frame.width,
-                                          height: height + 50) // extra 50 padding for swipe up gesture
 
-            setupPages(window: window)
+            if isFirstOpen { firstTimeOpenConstraints(window: window, height: height) }
 
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1,
                            initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                self.blackView.alpha = 1
-                self.containerView.frame = CGRect(x: 0, y: yOffset,
-                                                   width: self.containerView.frame.width,
-                                                   height: self.containerView.frame.height)
+                            self.blackView.alpha = 1
+                            self.containerView.frame = CGRect(x: 0, y: yOffset,
+                                                              width: self.containerView.frame.width,
+                                                              height: self.containerView.frame.height)
                            }, completion: {_ in
+                            // sets origin so it knows where to bounce back to when container dragged around
                             self.origin = self.containerView.frame.origin
-                            print("origin is \(self.origin)")
                            })
-
         }
-
     }
 
-    func setupPages(window: UIWindow) {
+    func firstTimeOpenConstraints(window: UIWindow, height: CGFloat) {
+        window.addSubview(blackView)
+        window.addSubview(containerView)
+
+        blackView.frame = window.frame
+        blackView.alpha = 0
+
+        containerView.frame = CGRect(x: 0,
+                                     y: window.frame.height,
+                                     width: window.frame.width,
+                                     height: height + 50) // extra 50 padding for swipe up gesture
+
+        initializePages(window: window)
+        isFirstOpen = false
+    }
+
+    func initializePages(window: UIWindow) {
+        // Initialize additional required views
         let swipeIndicator: UIView = {
             let view = UIView()
             view.backgroundColor = UIColor.white.withAlphaComponent(0.5)
@@ -137,32 +135,39 @@ class DrinksLauncher: NSObject {
             return view
         }()
 
+        let stackView: UIStackView = {
+            let stackView = UIStackView()
+            stackView.axis = .horizontal
+            return stackView
+        }()
+
+        // Add subviews to page containerView
         let subviews = [swipeIndicator, scrollView]
         subviews.forEach({containerView.addSubview($0)})
+        scrollView.addSubview(stackView)
 
+        // Adds pages to stack view
+        let arrangedSubviews = [page1, page2]
+        arrangedSubviews.forEach({stackView.addArrangedSubview($0)})
+
+        // Handle constraints
         swipeIndicator.centerHorizontallyInSuperview()
-        swipeIndicator.anchor(top: containerView.topAnchor, leading: nil, bottom: nil, trailing: nil,
+        swipeIndicator.anchor(top: containerView.topAnchor,
                               padding: .init(top: 10, left: 0, bottom: 0, right: 5),
                               size: .init(width: 50, height: 6))
 
-        scrollView.anchor(top: swipeIndicator.bottomAnchor, leading: containerView.leadingAnchor,
-                          bottom: containerView.bottomAnchor, trailing: containerView.trailingAnchor)
+        scrollView.anchor(top: swipeIndicator.bottomAnchor,
+                          leading: containerView.leadingAnchor,
+                          bottom: containerView.bottomAnchor,
+                          trailing: containerView.trailingAnchor)
 
-        scrollView.addSubview(stackView)
-        stackView.anchor(top: scrollView.topAnchor, leading: scrollView.leadingAnchor,
-                         bottom: scrollView.bottomAnchor, trailing: scrollView.trailingAnchor)
+        stackView.anchor(top: scrollView.topAnchor,
+                         leading: scrollView.leadingAnchor,
+                         bottom: scrollView.bottomAnchor,
+                         trailing: scrollView.trailingAnchor)
 
-//        page1.backgroundColor = .orange
-        stackView.addArrangedSubview(page1)
-
-        page1.anchor(top: nil, leading: nil, bottom: nil, trailing: nil,
-                     size: .init(width: window.frame.width, height: 434))
-
-//        page2.backgroundColor = .blue
-        stackView.addArrangedSubview(page2)
-
-        page2.anchor(top: nil, leading: nil, bottom: nil, trailing: nil,
-                     size: .init(width: window.frame.width, height: 434))
+        page1.anchor(size: .init(width: window.frame.width, height: 434))
+        page2.anchor(size: .init(width: window.frame.width, height: 434))
     }
 
     func setupViews() {
@@ -223,9 +228,9 @@ class DrinksLauncher: NSObject {
         pageControl.centerHorizontallyInSuperview()
     }
 
+    // swiftlint:disable:next function_body_length
     func setupPage2() {
         // Initialize additional required views
-
         let page2TitleLabel: UILabel = {
             let label = UILabel()
             label.text = "Choose Volume"
@@ -315,11 +320,9 @@ class DrinksLauncher: NSObject {
 
     @objc func addDrinkAction(sender: UIButton!) {
         handleDismiss()
-        //delegate
         delegate?.didAddDrink(name: currentDrinkName,
                               imageName: currentDrinkImageName,
                               volume: currentVolume)
-        print("adding drink")
     }
 
     func setImageAndTitleForDetailView(name: String, imageName: String) {
@@ -356,7 +359,6 @@ class DrinksLauncher: NSObject {
     }
 
     func setupStackView() {
-
         let spacer1 = UIView(), spacer2 = UIView(), spacer3 = UIView(), spacer4 = UIView(), spacer5 = UIView()
 
         let arrangedSubviews = [spacer1, contentView1, spacer2, contentView2, spacer3, contentView3, spacer4,
@@ -524,7 +526,8 @@ extension DrinksLauncher: UIPickerViewDelegate, UIPickerViewDataSource {
         40
     }
 
-    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int,
+                    forComponent component: Int) -> NSAttributedString? {
         return NSAttributedString(string: drinkVolumeArray[row],
                                   attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
     }
