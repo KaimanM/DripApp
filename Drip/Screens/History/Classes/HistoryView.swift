@@ -275,6 +275,10 @@ extension HistoryView: UITableViewDelegate, UITableViewDataSource, DrinkTableVie
 }
 
 extension HistoryView: DrinksLauncherDelegate {
+    func didAddDrink(name: String, imageName: String, volume: Double) {
+        print("doing nothjing right now")
+    }
+
 
     func drinkForItemAt(indexPath: IndexPath) -> (name: String, imageName: String) {
         return (drinkNames[indexPath.item], drinkImageNames[indexPath.item])

@@ -6,6 +6,7 @@ protocol DrinksLauncherDelegate: class {
     func didSelectItemAt(indexPath: IndexPath)
     func getQuickDrinkAt(index: Int) -> (name: String, imageName: String)
     func didTapQuickDrinkAt(index: Int)
+    func didAddDrink(name: String, imageName: String, volume: Double)
 }
 
 class DrinksLauncher: NSObject {
@@ -18,7 +19,6 @@ class DrinksLauncher: NSObject {
 
     let page1 = UIView()
     let page2 = UIView()
-
 
     let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -53,6 +53,7 @@ class DrinksLauncher: NSObject {
         let label = UILabel()
         label.text = "Select a drink"
         label.textColor = UIColor.white
+        label.font = UIFont.boldSystemFont(ofSize: 19.0)
         return label
     }()
 
@@ -68,6 +69,8 @@ class DrinksLauncher: NSObject {
         return stackView
     }()
 
+    let picker = UIPickerView()
+
     let contentView1 = QuickDrinkView()
     let contentView2 = QuickDrinkView()
     let contentView3 = QuickDrinkView()
@@ -79,6 +82,17 @@ class DrinksLauncher: NSObject {
 
     var origin = CGPoint(x: 0, y: 0)
     var viewTranslation = CGPoint(x: 0, y: 0)
+
+    let drinkNameLabel = UILabel() // needs to be moved outside func
+    let detailImageView = UIImageView() // needs to be moved outside func
+
+    let drinkVolumeArray = ["50ml", "100ml", "150ml", "200ml", "250ml", "300ml", "350ml", "400ml",
+                            "450ml", "500ml", "550ml", "600ml", "650ml", "700ml", "750ml", "800ml",
+                            "850ml", "900ml", "1000ml"]
+
+    var currentVolume: Double = 300
+    var currentDrinkName = "Water"
+    var currentDrinkImageName = "waterbottle.svg"
 
     func showDrinks() {
         print("tapped")
@@ -169,7 +183,8 @@ class DrinksLauncher: NSObject {
         titleLabel.centerHorizontallyInSuperview()
         titleLabel.anchor(top: page1.topAnchor,
                           leading: nil, bottom: nil, trailing: nil,
-                          padding: .init(top: 5, left: 0, bottom: 0, right: 0))
+                          padding: .init(top: 5, left: 0, bottom: 0, right: 0),
+                          size: .init(width: 0, height: 25))
 
         buttonsContainer.backgroundColor = UIColor(named: "infoPanelDark")
         buttonsContainer.layer.cornerRadius = 5
@@ -189,7 +204,7 @@ class DrinksLauncher: NSObject {
 
         collectionView.anchor(top: buttonsContainer.bottomAnchor, leading: page1.leadingAnchor,
                               bottom: nil, trailing: page1.trailingAnchor,
-                              padding: .init(top: 10, left: 10, bottom: 0, right: 10),
+                              padding: .init(top: 5, left: 10, bottom: 0, right: 10),
                               size: .init(width: 0, height: 260))
         pageControl.anchor(top: collectionView.bottomAnchor,
                            leading: nil, bottom: nil, trailing: nil, padding: .zero)
@@ -200,27 +215,93 @@ class DrinksLauncher: NSObject {
         let page2TitleLabel = UILabel()
         page2TitleLabel.text = "Choose Volume"
         page2TitleLabel.textColor = .white
+        page2TitleLabel.font = UIFont.boldSystemFont(ofSize: 19.0)
         page2.addSubview(page2TitleLabel)
         page2TitleLabel.anchor(top: page2.topAnchor,
                                leading: nil, bottom: nil, trailing: nil,
-                               padding: .init(top: 5, left: 0, bottom: 0, right: 0))
+                               padding: .init(top: 5, left: 0, bottom: 0, right: 0),
+                               size: .init(width: 0, height: 25))
         page2TitleLabel.centerHorizontallyInSuperview()
 
         let backButton = UIButton()
         page2.addSubview(backButton)
         backButton.anchor(top: page2.topAnchor, leading: page2.leadingAnchor, bottom: nil, trailing: nil,
-                          padding:.init(top: 10, left: 10, bottom: 0, right: 0) , size: .init(width: 25, height: 25))
+                          padding:.init(top: 5, left: 10, bottom: 0, right: 0) , size: .init(width: 25, height: 25))
         backButton.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
         backButton.tintColor = .whiteText
         backButton.contentVerticalAlignment = .fill
         backButton.contentHorizontalAlignment = .fill
         backButton.imageView?.contentMode = .scaleAspectFit
-        backButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        backButton.addTarget(self, action: #selector(backButtonAction), for: .touchUpInside)
+
+        let imageContainerView = UIView()
+        page2.addSubview(imageContainerView)
+        imageContainerView.anchor(top: page2TitleLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil,
+                                  padding: .init(top: 10, left: 0, bottom: 0, right: 0),
+                                  size: .init(width: 140, height: 140))
+        imageContainerView.centerHorizontallyInSuperview()
+        imageContainerView.backgroundColor = UIColor(named: "infoPanelDark")
+        imageContainerView.layer.cornerRadius = 10
+
+
+        imageContainerView.addSubview(detailImageView)
+        detailImageView.anchor(top: imageContainerView.topAnchor,
+                               leading: imageContainerView.leadingAnchor,
+                               bottom: imageContainerView.bottomAnchor,
+                               trailing: imageContainerView.trailingAnchor,
+                               padding: .init(top: 20, left: 20, bottom: 20, right: 20))
+        detailImageView.image = UIImage(named: "coffee.svg")
+
+
+
+        page2.addSubview(drinkNameLabel)
+
+        drinkNameLabel.anchor(top: imageContainerView.bottomAnchor, leading: nil, bottom: nil, trailing: nil,
+                              padding: .zero, size: .init(width: 0, height: 25))
+        drinkNameLabel.centerHorizontallyInSuperview()
+        drinkNameLabel.text = "Coffee"
+        drinkNameLabel.textColor = .white
+        drinkNameLabel.font = UIFont.boldSystemFont(ofSize: 17)
+
+        page2.addSubview(picker)
+
+        picker.anchor(top: drinkNameLabel.bottomAnchor, leading: page2.leadingAnchor, bottom: nil, trailing: page2.trailingAnchor,
+                      size: .init(width: 0, height: 120))
+//        picker.backgroundColor = .red
+
+        let addDrinkButton = UIButton()
+        page2.addSubview(addDrinkButton)
+        addDrinkButton.anchor(top: picker.bottomAnchor, leading: page2.leadingAnchor,
+                              bottom: nil, trailing: page2.trailingAnchor,
+                              padding: .init(top: 20, left: 10, bottom: 0, right: 10),
+                              size: .init(width: 0, height: 50))
+        addDrinkButton.setTitle("Add drink", for: .normal)
+        addDrinkButton.backgroundColor = UIColor(named: "infoPanelDark")
+        addDrinkButton.layer.cornerRadius = 10
+        addDrinkButton.addTarget(self, action: #selector(addDrinkAction), for: .touchUpInside)
+        picker.selectRow(5, inComponent: 0, animated: false)
 
     }
 
-    @objc func buttonAction(sender: UIButton!) {
+    @objc func backButtonAction(sender: UIButton!) {
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+    }
+
+    @objc func addDrinkAction(sender: UIButton!) {
+        handleDismiss()
+        //delegate
+        delegate?.didAddDrink(name: currentDrinkName,
+                              imageName: currentDrinkImageName,
+                              volume: currentVolume)
+        print("adding drink")
+    }
+
+    func setImageAndTitleForDetailView(name: String, imageName: String) {
+        currentDrinkName = name
+        currentDrinkImageName = imageName
+        drinkNameLabel.text = currentDrinkName
+        detailImageView.image = UIImage(named: currentDrinkImageName)
+
     }
 
     @objc func swipeDown(sender: UIPanGestureRecognizer) {
@@ -256,6 +337,7 @@ class DrinksLauncher: NSObject {
         let spacer4 = UIView()
         let spacer5 = UIView()
 
+        // cleanup
         horizontalSV.addArrangedSubview(spacer1)
         horizontalSV.addArrangedSubview(contentView1)
         horizontalSV.addArrangedSubview(spacer2)
@@ -340,6 +422,8 @@ class DrinksLauncher: NSObject {
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         pageControl.isUserInteractionEnabled = false
+        picker.dataSource = self
+        picker.delegate = self
 
         collectionView.register(DrinksCell.self, forCellWithReuseIdentifier: cellId)
         setupViews()
@@ -378,6 +462,10 @@ extension DrinksLauncher: UICollectionViewDataSource, UICollectionViewDelegate, 
 //        }, completion: {_ in
 //            self.delegate?.didSelectItemAt(indexPath: indexPath)
 //        })
+        if let cellData = delegate?.drinkForItemAt(indexPath: indexPath) {
+            setImageAndTitleForDetailView(name: cellData.name, imageName: cellData.imageName)
+        }
+
         if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
             scrollView.setContentOffset(CGPoint(x: window.frame.width, y: 0), animated: true)
             }
@@ -415,4 +503,49 @@ extension DrinksLauncher: UICollectionViewDataSource, UICollectionViewDelegate, 
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.width/3, height: collectionView.bounds.height/2)
     }
+}
+
+extension DrinksLauncher: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return drinkVolumeArray.count
+    }
+
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        return "xd"
+//    }
+
+//    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+//        var label = UILabel()
+//                if let v123 = view {
+//                    label = v123 as! UILabel
+//                }
+//        label.font = UIFont.systemFont(ofSize: 25)
+//                label.text =  "dsd"
+//        label.textColor = .white
+//                label.textAlignment = .center
+//                return label
+//    }
+
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        40
+    }
+
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        return NSAttributedString(string: drinkVolumeArray[row],
+                                  attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        var volumeString = drinkVolumeArray[row]
+        volumeString.removeLast(2)
+        let volume: Double = (volumeString as NSString).doubleValue
+        currentVolume = volume
+        print("cur vol is \(currentVolume)")
+    }
+
+
 }

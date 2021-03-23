@@ -218,6 +218,10 @@ final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol
 
 extension TodayView: DrinksLauncherDelegate {
 
+    func didAddDrink(name: String, imageName: String, volume: Double) {
+        presenter.addDrinkTapped(drinkName: name, volume: volume, imageName: imageName)
+    }
+
     func drinkForItemAt(indexPath: IndexPath) -> (name: String, imageName: String) {
         return (drinkNames[indexPath.item], drinkImageNames[indexPath.item])
     }
