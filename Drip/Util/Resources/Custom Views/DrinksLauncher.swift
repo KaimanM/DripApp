@@ -11,8 +11,10 @@ protocol DrinksLauncherDelegate: class {
 
 class DrinksLauncher: NSObject {
 
+    // MARK: - Properties -
     weak var delegate: DrinksLauncherDelegate?
 
+    // Required UI initialization
     let blackView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(white: 0, alpha: 0.5)
@@ -51,9 +53,18 @@ class DrinksLauncher: NSObject {
         stackView.backgroundColor = .clear
         stackView.distribution = .fill
         stackView.alignment = .fill
-
         return stackView
     }()
+
+    let drinkNameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Water"
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        return label
+    }()
+
+    let detailImageView = UIImageView()
 
     let picker = UIPickerView()
 
@@ -65,20 +76,10 @@ class DrinksLauncher: NSObject {
     let pageControl = UIPageControl()
 
     let cellId = "cellId"
-
     var origin = CGPoint(x: 0, y: 0)
     var viewTranslation = CGPoint(x: 0, y: 0)
 
-    let drinkNameLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Water"
-        label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize: 17)
-        return label
-    }()
-
-    let detailImageView = UIImageView() // needs to be moved outside func
-
+    // Data values initilization
     let drinkVolumeArray = ["50ml", "100ml", "150ml", "200ml", "250ml", "300ml", "350ml", "400ml",
                             "450ml", "500ml", "550ml", "600ml", "650ml", "700ml", "750ml", "800ml",
                             "850ml", "900ml", "1000ml"]
@@ -87,6 +88,21 @@ class DrinksLauncher: NSObject {
     var currentDrinkName = "Water"
     var currentDrinkImageName = "waterbottle.svg"
     var isFirstOpen = true
+
+    override init() {
+        super.init()
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.isPagingEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
+        pageControl.isUserInteractionEnabled = false
+        picker.dataSource = self
+        picker.delegate = self
+
+        collectionView.register(DrinksCell.self, forCellWithReuseIdentifier: cellId)
+        setupViews()
+        setupStackView()
+    }
 
     func showDrinks() {
         reloadQuickDrinks()
@@ -110,6 +126,7 @@ class DrinksLauncher: NSObject {
         }
     }
 
+    // MARK: - UI Initilization -
     func firstTimeOpenConstraints(window: UIWindow, height: CGFloat) {
         window.addSubview(blackView)
         window.addSubview(containerView)
@@ -314,50 +331,6 @@ class DrinksLauncher: NSObject {
         picker.selectRow(5, inComponent: 0, animated: false)
     }
 
-    @objc func backButtonAction(sender: UIButton!) {
-        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-    }
-
-    @objc func addDrinkAction(sender: UIButton!) {
-        handleDismiss()
-        delegate?.didAddDrink(name: currentDrinkName,
-                              imageName: currentDrinkImageName,
-                              volume: currentVolume)
-    }
-
-    func setImageAndTitleForDetailView(name: String, imageName: String) {
-        currentDrinkName = name
-        currentDrinkImageName = imageName
-        drinkNameLabel.text = currentDrinkName
-        detailImageView.image = UIImage(named: currentDrinkImageName)
-
-    }
-
-    @objc func swipeDown(sender: UIPanGestureRecognizer) {
-        switch sender.state {
-        case .changed:
-            viewTranslation = sender.translation(in: containerView)
-            if viewTranslation.y > -50 {
-                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7,
-                               initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                    self.containerView.frame.origin = CGPoint(x: 0, y: self.origin.y + self.viewTranslation.y)
-                })
-
-            }
-        case .ended:
-            if viewTranslation.y < 100 {
-                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7,
-                               initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                        self.containerView.frame.origin = self.origin
-                    })
-            } else {
-                handleDismiss()
-            }
-        default:
-                break
-            }
-    }
-
     func setupStackView() {
         let spacer1 = UIView(), spacer2 = UIView(), spacer3 = UIView(), spacer4 = UIView(), spacer5 = UIView()
 
@@ -380,6 +353,15 @@ class DrinksLauncher: NSObject {
 
         let quickDrink4Tapped = UITapGestureRecognizer(target: self, action: #selector(self.quickDrink4Tap(_:)))
         contentView4.addGestureRecognizer(quickDrink4Tapped)
+    }
+
+    // MARK: - Other UI Methods -
+    func setImageAndTitleForDetailView(name: String, imageName: String) {
+        currentDrinkName = name
+        currentDrinkImageName = imageName
+        drinkNameLabel.text = currentDrinkName
+        detailImageView.image = UIImage(named: currentDrinkImageName)
+
     }
 
     func reloadQuickDrinks() {
@@ -408,6 +390,44 @@ class DrinksLauncher: NSObject {
 
     }
 
+    // MARK: - User Interaction -
+
+    @objc func backButtonAction(sender: UIButton!) {
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+    }
+
+    @objc func addDrinkAction(sender: UIButton!) {
+        handleDismiss()
+        delegate?.didAddDrink(name: currentDrinkName,
+                              imageName: currentDrinkImageName,
+                              volume: currentVolume)
+    }
+
+    @objc func swipeDown(sender: UIPanGestureRecognizer) {
+        switch sender.state {
+        case .changed:
+            viewTranslation = sender.translation(in: containerView)
+            if viewTranslation.y > -50 {
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7,
+                               initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                    self.containerView.frame.origin = CGPoint(x: 0, y: self.origin.y + self.viewTranslation.y)
+                })
+
+            }
+        case .ended:
+            if viewTranslation.y < 100 {
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7,
+                               initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                        self.containerView.frame.origin = self.origin
+                    })
+            } else {
+                handleDismiss()
+            }
+        default:
+                break
+            }
+    }
+
     @objc func quickDrink1Tap(_ sender: UITapGestureRecognizer? = nil) {
         delegate?.didTapQuickDrinkAt(index: 0)
     }
@@ -423,25 +443,9 @@ class DrinksLauncher: NSObject {
     @objc func quickDrink4Tap(_ sender: UITapGestureRecognizer? = nil) {
         delegate?.didTapQuickDrinkAt(index: 3)
     }
-
-    override init() {
-        super.init()
-        // do stuff
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.isPagingEnabled = true
-        collectionView.showsHorizontalScrollIndicator = false
-        pageControl.isUserInteractionEnabled = false
-        picker.dataSource = self
-        picker.delegate = self
-
-        collectionView.register(DrinksCell.self, forCellWithReuseIdentifier: cellId)
-        setupViews()
-        setupStackView()
-    }
-
 }
 
+// MARK: - Collection View Deleagate & DataSource -
 extension DrinksLauncher: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -513,6 +517,7 @@ extension DrinksLauncher: UICollectionViewDataSource, UICollectionViewDelegate, 
     }
 }
 
+// MARK: - Picker View Deleagate & DataSource -
 extension DrinksLauncher: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -537,6 +542,6 @@ extension DrinksLauncher: UIPickerViewDelegate, UIPickerViewDataSource {
         volumeString.removeLast(2)
         let volume: Double = (volumeString as NSString).doubleValue
         currentVolume = volume
-        print("cur vol is \(currentVolume)")
     }
+    // swiftlint:disable:next file_length
 }
