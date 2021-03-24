@@ -3,7 +3,6 @@ import UIKit
 protocol DrinksLauncherDelegate: class {
     func drinkForItemAt(indexPath: IndexPath) -> (name: String, imageName: String)
     func numberOfItemsInSection() -> Int
-    func didSelectItemAt(indexPath: IndexPath)
     func getQuickDrinkAt(index: Int) -> (name: String, imageName: String)
     func didTapQuickDrinkAt(index: Int)
     func didAddDrink(name: String, imageName: String, volume: Double)
@@ -386,7 +385,10 @@ class DrinksLauncher: NSObject {
                             // can put in completion handler
                             self.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
                         }
-        })
+                       }, completion: { _ in
+                        self.currentVolume = 300
+                        self.picker.selectRow(5, inComponent: 0, animated: false)
+                       })
 
     }
 
@@ -430,18 +432,22 @@ class DrinksLauncher: NSObject {
 
     @objc func quickDrink1Tap(_ sender: UITapGestureRecognizer? = nil) {
         delegate?.didTapQuickDrinkAt(index: 0)
+        handleDismiss()
     }
 
     @objc func quickDrink2Tap(_ sender: UITapGestureRecognizer? = nil) {
         delegate?.didTapQuickDrinkAt(index: 1)
+        handleDismiss()
     }
 
     @objc func quickDrink3Tap(_ sender: UITapGestureRecognizer? = nil) {
         delegate?.didTapQuickDrinkAt(index: 2)
+        handleDismiss()
     }
 
     @objc func quickDrink4Tap(_ sender: UITapGestureRecognizer? = nil) {
         delegate?.didTapQuickDrinkAt(index: 3)
+        handleDismiss()
     }
 }
 

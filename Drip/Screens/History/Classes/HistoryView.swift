@@ -276,54 +276,25 @@ extension HistoryView: UITableViewDelegate, UITableViewDataSource, DrinkTableVie
 
 extension HistoryView: DrinksLauncherDelegate {
     func didAddDrink(name: String, imageName: String, volume: Double) {
-        print("doing nothjing right now")
+        presenter.addDrinkTapped(drinkName: name, volume: volume, imageName: imageName)
     }
 
-
     func drinkForItemAt(indexPath: IndexPath) -> (name: String, imageName: String) {
-        return (drinkNames[indexPath.item], drinkImageNames[indexPath.item])
+        let drinkData = presenter.getDrinkInfo()
+        return (drinkData.drinkNames[indexPath.item], drinkData.drinkImageNames[indexPath.item])
     }
 
     func numberOfItemsInSection() -> Int {
-        return drinkNames.count
-    }
-
-    func didSelectItemAt(indexPath: IndexPath) {
-
-        let alertContoller = UIAlertController(title: self.drinkNames[indexPath.item],
-                                    message: "Enter how much \(self.drinkNames[indexPath.item]) you drank in ml.", preferredStyle: .alert)
-        alertContoller.addTextField()
-        alertContoller.textFields![0].keyboardType = UIKeyboardType.numberPad
-
-        let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertContoller] _ in
-            if let answer: String = alertContoller.textFields![0].text,
-               let answerAsDouble = Double(answer) {
-                guard answerAsDouble != 0 else {
-                    print("can not be 0")
-                    return
-                }
-//                self.presenter.addDrinkTapped(drinkName: self.drinkNames[indexPath.item],
-//                                                          volume: answerAsDouble,
-//                                                          imageName: self.drinkImageNames[indexPath.item])
-            } else {
-                print("invalid")
-            }
-
-        }
-
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-
-        alertContoller.addAction(cancelAction)
-        alertContoller.addAction(submitAction)
-
-        present(alertContoller, animated: true)
+        let drinkData = presenter.getDrinkInfo()
+        return drinkData.drinkNames.count
     }
 
     func getQuickDrinkAt(index: Int) -> (name: String, imageName: String) {
-        return (drinkNames[index], drinkImageNames[index])
+        let drinkData = presenter.getFavoritesInfo()
+        return ("\(Int(drinkData.volumeTitle[index]))ml", drinkData.drinkImageNames[index])
     }
 
     func didTapQuickDrinkAt(index: Int) {
-        print("tapped quick drink \(index)")
+        presenter.quickDrinkAtIndexTapped(index: index)
     }
 }

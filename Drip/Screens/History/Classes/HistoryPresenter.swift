@@ -11,6 +11,18 @@ final class HistoryPresenter: HistoryPresenterProtocol {
         return defaults.double(forKey: "goal") == 0 ? 2000 : defaults.double(forKey: "goal")
     }
 
+    let drinkNames = ["Water", "Coffee", "Tea", "Milk", "Orange Juice", "Juicebox",
+                      "Cola", "Cocktail", "Punch", "Milkshake", "Energy Drink", "Beer"] // icetea
+
+    let drinkImageNames = ["waterbottle.svg", "coffee.svg", "tea.svg", "milk.svg", "orangejuice.svg",
+                            "juicebox.svg", "cola.svg", "cocktail.svg", "punch.svg", "milkshake.svg",
+                            "energydrink.svg", "beer.svg"]
+
+    // TODO: Change to vars and creare userdefaults method to retrieve these.
+    let favNames = ["Water", "Coffee", "Punch", "Milk"]
+    let favImageNames = ["waterbottle.svg", "coffee.svg", "punch.svg", "milk.svg"]
+    let favVolumeTitles: [Double] = [250, 350, 400, 500]
+
     init(view: HistoryViewProtocol) {
         self.view = view
     }
@@ -41,7 +53,8 @@ final class HistoryPresenter: HistoryPresenterProtocol {
         var total: Double = 0
 //        let goal: Double = 2000
 
-        for drink in view?.coreDataController?.fetchEntriesForDate(date: selectedDate) ?? [] {
+        for drink in view?.coreDataController?.fetchEntriesForDate(date: selectedDate)
+            .sorted(by: { $0.timeStamp < $1.timeStamp}) ?? [] {
                 total += drink.volume
                 selectedDayDrinks.append(drink)
         }
@@ -104,6 +117,29 @@ final class HistoryPresenter: HistoryPresenterProtocol {
         confirmDeleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 
         view?.presentView(confirmDeleteAlert)
+    }
+
+    func addDrinkTapped(drinkName: String, volume: Double, imageName: String) {
+        view?.coreDataController.addDrink(name: drinkName,
+                                          volume: volume,
+                                          imageName: imageName,
+                                          timeStamp: selectedDate)
+        populateDrinks()
+        view?.refreshUI()
+    }
+
+    func getDrinkInfo() -> (drinkNames: [String], drinkImageNames: [String]) {
+        return (drinkNames, drinkImageNames)
+    }
+
+    func getFavoritesInfo() -> (volumeTitle: [Double], drinkImageNames: [String]) {
+        return (favVolumeTitles, favImageNames)
+    }
+
+    func quickDrinkAtIndexTapped(index: Int) {
+        addDrinkTapped(drinkName: favNames[index],
+                       volume: favVolumeTitles[index],
+                       imageName: drinkImageNames[index])
     }
 
 }
