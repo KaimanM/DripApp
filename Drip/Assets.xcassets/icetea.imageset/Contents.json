@@ -1,15 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "add.svg",
+      "filename" : "028-Ice Tea.svg",
       "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
-  },
-  "properties" : {
-    "template-rendering-intent" : "template"
   }
 }

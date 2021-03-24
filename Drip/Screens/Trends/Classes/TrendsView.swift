@@ -54,7 +54,7 @@ extension TrendsView: UICollectionViewDelegate, UICollectionViewDataSource, UICo
         if let trendCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell",
                                                               for: indexPath) as? TrendsCollectionViewCell {
             trendCell.imageView?.image = UIImage(named: "waterbottle.svg")?
-                .withTintColor(UIColor.white.withAlphaComponent(0.5))
+//                .withTintColor(UIColor.white.withAlphaComponent(0.5))
                 .withAlignmentRectInsets(UIEdgeInsets(top: -7,
                                                       left: -7,
                                                       bottom: -7,

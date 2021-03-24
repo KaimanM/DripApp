@@ -3,7 +3,20 @@ import Foundation
 final class TodayPresenter: TodayPresenterProtocol {
     weak private(set) var view: TodayViewProtocol?
     var todaysTotal: Double = 0
-    let drinkGoal: Double = 2000
+    let defaults = UserDefaults.standard
+    var drinkGoal: Double = 2000
+
+    let drinkNames = ["Water", "Coffee", "Tea", "Milk", "Orange Juice", "Juicebox",
+                      "Cola", "Cocktail", "Punch", "Milkshake", "Energy Drink", "Beer"] // icetea
+
+    let drinkImageNames = ["waterbottle.svg", "coffee.svg", "tea.svg", "milk.svg", "orangejuice.svg",
+                            "juicebox.svg", "cola.svg", "cocktail.svg", "punch.svg", "milkshake.svg",
+                            "energydrink.svg", "beer.svg"]
+
+    // TODO: Change to vars and creare userdefaults method to retrieve these.
+    let favNames = ["Water", "Coffee", "Punch", "Milk"]
+    let favImageNames = ["waterbottle.svg", "coffee.svg", "punch.svg", "milk.svg"]
+    let favVolumeTitles: [Double] = [250, 350, 400, 500]
 
     init(view: TodayViewProtocol) {
         self.view = view
@@ -12,6 +25,7 @@ final class TodayPresenter: TodayPresenterProtocol {
     func onViewDidAppear() {
         updateProgressRing()
         updateGradientBars()
+        updateButtonTitles()
     }
 
     func onViewWillAppear() {}
@@ -24,40 +38,17 @@ final class TodayPresenter: TodayPresenterProtocol {
 
     func onViewDidLoad() {
         view?.updateTitle(title: "Today")
+        loadGoal()
         view?.setupRingView(startColor: .cyan, endColor: .blue, ringWidth: 30)
         view?.setupGradientBars(dailyGoal: Int(drinkGoal),
                                 morningGoal: Int(drinkGoal/3),
                                 afternoonGoal: Int(drinkGoal/3),
                                 eveningGoal: Int(drinkGoal/3))
-        view?.updateButtonImages(image1Name: "waterbottle.svg",
-                                 image2Name: "coffee.svg",
-                                 image3Name: "cola.svg",
-                                 image4Name: "add.svg")
-        view?.updateButtonSubtitles(subtitle1: "Water",
-                                    subtitle2: "Coffee",
-                                    subtitle3: "Soda",
-                                    subtitle4: "Custom")
+
     }
 
-    func onDrinkButton1Tapped() {
-        todaysTotal += 500
-        view?.coreDataController.addDrink(name: "Water", volume: 500, imageName: "waterbottle.svg", timeStamp: Date())
-        updateProgressRing()
-        updateGradientBars()
-    }
-
-    func onDrinkButton2Tapped() {
-        todaysTotal += 500
-        view?.coreDataController.addDrink(name: "Coffee", volume: 250, imageName: "coffee.svg", timeStamp: Date())
-        updateProgressRing()
-        updateGradientBars()
-    }
-
-    func onDrinkButton3Tapped() {
-        todaysTotal += 500
-        view?.coreDataController.addDrink(name: "Cola", volume: 330, imageName: "cola.svg", timeStamp: Date())
-        updateProgressRing()
-        updateGradientBars()
+    func loadGoal() {
+        drinkGoal = defaults.double(forKey: "goal") == 0 ? 2000 : defaults.double(forKey: "goal")
     }
 
     func updateProgressRing() {
@@ -95,4 +86,40 @@ final class TodayPresenter: TodayPresenterProtocol {
 
     }
 
+    func updateGoal(goal: Double) {
+        drinkGoal = goal
+        defaults.setValue(drinkGoal, forKey: "goal")
+        print(goal)
+        updateProgressRing()
+        updateGradientBars()
+        updateButtonTitles()
+    }
+
+    func addDrinkTapped(drinkName: String, volume: Double, imageName: String) {
+        todaysTotal += volume
+        view?.coreDataController.addDrink(name: drinkName, volume: volume, imageName: imageName, timeStamp: Date())
+        updateProgressRing()
+        updateGradientBars()
+        updateButtonTitles()
+
+    }
+
+    func updateButtonTitles() {
+        let remaining = Int(drinkGoal-todaysTotal) < 0 ? 0 : Int(drinkGoal-todaysTotal)
+        view?.setButtonTitles(remainingText: "\(Int(remaining))ml", goalText: "\(Int(drinkGoal))ml")
+    }
+
+    func getDrinkInfo() -> (drinkNames: [String], drinkImageNames: [String]) {
+        return (drinkNames, drinkImageNames)
+    }
+
+    func getFavoritesInfo() -> (volumeTitle: [Double], drinkImageNames: [String]) {
+        return (favVolumeTitles, favImageNames)
+    }
+
+    func quickDrinkAtIndexTapped(index: Int) {
+        addDrinkTapped(drinkName: favNames[index],
+                       volume: favVolumeTitles[index],
+                       imageName: drinkImageNames[index])
+    }
 }

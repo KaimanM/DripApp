@@ -31,6 +31,11 @@ final class TrendsPresenter: TrendsPresenterProtocol {
         return startDate!.addingTimeInterval(-(30*24*60*60))
     }
 
+    let defaults = UserDefaults.standard
+    var goal: Double {
+        return defaults.double(forKey: "goal") == 0 ? 2000 : defaults.double(forKey: "goal")
+    }
+
     init(view: TrendsViewProtocol) {
         self.view = view
     }
@@ -208,7 +213,7 @@ final class TrendsPresenter: TrendsPresenterProtocol {
 
     func getCurrentStreak() -> String {
         var total: Double = 0
-        let goal: Double = 2000
+//        let goal: Double = 2000
         var date = Date()
         var streak = 0
         let drinkArray = getDrinksForRange(for: .allTime)
@@ -233,12 +238,13 @@ final class TrendsPresenter: TrendsPresenterProtocol {
 
     func getBestStreak() -> String {
         var total: Double = 0
-        let goal: Double = 2000
+//        let goal: Double = 2000
         var date = Date()
         var streak = 0
         var best = 0
         let drinkArray = getDrinksForRange(for: .allTime)
 
+        // TODO: Fix this, as its buggy, possibly to do with eithe rline 253, or 259.
         for drink in drinkArray {
             if Calendar.current.isDate(date, inSameDayAs: drink.timeStamp) {
                 total += drink.volume

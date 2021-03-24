@@ -16,8 +16,7 @@ final class HistoryView: UIViewController, HistoryViewProtocol, CoreDataViewProt
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var editButton: UIButton!
-    let drinkNames = ["Water", "Coffee", "Soda"]
-    let drinkImageNames = ["waterbottle.svg", "coffee.svg", "cola.svg"]
+    @IBOutlet weak var addDrinkButton: UIButton!
 
     fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
         [unowned self] in
@@ -40,6 +39,9 @@ final class HistoryView: UIViewController, HistoryViewProtocol, CoreDataViewProt
         calendar.dataSource = self
         calendar.delegate = self
         calendar.register(CustomFSCell.self, forCellReuseIdentifier: "cell")
+
+        setupAddDrinkBtn()
+        drinksLauncher.delegate = self
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -95,6 +97,11 @@ final class HistoryView: UIViewController, HistoryViewProtocol, CoreDataViewProt
         calendar.scope = .week
     }
 
+    func setupAddDrinkBtn() {
+        addDrinkButton.backgroundColor = .infoPanelBG
+        addDrinkButton.layer.cornerRadius = 10
+    }
+
     func presentView(_ view: UIViewController) {
         present(view, animated: true)
     }
@@ -144,6 +151,19 @@ final class HistoryView: UIViewController, HistoryViewProtocol, CoreDataViewProt
     @IBAction func editToggleTapped(_ sender: Any) {
         presenter.editToggleTapped()
     }
+
+    let drinksLauncher = DrinksLauncher()
+
+    @IBAction func addMissingDrinkBtnTapped(_ sender: Any) {
+        drinksLauncher.showDrinks()
+    }
+
+    let drinkNames = ["Water", "Coffee", "Tea", "Milk", "Orange Juice", "Juicebox",
+                      "Cola", "Cocktail", "Punch", "Milkshake", "Energy Drink", "Beer"] // icetea
+
+    let drinkImageNames = ["waterbottle.svg", "coffee.svg", "tea.svg", "milk.svg", "orangejuice.svg",
+                            "juicebox.svg", "cola.svg", "cocktail.svg", "punch.svg", "milkshake.svg",
+                            "energydrink.svg", "beer.svg"]
 
 }
 
@@ -233,7 +253,7 @@ extension HistoryView: UITableViewDelegate, UITableViewDataSource, DrinkTableVie
         cell.drinkLabel.text = cellData.name
         cell.volumeLabel.text = cellData.volume
         cell.drinkImageView?.image = UIImage(named: cellData.imageName)?
-            .withTintColor(UIColor.white.withAlphaComponent(0.5))
+//            .withTintColor(UIColor.white.withAlphaComponent(0.5))
             .withAlignmentRectInsets(UIEdgeInsets(top: -15,
                                                   left: -15,
                                                   bottom: -15,
@@ -252,4 +272,29 @@ extension HistoryView: UITableViewDelegate, UITableViewDataSource, DrinkTableVie
         presenter.didTapDeleteButton(row: sender.tag)
     }
 
+}
+
+extension HistoryView: DrinksLauncherDelegate {
+    func didAddDrink(name: String, imageName: String, volume: Double) {
+        presenter.addDrinkTapped(drinkName: name, volume: volume, imageName: imageName)
+    }
+
+    func drinkForItemAt(indexPath: IndexPath) -> (name: String, imageName: String) {
+        let drinkData = presenter.getDrinkInfo()
+        return (drinkData.drinkNames[indexPath.item], drinkData.drinkImageNames[indexPath.item])
+    }
+
+    func numberOfItemsInSection() -> Int {
+        let drinkData = presenter.getDrinkInfo()
+        return drinkData.drinkNames.count
+    }
+
+    func getQuickDrinkAt(index: Int) -> (name: String, imageName: String) {
+        let drinkData = presenter.getFavoritesInfo()
+        return ("\(Int(drinkData.volumeTitle[index]))ml", drinkData.drinkImageNames[index])
+    }
+
+    func didTapQuickDrinkAt(index: Int) {
+        presenter.quickDrinkAtIndexTapped(index: index)
+    }
 }

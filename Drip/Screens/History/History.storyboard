@@ -28,7 +28,7 @@
                                 <rect key="frame" x="0.0" y="344" width="414" height="518"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="SoR-1b-96c">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="590"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="655"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Izy-3U-DPK" userLabel="Top Info Container">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
@@ -254,6 +254,29 @@
                                                     <constraint firstAttribute="trailing" secondItem="6En-DY-0I7" secondAttribute="trailing" id="qk8-g3-IKj"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pt8-Jh-hyM">
+                                                <rect key="frame" x="0.0" y="590" width="414" height="65"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="skx-yg-W9O">
+                                                        <rect key="frame" x="10" y="5" width="394" height="50"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="Vb3-Lf-diJ"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Add missing drink">
+                                                            <color key="titleColor" name="whiteText"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="addMissingDrinkBtnTapped:" destination="FL6-uU-jDV" eventType="touchUpInside" id="8Wi-Wd-eSo"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="skx-yg-W9O" secondAttribute="bottom" constant="10" id="1ED-gd-rn0"/>
+                                                    <constraint firstAttribute="trailing" secondItem="skx-yg-W9O" secondAttribute="trailing" constant="10" id="SMH-kh-EET"/>
+                                                    <constraint firstItem="skx-yg-W9O" firstAttribute="top" secondItem="pt8-Jh-hyM" secondAttribute="top" constant="5" id="Yk6-II-7od"/>
+                                                    <constraint firstItem="skx-yg-W9O" firstAttribute="leading" secondItem="pt8-Jh-hyM" secondAttribute="leading" constant="10" id="b08-8V-brZ"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </stackView>
@@ -280,6 +303,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addDrinkButton" destination="skx-yg-W9O" id="AQa-ch-1zq"/>
                         <outlet property="calendar" destination="1YI-MF-4uq" id="O1R-tO-C7M"/>
                         <outlet property="calendarHeightConstraint" destination="mH1-Ka-Gyf" id="zSC-UW-nXS"/>
                         <outlet property="dayLabel" destination="XVh-lE-bdG" id="q7R-1K-6FC"/>

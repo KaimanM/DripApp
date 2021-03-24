@@ -5,8 +5,9 @@ protocol TodayPresenterProtocol: class {
     func onViewDidLoad()
     func onViewWillAppear()
     func onViewWillDisappear()
-
-    func onDrinkButton1Tapped()
-    func onDrinkButton2Tapped()
-    func onDrinkButton3Tapped()
+    func updateGoal(goal: Double)
+    func addDrinkTapped(drinkName: String, volume: Double, imageName: String)
+    func getDrinkInfo() -> (drinkNames: [String], drinkImageNames: [String])
+    func getFavoritesInfo() -> (volumeTitle: [Double], drinkImageNames: [String])
+    func quickDrinkAtIndexTapped(index: Int)
 }

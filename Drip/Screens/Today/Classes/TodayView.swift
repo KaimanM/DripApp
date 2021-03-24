@@ -13,18 +13,18 @@ final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol
     @IBOutlet weak var thisAfternoonGradientBarView: GradientBarView!
     @IBOutlet weak var thisEveningVolumeLabel: UILabel!
     @IBOutlet weak var thisEveningGradientBarView: GradientBarView!
-    @IBOutlet weak var drinkButton1: UIButton!
-    @IBOutlet weak var drinkButton2: UIButton!
-    @IBOutlet weak var drinkButton3: UIButton!
-    @IBOutlet weak var drinkButton4: UIButton!
-    @IBOutlet weak var button1Subtitle: UILabel!
-    @IBOutlet weak var button2Subtitle: UILabel!
-    @IBOutlet weak var button3Subtitle: UILabel!
-    @IBOutlet weak var button4Subtitle: UILabel!
+    @IBOutlet weak var remainingView: UIView!
+    @IBOutlet weak var goalView: UIView!
+    @IBOutlet weak var remainingLabel: UILabel!
+    @IBOutlet weak var goalLabel: UILabel!
+    @IBOutlet weak var addDrinkBtn: UIButton!
+    @IBOutlet weak var dottedView: UIView!
     private var displayLink: CADisplayLink?
     private var animationStartDate: Date?
     private var startValue: Double = 0
     private var endValue: Double = 0
+
+    let drinksLauncher = DrinksLauncher()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,17 +33,10 @@ final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol
         view.backgroundColor = .black
         ringView.backgroundColor = .clear
         presenter.onViewDidLoad()
-
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
-                                                            target: self,
-                                                            action: #selector(action))
-
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE, MMM d"
-        let result = formatter.string(from: date)
-        navigationItem.title = result
+        setupInfoViews()
+        setNavigationTitle()
         progressLabel.font = UIFont.SFProRounded(ofSize: 32, fontWeight: .regular)
+        drinksLauncher.delegate = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -58,6 +51,14 @@ final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol
         presenter.onViewWillDisappear()
     }
 
+    func setNavigationTitle() {
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE, MMM d"
+        let result = formatter.string(from: date)
+        navigationItem.title = result
+    }
+
     func presentView(_ view: UIViewController) {
         present(view, animated: true)
     }
@@ -70,19 +71,30 @@ final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol
         self.title = title
     }
 
-    func updateButtonImages(image1Name: String, image2Name: String, image3Name: String, image4Name: String) {
-        drinkButton1.setImage(UIImage(named: image1Name), for: .normal)
-        drinkButton2.setImage(UIImage(named: image2Name), for: .normal)
-        drinkButton3.setImage(UIImage(named: image3Name), for: .normal)
-        drinkButton4.setImage(UIImage(named: image4Name), for: .normal)
-        drinkButton4.imageEdgeInsets = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
-    }
+    func setupInfoViews() {
+        remainingView.layer.cornerRadius = 10
+        remainingView.backgroundColor = .clear
+        goalView.layer.cornerRadius = 10
+        goalView.backgroundColor = .clear
+        addDrinkBtn.layer.cornerRadius = 10
+        addDrinkBtn.backgroundColor = .infoPanelBG
 
-    func updateButtonSubtitles(subtitle1: String, subtitle2: String, subtitle3: String, subtitle4: String) {
-        button1Subtitle.text = subtitle1
-        button2Subtitle.text = subtitle2
-        button3Subtitle.text = subtitle3
-        button4Subtitle.text = subtitle4
+        remainingLabel.font = UIFont.SFProRounded(ofSize: 28, fontWeight: .medium)
+        remainingLabel.textColor = .dripMerged
+        remainingLabel.adjustsFontSizeToFitWidth = true // include for iphone se first gen
+
+        goalLabel.font = UIFont.SFProRounded(ofSize: 28, fontWeight: .medium)
+        goalLabel.textColor = .dripMerged
+        goalLabel.adjustsFontSizeToFitWidth = true // include for iphone se first gen
+
+        addDrinkBtn.setTitleColor(.whiteText, for: .normal)
+
+        dottedView.addVerticalDottedLine()
+        dottedView.backgroundColor = .clear
+
+        let goalTap = UITapGestureRecognizer(target: self, action: #selector(self.goalViewTapped(_:)))
+        goalView.addGestureRecognizer(goalTap)
+
     }
 
     func setupRingView(startColor: UIColor, endColor: UIColor, ringWidth: CGFloat) {
@@ -136,6 +148,11 @@ final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol
         thisEveningGradientBarView.setProgress(progress: CGFloat(total/goal))
     }
 
+    func setButtonTitles(remainingText: String, goalText: String) {
+        remainingLabel.text = remainingText
+        goalLabel.text = goalText
+    }
+
     func animateLabel(endValue: Double, animationDuration: Double) {
         animationStartDate = Date()
         self.endValue = endValue
@@ -159,20 +176,61 @@ final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol
         }
     }
 
-    @objc func action(sender: UIBarButtonItem) {
-        // Function body goes here
-        print("testy123")
-    }
-    @IBAction func drinkButton1Tapped(_ sender: Any) {
-        presenter.onDrinkButton1Tapped()
+    @IBAction func addDrinkBtnTapped(_ sender: Any) {
+        drinksLauncher.showDrinks()
     }
 
-    @IBAction func drinkButton2Tapped(_ sender: Any) {
-        presenter.onDrinkButton2Tapped()
+    @objc func goalViewTapped(_ sender: UITapGestureRecognizer? = nil) {
+        // handling code
+        print("did tap")
+        let alertContoller = UIAlertController(title: "Amend Goal",
+                                    message: "Enter a new goal volume in ml.", preferredStyle: .alert)
+        alertContoller.addTextField()
+        alertContoller.textFields![0].keyboardType = UIKeyboardType.numberPad
+
+        let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertContoller] _ in
+            if let answer: String = alertContoller.textFields![0].text,
+               let answerAsDouble = Double(answer) {
+                guard answerAsDouble != 0 else {
+                    print("can not be 0")
+                    return
+                }
+                self.presenter.updateGoal(goal: answerAsDouble)
+            } else {
+                print("invalid")
+            }
+
+        }
+
+        alertContoller.addAction(submitAction)
+
+        present(alertContoller, animated: true)
     }
 
-    @IBAction func drinkButton3Tapped(_ sender: Any) {
-        presenter.onDrinkButton3Tapped()
+}
+
+extension TodayView: DrinksLauncherDelegate {
+
+    func didAddDrink(name: String, imageName: String, volume: Double) {
+        presenter.addDrinkTapped(drinkName: name, volume: volume, imageName: imageName)
     }
 
+    func drinkForItemAt(indexPath: IndexPath) -> (name: String, imageName: String) {
+        let drinkData = presenter.getDrinkInfo()
+        return (drinkData.drinkNames[indexPath.item], drinkData.drinkImageNames[indexPath.item])
+    }
+
+    func numberOfItemsInSection() -> Int {
+        let drinkData = presenter.getDrinkInfo()
+        return drinkData.drinkNames.count
+    }
+
+    func getQuickDrinkAt(index: Int) -> (name: String, imageName: String) {
+        let drinkData = presenter.getFavoritesInfo()
+        return ("\(Int(drinkData.volumeTitle[index]))ml", drinkData.drinkImageNames[index])
+    }
+
+    func didTapQuickDrinkAt(index: Int) {
+        presenter.quickDrinkAtIndexTapped(index: index)
+    }
 }
