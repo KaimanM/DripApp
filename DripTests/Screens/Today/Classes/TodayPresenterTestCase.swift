@@ -9,6 +9,7 @@ final class MockTodayView: TodayViewProtocol {
     }
 
     var coreDataController: CoreDataControllerProtocol! = CoreDataController.shared
+    var userDefaultsController: UserDefaultsControllerProtocol! = UserDefaultsController.shared
 
     var presenter: TodayPresenterProtocol!
 

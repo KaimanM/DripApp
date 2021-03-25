@@ -7,6 +7,7 @@ final class MockTrendsView: TrendsViewProtocol {
     var presenter: TrendsPresenterProtocol!
 
     var coreDataController: CoreDataControllerProtocol! = CoreDataController.shared
+    var userDefaultsController: UserDefaultsControllerProtocol! = UserDefaultsController.shared
 
     private(set) var didPresentViewController: UIViewController?
     func presentView(_ view: UIViewController) {
