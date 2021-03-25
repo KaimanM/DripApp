@@ -76,6 +76,16 @@ extension UIView {
         }
     }
 
+    func fillSuperViewSafely() {
+        translatesAutoresizingMaskIntoConstraints = false
+        if let superview = superview {
+            trailingAnchor.constraint(equalTo: superview.safeAreaLayoutGuide.trailingAnchor).isActive = true
+            topAnchor.constraint(equalTo: superview.safeAreaLayoutGuide.topAnchor).isActive = true
+            leadingAnchor.constraint(equalTo: superview.safeAreaLayoutGuide.leadingAnchor).isActive = true
+            bottomAnchor.constraint(equalTo: superview.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        }
+    }
+
     func setEqualWidthTo(_ view: UIView) {
         translatesAutoresizingMaskIntoConstraints = false
         widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true

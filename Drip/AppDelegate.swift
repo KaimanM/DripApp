@@ -19,7 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow(frame: UIScreen.main.bounds)
 //        window?.rootViewController = DarkNavController(rootViewController: WelcomeScreenBuilder().build())
-        window?.rootViewController = TabBarScreenBuilder().build()
+//        window?.rootViewController = TabBarScreenBuilder().build()
+        window?.rootViewController = OnboardingPagesScreenBuilder().build()
         self.window?.makeKeyAndVisible()
 
         UIApplication.shared.isIdleTimerDisabled = true
