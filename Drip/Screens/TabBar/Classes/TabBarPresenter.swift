@@ -12,8 +12,9 @@ final class TabBarPresenter: TabBarPresenterProtocol {
         // Injects CoreDataController into each child view controller
         if let navControllers = view?.vcs as? [DarkNavController] {
             for navController in navControllers {
-                if let view = navController.viewControllers[0] as? CoreDataViewProtocol {
+                if let view = navController.viewControllers[0] as? PersistentDataViewProtocol {
                     view.coreDataController = CoreDataController.shared
+                    view.userDefaultsController = UserDefaultsController.shared
                 }
             }
         }

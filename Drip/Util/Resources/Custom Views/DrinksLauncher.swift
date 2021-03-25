@@ -92,9 +92,10 @@ class DrinksLauncher: NSObject {
 
     var isFirstOpen = true
 
-    let userDefaults = UserDefaultsController.shared
+    let userDefaults: UserDefaultsControllerProtocol
 
-    override init() {
+    init(userDefaults: UserDefaultsControllerProtocol) {
+        self.userDefaults = userDefaults
         super.init()
         collectionView.dataSource = self
         collectionView.delegate = self

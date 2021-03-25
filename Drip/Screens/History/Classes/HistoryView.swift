@@ -1,10 +1,11 @@
 import UIKit
 import FSCalendar
 
-final class HistoryView: UIViewController, HistoryViewProtocol, CoreDataViewProtocol {
+final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataViewProtocol {
 
     var presenter: HistoryPresenterProtocol!
     var coreDataController: CoreDataControllerProtocol!
+    var userDefaultsController: UserDefaultsControllerProtocol!
     @IBOutlet var calendar: FSCalendar!
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -156,7 +157,7 @@ final class HistoryView: UIViewController, HistoryViewProtocol, CoreDataViewProt
         presenter.editToggleTapped()
     }
 
-    let drinksLauncher = DrinksLauncher()
+    lazy var drinksLauncher = DrinksLauncher(userDefaults: userDefaultsController)
 
     @IBAction func addMissingDrinkBtnTapped(_ sender: Any) {
         drinksLauncher.showDrinks()
@@ -216,14 +217,6 @@ extension HistoryView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDeleg
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
         }
-
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "EEEE, MMM d"
-//        dayLabel.text = formatter.string(from: date)
-//
-//        let randomDouble = Double.random(in: 0...1) // remove me, placeholder
-//        ringView.setProgress(CGFloat(randomDouble))
-//        volumeLabel.text = "\(Int(randomDouble*2750))/2750ml"
 
         presenter.didSelectDate(date: date)
         tableView.reloadData()

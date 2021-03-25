@@ -1,9 +1,10 @@
 import UIKit
 
-final class AboutView: UIViewController, AboutViewProtocol, CoreDataViewProtocol {
+final class AboutView: UIViewController, AboutViewProtocol, PersistentDataViewProtocol {
 
     var presenter: AboutPresenterProtocol!
     var coreDataController: CoreDataControllerProtocol!
+    var userDefaultsController: UserDefaultsControllerProtocol!
 
     override func viewDidLoad() {
         presenter.onViewDidLoad()

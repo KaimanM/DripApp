@@ -1,8 +1,9 @@
 import UIKit
 
-final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol {
+final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewProtocol {
     var presenter: TodayPresenterProtocol!
     var coreDataController: CoreDataControllerProtocol!
+    var userDefaultsController: UserDefaultsControllerProtocol!
     @IBOutlet weak var ringView: ProgressRingView!
     @IBOutlet weak var progressLabel: UILabel!
     @IBOutlet weak var todayVolumeLabel: UILabel!
@@ -24,7 +25,7 @@ final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol
     private var startValue: Double = 0
     private var endValue: Double = 0
 
-    let drinksLauncher = DrinksLauncher()
+    lazy var drinksLauncher = DrinksLauncher(userDefaults: userDefaultsController)
 
     override func viewDidLoad() {
         super.viewDidLoad()

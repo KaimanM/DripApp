@@ -31,10 +31,8 @@ final class TrendsPresenter: TrendsPresenterProtocol {
         return startDate!.addingTimeInterval(-(30*24*60*60))
     }
 
-    let userDefaults = UserDefaultsController.shared
-
     var goal: Double {
-        return userDefaults.drinkGoal
+        return (view?.userDefaultsController.drinkGoal)!
     }
 
     init(view: TrendsViewProtocol) {

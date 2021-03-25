@@ -3,12 +3,9 @@ import Foundation
 final class TodayPresenter: TodayPresenterProtocol {
     weak private(set) var view: TodayViewProtocol?
     var todaysTotal: Double = 0
-    let defaults = UserDefaults.standard
-
-    let userDefaults = UserDefaultsController.shared
 
     var drinkGoal: Double {
-        return userDefaults.drinkGoal
+        return (view?.userDefaultsController.drinkGoal)!
     }
 
     init(view: TodayViewProtocol) {
@@ -80,7 +77,7 @@ final class TodayPresenter: TodayPresenterProtocol {
     }
 
     func updateGoal(goal: Double) {
-        userDefaults.drinkGoal = goal
+        view?.userDefaultsController.drinkGoal = goal
         print(goal)
         updateProgressRing()
         updateGradientBars()

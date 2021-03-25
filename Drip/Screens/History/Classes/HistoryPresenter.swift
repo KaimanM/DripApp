@@ -6,10 +6,9 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     var selectedDayDrinks: [Drink] = []
     var selectedDate = Date()
     var editingMode = false
-    let userDefaults = UserDefaultsController.shared
 
     var goal: Double {
-        return userDefaults.drinkGoal
+        return (view?.userDefaultsController.drinkGoal)!
     }
 
     init(view: HistoryViewProtocol) {

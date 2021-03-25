@@ -64,10 +64,11 @@
 		362A52A125EFA59800B6AA8D /* CoreDataControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362A52A025EFA59800B6AA8D /* CoreDataControllerProtocol.swift */; };
 		362A52A525EFA68100B6AA8D /* Drip.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 362A52A325EFA68100B6AA8D /* Drip.xcdatamodeld */; };
 		362A52DE25EFAA2600B6AA8D /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362A52DD25EFAA2600B6AA8D /* CoreDataController.swift */; };
-		362A52E125EFACFB00B6AA8D /* CoreDataViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362A52E025EFACFB00B6AA8D /* CoreDataViewProtocol.swift */; };
+		362A52E125EFACFB00B6AA8D /* PersistentDataViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362A52E025EFACFB00B6AA8D /* PersistentDataViewProtocol.swift */; };
 		3644493F25FFC54D006E1B0F /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3644493E25FFC54D006E1B0F /* Date+Extensions.swift */; };
 		364A927C256BE91400F84985 /* TodayScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364A927B256BE91400F84985 /* TodayScreenBuilderTestCase.swift */; };
 		364A9280256BE93500F84985 /* TodayPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364A927F256BE93500F84985 /* TodayPresenterTestCase.swift */; };
+		36538D04260CB0D300CFB656 /* UserDefaultsControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36538D03260CB0D300CFB656 /* UserDefaultsControllerProtocol.swift */; };
 		366DFC30260B8945009BEAC5 /* UserDefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366DFC2F260B8945009BEAC5 /* UserDefaultsController.swift */; };
 		3677D436260630B20086E89A /* DrinksLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3677D435260630B20086E89A /* DrinksLauncher.swift */; };
 		3677D439260630E10086E89A /* DrinksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3677D438260630E10086E89A /* DrinksCell.swift */; };
@@ -169,10 +170,11 @@
 		362A52A025EFA59800B6AA8D /* CoreDataControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataControllerProtocol.swift; sourceTree = "<group>"; };
 		362A52A425EFA68100B6AA8D /* Drip.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Drip.xcdatamodel; sourceTree = "<group>"; };
 		362A52DD25EFAA2600B6AA8D /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
-		362A52E025EFACFB00B6AA8D /* CoreDataViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataViewProtocol.swift; sourceTree = "<group>"; };
+		362A52E025EFACFB00B6AA8D /* PersistentDataViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentDataViewProtocol.swift; sourceTree = "<group>"; };
 		3644493E25FFC54D006E1B0F /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		364A927B256BE91400F84985 /* TodayScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayScreenBuilderTestCase.swift; sourceTree = "<group>"; };
 		364A927F256BE93500F84985 /* TodayPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayPresenterTestCase.swift; sourceTree = "<group>"; };
+		36538D03260CB0D300CFB656 /* UserDefaultsControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsControllerProtocol.swift; sourceTree = "<group>"; };
 		366DFC2F260B8945009BEAC5 /* UserDefaultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsController.swift; sourceTree = "<group>"; };
 		3677D435260630B20086E89A /* DrinksLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinksLauncher.swift; sourceTree = "<group>"; };
 		3677D438260630E10086E89A /* DrinksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinksCell.swift; sourceTree = "<group>"; };
@@ -343,7 +345,7 @@
 				360CA9F225F65D1800C7676A /* View Controller */,
 				360CA9EF25F65C8000C7676A /* Extensions */,
 				360CA9F125F65CB600C7676A /* Custom Views */,
-				360CA9EB25F65C1000C7676A /* Core Data */,
+				360CA9EB25F65C1000C7676A /* Persistent Data */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -441,16 +443,17 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
-		360CA9EB25F65C1000C7676A /* Core Data */ = {
+		360CA9EB25F65C1000C7676A /* Persistent Data */ = {
 			isa = PBXGroup;
 			children = (
-				362A52E025EFACFB00B6AA8D /* CoreDataViewProtocol.swift */,
+				362A52E025EFACFB00B6AA8D /* PersistentDataViewProtocol.swift */,
 				362A52A025EFA59800B6AA8D /* CoreDataControllerProtocol.swift */,
 				362A52DD25EFAA2600B6AA8D /* CoreDataController.swift */,
 				362A52A325EFA68100B6AA8D /* Drip.xcdatamodeld */,
 				366DFC2F260B8945009BEAC5 /* UserDefaultsController.swift */,
+				36538D03260CB0D300CFB656 /* UserDefaultsControllerProtocol.swift */,
 			);
-			path = "Core Data";
+			path = "Persistent Data";
 			sourceTree = "<group>";
 		};
 		360CA9EF25F65C8000C7676A /* Extensions */ = {
@@ -771,7 +774,7 @@
 				36B6F46825DD78FA004A7EA5 /* DrinkTableViewCell.swift in Sources */,
 				0A4B4E092464505B00C2350B /* PlaceholderView.swift in Sources */,
 				36877C1F25F9068B00918E04 /* TrendsCollectionViewCell.swift in Sources */,
-				362A52E125EFACFB00B6AA8D /* CoreDataViewProtocol.swift in Sources */,
+				362A52E125EFACFB00B6AA8D /* PersistentDataViewProtocol.swift in Sources */,
 				0A8BEA862455D24A00AA9880 /* AwardsScreenBuilder.swift in Sources */,
 				36BFF50F25D17653003456F3 /* RoundDrinkButton.swift in Sources */,
 				0ACB986B24549DFE007BF01D /* TabBarPresenter.swift in Sources */,
@@ -779,6 +782,7 @@
 				3644493F25FFC54D006E1B0F /* Date+Extensions.swift in Sources */,
 				0AD151172454EFE300F45042 /* TrendsPresenterProtocol.swift in Sources */,
 				0A44B3962457631C0023433A /* ProgressRingView.swift in Sources */,
+				36538D04260CB0D300CFB656 /* UserDefaultsControllerProtocol.swift in Sources */,
 				362A52A125EFA59800B6AA8D /* CoreDataControllerProtocol.swift in Sources */,
 				0ACB986D2454AEEB007BF01D /* DarkTabBarController.swift in Sources */,
 				360CA9F825F65E0500C7676A /* Drink+CoreDataClass.swift in Sources */,

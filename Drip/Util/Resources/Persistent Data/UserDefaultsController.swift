@@ -8,7 +8,7 @@
 
 import Foundation
 
-class UserDefaultsController: NSObject {
+class UserDefaultsController: UserDefaultsControllerProtocol {
 
     static var shared = UserDefaultsController()
 
@@ -30,7 +30,7 @@ class UserDefaultsController: NSObject {
 
     let drinkGoalKey = "drinkGoal"
 
-    override init() {
+    init() {
         defaults.register(defaults: [favDrink1NameKey : "Water",
                                      favDrink2NameKey : "Coffee",
                                      favDrink3NameKey : "Tea",
@@ -43,7 +43,7 @@ class UserDefaultsController: NSObject {
                                      favDrink2ImageNameKey : "coffee.svg",
                                      favDrink3ImageNameKey : "tea.svg",
                                      favDrink4ImageNameKey : "milk.svg",
-                                     drinkGoalKey : 200
+                                     drinkGoalKey : 2000
         ])
     }
 
