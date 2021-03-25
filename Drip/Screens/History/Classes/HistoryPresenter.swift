@@ -6,22 +6,11 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     var selectedDayDrinks: [Drink] = []
     var selectedDate = Date()
     var editingMode = false
-    let defaults = UserDefaults.standard
+    let userDefaults = UserDefaultsController.shared
+
     var goal: Double {
-        return defaults.double(forKey: "goal") == 0 ? 2000 : defaults.double(forKey: "goal")
+        return userDefaults.drinkGoal
     }
-
-    let drinkNames = ["Water", "Coffee", "Tea", "Milk", "Orange Juice", "Juicebox",
-                      "Cola", "Cocktail", "Punch", "Milkshake", "Energy Drink", "Beer"] // icetea
-
-    let drinkImageNames = ["waterbottle.svg", "coffee.svg", "tea.svg", "milk.svg", "orangejuice.svg",
-                            "juicebox.svg", "cola.svg", "cocktail.svg", "punch.svg", "milkshake.svg",
-                            "energydrink.svg", "beer.svg"]
-
-    // TODO: Change to vars and creare userdefaults method to retrieve these.
-    let favNames = ["Water", "Coffee", "Punch", "Milk"]
-    let favImageNames = ["waterbottle.svg", "coffee.svg", "punch.svg", "milk.svg"]
-    let favVolumeTitles: [Double] = [250, 350, 400, 500]
 
     init(view: HistoryViewProtocol) {
         self.view = view
@@ -95,12 +84,14 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     func cellForRowAt(row: Int) -> (name: String, volume: String, imageName: String, timeStampTitle: String) {
         let calObject = Calendar.current
         let hour = calObject.component(.hour, from: selectedDayDrinks[row].timeStamp)
+        let hoursString = hour < 10 ? "0\(hour)" : "\(hour)"
         let minutes = calObject.component(.minute, from: selectedDayDrinks[row].timeStamp)
+        let minutesString = minutes < 10 ? "0\(minutes)" : "\(minutes)"
         let volumeLabel = "\(Int(selectedDayDrinks[row].volume))ml"
         return (name: selectedDayDrinks[row].name,
                 volume: volumeLabel,
                 imageName: selectedDayDrinks[row].imageName,
-                timeStampTitle: "At \(hour):\(minutes)")
+                timeStampTitle: "At \(hoursString):\(minutesString)")
     }
 
     func didTapDeleteButton(row: Int) {
@@ -127,19 +118,4 @@ final class HistoryPresenter: HistoryPresenterProtocol {
         populateDrinks()
         view?.refreshUI()
     }
-
-    func getDrinkInfo() -> (drinkNames: [String], drinkImageNames: [String]) {
-        return (drinkNames, drinkImageNames)
-    }
-
-    func getFavoritesInfo() -> (volumeTitle: [Double], drinkImageNames: [String]) {
-        return (favVolumeTitles, favImageNames)
-    }
-
-    func quickDrinkAtIndexTapped(index: Int) {
-        addDrinkTapped(drinkName: favNames[index],
-                       volume: favVolumeTitles[index],
-                       imageName: drinkImageNames[index])
-    }
-
 }

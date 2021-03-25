@@ -18,7 +18,4 @@ protocol HistoryPresenterProtocol: class {
     func didTapDeleteButton(row: Int)
 
     func addDrinkTapped(drinkName: String, volume: Double, imageName: String)
-    func getDrinkInfo() -> (drinkNames: [String], drinkImageNames: [String])
-    func getFavoritesInfo() -> (volumeTitle: [Double], drinkImageNames: [String])
-    func quickDrinkAtIndexTapped(index: Int)
 }

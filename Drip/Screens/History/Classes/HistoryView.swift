@@ -67,6 +67,10 @@ final class HistoryView: UIViewController, HistoryViewProtocol, CoreDataViewProt
         self.viewWillLayoutSubviews() // readjusts height of tableview
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        drinksLauncher.removeFromWindow()
+    }
+
     func setupInfoPanel() {
         infoPanelView.layer.cornerRadius = 10
         infoPanelView.backgroundColor = .infoPanelBG
@@ -277,24 +281,5 @@ extension HistoryView: UITableViewDelegate, UITableViewDataSource, DrinkTableVie
 extension HistoryView: DrinksLauncherDelegate {
     func didAddDrink(name: String, imageName: String, volume: Double) {
         presenter.addDrinkTapped(drinkName: name, volume: volume, imageName: imageName)
-    }
-
-    func drinkForItemAt(indexPath: IndexPath) -> (name: String, imageName: String) {
-        let drinkData = presenter.getDrinkInfo()
-        return (drinkData.drinkNames[indexPath.item], drinkData.drinkImageNames[indexPath.item])
-    }
-
-    func numberOfItemsInSection() -> Int {
-        let drinkData = presenter.getDrinkInfo()
-        return drinkData.drinkNames.count
-    }
-
-    func getQuickDrinkAt(index: Int) -> (name: String, imageName: String) {
-        let drinkData = presenter.getFavoritesInfo()
-        return ("\(Int(drinkData.volumeTitle[index]))ml", drinkData.drinkImageNames[index])
-    }
-
-    func didTapQuickDrinkAt(index: Int) {
-        presenter.quickDrinkAtIndexTapped(index: index)
     }
 }

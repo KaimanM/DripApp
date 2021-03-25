@@ -31,9 +31,10 @@ final class TrendsPresenter: TrendsPresenterProtocol {
         return startDate!.addingTimeInterval(-(30*24*60*60))
     }
 
-    let defaults = UserDefaults.standard
+    let userDefaults = UserDefaultsController.shared
+
     var goal: Double {
-        return defaults.double(forKey: "goal") == 0 ? 2000 : defaults.double(forKey: "goal")
+        return userDefaults.drinkGoal
     }
 
     init(view: TrendsViewProtocol) {
@@ -278,11 +279,9 @@ final class TrendsPresenter: TrendsPresenterProtocol {
 
         var mostCommonAmount = 0
         var mostCommonName = "--"
-        for key in drinkDictionary.keys {
-            if drinkDictionary[key]! > mostCommonAmount {
+        for key in drinkDictionary.keys where drinkDictionary[key]! > mostCommonAmount {
                 mostCommonAmount = drinkDictionary[key]!
                 mostCommonName = key
-            }
         }
         return mostCommonName
     }

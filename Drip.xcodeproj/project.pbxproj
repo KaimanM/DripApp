@@ -68,6 +68,7 @@
 		3644493F25FFC54D006E1B0F /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3644493E25FFC54D006E1B0F /* Date+Extensions.swift */; };
 		364A927C256BE91400F84985 /* TodayScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364A927B256BE91400F84985 /* TodayScreenBuilderTestCase.swift */; };
 		364A9280256BE93500F84985 /* TodayPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364A927F256BE93500F84985 /* TodayPresenterTestCase.swift */; };
+		366DFC30260B8945009BEAC5 /* UserDefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366DFC2F260B8945009BEAC5 /* UserDefaultsController.swift */; };
 		3677D436260630B20086E89A /* DrinksLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3677D435260630B20086E89A /* DrinksLauncher.swift */; };
 		3677D439260630E10086E89A /* DrinksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3677D438260630E10086E89A /* DrinksCell.swift */; };
 		3677D43C260631230086E89A /* QuickDrinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3677D43B260631230086E89A /* QuickDrinkView.swift */; };
@@ -172,6 +173,7 @@
 		3644493E25FFC54D006E1B0F /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		364A927B256BE91400F84985 /* TodayScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayScreenBuilderTestCase.swift; sourceTree = "<group>"; };
 		364A927F256BE93500F84985 /* TodayPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayPresenterTestCase.swift; sourceTree = "<group>"; };
+		366DFC2F260B8945009BEAC5 /* UserDefaultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsController.swift; sourceTree = "<group>"; };
 		3677D435260630B20086E89A /* DrinksLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinksLauncher.swift; sourceTree = "<group>"; };
 		3677D438260630E10086E89A /* DrinksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinksCell.swift; sourceTree = "<group>"; };
 		3677D43B260631230086E89A /* QuickDrinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickDrinkView.swift; sourceTree = "<group>"; };
@@ -446,6 +448,7 @@
 				362A52A025EFA59800B6AA8D /* CoreDataControllerProtocol.swift */,
 				362A52DD25EFAA2600B6AA8D /* CoreDataController.swift */,
 				362A52A325EFA68100B6AA8D /* Drip.xcdatamodeld */,
+				366DFC2F260B8945009BEAC5 /* UserDefaultsController.swift */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -788,6 +791,7 @@
 				0A8BEA942455D45A00AA9880 /* AboutScreenBuilder.swift in Sources */,
 				362A52DE25EFAA2600B6AA8D /* CoreDataController.swift in Sources */,
 				0AD151152454EFDC00F45042 /* TrendsViewProtocol.swift in Sources */,
+				366DFC30260B8945009BEAC5 /* UserDefaultsController.swift in Sources */,
 				0ACB9853245468DC007BF01D /* HistoryPresenterProtocol.swift in Sources */,
 				36877C2225F917E300918E04 /* TrendsHeaderView.swift in Sources */,
 				0ACB9855245468E7007BF01D /* HistoryView.swift in Sources */,
