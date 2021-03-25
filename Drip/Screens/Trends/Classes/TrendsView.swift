@@ -1,9 +1,10 @@
 import UIKit
 
-final class TrendsView: UIViewController, TrendsViewProtocol, CoreDataViewProtocol {
+final class TrendsView: UIViewController, TrendsViewProtocol, PersistentDataViewProtocol {
 
     var presenter: TrendsPresenterProtocol!
     var coreDataController: CoreDataControllerProtocol!
+    var userDefaultsController: UserDefaultsControllerProtocol!
     @IBOutlet weak var collectionView: UICollectionView!
 
     override func viewDidLoad() {

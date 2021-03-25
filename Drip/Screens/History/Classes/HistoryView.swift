@@ -1,10 +1,11 @@
 import UIKit
 import FSCalendar
 
-final class HistoryView: UIViewController, HistoryViewProtocol, CoreDataViewProtocol {
+final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataViewProtocol {
 
     var presenter: HistoryPresenterProtocol!
     var coreDataController: CoreDataControllerProtocol!
+    var userDefaultsController: UserDefaultsControllerProtocol!
     @IBOutlet var calendar: FSCalendar!
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -65,6 +66,10 @@ final class HistoryView: UIViewController, HistoryViewProtocol, CoreDataViewProt
         self.tableView.reloadData()
         self.calendar.reloadData()
         self.viewWillLayoutSubviews() // readjusts height of tableview
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        drinksLauncher.removeFromWindow()
     }
 
     func setupInfoPanel() {
@@ -152,7 +157,7 @@ final class HistoryView: UIViewController, HistoryViewProtocol, CoreDataViewProt
         presenter.editToggleTapped()
     }
 
-    let drinksLauncher = DrinksLauncher()
+    lazy var drinksLauncher = DrinksLauncher(userDefaults: userDefaultsController)
 
     @IBAction func addMissingDrinkBtnTapped(_ sender: Any) {
         drinksLauncher.showDrinks()
@@ -213,14 +218,6 @@ extension HistoryView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDeleg
             calendar.setCurrentPage(date, animated: true)
         }
 
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "EEEE, MMM d"
-//        dayLabel.text = formatter.string(from: date)
-//
-//        let randomDouble = Double.random(in: 0...1) // remove me, placeholder
-//        ringView.setProgress(CGFloat(randomDouble))
-//        volumeLabel.text = "\(Int(randomDouble*2750))/2750ml"
-
         presenter.didSelectDate(date: date)
         tableView.reloadData()
     }
@@ -277,24 +274,5 @@ extension HistoryView: UITableViewDelegate, UITableViewDataSource, DrinkTableVie
 extension HistoryView: DrinksLauncherDelegate {
     func didAddDrink(name: String, imageName: String, volume: Double) {
         presenter.addDrinkTapped(drinkName: name, volume: volume, imageName: imageName)
-    }
-
-    func drinkForItemAt(indexPath: IndexPath) -> (name: String, imageName: String) {
-        let drinkData = presenter.getDrinkInfo()
-        return (drinkData.drinkNames[indexPath.item], drinkData.drinkImageNames[indexPath.item])
-    }
-
-    func numberOfItemsInSection() -> Int {
-        let drinkData = presenter.getDrinkInfo()
-        return drinkData.drinkNames.count
-    }
-
-    func getQuickDrinkAt(index: Int) -> (name: String, imageName: String) {
-        let drinkData = presenter.getFavoritesInfo()
-        return ("\(Int(drinkData.volumeTitle[index]))ml", drinkData.drinkImageNames[index])
-    }
-
-    func didTapQuickDrinkAt(index: Int) {
-        presenter.quickDrinkAtIndexTapped(index: index)
     }
 }

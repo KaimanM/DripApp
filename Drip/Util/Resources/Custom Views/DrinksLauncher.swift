@@ -1,10 +1,6 @@
 import UIKit
 
 protocol DrinksLauncherDelegate: class {
-    func drinkForItemAt(indexPath: IndexPath) -> (name: String, imageName: String)
-    func numberOfItemsInSection() -> Int
-    func getQuickDrinkAt(index: Int) -> (name: String, imageName: String)
-    func didTapQuickDrinkAt(index: Int)
     func didAddDrink(name: String, imageName: String, volume: Double)
 }
 
@@ -86,9 +82,20 @@ class DrinksLauncher: NSObject {
     var currentVolume: Double = 300
     var currentDrinkName = "Water"
     var currentDrinkImageName = "waterbottle.svg"
+
+    let drinkNames = ["Water", "Coffee", "Tea", "Milk", "Orange Juice", "Juicebox",
+                      "Cola", "Cocktail", "Punch", "Milkshake", "Energy Drink", "Beer"] // icetea
+
+    let drinkImageNames = ["waterbottle.svg", "coffee.svg", "tea.svg", "milk.svg", "orangejuice.svg",
+                            "juicebox.svg", "cola.svg", "cocktail.svg", "punch.svg", "milkshake.svg",
+                            "energydrink.svg", "beer.svg"]
+
     var isFirstOpen = true
 
-    override init() {
+    let userDefaults: UserDefaultsControllerProtocol
+
+    init(userDefaults: UserDefaultsControllerProtocol) {
+        self.userDefaults = userDefaults
         super.init()
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -110,6 +117,7 @@ class DrinksLauncher: NSObject {
             let height: CGFloat = 460
             let yOffset = window.frame.height - height
 
+            addToSuperView(window: window)
             if isFirstOpen { firstTimeOpenConstraints(window: window, height: height) }
 
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1,
@@ -127,9 +135,6 @@ class DrinksLauncher: NSObject {
 
     // MARK: - UI Initilization -
     func firstTimeOpenConstraints(window: UIWindow, height: CGFloat) {
-        window.addSubview(blackView)
-        window.addSubview(containerView)
-
         blackView.frame = window.frame
         blackView.alpha = 0
 
@@ -140,6 +145,17 @@ class DrinksLauncher: NSObject {
 
         initializePages(window: window)
         isFirstOpen = false
+    }
+
+    func addToSuperView(window: UIWindow) {
+        window.addSubview(blackView)
+        window.addSubview(containerView)
+        print(window.subviews.count)
+    }
+
+    func removeFromWindow() {
+        blackView.removeFromSuperview()
+        containerView.removeFromSuperview()
     }
 
     func initializePages(window: UIWindow) {
@@ -364,13 +380,17 @@ class DrinksLauncher: NSObject {
     }
 
     func reloadQuickDrinks() {
-        let quickDrinkViews = [contentView1, contentView2, contentView3, contentView4]
-        for (index, view) in quickDrinkViews.enumerated() {
-            if let data = delegate?.getQuickDrinkAt(index: index) {
-                view.titleLabel.text = data.name
-                view.imageView.image = UIImage(named: data.imageName)
-            }
-        }
+        contentView1.titleLabel.text = "\(Int(userDefaults.favDrink1Volume))ml"
+        contentView1.imageView.image = UIImage(named: userDefaults.favDrink1ImageName)
+
+        contentView2.titleLabel.text = "\(Int(userDefaults.favDrink2Volume))ml"
+        contentView2.imageView.image = UIImage(named: userDefaults.favDrink2ImageName)
+
+        contentView3.titleLabel.text = "\(Int(userDefaults.favDrink3Volume))ml"
+        contentView3.imageView.image = UIImage(named: userDefaults.favDrink3ImageName)
+
+        contentView4.titleLabel.text = "\(Int(userDefaults.favDrink4Volume))ml"
+        contentView4.imageView.image = UIImage(named: userDefaults.favDrink4ImageName)
     }
 
     @objc func handleDismiss() {
@@ -431,22 +451,30 @@ class DrinksLauncher: NSObject {
     }
 
     @objc func quickDrink1Tap(_ sender: UITapGestureRecognizer? = nil) {
-        delegate?.didTapQuickDrinkAt(index: 0)
+        delegate?.didAddDrink(name: userDefaults.favDrink1Name,
+                              imageName: userDefaults.favDrink1ImageName,
+                              volume: userDefaults.favDrink1Volume)
         handleDismiss()
     }
 
     @objc func quickDrink2Tap(_ sender: UITapGestureRecognizer? = nil) {
-        delegate?.didTapQuickDrinkAt(index: 1)
+        delegate?.didAddDrink(name: userDefaults.favDrink2Name,
+                              imageName: userDefaults.favDrink2ImageName,
+                              volume: userDefaults.favDrink2Volume)
         handleDismiss()
     }
 
     @objc func quickDrink3Tap(_ sender: UITapGestureRecognizer? = nil) {
-        delegate?.didTapQuickDrinkAt(index: 2)
+        delegate?.didAddDrink(name: userDefaults.favDrink3Name,
+                              imageName: userDefaults.favDrink3ImageName,
+                              volume: userDefaults.favDrink3Volume)
         handleDismiss()
     }
 
     @objc func quickDrink4Tap(_ sender: UITapGestureRecognizer? = nil) {
-        delegate?.didTapQuickDrinkAt(index: 3)
+        delegate?.didAddDrink(name: userDefaults.favDrink4Name,
+                              imageName: userDefaults.favDrink4ImageName,
+                              volume: userDefaults.favDrink4Volume)
         handleDismiss()
     }
 }
@@ -455,7 +483,7 @@ class DrinksLauncher: NSObject {
 extension DrinksLauncher: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let count = delegate?.numberOfItemsInSection() else { return 0 }
+        let count = drinkNames.count
         pageControl.numberOfPages = Int(ceil(Double(count)/6))
         return count
     }
@@ -469,20 +497,8 @@ extension DrinksLauncher: UICollectionViewDataSource, UICollectionViewDelegate, 
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        UIView.animate(withDuration: 0.25, delay: 0, options: .curveLinear, animations: {
-//            self.blackView.alpha = 0
-//
-//            if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
-//                self.containerview.frame = CGRect(x: 0, y: window.frame.height,
-//                                                   width: self.containerview.frame.width,
-//                                                   height: self.containerview.frame.height)
-//            }
-//        }, completion: {_ in
-//            self.delegate?.didSelectItemAt(indexPath: indexPath)
-//        })
-        if let cellData = delegate?.drinkForItemAt(indexPath: indexPath) {
-            setImageAndTitleForDetailView(name: cellData.name, imageName: cellData.imageName)
-        }
+        setImageAndTitleForDetailView(name: drinkNames[indexPath.item],
+                                      imageName: drinkImageNames[indexPath.item])
 
         if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
             scrollView.setContentOffset(CGPoint(x: window.frame.width, y: 0), animated: true)
@@ -495,13 +511,11 @@ extension DrinksLauncher: UICollectionViewDataSource, UICollectionViewDelegate, 
         var cell = UICollectionViewCell()
 
         if let drinkCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId,
-                                                              for: indexPath) as? DrinksCell,
-           let cellData = delegate?.drinkForItemAt(indexPath: indexPath) {
+                                                              for: indexPath) as? DrinksCell {
+           drinkCell.nameLabel.text = drinkNames[indexPath.item]
+            drinkCell.imageView.image = UIImage(named: drinkImageNames[indexPath.item])
 
-            drinkCell.nameLabel.text = cellData.name
-            drinkCell.imageView.image = UIImage(named: cellData.imageName)
-
-            cell = drinkCell
+           cell = drinkCell
         }
 
         return cell

@@ -7,6 +7,7 @@ final class MockHistoryView: HistoryViewProtocol {
     var presenter: HistoryPresenterProtocol!
 
     var coreDataController: CoreDataControllerProtocol! = CoreDataController.shared
+    var userDefaultsController: UserDefaultsControllerProtocol!  = UserDefaultsController.shared
 
     //swiftlint:disable:next large_tuple
     private(set) var didUpdateRingView: (progress: CGFloat, date: Date, total: Double, goal: Double)?

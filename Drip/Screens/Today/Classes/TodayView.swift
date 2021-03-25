@@ -1,8 +1,9 @@
 import UIKit
 
-final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol {
+final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewProtocol {
     var presenter: TodayPresenterProtocol!
     var coreDataController: CoreDataControllerProtocol!
+    var userDefaultsController: UserDefaultsControllerProtocol!
     @IBOutlet weak var ringView: ProgressRingView!
     @IBOutlet weak var progressLabel: UILabel!
     @IBOutlet weak var todayVolumeLabel: UILabel!
@@ -24,7 +25,7 @@ final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol
     private var startValue: Double = 0
     private var endValue: Double = 0
 
-    let drinksLauncher = DrinksLauncher()
+    lazy var drinksLauncher = DrinksLauncher(userDefaults: userDefaultsController)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +49,7 @@ final class TodayView: UIViewController, TodayViewProtocol, CoreDataViewProtocol
     }
 
     override func viewWillDisappear(_ animated: Bool) {
+        drinksLauncher.removeFromWindow()
         presenter.onViewWillDisappear()
     }
 
@@ -213,24 +215,5 @@ extension TodayView: DrinksLauncherDelegate {
 
     func didAddDrink(name: String, imageName: String, volume: Double) {
         presenter.addDrinkTapped(drinkName: name, volume: volume, imageName: imageName)
-    }
-
-    func drinkForItemAt(indexPath: IndexPath) -> (name: String, imageName: String) {
-        let drinkData = presenter.getDrinkInfo()
-        return (drinkData.drinkNames[indexPath.item], drinkData.drinkImageNames[indexPath.item])
-    }
-
-    func numberOfItemsInSection() -> Int {
-        let drinkData = presenter.getDrinkInfo()
-        return drinkData.drinkNames.count
-    }
-
-    func getQuickDrinkAt(index: Int) -> (name: String, imageName: String) {
-        let drinkData = presenter.getFavoritesInfo()
-        return ("\(Int(drinkData.volumeTitle[index]))ml", drinkData.drinkImageNames[index])
-    }
-
-    func didTapQuickDrinkAt(index: Int) {
-        presenter.quickDrinkAtIndexTapped(index: index)
     }
 }
