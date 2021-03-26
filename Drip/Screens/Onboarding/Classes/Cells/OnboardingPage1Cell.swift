@@ -1,7 +1,7 @@
 import UIKit
 
 protocol OnboardingPage1CellDelegate: class {
-    func didTapButton()
+    func didTapPage1Button()
 }
 
 class OnboardingPage1Cell: UICollectionViewCell {
@@ -124,7 +124,7 @@ class OnboardingPage1Cell: UICollectionViewCell {
     }
 
     @objc func continueButtonAction(sender: UIButton!) {
-        delegate?.didTapButton()
+        delegate?.didTapPage1Button()
     }
 
 }

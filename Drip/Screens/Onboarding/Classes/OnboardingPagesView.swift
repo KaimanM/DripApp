@@ -13,7 +13,8 @@ final class OnboardingPagesView: UIViewController, OnboardingPagesViewProtocol {
         return collectionView
     }()
 
-    let cellId = "cellId"
+    let page1CellId = "page1"
+    let page2CellId = "page2"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,13 +22,17 @@ final class OnboardingPagesView: UIViewController, OnboardingPagesViewProtocol {
         collectionView.dataSource = self
         view.backgroundColor = .black
         setupSubviews()
-        collectionView.register(OnboardingPage1Cell.self, forCellWithReuseIdentifier: cellId)
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "secondCell")
+        collectionView.register(OnboardingPage1Cell.self, forCellWithReuseIdentifier: page1CellId)
+        collectionView.register(OnboardingPage2Cell.self, forCellWithReuseIdentifier: page2CellId)
     }
 
     func setupSubviews() {
         view.addSubview(collectionView)
         collectionView.fillSuperViewSafely()
+    }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
 
 }
@@ -42,10 +47,21 @@ extension OnboardingPagesView: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell = UICollectionViewCell()
-        if let page1cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId,
-                                                              for: indexPath) as? OnboardingPage1Cell {
-            page1cell.delegate = self
-            cell = page1cell
+        switch indexPath.item {
+        case 0:
+            if let page1cell = collectionView.dequeueReusableCell(withReuseIdentifier: page1CellId,
+                                                                  for: indexPath) as? OnboardingPage1Cell {
+                page1cell.delegate = self
+                cell = page1cell
+            }
+        case 1:
+            if let page2cell = collectionView.dequeueReusableCell(withReuseIdentifier: page2CellId,
+                                                                  for: indexPath) as? OnboardingPage2Cell {
+                page2cell.delegate = self
+                cell = page2cell
+            }
+        default:
+            fatalError()
         }
 
         return cell
@@ -70,8 +86,14 @@ extension OnboardingPagesView: UICollectionViewDelegate, UICollectionViewDataSou
 }
 
 extension OnboardingPagesView: OnboardingPage1CellDelegate {
-    func didTapButton() {
+    func didTapPage1Button() {
         let indexPath = IndexPath(item: 1, section: 0)
         collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
+    }
+}
+
+extension OnboardingPagesView: OnboardingPage2CellDelegate {
+    func didTapPage2Button() {
+        print("hehe xd")
     }
 }
