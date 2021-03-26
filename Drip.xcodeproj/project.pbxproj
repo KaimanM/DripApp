@@ -76,7 +76,7 @@
 		36538D19260CDBDC00CFB656 /* OnboardingPagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36538D18260CDBDC00CFB656 /* OnboardingPagesView.swift */; };
 		36538D1C260CDBE200CFB656 /* OnboardingPagesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36538D1B260CDBE200CFB656 /* OnboardingPagesPresenter.swift */; };
 		366DFC30260B8945009BEAC5 /* UserDefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366DFC2F260B8945009BEAC5 /* UserDefaultsController.swift */; };
-		3675583A260D15F40099C61A /* OnboardingViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36755839260D15F40099C61A /* OnboardingViewCell.swift */; };
+		3675583A260D15F40099C61A /* OnboardingPage1Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36755839260D15F40099C61A /* OnboardingPage1Cell.swift */; };
 		3677D436260630B20086E89A /* DrinksLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3677D435260630B20086E89A /* DrinksLauncher.swift */; };
 		3677D439260630E10086E89A /* DrinksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3677D438260630E10086E89A /* DrinksCell.swift */; };
 		3677D43C260631230086E89A /* QuickDrinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3677D43B260631230086E89A /* QuickDrinkView.swift */; };
@@ -187,7 +187,7 @@
 		36538D18260CDBDC00CFB656 /* OnboardingPagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPagesView.swift; sourceTree = "<group>"; };
 		36538D1B260CDBE200CFB656 /* OnboardingPagesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPagesPresenter.swift; sourceTree = "<group>"; };
 		366DFC2F260B8945009BEAC5 /* UserDefaultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsController.swift; sourceTree = "<group>"; };
-		36755839260D15F40099C61A /* OnboardingViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewCell.swift; sourceTree = "<group>"; };
+		36755839260D15F40099C61A /* OnboardingPage1Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage1Cell.swift; sourceTree = "<group>"; };
 		3677D435260630B20086E89A /* DrinksLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinksLauncher.swift; sourceTree = "<group>"; };
 		3677D438260630E10086E89A /* DrinksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinksCell.swift; sourceTree = "<group>"; };
 		3677D43B260631230086E89A /* QuickDrinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickDrinkView.swift; sourceTree = "<group>"; };
@@ -478,7 +478,6 @@
 				3677D435260630B20086E89A /* DrinksLauncher.swift */,
 				3677D43B260631230086E89A /* QuickDrinkView.swift */,
 				3677D438260630E10086E89A /* DrinksCell.swift */,
-				36755839260D15F40099C61A /* OnboardingViewCell.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -564,8 +563,17 @@
 				36538D15260CDBD400CFB656 /* OnboardingPagesPresenterProtocol.swift */,
 				36538D18260CDBDC00CFB656 /* OnboardingPagesView.swift */,
 				36538D1B260CDBE200CFB656 /* OnboardingPagesPresenter.swift */,
+				367AC78C260DEB4E00AAE2FF /* Cells */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		367AC78C260DEB4E00AAE2FF /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				36755839260D15F40099C61A /* OnboardingPage1Cell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		4080308F953F642FC4C1FC79 /* Pods */ = {
@@ -771,7 +779,7 @@
 				0A8BEA932455D45A00AA9880 /* AboutPresenterProtocol.swift in Sources */,
 				0A8BEA832455D24A00AA9880 /* AwardsView.swift in Sources */,
 				0ACB9851245468AF007BF01D /* HistoryViewProtocol.swift in Sources */,
-				3675583A260D15F40099C61A /* OnboardingViewCell.swift in Sources */,
+				3675583A260D15F40099C61A /* OnboardingPage1Cell.swift in Sources */,
 				0A8BEA922455D45A00AA9880 /* AboutViewProtocol.swift in Sources */,
 				0A8BEA822455D24A00AA9880 /* AwardsPresenterProtocol.swift in Sources */,
 				0A2B8B752454D8E200D9E8E7 /* TodayView.swift in Sources */,

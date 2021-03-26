@@ -21,7 +21,7 @@ final class OnboardingPagesView: UIViewController, OnboardingPagesViewProtocol {
         collectionView.dataSource = self
         view.backgroundColor = .black
         setupSubviews()
-        collectionView.register(OnboardingViewCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(OnboardingPage1Cell.self, forCellWithReuseIdentifier: cellId)
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "secondCell")
     }
 
@@ -43,7 +43,7 @@ extension OnboardingPagesView: UICollectionViewDelegate, UICollectionViewDataSou
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell = UICollectionViewCell()
         if let page1cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId,
-                                                              for: indexPath) as? OnboardingViewCell {
+                                                              for: indexPath) as? OnboardingPage1Cell {
             page1cell.delegate = self
             cell = page1cell
         }
