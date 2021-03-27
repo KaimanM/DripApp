@@ -157,7 +157,7 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
         presenter.editToggleTapped()
     }
 
-    lazy var drinksLauncher = DrinksLauncher(userDefaults: userDefaultsController)
+    lazy var drinksLauncher = DrinksLauncher(userDefaults: userDefaultsController, isOnboarding: false)
 
     @IBAction func addMissingDrinkBtnTapped(_ sender: Any) {
         drinksLauncher.showDrinks()

@@ -59,6 +59,13 @@ class DrinksLauncher: NSObject {
         return label
     }()
 
+    let page1TitleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.white
+        label.font = UIFont.boldSystemFont(ofSize: 19.0)
+        return label
+    }()
+
     let detailImageView = UIImageView()
 
     let picker = UIPickerView()
@@ -84,17 +91,22 @@ class DrinksLauncher: NSObject {
     var currentDrinkImageName = "waterbottle.svg"
 
     let drinkNames = ["Water", "Coffee", "Tea", "Milk", "Orange Juice", "Juicebox",
-                      "Cola", "Cocktail", "Punch", "Milkshake", "Energy Drink", "Beer"] // icetea
+                      "Cola", "Cocktail", "Punch", "Milkshake", "Energy Drink", "Beer",
+                      "Ice Tea", "Coconut Juice", "Ice Coffee", "Smoothie", "Bubble Tea", "Soda"]
 
     let drinkImageNames = ["waterbottle.svg", "coffee.svg", "tea.svg", "milk.svg", "orangejuice.svg",
                             "juicebox.svg", "cola.svg", "cocktail.svg", "punch.svg", "milkshake.svg",
-                            "energydrink.svg", "beer.svg"]
+                            "energydrink.svg", "beer.svg", "icetea.svg", "coconutjuice.svg", "icecoffee.svg",
+                            "smoothie.svg", "bubbletea.svg", "soda.svg"]
 
     var isFirstOpen = true
 
     let userDefaults: UserDefaultsControllerProtocol
 
-    init(userDefaults: UserDefaultsControllerProtocol) {
+    var isOnboarding = true
+
+    init(userDefaults: UserDefaultsControllerProtocol, isOnboarding: Bool) {
+        self.isOnboarding = isOnboarding
         self.userDefaults = userDefaults
         super.init()
         collectionView.dataSource = self
@@ -207,19 +219,18 @@ class DrinksLauncher: NSObject {
         blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
         containerView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(swipeDown)))
 
-        setupPage1()
+        switch isOnboarding {
+        case true:
+            setupPage1Onboarding()
+        case false:
+            setupPage1()
+        }
         setupPage2()
     }
 
     func setupPage1() {
         // Initialize additional required views
-        let page1TitleLabel: UILabel = {
-            let label = UILabel()
-            label.text = "Select a drink"
-            label.textColor = UIColor.white
-            label.font = UIFont.boldSystemFont(ofSize: 19.0)
-            return label
-        }()
+        page1TitleLabel.text = "Select a drink"
 
         let buttonsContainer: UIView = {
             let view = UIView()
@@ -255,6 +266,30 @@ class DrinksLauncher: NSObject {
                               trailing: page1.trailingAnchor,
                               padding: .init(top: 5, left: 10, bottom: 0, right: 10),
                               size: .init(width: 0, height: 260))
+
+        pageControl.anchor(top: collectionView.bottomAnchor)
+        pageControl.centerHorizontallyInSuperview()
+    }
+
+    func setupPage1Onboarding() {
+        // Initialize additional required views
+        page1TitleLabel.text = "Choose a Favourite"
+
+        // Add subviews to page 1
+        let subViews = [page1TitleLabel, collectionView, pageControl]
+        subViews.forEach({page1.addSubview($0)})
+
+        // Handle constraints
+        page1TitleLabel.centerHorizontallyInSuperview()
+        page1TitleLabel.anchor(top: page1.topAnchor,
+                               padding: .init(top: 5, left: 0, bottom: 0, right: 0),
+                               size: .init(width: 0, height: 25))
+
+        collectionView.anchor(top: page1TitleLabel.bottomAnchor,
+                              leading: page1.leadingAnchor,
+                              trailing: page1.trailingAnchor,
+                              padding: .init(top: 0, left: 10, bottom: 0, right: 10),
+                              size: .init(width: 0, height: 360))
 
         pageControl.anchor(top: collectionView.bottomAnchor)
         pageControl.centerHorizontallyInSuperview()
@@ -484,7 +519,7 @@ extension DrinksLauncher: UICollectionViewDataSource, UICollectionViewDelegate, 
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let count = drinkNames.count
-        pageControl.numberOfPages = Int(ceil(Double(count)/6))
+        pageControl.numberOfPages = isOnboarding ? Int(ceil(Double(count)/9)) : Int(ceil(Double(count)/6))
         return count
     }
 
@@ -533,7 +568,13 @@ extension DrinksLauncher: UICollectionViewDataSource, UICollectionViewDelegate, 
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width/3, height: collectionView.bounds.height/2)
+        switch isOnboarding {
+        case true:
+            return CGSize(width: collectionView.bounds.width/3, height: collectionView.bounds.height/3)
+        case false:
+            return CGSize(width: collectionView.bounds.width/3, height: collectionView.bounds.height/2)
+        }
+
     }
 }
 
