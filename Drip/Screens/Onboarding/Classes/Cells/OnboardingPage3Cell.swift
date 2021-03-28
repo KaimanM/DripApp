@@ -33,11 +33,78 @@ class OnboardingPage3Cell: UICollectionViewCell {
         return stackView
     }()
 
+    let heading1Label: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        label.textColor = .whiteText
+        label.text = "What should we call you?"
+        return label
+    }()
+
+    let body1Label: UILabel = {
+        let label = UILabel()
+        label.textColor = .lightGray
+        label.font = UIFont.systemFont(ofSize: 15, weight: .light)
+        label.text = "It doesn’t have to be your real name. How does King or Queen sound?"
+        label.numberOfLines = 0
+        return label
+    }()
+
+    let textField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "King"
+        textField.font = UIFont.systemFont(ofSize: 15)
+        textField.borderStyle = UITextField.BorderStyle.roundedRect
+        textField.autocorrectionType = UITextAutocorrectionType.no
+        textField.keyboardType = UIKeyboardType.default
+        textField.returnKeyType = UIReturnKeyType.done
+        textField.clearButtonMode = UITextField.ViewMode.whileEditing
+        textField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
+        return textField
+    }()
+
+    let heading2Label: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        label.textColor = .whiteText
+        label.text = "Let's set a goal!"
+        return label
+    }()
+
+    let body2Label: UILabel = {
+        let label = UILabel()
+        label.textColor = .lightGray
+        label.font = UIFont.systemFont(ofSize: 15, weight: .light)
+        label.numberOfLines = 0
+        label.text = """
+                    How much are you aiming to drink daily? We've set it at 2500ml \
+                    but you can tune it to your liking!
+                    """
+        return label
+    }()
+
+    let goalLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .whiteText
+        label.font = UIFont.SFProRounded(ofSize: 30, fontWeight: .medium)
+        label.text = "2500ml"
+        return label
+    }()
+
+    let slider: UISlider = {
+        let slider = UISlider()
+        slider.minimumValue = 0
+        slider.maximumValue = 100
+        slider.isContinuous = true
+        slider.tintColor = UIColor.dripMerged
+        return slider
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
         backgroundColor = .black
-
+        textField.delegate = self
         contentView.addSubview(continueButton)
         continueButton.anchor(leading: contentView.leadingAnchor,
                               bottom: contentView.bottomAnchor,
@@ -72,8 +139,10 @@ class OnboardingPage3Cell: UICollectionViewCell {
             label.numberOfLines = 0
             return label
         }()
-        subtitleLabel.text = "Before we begin, let’s choose a few options to help us give you the best experience possible!"
-
+        subtitleLabel.text = """
+                            Before we begin, let’s choose a few options to help us give you \
+                            the best experience possible!
+                            """
 
         titleContainerView.addSubview(titleLabel)
         titleContainerView.addSubview(subtitleLabel)
@@ -87,10 +156,6 @@ class OnboardingPage3Cell: UICollectionViewCell {
                           trailing: titleContainerView.trailingAnchor,
                           padding: .init(top: 0, left: 25, bottom: 0, right: 35))
 
-
-
-//        containerView.backgroundColor = .darkGray
-
         let arrangedSubviews = [spacer1, titleContainerView, spacer2, contentStackView, spacer3]
         arrangedSubviews.forEach({stackView.addArrangedSubview($0)})
 
@@ -101,81 +166,16 @@ class OnboardingPage3Cell: UICollectionViewCell {
         spacer1.heightAnchor.constraint(equalTo: spacer3.heightAnchor, multiplier: 0.6).isActive = true
 
         contentStackView.anchor(size: .init(width: contentView.frame.width, height: 370))
-
         populateContentStackView()
     }
 
+    // swiftlint:disable:next function_body_length
     func populateContentStackView() {
-        let heading1Label: UILabel = {
-            let label = UILabel()
-            label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-            label.textColor = .whiteText
-            label.text = "What should we call you?"
-            return label
-        }()
-
-        let body1Label: UILabel = {
-            let label = UILabel()
-            label.textColor = .lightGray
-            label.font = UIFont.systemFont(ofSize: 15, weight: .light)
-            label.text = "It doesn’t have to be your real name. How does King or Queen sound?"
-            label.numberOfLines = 0
-            return label
-        }()
-
-        let textField: UITextField = {
-            let textField = UITextField()
-            textField.placeholder = "King"
-            textField.font = UIFont.systemFont(ofSize: 15)
-            textField.borderStyle = UITextField.BorderStyle.roundedRect
-            textField.autocorrectionType = UITextAutocorrectionType.no
-            textField.keyboardType = UIKeyboardType.default
-            textField.returnKeyType = UIReturnKeyType.done
-            textField.clearButtonMode = UITextField.ViewMode.whileEditing
-            textField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
-            return textField
-        }()
-
-        textField.delegate = self
-
-        let heading2Label: UILabel = {
-            let label = UILabel()
-            label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-            label.textColor = .whiteText
-            label.text = "Let's set a goal!"
-            return label
-        }()
-
-        let body2Label: UILabel = {
-            let label = UILabel()
-            label.textColor = .lightGray
-            label.font = UIFont.systemFont(ofSize: 15, weight: .light)
-            label.numberOfLines = 0
-            label.text = "How much are you aiming to drink daily? We've set it at 2500ml but you can tune it to your liking!"
-            return label
-        }()
-
-        let goalLabel: UILabel = {
-            let label = UILabel()
-            label.textColor = .whiteText
-            label.font = UIFont.SFProRounded(ofSize: 30, fontWeight: .medium)
-            label.text = "2500ml"
-            return label
-        }()
-
-        let slider = UISlider()
-
-        slider.minimumValue = 0
-        slider.maximumValue = 100
-        slider.isContinuous = true
-        slider.tintColor = UIColor.dripMerged
-
         let spacer1 = UIView(), spacer2 = UIView(), spacer3 = UIView(),
             topContainerView = UIView(), bottomContainerView = UIView()
 
-        topContainerView.addSubview(heading1Label)
-        topContainerView.addSubview(body1Label)
-        topContainerView.addSubview(textField)
+        let topSubviews = [heading1Label, body1Label, textField]
+        topSubviews.forEach({topContainerView.addSubview($0)})
 
         heading1Label.anchor(top: topContainerView.topAnchor,
                              leading: topContainerView.leadingAnchor,
@@ -205,13 +205,11 @@ class OnboardingPage3Cell: UICollectionViewCell {
         goalLabel.anchor(top: body2Label.bottomAnchor,
                              padding: .init(top: 10, left: 0, bottom: 0, right: 0))
         goalLabel.centerHorizontallyInSuperview()
-
         slider.anchor(top: goalLabel.bottomAnchor,
                       leading: bottomContainerView.leadingAnchor,
                       bottom: bottomContainerView.bottomAnchor,
                       trailing: bottomContainerView.trailingAnchor,
                       padding: .init(top: 10, left: 35, bottom: 0, right: 35))
-
 
         let arrangedSubviews = [spacer1, topContainerView, spacer2, bottomContainerView, spacer3]
         arrangedSubviews.forEach({contentStackView.addArrangedSubview($0)})
