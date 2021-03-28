@@ -15,6 +15,7 @@ final class OnboardingPagesView: UIViewController, OnboardingPagesViewProtocol {
 
     let page1CellId = "page1"
     let page2CellId = "page2"
+    let page3CellId = "page3"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,7 @@ final class OnboardingPagesView: UIViewController, OnboardingPagesViewProtocol {
         setupSubviews()
         collectionView.register(OnboardingPage1Cell.self, forCellWithReuseIdentifier: page1CellId)
         collectionView.register(OnboardingPage2Cell.self, forCellWithReuseIdentifier: page2CellId)
+        collectionView.register(OnboardingPage3Cell.self, forCellWithReuseIdentifier: page3CellId)
     }
 
     func setupSubviews() {
@@ -40,7 +42,7 @@ final class OnboardingPagesView: UIViewController, OnboardingPagesViewProtocol {
 extension OnboardingPagesView: UICollectionViewDelegate, UICollectionViewDataSource,
                                UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let count = 2
+        let count = 3
         return count
     }
 
@@ -59,6 +61,12 @@ extension OnboardingPagesView: UICollectionViewDelegate, UICollectionViewDataSou
                                                                   for: indexPath) as? OnboardingPage2Cell {
                 page2cell.delegate = self
                 cell = page2cell
+            }
+        case 2:
+            if let page3cell = collectionView.dequeueReusableCell(withReuseIdentifier: page3CellId,
+                                                                  for: indexPath) as? OnboardingPage3Cell {
+                page3cell.delegate = self
+                cell = page3cell
             }
         default:
             fatalError()
@@ -94,6 +102,13 @@ extension OnboardingPagesView: OnboardingPage1CellDelegate {
 
 extension OnboardingPagesView: OnboardingPage2CellDelegate {
     func didTapPage2Button() {
-        print("hehe xd")
+        let indexPath = IndexPath(item: 2, section: 0)
+        collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
+    }
+}
+
+extension OnboardingPagesView: OnboardingPage3CellDelegate {
+    func didTapPage3Button() {
+        print("hehe xDDD")
     }
 }
