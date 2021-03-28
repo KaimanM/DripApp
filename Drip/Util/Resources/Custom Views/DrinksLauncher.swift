@@ -4,6 +4,7 @@ protocol DrinksLauncherDelegate: class {
     func didAddDrink(name: String, imageName: String, volume: Double)
 }
 
+// swiftlint:disable:next type_body_length
 class DrinksLauncher: NSObject {
 
     // MARK: - Properties -

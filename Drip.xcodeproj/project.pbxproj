@@ -60,13 +60,13 @@
 		360CA9F825F65E0500C7676A /* Drink+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360CA9F625F65E0500C7676A /* Drink+CoreDataClass.swift */; };
 		360CAA0225F69F9900C7676A /* HistoryScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360CAA0125F69F9900C7676A /* HistoryScreenBuilderTestCase.swift */; };
 		360CAA0825F6A01300C7676A /* HistoryPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360CAA0725F6A01300C7676A /* HistoryPresenterTestCase.swift */; };
-		36249A7A26100D930015D8AD /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 36249A7926100D930015D8AD /* FSCalendar */; };
 		362A52A125EFA59800B6AA8D /* CoreDataControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362A52A025EFA59800B6AA8D /* CoreDataControllerProtocol.swift */; };
 		362A52A525EFA68100B6AA8D /* Drip.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 362A52A325EFA68100B6AA8D /* Drip.xcdatamodeld */; };
 		362A52DE25EFAA2600B6AA8D /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362A52DD25EFAA2600B6AA8D /* CoreDataController.swift */; };
 		362A52E125EFACFB00B6AA8D /* PersistentDataViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362A52E025EFACFB00B6AA8D /* PersistentDataViewProtocol.swift */; };
 		362BF72C260DF1D40065183D /* OnboardingPage2Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362BF72B260DF1D40065183D /* OnboardingPage2Cell.swift */; };
 		3644493F25FFC54D006E1B0F /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3644493E25FFC54D006E1B0F /* Date+Extensions.swift */; };
+		3644F1E026101FAD0012FF09 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 3644F1DF26101FAD0012FF09 /* FSCalendar */; };
 		364A927C256BE91400F84985 /* TodayScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364A927B256BE91400F84985 /* TodayScreenBuilderTestCase.swift */; };
 		364A9280256BE93500F84985 /* TodayPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364A927F256BE93500F84985 /* TodayPresenterTestCase.swift */; };
 		36538D04260CB0D300CFB656 /* UserDefaultsControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36538D03260CB0D300CFB656 /* UserDefaultsControllerProtocol.swift */; };
@@ -209,7 +209,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				36249A7A26100D930015D8AD /* FSCalendar in Frameworks */,
+				3644F1E026101FAD0012FF09 /* FSCalendar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -579,17 +579,6 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		4080308F953F642FC4C1FC79 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				9A988A0B0AA479ED7CFE9E29 /* Pods-Drip.debug.xcconfig */,
-				0AB5D224EE5BABFFEE7D1B7D /* Pods-Drip.release.xcconfig */,
-				6DBABB04197C4C0432EA9601 /* Pods-DripTests.debug.xcconfig */,
-				FF48F525AE352FD2B785B119 /* Pods-DripTests.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -609,7 +598,7 @@
 			);
 			name = Drip;
 			packageProductDependencies = (
-				36249A7926100D930015D8AD /* FSCalendar */,
+				3644F1DF26101FAD0012FF09 /* FSCalendar */,
 			);
 			productName = Drip;
 			productReference = 0ACB981E24546717007BF01D /* Drip.app */;
@@ -662,7 +651,7 @@
 			);
 			mainGroup = 0ACB981524546717007BF01D;
 			packageReferences = (
-				36249A7826100D930015D8AD /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				3644F1DE26101FAD0012FF09 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = 0ACB981F24546717007BF01D /* Products */;
 			projectDirPath = "";
@@ -1063,20 +1052,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		36249A7826100D930015D8AD /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+		3644F1DE26101FAD0012FF09 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/WenchaoD/FSCalendar";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.8.2;
+				kind = revision;
+				revision = c4a443ac79bd62e483093aa3916aaa7347f1645e;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		36249A7926100D930015D8AD /* FSCalendar */ = {
+		3644F1DF26101FAD0012FF09 /* FSCalendar */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 36249A7826100D930015D8AD /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			package = 3644F1DE26101FAD0012FF09 /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -1,5 +1,6 @@
 import UIKit
 import FSCalendar
+// TODO : Update SPM to use scheduled release after next release. 2.6.2 does need include required fix.
 
 final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataViewProtocol {
 
