@@ -25,6 +25,14 @@ class OnboardingPage3Cell: UICollectionViewCell {
         return stackView
     }()
 
+    let contentStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        return stackView
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -45,7 +53,6 @@ class OnboardingPage3Cell: UICollectionViewCell {
         populateStackView()
     }
 
-    // swiftlint:disable:next function_body_length
     func populateStackView() {
         let spacer1 = UIView(), spacer2 = UIView(), spacer3 = UIView(), titleContainerView = UIView()
 
@@ -78,13 +85,13 @@ class OnboardingPage3Cell: UICollectionViewCell {
                           leading: titleContainerView.leadingAnchor,
                           bottom: titleContainerView.bottomAnchor,
                           trailing: titleContainerView.trailingAnchor,
-                          padding: .init(top: 0, left: 25, bottom: 0, right: 25))
+                          padding: .init(top: 0, left: 25, bottom: 0, right: 35))
 
-        let containerView = UIView()
+
 
 //        containerView.backgroundColor = .darkGray
 
-        let arrangedSubviews = [spacer1, titleContainerView, spacer2, containerView, spacer3]
+        let arrangedSubviews = [spacer1, titleContainerView, spacer2, contentStackView, spacer3]
         arrangedSubviews.forEach({stackView.addArrangedSubview($0)})
 
         spacer1.translatesAutoresizingMaskIntoConstraints = false
@@ -93,12 +100,17 @@ class OnboardingPage3Cell: UICollectionViewCell {
         spacer2.heightAnchor.constraint(equalTo: spacer1.heightAnchor, multiplier: 0.5).isActive = true
         spacer1.heightAnchor.constraint(equalTo: spacer3.heightAnchor, multiplier: 0.6).isActive = true
 
-        containerView.anchor(size: .init(width: contentView.frame.width, height: 370))
+        contentStackView.anchor(size: .init(width: contentView.frame.width, height: 370))
 
+        populateContentStackView()
+    }
+
+    func populateContentStackView() {
         let heading1Label: UILabel = {
             let label = UILabel()
             label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
             label.textColor = .whiteText
+            label.text = "What should we call you?"
             return label
         }()
 
@@ -106,19 +118,31 @@ class OnboardingPage3Cell: UICollectionViewCell {
             let label = UILabel()
             label.textColor = .lightGray
             label.font = UIFont.systemFont(ofSize: 15, weight: .light)
+            label.text = "It doesn’t have to be your real name. How does King or Queen sound?"
             label.numberOfLines = 0
             return label
         }()
 
-        heading1Label.text = "What should we call you?"
-        body1Label.text = "It doesn’t have to be your real name. How does King or Queen sound?"
+        let textField: UITextField = {
+            let textField = UITextField()
+            textField.placeholder = "King"
+            textField.font = UIFont.systemFont(ofSize: 15)
+            textField.borderStyle = UITextField.BorderStyle.roundedRect
+            textField.autocorrectionType = UITextAutocorrectionType.no
+            textField.keyboardType = UIKeyboardType.default
+            textField.returnKeyType = UIReturnKeyType.done
+            textField.clearButtonMode = UITextField.ViewMode.whileEditing
+            textField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
+            return textField
+        }()
 
-        let sampleTextField =  UITextField()
+        textField.delegate = self
 
         let heading2Label: UILabel = {
             let label = UILabel()
             label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
             label.textColor = .whiteText
+            label.text = "Let's set a goal!"
             return label
         }()
 
@@ -127,12 +151,9 @@ class OnboardingPage3Cell: UICollectionViewCell {
             label.textColor = .lightGray
             label.font = UIFont.systemFont(ofSize: 15, weight: .light)
             label.numberOfLines = 0
+            label.text = "How much are you aiming to drink daily? We've set it at 2500ml but you can tune it to your liking!"
             return label
         }()
-
-        heading2Label.text = "Let's set a goal!"
-        body2Label.text = "How much are you aiming to drink daily? We've set it at 2500ml but you can tune it to your liking!"
-
 
         let goalLabel: UILabel = {
             let label = UILabel()
@@ -149,58 +170,58 @@ class OnboardingPage3Cell: UICollectionViewCell {
         slider.isContinuous = true
         slider.tintColor = UIColor.dripMerged
 
-        containerView.addSubview(heading1Label)
-        containerView.addSubview(body1Label)
-        containerView.addSubview(sampleTextField)
-        containerView.addSubview(heading2Label)
-        containerView.addSubview(body2Label)
-        containerView.addSubview(goalLabel)
-        containerView.addSubview(slider)
+        let spacer1 = UIView(), spacer2 = UIView(), spacer3 = UIView(),
+            topContainerView = UIView(), bottomContainerView = UIView()
 
-        heading1Label.anchor(top: containerView.topAnchor,
-                          leading: containerView.leadingAnchor,
-                          trailing: containerView.trailingAnchor,
-                          padding: .init(top: 5, left: 25, bottom: 0, right: 25))
+        topContainerView.addSubview(heading1Label)
+        topContainerView.addSubview(body1Label)
+        topContainerView.addSubview(textField)
+
+        heading1Label.anchor(top: topContainerView.topAnchor,
+                             leading: topContainerView.leadingAnchor,
+                             trailing: topContainerView.trailingAnchor,
+                             padding: .init(top: 0, left: 35, bottom: 0, right: 35))
         body1Label.anchor(top: heading1Label.bottomAnchor,
-                          leading: containerView.leadingAnchor,
-                          trailing: containerView.trailingAnchor,
-                          padding: .init(top: 5, left: 25, bottom: 0, right: 25))
+                             leading: topContainerView.leadingAnchor,
+                             trailing: topContainerView.trailingAnchor,
+                             padding: .init(top: 5, left: 35, bottom: 0, right: 35))
+        textField.anchor(top: body1Label.bottomAnchor,
+                             leading: topContainerView.leadingAnchor,
+                             bottom: topContainerView.bottomAnchor,
+                             trailing: topContainerView.trailingAnchor,
+                             padding: .init(top: 15, left: 35, bottom: 0, right: 35))
 
-        sampleTextField.placeholder = "King"
-        sampleTextField.font = UIFont.systemFont(ofSize: 15)
-        sampleTextField.borderStyle = UITextField.BorderStyle.roundedRect
-        sampleTextField.autocorrectionType = UITextAutocorrectionType.no
-        sampleTextField.keyboardType = UIKeyboardType.default
-        sampleTextField.returnKeyType = UIReturnKeyType.done
-        sampleTextField.clearButtonMode = UITextField.ViewMode.whileEditing
-        sampleTextField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
-        sampleTextField.delegate = self
+        let bottomSubviews = [heading2Label, body2Label, goalLabel, slider]
+        bottomSubviews.forEach({bottomContainerView.addSubview($0)})
 
-        sampleTextField.anchor(top: body1Label.bottomAnchor,
-                               leading: containerView.leadingAnchor,
-                               trailing: containerView.trailingAnchor,
-                               padding: .init(top: 5, left: 25, bottom: 0, right: 25),
-                               size: .init(width: 0, height: 40))
-        heading2Label.anchor(top: sampleTextField.bottomAnchor,
-                          leading: containerView.leadingAnchor,
-                          trailing: containerView.trailingAnchor,
-                          padding: .init(top: 10, left: 25, bottom: 0, right: 25))
+        heading2Label.anchor(top: bottomContainerView.topAnchor,
+                             leading: bottomContainerView.leadingAnchor,
+                             trailing: bottomContainerView.trailingAnchor,
+                             padding: .init(top: 0, left: 35, bottom: 0, right: 35))
         body2Label.anchor(top: heading2Label.bottomAnchor,
-                          leading: containerView.leadingAnchor,
-                          trailing: containerView.trailingAnchor,
-                          padding: .init(top: 5, left: 25, bottom: 0, right: 25))
-
+                             leading: bottomContainerView.leadingAnchor,
+                             trailing: bottomContainerView.trailingAnchor,
+                             padding: .init(top: 5, left: 35, bottom: 0, right: 35))
         goalLabel.anchor(top: body2Label.bottomAnchor,
-                          padding: .init(top: 10, left: 0, bottom: 0, right: 0))
+                             padding: .init(top: 10, left: 0, bottom: 0, right: 0))
         goalLabel.centerHorizontallyInSuperview()
 
         slider.anchor(top: goalLabel.bottomAnchor,
-                      leading: containerView.leadingAnchor,
-                      trailing: containerView.trailingAnchor,
-                      padding: .init(top: 5, left: 25, bottom: 0, right: 25),
-                      size: .init(width: 0, height: 20))
+                      leading: bottomContainerView.leadingAnchor,
+                      bottom: bottomContainerView.bottomAnchor,
+                      trailing: bottomContainerView.trailingAnchor,
+                      padding: .init(top: 10, left: 35, bottom: 0, right: 35))
 
 
+        let arrangedSubviews = [spacer1, topContainerView, spacer2, bottomContainerView, spacer3]
+        arrangedSubviews.forEach({contentStackView.addArrangedSubview($0)})
+
+        // constraints so content is just above offcenter in screen
+        spacer1.translatesAutoresizingMaskIntoConstraints = false
+        spacer2.translatesAutoresizingMaskIntoConstraints = false
+        spacer3.translatesAutoresizingMaskIntoConstraints = false
+        spacer1.heightAnchor.constraint(equalTo: spacer2.heightAnchor, multiplier: 0.45).isActive = true
+        spacer3.heightAnchor.constraint(equalTo: spacer2.heightAnchor, multiplier: 0.45).isActive = true
     }
 
     required init?(coder: NSCoder) {
