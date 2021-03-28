@@ -20,6 +20,7 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
     @IBOutlet weak var goalLabel: UILabel!
     @IBOutlet weak var addDrinkBtn: UIButton!
     @IBOutlet weak var dottedView: UIView!
+    @IBOutlet weak var greetingLabel: UILabel!
     private var displayLink: CADisplayLink?
     private var animationStartDate: Date?
     private var startValue: Double = 0
@@ -71,6 +72,10 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
 
     func updateTitle(title: String) {
         self.title = title
+    }
+
+    func updateGreetingLabel(text: String) {
+        greetingLabel.text = text
     }
 
     func setupInfoViews() {

@@ -1,7 +1,7 @@
 import UIKit
 
 protocol OnboardingPage3CellDelegate: class {
-    func didTapPage3Button()
+    func didTapPage3Button(name: String, goal: Double)
 }
 
 class OnboardingPage3Cell: UICollectionViewCell {
@@ -45,14 +45,14 @@ class OnboardingPage3Cell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .lightGray
         label.font = UIFont.systemFont(ofSize: 15, weight: .light)
-        label.text = "It doesn’t have to be your real name. How does King or Queen sound?"
+        label.text = "It doesn’t have to be your real name. How does Buddy or Pal sound?"
         label.numberOfLines = 0
         return label
     }()
 
     let textField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "King"
+        textField.placeholder = "Buddy"
         textField.font = UIFont.systemFont(ofSize: 15)
         textField.borderStyle = UITextField.BorderStyle.roundedRect
         textField.autocorrectionType = UITextAutocorrectionType.no
@@ -93,12 +93,16 @@ class OnboardingPage3Cell: UICollectionViewCell {
 
     let slider: UISlider = {
         let slider = UISlider()
-        slider.minimumValue = 0
-        slider.maximumValue = 100
+        slider.minimumValue = 1000
+        slider.maximumValue = 4000
         slider.isContinuous = true
         slider.tintColor = UIColor.dripMerged
         return slider
     }()
+
+    var goalValue: Double = 2500
+
+    var name = "Buddy"
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -117,7 +121,23 @@ class OnboardingPage3Cell: UICollectionViewCell {
                          leading: contentView.leadingAnchor,
                          bottom: continueButton.topAnchor,
                          trailing: contentView.trailingAnchor)
+        slider.addTarget(self, action: #selector(self.sliderValueDidChange(_:)), for: .valueChanged)
+        slider.value = 2500
         populateStackView()
+    }
+
+    @objc func sliderValueDidChange(_ sender: UISlider!) {
+        print("Slider value changed")
+
+        // Use this code below only if you want UISlider to snap to values step by step
+        let step: Float = 50
+        let roundedStepValue = round(sender.value / step) * step
+        sender.value = roundedStepValue
+
+        goalValue = Double(roundedStepValue)
+        goalLabel.text = "\(Int(roundedStepValue))ml"
+
+        print("Slider step value \(Int(roundedStepValue))")
     }
 
     func populateStackView() {
@@ -227,50 +247,20 @@ class OnboardingPage3Cell: UICollectionViewCell {
     }
 
     @objc func continueButtonAction(sender: UIButton!) {
-        delegate?.didTapPage3Button()
+        delegate?.didTapPage3Button(name: name, goal: goalValue)
     }
 
 }
 
 extension OnboardingPage3Cell: UITextFieldDelegate {
-
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-            // return NO to disallow editing.
-            print("TextField should begin editing method called")
-            return true
-        }
-
-        func textFieldDidBeginEditing(_ textField: UITextField) {
-            // became first responder
-            print("TextField did begin editing method called")
-        }
-
-        func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-            // return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
-            print("TextField should snd editing method called")
-            return true
-        }
-
         func textFieldDidEndEditing(_ textField: UITextField) {
-            // may be called if forced even if shouldEndEditing returns NO (e.g. view removed from window) or endEditing:YES called
-            print("TextField did end editing method called")
-        }
-
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
-            // if implemented, called in place of textFieldDidEndEditing:
-            print("TextField did end editing with reason method called")
-        }
-
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-            // return NO to not change text
-            print("While entering the characters this method gets called")
-            return true
-        }
-
-        func textFieldShouldClear(_ textField: UITextField) -> Bool {
-            // called when clear button pressed. return NO to ignore (no notifications)
-            print("TextField should clear method called")
-            return true
+            if let name = textField.text, !name.isEmpty {
+                print("entered name is \(name)")
+                self.name = name
+            } else {
+                print("name empty, setting name to buddy")
+                self.name = "Buddy"
+            }
         }
 
         func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -279,6 +269,4 @@ extension OnboardingPage3Cell: UITextFieldDelegate {
             textField.resignFirstResponder()
             return true
         }
-
 }
-

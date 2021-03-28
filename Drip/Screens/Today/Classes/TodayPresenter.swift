@@ -18,7 +18,9 @@ final class TodayPresenter: TodayPresenterProtocol {
         updateButtonTitles()
     }
 
-    func onViewWillAppear() {}
+    func onViewWillAppear() {
+        updateGreetingLabel()
+    }
 
     func onViewWillDisappear() {
         if let coreDataController = view?.coreDataController {
@@ -40,6 +42,11 @@ final class TodayPresenter: TodayPresenterProtocol {
 //    func loadGoal() {
 //        drinkGoal = defaults.double(forKey: "goal") == 0 ? 2000 : defaults.double(forKey: "goal")
 //    }
+
+    func updateGreetingLabel() {
+        let name = (view?.userDefaultsController.name)!
+        view?.updateGreetingLabel(text: "Good morning, \(name)")
+    }
 
     func updateProgressRing() {
         todaysTotal = 0

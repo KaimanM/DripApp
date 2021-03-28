@@ -108,7 +108,12 @@ extension OnboardingPagesView: OnboardingPage2CellDelegate {
 }
 
 extension OnboardingPagesView: OnboardingPage3CellDelegate {
-    func didTapPage3Button() {
-        print("hehe xDDD")
+    func didTapPage3Button(name: String, goal: Double) {
+        let userDefaults = UserDefaultsController.shared // TODO: fix this, move dependency later
+        userDefaults.drinkGoal = goal
+        userDefaults.name = name
+        let vc1 = TabBarScreenBuilder().build()
+        vc1.modalPresentationStyle = .fullScreen
+        present(vc1, animated: true, completion: nil)
     }
 }
