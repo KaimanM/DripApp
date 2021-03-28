@@ -4,8 +4,11 @@ import CoreData
 @testable import Drip
 
 final class MockTodayView: TodayViewProtocol {
+    // TODO : implement below
+    func updateGreetingLabel(text: String) {
+    }
+
     func setButtonTitles(remainingText: String, goalText: String) {
-        // TODO : implement
     }
 
     var coreDataController: CoreDataControllerProtocol! = CoreDataController.shared

@@ -16,6 +16,7 @@ final class OnboardingPagesView: UIViewController, OnboardingPagesViewProtocol {
     let page1CellId = "page1"
     let page2CellId = "page2"
     let page3CellId = "page3"
+    let page4CellId = "page4"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,7 @@ final class OnboardingPagesView: UIViewController, OnboardingPagesViewProtocol {
         collectionView.register(OnboardingPage1Cell.self, forCellWithReuseIdentifier: page1CellId)
         collectionView.register(OnboardingPage2Cell.self, forCellWithReuseIdentifier: page2CellId)
         collectionView.register(OnboardingPage3Cell.self, forCellWithReuseIdentifier: page3CellId)
+        collectionView.register(OnboardingPage4Cell.self, forCellWithReuseIdentifier: page4CellId)
     }
 
     func setupSubviews() {
@@ -42,7 +44,7 @@ final class OnboardingPagesView: UIViewController, OnboardingPagesViewProtocol {
 extension OnboardingPagesView: UICollectionViewDelegate, UICollectionViewDataSource,
                                UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let count = 3
+        let count = 4
         return count
     }
 
@@ -67,6 +69,12 @@ extension OnboardingPagesView: UICollectionViewDelegate, UICollectionViewDataSou
                                                                   for: indexPath) as? OnboardingPage3Cell {
                 page3cell.delegate = self
                 cell = page3cell
+            }
+        case 3:
+            if let page4cell = collectionView.dequeueReusableCell(withReuseIdentifier: page4CellId,
+                                                                  for: indexPath) as? OnboardingPage4Cell {
+                page4cell.delegate = self
+                cell = page4cell
             }
         default:
             fatalError()
@@ -112,8 +120,16 @@ extension OnboardingPagesView: OnboardingPage3CellDelegate {
         let userDefaults = UserDefaultsController.shared // TODO: fix this, move dependency later
         userDefaults.drinkGoal = goal
         userDefaults.name = name
-        let vc1 = TabBarScreenBuilder().build()
-        vc1.modalPresentationStyle = .fullScreen
-        present(vc1, animated: true, completion: nil)
+        let indexPath = IndexPath(item: 3, section: 0)
+        collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
+
+    }
+}
+
+extension OnboardingPagesView: OnboardingPage4CellDelegate {
+    func didTapPage4Button() {
+                let vc1 = TabBarScreenBuilder().build()
+                vc1.modalPresentationStyle = .fullScreen
+                present(vc1, animated: true, completion: nil)
     }
 }

@@ -77,6 +77,7 @@
 		36538D19260CDBDC00CFB656 /* OnboardingPagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36538D18260CDBDC00CFB656 /* OnboardingPagesView.swift */; };
 		36538D1C260CDBE200CFB656 /* OnboardingPagesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36538D1B260CDBE200CFB656 /* OnboardingPagesPresenter.swift */; };
 		3655D96B2610B6AB002B95EE /* OnboardingPage3Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3655D96A2610B6AB002B95EE /* OnboardingPage3Cell.swift */; };
+		3655D96E2610DCF7002B95EE /* OnboardingPage4Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3655D96D2610DCF7002B95EE /* OnboardingPage4Cell.swift */; };
 		366DFC30260B8945009BEAC5 /* UserDefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366DFC2F260B8945009BEAC5 /* UserDefaultsController.swift */; };
 		3675583A260D15F40099C61A /* OnboardingPage1Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36755839260D15F40099C61A /* OnboardingPage1Cell.swift */; };
 		3677D436260630B20086E89A /* DrinksLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3677D435260630B20086E89A /* DrinksLauncher.swift */; };
@@ -190,6 +191,7 @@
 		36538D18260CDBDC00CFB656 /* OnboardingPagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPagesView.swift; sourceTree = "<group>"; };
 		36538D1B260CDBE200CFB656 /* OnboardingPagesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPagesPresenter.swift; sourceTree = "<group>"; };
 		3655D96A2610B6AB002B95EE /* OnboardingPage3Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage3Cell.swift; sourceTree = "<group>"; };
+		3655D96D2610DCF7002B95EE /* OnboardingPage4Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage4Cell.swift; sourceTree = "<group>"; };
 		366DFC2F260B8945009BEAC5 /* UserDefaultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsController.swift; sourceTree = "<group>"; };
 		36755839260D15F40099C61A /* OnboardingPage1Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage1Cell.swift; sourceTree = "<group>"; };
 		3677D435260630B20086E89A /* DrinksLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinksLauncher.swift; sourceTree = "<group>"; };
@@ -578,6 +580,7 @@
 				36755839260D15F40099C61A /* OnboardingPage1Cell.swift */,
 				362BF72B260DF1D40065183D /* OnboardingPage2Cell.swift */,
 				3655D96A2610B6AB002B95EE /* OnboardingPage3Cell.swift */,
+				3655D96D2610DCF7002B95EE /* OnboardingPage4Cell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -754,6 +757,7 @@
 				0AD151122454EFB400F45042 /* TrendsScreenBuilder.swift in Sources */,
 				0ACB986724549DED007BF01D /* TabBarPresenterProtocol.swift in Sources */,
 				36538D13260CDBC700CFB656 /* OnboardingPagesViewProtocol.swift in Sources */,
+				3655D96E2610DCF7002B95EE /* OnboardingPage4Cell.swift in Sources */,
 				36538D1C260CDBE200CFB656 /* OnboardingPagesPresenter.swift in Sources */,
 				36538D19260CDBDC00CFB656 /* OnboardingPagesView.swift in Sources */,
 				3677D439260630E10086E89A /* DrinksCell.swift in Sources */,

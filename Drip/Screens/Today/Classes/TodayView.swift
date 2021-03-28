@@ -26,7 +26,7 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
     private var startValue: Double = 0
     private var endValue: Double = 0
 
-    lazy var drinksLauncher = DrinksLauncher(userDefaults: userDefaultsController, isOnboarding: true)
+    lazy var drinksLauncher = DrinksLauncher(userDefaults: userDefaultsController, isOnboarding: false)
 
     override func viewDidLoad() {
         super.viewDidLoad()
