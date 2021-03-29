@@ -19,4 +19,6 @@ protocol UserDefaultsControllerProtocol: class {
     var drinkGoal: Double { get set }
 
     var name: String { get set }
+
+    var completedOnboarding: Bool { get set }
 }

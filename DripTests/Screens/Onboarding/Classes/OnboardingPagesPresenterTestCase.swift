@@ -94,7 +94,7 @@ class OnboardingPagesPresenterTestCase: XCTestCase {
 
     // MARK: - addFavourite -
 
-    func test_givenSelectedIndexIs0_whenAddFavouriteCalledAnd_thenUpdatesFav1() {
+    func test_givenSelectedIndexIs0_whenAddFavouriteCalled_thenUpdatesFav1() {
         // given
         sut.selectedFavourite = 0
 
@@ -107,7 +107,7 @@ class OnboardingPagesPresenterTestCase: XCTestCase {
         XCTAssertEqual(mockedUserDefaultsController.favDrink1ImageName, "test.svg")
     }
 
-    func test_givenSelectedIndexIs1_whenAddFavouriteCalledAnd_thenUpdatesFav2() {
+    func test_givenSelectedIndexIs1_whenAddFavouriteCalled_thenUpdatesFav2() {
         // given
         sut.selectedFavourite = 1
 
@@ -120,7 +120,7 @@ class OnboardingPagesPresenterTestCase: XCTestCase {
         XCTAssertEqual(mockedUserDefaultsController.favDrink2ImageName, "test2.svg")
     }
 
-    func test_givenSelectedIndexIs2_whenAddFavouriteCalledAnd_thenUpdatesFav3() {
+    func test_givenSelectedIndexIs2_whenAddFavouriteCalled_thenUpdatesFav3() {
         // given
         sut.selectedFavourite = 2
 
@@ -167,4 +167,26 @@ class OnboardingPagesPresenterTestCase: XCTestCase {
         XCTAssertEqual(mockedUserDefaultsController.favDrink4Volume, 400)
         XCTAssertEqual(mockedUserDefaultsController.favDrink4ImageName, "MD4.svg")
     }
+
+    // MARK: - setNameAndGoal -
+
+    func test_whenSetNameAndGoalCalled_thenUpdatesFav4() {
+        // when
+        sut.setNameAndGoal(name: "Iron Man", goal: 3070)
+
+        // then
+        XCTAssertEqual(mockedUserDefaultsController.name, "Iron Man")
+        XCTAssertEqual(mockedUserDefaultsController.drinkGoal, 3070)
+    }
+
+    // MARK: - didCompleteOnboarding -
+
+    func test_whenDidCompleteOnboardingCalled_thenSetsCompletedOnboardingTrue() {
+        // when
+        sut.didCompleteOnboarding()
+
+        // then
+        XCTAssertEqual(mockedUserDefaultsController.completedOnboarding, true)
+    }
+
 }

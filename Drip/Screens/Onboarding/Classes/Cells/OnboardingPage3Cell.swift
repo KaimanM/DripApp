@@ -127,17 +127,12 @@ class OnboardingPage3Cell: UICollectionViewCell {
     }
 
     @objc func sliderValueDidChange(_ sender: UISlider!) {
-        print("Slider value changed")
-
-        // Use this code below only if you want UISlider to snap to values step by step
         let step: Float = 50
         let roundedStepValue = round(sender.value / step) * step
         sender.value = roundedStepValue
 
         goalValue = Double(roundedStepValue)
         goalLabel.text = "\(Int(roundedStepValue))ml"
-
-        print("Slider step value \(Int(roundedStepValue))")
     }
 
     func populateStackView() {

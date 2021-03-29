@@ -32,6 +32,8 @@ class UserDefaultsController: UserDefaultsControllerProtocol {
 
     let nameKey = "name"
 
+    let completedOnboardingKey = "completedOnboarding"
+
     init() {
         defaults.register(defaults: [favDrink1NameKey : "Water",
                                      favDrink2NameKey : "Coffee",
@@ -46,7 +48,8 @@ class UserDefaultsController: UserDefaultsControllerProtocol {
                                      favDrink3ImageNameKey : "tea.svg",
                                      favDrink4ImageNameKey : "milk.svg",
                                      drinkGoalKey : 2000,
-                                     nameKey : "Buddy"
+                                     nameKey : "Buddy",
+                                     completedOnboardingKey : false
         ])
     }
 
@@ -152,4 +155,12 @@ class UserDefaultsController: UserDefaultsControllerProtocol {
                 defaults.set(name, forKey: nameKey)
             }
         }
+
+    lazy var completedOnboarding: Bool = {
+        return defaults.bool(forKey: completedOnboardingKey)
+    }() {
+        didSet {
+            defaults.set(completedOnboarding, forKey: completedOnboardingKey)
+        }
+    }
 }

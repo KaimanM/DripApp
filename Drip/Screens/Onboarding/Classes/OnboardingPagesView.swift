@@ -11,6 +11,7 @@ final class OnboardingPagesView: UIViewController, OnboardingPagesViewProtocol {
         collectionView.backgroundColor = .red
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.isScrollEnabled = false
         return collectionView
     }()
 
@@ -125,8 +126,7 @@ extension OnboardingPagesView: OnboardingPage2CellDelegate {
 
 extension OnboardingPagesView: OnboardingPage3CellDelegate {
     func didTapPage3Button(name: String, goal: Double) {
-        userDefaultsController.drinkGoal = goal
-        userDefaultsController.name = name
+        presenter.setNameAndGoal(name: name, goal: goal)
         let indexPath = IndexPath(item: 3, section: 0)
         collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
 
@@ -144,9 +144,10 @@ extension OnboardingPagesView: OnboardingPage4CellDelegate {
     }
 
     func didTapPage4Button() {
-        let vc1 = TabBarScreenBuilder().build()
-        vc1.modalPresentationStyle = .fullScreen
-        present(vc1, animated: true, completion: nil)
+        let tabBarViewController = TabBarScreenBuilder().build()
+        tabBarViewController.modalPresentationStyle = .fullScreen
+        presenter.didCompleteOnboarding()
+        present(tabBarViewController, animated: true, completion: nil)
     }
 }
 

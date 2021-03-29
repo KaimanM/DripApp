@@ -77,4 +77,15 @@ final class OnboardingPagesPresenter: OnboardingPagesPresenterProtocol {
             break
         }
     }
+
+    func setNameAndGoal(name: String, goal: Double) {
+        guard let userDefaults = view?.userDefaultsController else { return }
+        userDefaults.name = name
+        userDefaults.drinkGoal = goal
+    }
+
+    func didCompleteOnboarding() {
+        guard let userDefaults = view?.userDefaultsController else { return }
+        userDefaults.completedOnboarding = true
+    }
 }

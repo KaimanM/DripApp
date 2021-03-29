@@ -8,4 +8,6 @@ protocol OnboardingPagesPresenterProtocol: class {
     func drinkForCellAt(index: Int) -> (imageName: String, volume: Double)
     func addFavourite(name: String, volume: Double, imageName: String)
     func setSelectedFavourite(selected: Int)
+    func setNameAndGoal(name: String, goal: Double)
+    func didCompleteOnboarding()
 }
