@@ -56,9 +56,11 @@ class HistoryPresenterTestCase: XCTestCase {
     private var sut: HistoryPresenter!
     private var mockedView = MockHistoryView()
     private var coreDataController = CoreDataController.shared
+    private var mockedUserDefaultsController = MockUserDefaultsController()
 
     override func setUp() {
         super.setUp()
+        mockedView.userDefaultsController = mockedUserDefaultsController
         sut = HistoryPresenter(view: mockedView)
     }
 

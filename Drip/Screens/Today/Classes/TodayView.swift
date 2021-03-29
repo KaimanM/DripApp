@@ -155,7 +155,7 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
         thisEveningGradientBarView.setProgress(progress: CGFloat(total/goal))
     }
 
-    func setButtonTitles(remainingText: String, goalText: String) {
+    func setOverviewTitles(remainingText: String, goalText: String) {
         remainingLabel.text = remainingText
         goalLabel.text = goalText
     }

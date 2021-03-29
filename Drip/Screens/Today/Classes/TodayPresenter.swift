@@ -15,7 +15,7 @@ final class TodayPresenter: TodayPresenterProtocol {
     func onViewDidAppear() {
         updateProgressRing()
         updateGradientBars()
-        updateButtonTitles()
+        updateOverviewTitles()
     }
 
     func onViewWillAppear() {
@@ -30,7 +30,6 @@ final class TodayPresenter: TodayPresenterProtocol {
 
     func onViewDidLoad() {
         view?.updateTitle(title: "Today")
-//        loadGoal()
         view?.setupRingView(startColor: .cyan, endColor: .blue, ringWidth: 30)
         view?.setupGradientBars(dailyGoal: Int(drinkGoal),
                                 morningGoal: Int(drinkGoal/3),
@@ -38,10 +37,6 @@ final class TodayPresenter: TodayPresenterProtocol {
                                 eveningGoal: Int(drinkGoal/3))
 
     }
-
-//    func loadGoal() {
-//        drinkGoal = defaults.double(forKey: "goal") == 0 ? 2000 : defaults.double(forKey: "goal")
-//    }
 
     func updateGreetingLabel() {
         let name = (view?.userDefaultsController.name)!
@@ -88,7 +83,7 @@ final class TodayPresenter: TodayPresenterProtocol {
         print(goal)
         updateProgressRing()
         updateGradientBars()
-        updateButtonTitles()
+        updateOverviewTitles()
     }
 
     func addDrinkTapped(drinkName: String, volume: Double, imageName: String) {
@@ -96,12 +91,12 @@ final class TodayPresenter: TodayPresenterProtocol {
         view?.coreDataController.addDrink(name: drinkName, volume: volume, imageName: imageName, timeStamp: Date())
         updateProgressRing()
         updateGradientBars()
-        updateButtonTitles()
+        updateOverviewTitles()
 
     }
 
-    func updateButtonTitles() {
+    func updateOverviewTitles() {
         let remaining = Int(drinkGoal-todaysTotal) < 0 ? 0 : Int(drinkGoal-todaysTotal)
-        view?.setButtonTitles(remainingText: "\(Int(remaining))ml", goalText: "\(Int(drinkGoal))ml")
+        view?.setOverviewTitles(remainingText: "\(Int(remaining))ml", goalText: "\(Int(drinkGoal))ml")
     }
 }
