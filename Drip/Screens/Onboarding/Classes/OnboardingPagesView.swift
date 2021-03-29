@@ -2,6 +2,7 @@ import UIKit
 
 final class OnboardingPagesView: UIViewController, OnboardingPagesViewProtocol {
     var presenter: OnboardingPagesPresenterProtocol!
+    var userDefaultsController: UserDefaultsControllerProtocol!
 
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -18,16 +19,23 @@ final class OnboardingPagesView: UIViewController, OnboardingPagesViewProtocol {
     let page3CellId = "page3"
     let page4CellId = "page4"
 
+    lazy var drinksLauncher = DrinksLauncher(userDefaults: userDefaultsController, isOnboarding: true)
+
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
+        drinksLauncher.delegate = self
         view.backgroundColor = .black
         setupSubviews()
         collectionView.register(OnboardingPage1Cell.self, forCellWithReuseIdentifier: page1CellId)
         collectionView.register(OnboardingPage2Cell.self, forCellWithReuseIdentifier: page2CellId)
         collectionView.register(OnboardingPage3Cell.self, forCellWithReuseIdentifier: page3CellId)
         collectionView.register(OnboardingPage4Cell.self, forCellWithReuseIdentifier: page4CellId)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        drinksLauncher.removeFromWindow()
     }
 
     func setupSubviews() {
@@ -117,9 +125,8 @@ extension OnboardingPagesView: OnboardingPage2CellDelegate {
 
 extension OnboardingPagesView: OnboardingPage3CellDelegate {
     func didTapPage3Button(name: String, goal: Double) {
-        let userDefaults = UserDefaultsController.shared // TODO: fix this, move dependency later
-        userDefaults.drinkGoal = goal
-        userDefaults.name = name
+        userDefaultsController.drinkGoal = goal
+        userDefaultsController.name = name
         let indexPath = IndexPath(item: 3, section: 0)
         collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
 
@@ -127,9 +134,27 @@ extension OnboardingPagesView: OnboardingPage3CellDelegate {
 }
 
 extension OnboardingPagesView: OnboardingPage4CellDelegate {
+    func showDrinksForIndex(index: Int) {
+        presenter.setSelectedFavourite(selected: index)
+        drinksLauncher.showDrinks()
+    }
+
+    func drinkForCellAt(index: Int) -> (imageName: String, volume: Double) {
+        return presenter.drinkForCellAt(index: index)
+    }
+
     func didTapPage4Button() {
-                let vc1 = TabBarScreenBuilder().build()
-                vc1.modalPresentationStyle = .fullScreen
-                present(vc1, animated: true, completion: nil)
+        let vc1 = TabBarScreenBuilder().build()
+        vc1.modalPresentationStyle = .fullScreen
+        present(vc1, animated: true, completion: nil)
+    }
+}
+
+extension OnboardingPagesView: DrinksLauncherDelegate {
+    func didAddDrink(name: String, imageName: String, volume: Double) {
+        presenter.addFavourite(name: name, volume: volume, imageName: imageName)
+        if let cell = collectionView.cellForItem(at: IndexPath(item: 3, section: 0)) as? OnboardingPage4Cell {
+            cell.collectionView.reloadData()
+        }
     }
 }

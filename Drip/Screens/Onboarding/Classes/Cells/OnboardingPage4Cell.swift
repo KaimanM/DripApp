@@ -2,6 +2,8 @@ import UIKit
 
 protocol OnboardingPage4CellDelegate: class {
     func didTapPage4Button()
+    func drinkForCellAt(index: Int) -> (imageName: String, volume: Double)
+    func showDrinksForIndex(index: Int)
 }
 
 class OnboardingPage4Cell: UICollectionViewCell {
@@ -62,12 +64,6 @@ class OnboardingPage4Cell: UICollectionViewCell {
 
     let cellId = "cellId"
 
-    var selectedDrink = 0
-
-    let userDefaults = UserDefaultsController.shared // TODO : needs to be init by dependency injection
-
-    lazy var drinksLauncher = DrinksLauncher(userDefaults: userDefaults, isOnboarding: true)
-
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -88,7 +84,6 @@ class OnboardingPage4Cell: UICollectionViewCell {
         collectionView.dataSource = self
         collectionView.register(DrinksCell.self, forCellWithReuseIdentifier: cellId)
         populateStackView()
-        drinksLauncher.delegate = self
     }
 
     func populateStackView() {
@@ -166,7 +161,6 @@ class OnboardingPage4Cell: UICollectionViewCell {
     }
 
     @objc func continueButtonAction(sender: UIButton!) {
-        drinksLauncher.removeFromWindow()
         delegate?.didTapPage4Button()
     }
 
@@ -181,8 +175,7 @@ extension OnboardingPage4Cell: UICollectionViewDataSource, UICollectionViewDeleg
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedDrink = indexPath.item
-        drinksLauncher.showDrinks()
+        delegate?.showDrinksForIndex(index: indexPath.item)
     }
 
     func collectionView(_ collectionView: UICollectionView,
@@ -191,24 +184,10 @@ extension OnboardingPage4Cell: UICollectionViewDataSource, UICollectionViewDeleg
         var cell = UICollectionViewCell()
 
         if let drinkCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId,
-                                                              for: indexPath) as? DrinksCell {
-            switch indexPath.item {
-            case 0:
-                drinkCell.nameLabel.text = "\(Int(userDefaults.favDrink1Volume))ml"
-                drinkCell.imageView.image = UIImage(named: userDefaults.favDrink1ImageName)
-            case 1:
-                drinkCell.nameLabel.text = "\(Int(userDefaults.favDrink2Volume))ml"
-                drinkCell.imageView.image = UIImage(named: userDefaults.favDrink2ImageName)
-            case 2:
-                drinkCell.nameLabel.text = "\(Int(userDefaults.favDrink3Volume))ml"
-                drinkCell.imageView.image = UIImage(named: userDefaults.favDrink3ImageName)
-            case 3:
-                drinkCell.nameLabel.text = "\(Int(userDefaults.favDrink4Volume))ml"
-                drinkCell.imageView.image = UIImage(named: userDefaults.favDrink4ImageName)
-            default:
-                drinkCell.nameLabel.text = "\(Int(userDefaults.favDrink1Volume))ml"
-                drinkCell.imageView.image = UIImage(named: userDefaults.favDrink1ImageName)
-            }
+                                                              for: indexPath) as? DrinksCell,
+           let cellData = delegate?.drinkForCellAt(index: indexPath.item) {
+            drinkCell.imageView.image = UIImage(named: cellData.imageName)
+            drinkCell.nameLabel.text = "\(Int(cellData.volume))ml"
 
            cell = drinkCell
         }
@@ -229,31 +208,5 @@ extension OnboardingPage4Cell: UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.width/2, height: collectionView.bounds.height/2)
-    }
-}
-
-extension OnboardingPage4Cell: DrinksLauncherDelegate {
-    func didAddDrink(name: String, imageName: String, volume: Double) {
-        switch selectedDrink {
-        case 0:
-            userDefaults.favDrink1Name = name
-            userDefaults.favDrink1Volume = volume
-            userDefaults.favDrink1ImageName = imageName
-        case 1:
-            userDefaults.favDrink2Name = name
-            userDefaults.favDrink2Volume = volume
-            userDefaults.favDrink2ImageName = imageName
-        case 2:
-            userDefaults.favDrink3Name = name
-            userDefaults.favDrink3Volume = volume
-            userDefaults.favDrink3ImageName = imageName
-        case 3:
-            userDefaults.favDrink4Name = name
-            userDefaults.favDrink4Volume = volume
-            userDefaults.favDrink4ImageName = imageName
-        default:
-            break
-        }
-        collectionView.reloadData()
     }
 }
