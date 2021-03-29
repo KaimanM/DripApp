@@ -17,4 +17,8 @@ protocol UserDefaultsControllerProtocol: class {
     var favDrink4ImageName: String { get set }
 
     var drinkGoal: Double { get set }
+
+    var name: String { get set }
+
+    var completedOnboarding: Bool { get set }
 }

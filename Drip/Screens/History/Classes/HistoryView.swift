@@ -1,5 +1,6 @@
 import UIKit
 import FSCalendar
+// TODO : Update SPM to use scheduled release after next release. 2.6.2 does need include required fix.
 
 final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataViewProtocol {
 
@@ -80,7 +81,7 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
                                        secondColour: .dripSecondary,
                                        shadowColour: .dripShadow,
                                        lineWidth: 20,
-                                       ringImage: UIImage(named: "icon-clear-noshadow"))
+                                       ringImage: UIImage(named: "dripIcon"))
         ringView.backgroundColor = .clear
         dayLabel.font = UIFont.SFProRounded(ofSize: 24, fontWeight: .regular)
         dayLabel.textColor = .white
@@ -157,7 +158,7 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
         presenter.editToggleTapped()
     }
 
-    lazy var drinksLauncher = DrinksLauncher(userDefaults: userDefaultsController)
+    lazy var drinksLauncher = DrinksLauncher(userDefaults: userDefaultsController, isOnboarding: false)
 
     @IBAction func addMissingDrinkBtnTapped(_ sender: Any) {
         drinksLauncher.showDrinks()

@@ -20,12 +20,13 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
     @IBOutlet weak var goalLabel: UILabel!
     @IBOutlet weak var addDrinkBtn: UIButton!
     @IBOutlet weak var dottedView: UIView!
+    @IBOutlet weak var greetingLabel: UILabel!
     private var displayLink: CADisplayLink?
     private var animationStartDate: Date?
     private var startValue: Double = 0
     private var endValue: Double = 0
 
-    lazy var drinksLauncher = DrinksLauncher(userDefaults: userDefaultsController)
+    lazy var drinksLauncher = DrinksLauncher(userDefaults: userDefaultsController, isOnboarding: false)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +74,10 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
         self.title = title
     }
 
+    func updateGreetingLabel(text: String) {
+        greetingLabel.text = text
+    }
+
     func setupInfoViews() {
         remainingView.layer.cornerRadius = 10
         remainingView.backgroundColor = .clear
@@ -105,7 +110,7 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
                                             secondColour: UIColor.dripSecondary,
                                             shadowColour: UIColor.dripShadow,
                                             lineWidth: ringWidth,
-                                            ringImage: UIImage(named: "icon-clear-noshadow"))
+                                            ringImage: UIImage(named: "dripIcon"))
     }
 
     func setupGradientBars(dailyGoal: Int, morningGoal: Int, afternoonGoal: Int, eveningGoal: Int) {
@@ -150,7 +155,7 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
         thisEveningGradientBarView.setProgress(progress: CGFloat(total/goal))
     }
 
-    func setButtonTitles(remainingText: String, goalText: String) {
+    func setOverviewTitles(remainingText: String, goalText: String) {
         remainingLabel.text = remainingText
         goalLabel.text = goalText
     }
