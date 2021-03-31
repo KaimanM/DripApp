@@ -154,21 +154,32 @@ final class TrendsPresenter: TrendsPresenterProtocol {
     }
 
     func getAverageDaily(for timescale: TimeScale) -> String {
-        var total: Double = 0
-        var days: Double = 0
-        var date = Date(timeIntervalSince1970: 0)
-        let drinkArray = getDrinksForRange(for: timescale)
+//        var total: Double = 0
+//        var days: Double = 0
+//        var date = Date(timeIntervalSince1970: 0)
+//        let drinkArray = getDrinksForRange(for: timescale)
+//
+//        for drink in drinkArray {
+//            total += drink.volume
+//            if !Calendar.current.isDate(drink.timeStamp, inSameDayAs: date) {
+//                days += 1
+//                date = drink.timeStamp
+//            }
+//        }
+//
+//        guard !(total == 0 || days == 0) else { return "-- ml"}
+//        return "\(Int(total/days))ml"
 
-        for drink in drinkArray {
-            total += drink.volume
-            if !Calendar.current.isDate(drink.timeStamp, inSameDayAs: date) {
-                days += 1
-                date = drink.timeStamp
-            }
+        guard let days = view?.coreDataController.getAllDays() else { return "-- ml"}
+
+        let dayCount = Double(days.count)
+        var total: Double = 0
+        for day in days {
+            total += day.total
         }
 
-        guard !(total == 0 || days == 0) else { return "-- ml"}
-        return "\(Int(total/days))ml"
+        guard !(total == 0 || dayCount == 0) else { return "-- ml"}
+        return "\(Int(total/dayCount))ml"
     }
 
     func getBestDay(for timescale: TimeScale) -> String {

@@ -12,4 +12,5 @@ protocol CoreDataControllerProtocol: class {
     func addDrinkForDay(name: String, volume: Double, imageName: String, timeStamp: Date)
     func getDayForDate(date: Date) -> Day?
     func getDrinksForDate(date: Date) -> [Drink]
+    func getAllDays() -> [Day]
 }

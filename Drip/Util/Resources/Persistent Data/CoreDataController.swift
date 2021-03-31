@@ -37,6 +37,7 @@ class CoreDataController: CoreDataControllerProtocol {
     func saveContext () {
         if context.hasChanges {
             do {
+                print("is thread main \(Thread.isMainThread)")
                 try context.save()
             } catch {
                 let nserror = error as NSError
@@ -110,6 +111,18 @@ class CoreDataController: CoreDataControllerProtocol {
             request.predicate = predicateForDayFromDate(date: date)
 
             return try context.fetch(request).first
+        } catch {
+            fatalError("Error has occured")
+        }
+    }
+
+    func getAllDays() -> [Day] {
+        do {
+            let request = Day.fetchRequest() as NSFetchRequest<Day>
+
+//            request.predicate = predicateForDayFromDate(date: date)
+
+            return try context.fetch(request)
         } catch {
             fatalError("Error has occured")
         }

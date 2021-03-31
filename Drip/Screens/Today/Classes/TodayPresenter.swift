@@ -30,10 +30,10 @@ final class TodayPresenter: TodayPresenterProtocol {
         updateOverviewTitles()
 
         // delete this soon
-        let drinks = view?.coreDataController.getDrinksForDate(date: Date())
-        for drink in drinks! {
-            print(drink.name)
-        }
+//        let drinks = view?.coreDataController.getDrinksForDate(date: Date())
+//        for drink in drinks! {
+//            print(drink.name)
+//        }
     }
 
     func onViewWillAppear() {
