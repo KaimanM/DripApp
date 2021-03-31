@@ -20,6 +20,7 @@ extension Day {
     @NSManaged public var timeStamp: Date?
     @NSManaged public var didReachGoal: Bool
     @NSManaged public var goal: Double
+    @NSManaged public var total: Double
     @NSManaged public var drinks: NSSet?
 
 }

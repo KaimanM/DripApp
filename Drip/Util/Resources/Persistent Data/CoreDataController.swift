@@ -76,9 +76,10 @@ class CoreDataController: CoreDataControllerProtocol {
 
         if day.isEmpty {
             let day = Day(context: context)
-            day.goal = 2000
+            day.goal = UserDefaultsController.shared.drinkGoal
             day.timeStamp = timeStamp
             day.didReachGoal = false
+            day.total = volume
 
             let drink = Drink(context: context)
             drink.name = name
@@ -96,6 +97,8 @@ class CoreDataController: CoreDataControllerProtocol {
             drink.imageName = imageName
             drink.timeStamp = timeStamp
 
+            day.total += volume
+
             day.addToDrinks(drink)
         }
     }
@@ -112,6 +115,15 @@ class CoreDataController: CoreDataControllerProtocol {
         }
     }
 
+    func getDrinksForDate(date: Date) -> [Drink] {
+        if let day = getDayForDate(date: date),
+           let drinks = day.drinks?.allObjects as? [Drink] {
+            return drinks
+        } else {
+            return []
+        }
+    }
+
     func fetchEntriesForDate(date: Date) -> [Drink] {
         do {
             let request = Drink.fetchRequest() as NSFetchRequest<Drink>
@@ -125,7 +137,17 @@ class CoreDataController: CoreDataControllerProtocol {
     }
 
     func deleteEntry(entry: Drink) {
+        guard let day = entry.day else { fatalError() }
+        day.total -= entry.volume
+        day.removeFromDrinks(entry)
         context.delete(entry)
+
+        //swiftlint:disable:next empty_count
+        if day.drinks!.count == 0 {
+            print("deleting day")
+            context.delete(day)
+        }
+
         saveContext()
     }
 

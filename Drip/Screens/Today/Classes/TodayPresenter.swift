@@ -2,7 +2,17 @@ import Foundation
 
 final class TodayPresenter: TodayPresenterProtocol {
     weak private(set) var view: TodayViewProtocol?
-    var todaysTotal: Double = 0
+    var todaysTotal: Double {
+        if let today = today {
+            print("this executed")
+            return today.total
+        } else {
+            print("this executed2")
+            return 0
+        }
+    }
+
+    var today: Day?
 
     var drinkGoal: Double {
         return (view?.userDefaultsController.drinkGoal)!
@@ -13,12 +23,16 @@ final class TodayPresenter: TodayPresenterProtocol {
     }
 
     func onViewDidAppear() {
-//        updateProgressRing()
-//        updateGradientBars()
-//        updateOverviewTitles()
-        let day = view?.coreDataController.getDayForDate(date: Date())
-        let drinks = day?.drinks?.allObjects as! [Drink]
-        for drink in drinks {
+        // Sets today object as day object for todays date if exists else sets nil.
+        today = view?.coreDataController.getDayForDate(date: Date())
+
+        updateProgressRing()
+        updateGradientBars()
+        updateOverviewTitles()
+
+        // delete this soon
+        let drinks = view?.coreDataController.getDrinksForDate(date: Date())
+        for drink in drinks! {
             print(drink.name)
         }
     }
@@ -49,10 +63,6 @@ final class TodayPresenter: TodayPresenterProtocol {
     }
 
     func updateProgressRing() {
-        todaysTotal = 0
-        for drink in view?.coreDataController?.fetchEntriesForDate(date: Date()) ?? [] {
-                todaysTotal += drink.volume
-        }
         let progress = todaysTotal/drinkGoal
         view?.setRingProgress(progress: progress)
         view?.animateLabel(endValue: progress*100, animationDuration: 2)
@@ -63,16 +73,18 @@ final class TodayPresenter: TodayPresenterProtocol {
         var afternoonTotal: Double = 0
         var eveningTotal: Double = 0
 
-        for drink in view?.coreDataController.fetchEntriesForDate(date: Date()) ?? [] {
-            switch Calendar.current.component(.hour, from: drink.timeStamp) {
-            case 0...12:
-                morningTotal += drink.volume
-            case 12...18:
-                afternoonTotal += drink.volume
-            case 18...24:
-                eveningTotal += drink.volume
-            default:
-                fatalError("time out of bounds")
+        if let drinks = today?.drinks?.allObjects as? [Drink] {
+            for drink in drinks {
+                switch Calendar.current.component(.hour, from: drink.timeStamp) {
+                case 0...12:
+                    morningTotal += drink.volume
+                case 12...18:
+                    afternoonTotal += drink.volume
+                case 18...24:
+                    eveningTotal += drink.volume
+                default:
+                    fatalError("time out of bounds")
+                }
             }
         }
 
@@ -92,13 +104,18 @@ final class TodayPresenter: TodayPresenterProtocol {
     }
 
     func addDrinkTapped(drinkName: String, volume: Double, imageName: String) {
-//        todaysTotal += volume
-//        view?.coreDataController.addDrink(name: drinkName, volume: volume, imageName: imageName, timeStamp: Date())
+        view?.coreDataController.addDrinkForDay(name: drinkName,
+                                                volume: volume,
+                                                imageName: imageName,
+                                                timeStamp: Date())
 
-        view?.coreDataController.addDrinkForDay(name: drinkName, volume: volume, imageName: imageName, timeStamp: Date())
-//        updateProgressRing()
-//        updateGradientBars()
-//        updateOverviewTitles()
+        if today == nil {
+            today = view?.coreDataController.getDayForDate(date: Date())
+        }
+
+        updateProgressRing()
+        updateGradientBars()
+        updateOverviewTitles()
 
     }
 
