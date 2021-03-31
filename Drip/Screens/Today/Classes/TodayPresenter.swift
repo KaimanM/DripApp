@@ -2,12 +2,11 @@ import Foundation
 
 final class TodayPresenter: TodayPresenterProtocol {
     weak private(set) var view: TodayViewProtocol?
+    
     var todaysTotal: Double {
         if let today = today {
-            print("this executed")
             return today.total
         } else {
-            print("this executed2")
             return 0
         }
     }
