@@ -13,9 +13,14 @@ final class TodayPresenter: TodayPresenterProtocol {
     }
 
     func onViewDidAppear() {
-        updateProgressRing()
-        updateGradientBars()
-        updateOverviewTitles()
+//        updateProgressRing()
+//        updateGradientBars()
+//        updateOverviewTitles()
+        let day = view?.coreDataController.getDayForDate(date: Date())
+        let drinks = day?.drinks?.allObjects as! [Drink]
+        for drink in drinks {
+            print(drink.name)
+        }
     }
 
     func onViewWillAppear() {
@@ -87,11 +92,13 @@ final class TodayPresenter: TodayPresenterProtocol {
     }
 
     func addDrinkTapped(drinkName: String, volume: Double, imageName: String) {
-        todaysTotal += volume
-        view?.coreDataController.addDrink(name: drinkName, volume: volume, imageName: imageName, timeStamp: Date())
-        updateProgressRing()
-        updateGradientBars()
-        updateOverviewTitles()
+//        todaysTotal += volume
+//        view?.coreDataController.addDrink(name: drinkName, volume: volume, imageName: imageName, timeStamp: Date())
+
+        view?.coreDataController.addDrinkForDay(name: drinkName, volume: volume, imageName: imageName, timeStamp: Date())
+//        updateProgressRing()
+//        updateGradientBars()
+//        updateOverviewTitles()
 
     }
 

@@ -62,6 +62,56 @@ class CoreDataController: CoreDataControllerProtocol {
         allEntries.append(drink)
     }
 
+    func addDrinkForDay(name: String, volume: Double, imageName: String, timeStamp: Date) {
+        var day: [Day] = []
+        do {
+            let request = Day.fetchRequest() as NSFetchRequest<Day>
+
+            request.predicate = predicateForDayFromDate(date: timeStamp)
+
+            try day = context.fetch(request)
+        } catch {
+            fatalError("Error has occured")
+        }
+
+        if day.isEmpty {
+            let day = Day(context: context)
+            day.goal = 2000
+            day.timeStamp = timeStamp
+            day.didReachGoal = false
+
+            let drink = Drink(context: context)
+            drink.name = name
+            drink.volume = volume
+            drink.imageName = imageName
+            drink.timeStamp = timeStamp
+
+            day.addToDrinks(drink)
+        } else {
+            let day = day.first!
+
+            let drink = Drink(context: context)
+            drink.name = name
+            drink.volume = volume
+            drink.imageName = imageName
+            drink.timeStamp = timeStamp
+
+            day.addToDrinks(drink)
+        }
+    }
+
+    func getDayForDate(date: Date) -> Day? {
+        do {
+            let request = Day.fetchRequest() as NSFetchRequest<Day>
+
+            request.predicate = predicateForDayFromDate(date: date)
+
+            return try context.fetch(request).first
+        } catch {
+            fatalError("Error has occured")
+        }
+    }
+
     func fetchEntriesForDate(date: Date) -> [Drink] {
         do {
             let request = Drink.fetchRequest() as NSFetchRequest<Drink>

@@ -8,4 +8,7 @@ protocol CoreDataControllerProtocol: class {
     func addDrink(name: String, volume: Double, imageName: String, timeStamp: Date)
     func fetchEntriesForDate(date: Date) -> [Drink]
     func deleteEntry(entry: Drink)
+
+    func addDrinkForDay(name: String, volume: Double, imageName: String, timeStamp: Date)
+    func getDayForDate(date: Date) -> Day?
 }
