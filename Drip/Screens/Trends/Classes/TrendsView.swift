@@ -20,6 +20,10 @@ final class TrendsView: UIViewController, TrendsViewProtocol, PersistentDataView
         presenter.onViewDidAppear()
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        presenter.onViewWillDisappear()
+    }
+
     func presentView(_ view: UIViewController) {
         present(view, animated: true)
     }

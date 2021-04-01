@@ -40,13 +40,18 @@ final class TrendsPresenter: TrendsPresenterProtocol {
     }
 
     func onViewDidAppear() {
-        view?.coreDataController.fetchDrinks()
+//        view?.coreDataController.fetchDrinks()
+        populateArrangedDays()
         didLoadData = true
         view?.reloadData()
     }
 
     func onViewDidLoad() {
         view?.updateTitle(title: "Trends")
+    }
+
+    func onViewWillDisappear() {
+        arrangedDays = []
     }
 
     func getSectionCount() -> Int {
@@ -140,130 +145,41 @@ final class TrendsPresenter: TrendsPresenterProtocol {
     }
 
     func getAverageDrink(for timescale: TimeScale) -> String {
-        var total: Double = 0
-        var amount: Double = 0
-        let drinkArray = getDrinksForRange(for: timescale)
-
-        for drink in drinkArray {
-            total += drink.volume
-        }
-        amount = Double(drinkArray.count)
-
-        guard !(total == 0 || amount == 0) else { return "-- ml"}
-        return "\(Int(total/amount))ml"
+        guard let averageDrink = view?.coreDataController.averageDrink(from: getTimeStamp(for: timescale)),
+                averageDrink != 0 else { return "-- ml"}
+        return "\(Int(averageDrink))ml"
     }
 
     func getAverageDaily(for timescale: TimeScale) -> String {
-//        var total: Double = 0
-//        var days: Double = 0
-//        var date = Date(timeIntervalSince1970: 0)
-//        let drinkArray = getDrinksForRange(for: timescale)
-//
-//        for drink in drinkArray {
-//            total += drink.volume
-//            if !Calendar.current.isDate(drink.timeStamp, inSameDayAs: date) {
-//                days += 1
-//                date = drink.timeStamp
-//            }
-//        }
-//
-//        guard !(total == 0 || days == 0) else { return "-- ml"}
-//        return "\(Int(total/days))ml"
-
-        guard let days = view?.coreDataController.fetchDays(from: getTimeStamp(for: timescale)) else { return "-- ml"}
-
-        let dayCount = Double(days.count)
-        var total: Double = 0
-        for day in days {
-            total += day.total
-        }
-
-        guard !(total == 0 || dayCount == 0) else { return "-- ml"}
-        return "\(Int(total/dayCount))ml"
+        guard let averageDaily = view?.coreDataController.averageDaily(from: getTimeStamp(for: timescale)),
+                averageDaily != 0 else { return "-- ml"}
+        return "\(Int(averageDaily))ml"
     }
 
     func getBestDay(for timescale: TimeScale) -> String {
-//        var total: Double = 0
-//        var best: Double = 0
-//        var date = Date(timeIntervalSince1970: 0)
-//        let drinkArray = getDrinksForRange(for: timescale)
-//
-//        for drink in drinkArray {
-//            if !Calendar.current.isDate(drink.timeStamp, inSameDayAs: date) {
-//                date = drink.timeStamp
-//                total = 0
-//            }
-//            total += drink.volume
-//            if total > best { best = total }
-//        }
-//
-//        guard !(best == 0) else { return "-- ml"}
-//        return "\(Int(best))ml"
-
-        var best: Double = 0
-        guard let days = view?.coreDataController.fetchDays(from: getTimeStamp(for: timescale)) else { return "-- ml"}
-        for day in days where day.total > best {
-            best = day.total
-        }
-        guard !(best == 0) else { return "-- ml"}
-        return "\(Int(best))ml"
+        guard let bestDay = view?.coreDataController.bestDay(from: getTimeStamp(for: timescale)),
+                bestDay != 0 else { return "-- ml"}
+        return "\(Int(bestDay))ml"
     }
 
     func getWorstDay(for timescale: TimeScale) -> String {
-//        var total: Double = Double.greatestFiniteMagnitude
-//        var worst: Double = Double.greatestFiniteMagnitude
-//        var date = Date(timeIntervalSince1970: 0)
-//        let drinkArray = getDrinksForRange(for: timescale)
-//
-//        for drink in drinkArray {
-//            if !Calendar.current.isDate(drink.timeStamp, inSameDayAs: date) {
-//                date = drink.timeStamp
-//                if total < worst { worst = total }
-//                total = 0
-//            }
-//            total += drink.volume
-//        }
-//        if total < worst { worst = total }
-//
-//
-//        return "\(Int(worst))ml"
-
-        var worst: Double = Double.greatestFiniteMagnitude
-        guard let days = view?.coreDataController.fetchDays(from: getTimeStamp(for: timescale)) else { return "-- ml"}
-        for day in days where day.total < worst {
-            worst = day.total
-        }
-        guard !(worst > Double(Int.max)) else { return "-- ml"}
-        return "\(Int(worst))ml"
+        guard let worstDay = view?.coreDataController.worstDay(from: getTimeStamp(for: timescale)),
+                worstDay != 0 else { return "-- ml"}
+        return "\(Int(worstDay))ml"
     }
 
+    var arrangedDays: [Day] = []
+
+    func populateArrangedDays() {
+        guard let days = view?.coreDataController.fetchDays(from: nil) else { return }
+        arrangedDays = days.sorted(by: { $0.timeStamp! > $1.timeStamp!})
+    }
+
+
+// TODO: Best and current streaks can't be foolproof till DST fix implemented.
     func getCurrentStreak() -> String {
-//        var total: Double = 0
-//        let goal: Double = 2000
-//        var date = Date()
-//        var streak = 0
-//        let drinkArray = getDrinksForRange(for: .allTime)
-
-//        for drink in drinkArray {
-//            if Calendar.current.isDate(date, inSameDayAs: drink.timeStamp) {
-//                total += drink.volume
-//                if total >= goal {
-//                    streak += 1
-//                    total = 0
-//                    date = date.addingTimeInterval(-86400)
-//                }
-//            }
-//            // stops scanning through if more than days difference
-//            if Date.daysBetween(start: date, end: drink.timeStamp) > 1 {
-//                break
-//            }
-//        }
-
-        guard let days = view?.coreDataController.fetchDays(from: nil) else { return "-- ml"}
-
         var date = Date()
         var streak = 0
-        let arrangedDays = days.sorted(by: { $0.timeStamp! > $1.timeStamp!})
         for day in arrangedDays {
             if !Calendar.current.isDate(date, inSameDayAs: day.timeStamp!) {
                 break
@@ -278,55 +194,31 @@ final class TrendsPresenter: TrendsPresenterProtocol {
     }
 
     func getBestStreak() -> String {
-//        var total: Double = 0
-////        let goal: Double = 2000
-//        var date = Date()
-//        var streak = 0
-//        var best = 0
-//        let drinkArray = getDrinksForRange(for: .allTime)
-//
-//        // TODO: Fix this, as its buggy, possibly to do with eithe rline 253, or 259.
-//        for drink in drinkArray {
-//            if Calendar.current.isDate(date, inSameDayAs: drink.timeStamp) {
-//                total += drink.volume
-//            } else {
-//                date = drink.timeStamp
-//                streak = 0
-//                total = drink.volume
-//            }
-//            if total >= goal {
-//                streak += 1
-//                total = 0
-//                date = date.addingTimeInterval(-86400)
-//            }
-//            if streak > best { best = streak }
-//        }
-//
-//        return "\(best) day\(best == 1 ? "" : "s")"
-//
-//
-        guard let days = view?.coreDataController.fetchDays(from: nil) else { return "-- ml"}
-
         var date = Date()
         var streak = 0
         var best = 0
-        let arrangedDays = days.sorted(by: { $0.timeStamp! > $1.timeStamp!})
+
         for day in arrangedDays {
             if Date.daysBetween(start: date, end: day.timeStamp!) > 1 {
-                if streak > best { best = streak }
                 streak = 0
             }
             if day.didReachGoal {
                 streak += 1
-                date = date.addingTimeInterval(-86400)
+            } else {
+                streak = 0
             }
+            if streak > best { best = streak }
+            date = date.addingTimeInterval(-86400)
         }
         return "\(best) day\(best == 1 ? "" : "s")"
     }
 
+    // come back to this
     func getFavouriteDrink(for timescale: TimeScale) -> String {
         var drinkDictionary = [String: Int]()
-        let drinkArray = getDrinksForRange(for: timescale)
+        guard let drinkArray = view?.coreDataController.fetchDrinks(from: getTimeStamp(for: timescale)) else {
+            return "--"
+        }
 
         for drink in drinkArray {
             if let count = drinkDictionary[drink.name] {
@@ -346,41 +238,15 @@ final class TrendsPresenter: TrendsPresenterProtocol {
     }
 
     func getDailyDrinks(for timescale: TimeScale) -> String {
-        var days: Double = 0
-        var drinkCount: Double = 0
-        var date = Date(timeIntervalSince1970: 0)
-        let drinkArray = getDrinksForRange(for: timescale)
-
-        drinkCount = Double(drinkArray.count)
-        for drink in drinkArray {
-            if !Calendar.current.isDate(drink.timeStamp, inSameDayAs: date) {
-                days += 1
-                date = drink.timeStamp
-            }
-        }
-
-        guard !(days == 0 || drinkCount == 0) else { return "-- drinks"}
-        return String(format: "%.1f drinks", drinkCount/days)
+        guard let dailyDrinks = view?.coreDataController.dailyDrinks(from: getTimeStamp(for: timescale)),
+                dailyDrinks != 0 else { return "-- ml"}
+        return String(format: "%.1f drinks", dailyDrinks)
     }
 
-    func getDrinksForRange(for timeScale: TimeScale) -> [Drink] {
-        guard let coreDataController = view?.coreDataController else { return [] }
-        switch timeScale {
-        case .allTime:
-            return coreDataController.allEntries.sorted(by: { $0.timeStamp > $1.timeStamp})
-        case .last7Days:
-            return coreDataController.allEntries.filter({$0.timeStamp > lastWeekDate})
-                .sorted(by: { $0.timeStamp > $1.timeStamp})
-        case .last30Days:
-            return coreDataController.allEntries.filter({$0.timeStamp > lastMonthDate})
-                .sorted(by: { $0.timeStamp > $1.timeStamp})
-        }
-    }
-
-    func getTimeStamp(for timescale: TimeScale) -> Date {
+    func getTimeStamp(for timescale: TimeScale) -> Date? {
         switch timescale {
         case .allTime:
-            return Date.init(timeIntervalSince1970: 0)
+            return nil
         case .last7Days:
             return lastWeekDate
         case .last30Days:

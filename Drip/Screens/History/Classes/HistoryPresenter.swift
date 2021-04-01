@@ -29,6 +29,12 @@ final class HistoryPresenter: HistoryPresenterProtocol {
 
     }
 
+    func onViewWillDisappear() {
+        if let coreDataController = view?.coreDataController {
+            coreDataController.saveContext()
+        }
+    }
+
     func didSelectDate(date: Date) {
         selectedDate = date
         selectedDay = view?.coreDataController.getDayForDate(date: date)

@@ -6,6 +6,7 @@ protocol HistoryPresenterProtocol: class {
     func onViewDidLoad()
     func onViewWillAppear()
     func onViewDidAppear()
+    func onViewWillDisappear()
 
     func numberOfRowsInSection() -> Int
     //swiftlint:disable:next large_tuple

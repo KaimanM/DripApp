@@ -118,6 +118,20 @@ class CoreDataController: CoreDataControllerProtocol {
         }
     }
 
+    func fetchDrinks(from date: Date? = nil) -> [Drink] {
+        do {
+            let request = Drink.fetchRequest() as NSFetchRequest<Drink>
+
+            if let date = date {
+                request.predicate = NSPredicate(format: "timeStamp > %@", date as NSDate)
+            }
+
+            return try context.fetch(request)
+        } catch {
+            fatalError("Error has occured")
+        }
+    }
+
     func fetchDays(from date: Date? = nil) -> [Day] {
         print("""
                 Avg Drink: \(averageDrink())
@@ -180,7 +194,7 @@ class CoreDataController: CoreDataControllerProtocol {
     }
 
     // Daily drinks in trends
-    func dailyDrinks(from date: Date? = nil) -> Double { // TODO: Should return Double
+    func dailyDrinks(from date: Date? = nil) -> Double {
         var dailyDrinks: Double = 0
         let drinksRequest = Drink.fetchRequest() as NSFetchRequest<Drink>
         let daysRequest = Day.fetchRequest() as NSFetchRequest<Day>
@@ -191,6 +205,7 @@ class CoreDataController: CoreDataControllerProtocol {
         do {
             let drinksCount = try context.count(for: drinksRequest)
             let dayCount = try context.count(for: daysRequest)
+            guard drinksCount != 0, dayCount != 0 else { return 0 }
             dailyDrinks = Double(drinksCount)/Double(dayCount)
         } catch {
             fatalError("Error has occured")
@@ -263,6 +278,10 @@ class CoreDataController: CoreDataControllerProtocol {
         day.total -= entry.volume
         day.removeFromDrinks(entry)
         context.delete(entry)
+
+        if day.goal > day.total {
+            day.didReachGoal = false
+        }
 
         //swiftlint:disable:next empty_count
         if day.drinks!.count == 0 {
