@@ -119,11 +119,13 @@ class CoreDataController: CoreDataControllerProtocol {
     }
 
     func fetchDays(from date: Date? = nil) -> [Day] {
-        averageDrink()
-        averageDaily()
-        bestDay()
-        worstDay()
-        dailyDrinks()
+        print("""
+                Avg Drink: \(averageDrink())
+                Avg Daily: \(averageDaily())
+                Best Day: \(bestDay())
+                Worst Day: \(worstDay())
+                Daily Drinks: \(dailyDrinks())
+            """)
         do {
             let request = Day.fetchRequest() as NSFetchRequest<Day>
 
@@ -138,49 +140,48 @@ class CoreDataController: CoreDataControllerProtocol {
     }
 
     // Average Drink in trends
-    func averageDrink(from date: Date? = nil) {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Drink")
-        if let date = date {
-            request.predicate = NSPredicate(format: "timeStamp > %@", date as NSDate)
-        }
-        request.resultType = .dictionaryResultType
-        let expression = NSExpressionDescription()
-        expression.expression = NSExpression(forFunction: "average:",
-                                             arguments: [NSExpression(forKeyPath: "volume")])
-        expression.name = "averageDrinkVolume"
-        expression.expressionResultType = .doubleAttributeType
-
-        request.propertiesToFetch = [expression]
+    func averageDrink(from date: Date? = nil) -> Double {
+        var averageDrink: Double = 0
+        let expressionKey = "averageDrinkVolume"
+        let request = generateRequest(entityName: "Drink",
+                                      from: date,
+                                      function: "average:",
+                                      attributeKey: "volume",
+                                      expressionKey: expressionKey)
         do {
             guard let result = try context.fetch(request) as? [NSDictionary],
-                  let value = result.first?.value(forKey: "averageDrinkVolume") else { return }
-            print(value)
+                  let value = result.first?.value(forKey: expressionKey) as? Double
+            else { return 0 }
+            averageDrink = value
         } catch {
             fatalError("Error has occured")
         }
+        return averageDrink
     }
 
     // Average Daily in trends
-    func averageDaily(from date: Date? = nil) {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Day")
-        request.resultType = .dictionaryResultType
-        let expression = NSExpressionDescription()
-        expression.expression = NSExpression(forFunction: "average:",
-                                             arguments: [NSExpression(forKeyPath: "total")])
-        expression.name = "sumOfTotals"
-        expression.expressionResultType = .doubleAttributeType
-        request.propertiesToFetch = [expression]
+    func averageDaily(from date: Date? = nil) -> Double {
+        var averageDaily: Double = 0
+        let expressionKey = "sumOfTotals"
+        let request = generateRequest(entityName: "Day",
+                                      from: date,
+                                      function: "average:",
+                                      attributeKey: "total",
+                                      expressionKey: expressionKey)
         do {
             guard let result = try context.fetch(request) as? [NSDictionary],
-                  let value = result.first?.value(forKey: "sumOfTotals") else { return }
-            print(value)
+                  let value = result.first?.value(forKey: "sumOfTotals") as? Double
+            else { return 0 }
+            averageDaily = value
         } catch {
             fatalError("Error has occured")
         }
+        return averageDaily
     }
 
     // Daily drinks in trends
-    func dailyDrinks(from date: Date? = nil) { // TODO: Should return Double
+    func dailyDrinks(from date: Date? = nil) -> Double { // TODO: Should return Double
+        var dailyDrinks: Double = 0
         let drinksRequest = Drink.fetchRequest() as NSFetchRequest<Drink>
         let daysRequest = Day.fetchRequest() as NSFetchRequest<Day>
         if let date = date {
@@ -190,60 +191,51 @@ class CoreDataController: CoreDataControllerProtocol {
         do {
             let drinksCount = try context.count(for: drinksRequest)
             let dayCount = try context.count(for: daysRequest)
-            print(Double(drinksCount)/Double(dayCount))
-
+            dailyDrinks = Double(drinksCount)/Double(dayCount)
         } catch {
             fatalError("Error has occured")
         }
+        return dailyDrinks
     }
 
-    func bestDay(from date: Date? = nil) {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Day")
-        if let date = date {
-            request.predicate = NSPredicate(format: "timeStamp > %@", date as NSDate)
-        }
-        request.resultType = .dictionaryResultType
-        let expression = NSExpressionDescription()
-        expression.expression = NSExpression(forFunction: "max:",
-                                             arguments: [NSExpression(forKeyPath: "total")])
-        expression.name = "bestDayTotal"
-        expression.expressionResultType = .doubleAttributeType
+    func bestDay(from date: Date? = nil) -> Double {
+        var bestDay: Double = 0
+        let expressionKey = "bestDayTotal"
+        let request = generateRequest(entityName: "Day",
+                                      from: date,
+                                      function: "max:",
+                                      attributeKey: "total",
+                                      expressionKey: expressionKey)
 
-        request.propertiesToFetch = [expression]
         do {
             guard let test = try context.fetch(request) as? [NSDictionary],
-                  let value = test.first?.value(forKey: "bestDayTotal") else { return }
-            print(value)
+                  let value = test.first?.value(forKey: expressionKey) as? Double
+            else { return 0 }
+            bestDay = value
         } catch {
             fatalError("Error has occured")
         }
+        return bestDay
     }
 
-    func worstDay(from date: Date? = nil) {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Day")
-        if let date = date {
-            request.predicate = NSPredicate(format: "timeStamp > %@", date as NSDate)
-        }
-        request.resultType = .dictionaryResultType
-        let expression = NSExpressionDescription()
-        expression.expression = NSExpression(forFunction: "min:",
-                                             arguments: [NSExpression(forKeyPath: "total")])
-        expression.name = "worstDayTotal"
-        expression.expressionResultType = .doubleAttributeType
-
-        request.propertiesToFetch = [expression]
+    func worstDay(from date: Date? = nil) -> Double {
+        var worstDay: Double = 0
+        let expressionKey = "worstDayTotal"
+        let request = generateRequest(entityName: "Day",
+                                      from: date,
+                                      function: "min:",
+                                      attributeKey: "total",
+                                      expressionKey: expressionKey)
         do {
             guard let test = try context.fetch(request) as? [NSDictionary],
-                  let value = test.first?.value(forKey: "worstDayTotal") else { return }
-            print(value)
+                  let value = test.first?.value(forKey: expressionKey) as? Double
+            else { return 0 }
+            worstDay = value
         } catch {
             fatalError("Error has occured")
         }
+        return worstDay
     }
-
-
-
-
 
     func getDrinksForDate(date: Date) -> [Drink] {
         if let day = getDayForDate(date: date),
@@ -295,5 +287,28 @@ class CoreDataController: CoreDataControllerProtocol {
         let endDate = calendar.date(from: components)
 
         return NSPredicate(format: "timeStamp >= %@ AND timeStamp =< %@", argumentArray: [startDate!, endDate!])
+    }
+
+    func generateRequest(entityName: String,
+                         from date: Date? = nil,
+                         function: String,
+                         attributeKey: String,
+                         expressionKey: String) -> NSFetchRequest<NSFetchRequestResult> {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+
+        if let date = date {
+            request.predicate = NSPredicate(format: "timeStamp > %@", date as NSDate)
+        }
+        request.resultType = .dictionaryResultType
+
+        let expression = NSExpressionDescription()
+        expression.expression = NSExpression(forFunction: function,
+                                             arguments: [NSExpression(forKeyPath: attributeKey)])
+        expression.name = expressionKey
+        expression.expressionResultType = .doubleAttributeType
+
+        request.propertiesToFetch = [expression]
+
+        return request
     }
 }

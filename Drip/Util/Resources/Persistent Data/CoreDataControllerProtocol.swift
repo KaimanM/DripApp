@@ -13,4 +13,10 @@ protocol CoreDataControllerProtocol: class {
     func getDayForDate(date: Date) -> Day?
     func getDrinksForDate(date: Date) -> [Drink]
     func fetchDays(from date: Date?) -> [Day]
+
+    func averageDrink(from date: Date?) -> Double
+    func averageDaily(from date: Date?) -> Double
+    func dailyDrinks(from date: Date?) -> Double
+    func bestDay(from date: Date?) -> Double
+    func worstDay(from date: Date?) -> Double
 }
