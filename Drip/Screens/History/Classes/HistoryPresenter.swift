@@ -125,7 +125,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
                                                 imageName: imageName,
                                                 timeStamp: selectedDate)
         if selectedDay == nil {
-            selectedDay = view?.coreDataController.getDayForDate(date: Date())
+            selectedDay = view?.coreDataController.getDayForDate(date: selectedDate)
         }
         populateDrinks()
         view?.refreshUI()

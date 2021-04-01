@@ -81,6 +81,7 @@ class CoreDataController: CoreDataControllerProtocol {
             day.timeStamp = timeStamp
             day.didReachGoal = false
             day.total = volume
+            if day.total >= day.goal { day.didReachGoal = true }
 
             let drink = Drink(context: context)
             drink.name = name
@@ -99,6 +100,7 @@ class CoreDataController: CoreDataControllerProtocol {
             drink.timeStamp = timeStamp
 
             day.total += volume
+            if day.total >= day.goal { day.didReachGoal = true}
 
             day.addToDrinks(drink)
         }
@@ -116,11 +118,13 @@ class CoreDataController: CoreDataControllerProtocol {
         }
     }
 
-    func getAllDays() -> [Day] {
+    func fetchDays(from date: Date? = nil) -> [Day] {
         do {
             let request = Day.fetchRequest() as NSFetchRequest<Day>
 
-//            request.predicate = predicateForDayFromDate(date: date)
+            if let date = date {
+                request.predicate = NSPredicate(format: "timeStamp > %@", date as NSDate)
+            }
 
             return try context.fetch(request)
         } catch {
