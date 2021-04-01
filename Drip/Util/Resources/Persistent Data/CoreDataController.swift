@@ -119,6 +119,11 @@ class CoreDataController: CoreDataControllerProtocol {
     }
 
     func fetchDays(from date: Date? = nil) -> [Day] {
+        averageDrink()
+        averageDaily()
+        bestDay()
+        worstDay()
+        dailyDrinks()
         do {
             let request = Day.fetchRequest() as NSFetchRequest<Day>
 
@@ -131,6 +136,114 @@ class CoreDataController: CoreDataControllerProtocol {
             fatalError("Error has occured")
         }
     }
+
+    // Average Drink in trends
+    func averageDrink(from date: Date? = nil) {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Drink")
+        if let date = date {
+            request.predicate = NSPredicate(format: "timeStamp > %@", date as NSDate)
+        }
+        request.resultType = .dictionaryResultType
+        let expression = NSExpressionDescription()
+        expression.expression = NSExpression(forFunction: "average:",
+                                             arguments: [NSExpression(forKeyPath: "volume")])
+        expression.name = "averageDrinkVolume"
+        expression.expressionResultType = .doubleAttributeType
+
+        request.propertiesToFetch = [expression]
+        do {
+            guard let result = try context.fetch(request) as? [NSDictionary],
+                  let value = result.first?.value(forKey: "averageDrinkVolume") else { return }
+            print(value)
+        } catch {
+            fatalError("Error has occured")
+        }
+    }
+
+    // Average Daily in trends
+    func averageDaily(from date: Date? = nil) {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Day")
+        request.resultType = .dictionaryResultType
+        let expression = NSExpressionDescription()
+        expression.expression = NSExpression(forFunction: "average:",
+                                             arguments: [NSExpression(forKeyPath: "total")])
+        expression.name = "sumOfTotals"
+        expression.expressionResultType = .doubleAttributeType
+        request.propertiesToFetch = [expression]
+        do {
+            guard let result = try context.fetch(request) as? [NSDictionary],
+                  let value = result.first?.value(forKey: "sumOfTotals") else { return }
+            print(value)
+        } catch {
+            fatalError("Error has occured")
+        }
+    }
+
+    // Daily drinks in trends
+    func dailyDrinks(from date: Date? = nil) { // TODO: Should return Double
+        let drinksRequest = Drink.fetchRequest() as NSFetchRequest<Drink>
+        let daysRequest = Day.fetchRequest() as NSFetchRequest<Day>
+        if let date = date {
+            drinksRequest.predicate = NSPredicate(format: "timeStamp > %@", date as NSDate)
+            daysRequest.predicate = NSPredicate(format: "timeStamp > %@", date as NSDate)
+        }
+        do {
+            let drinksCount = try context.count(for: drinksRequest)
+            let dayCount = try context.count(for: daysRequest)
+            print(Double(drinksCount)/Double(dayCount))
+
+        } catch {
+            fatalError("Error has occured")
+        }
+    }
+
+    func bestDay(from date: Date? = nil) {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Day")
+        if let date = date {
+            request.predicate = NSPredicate(format: "timeStamp > %@", date as NSDate)
+        }
+        request.resultType = .dictionaryResultType
+        let expression = NSExpressionDescription()
+        expression.expression = NSExpression(forFunction: "max:",
+                                             arguments: [NSExpression(forKeyPath: "total")])
+        expression.name = "bestDayTotal"
+        expression.expressionResultType = .doubleAttributeType
+
+        request.propertiesToFetch = [expression]
+        do {
+            guard let test = try context.fetch(request) as? [NSDictionary],
+                  let value = test.first?.value(forKey: "bestDayTotal") else { return }
+            print(value)
+        } catch {
+            fatalError("Error has occured")
+        }
+    }
+
+    func worstDay(from date: Date? = nil) {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Day")
+        if let date = date {
+            request.predicate = NSPredicate(format: "timeStamp > %@", date as NSDate)
+        }
+        request.resultType = .dictionaryResultType
+        let expression = NSExpressionDescription()
+        expression.expression = NSExpression(forFunction: "min:",
+                                             arguments: [NSExpression(forKeyPath: "total")])
+        expression.name = "worstDayTotal"
+        expression.expressionResultType = .doubleAttributeType
+
+        request.propertiesToFetch = [expression]
+        do {
+            guard let test = try context.fetch(request) as? [NSDictionary],
+                  let value = test.first?.value(forKey: "worstDayTotal") else { return }
+            print(value)
+        } catch {
+            fatalError("Error has occured")
+        }
+    }
+
+
+
+
 
     func getDrinksForDate(date: Date) -> [Drink] {
         if let day = getDayForDate(date: date),
