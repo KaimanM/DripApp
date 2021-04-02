@@ -23,7 +23,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     func onViewWillAppear() {}
 
     func onViewDidAppear() {
-        view?.coreDataController.fetchDrinks()
+//        view?.coreDataController.fetchDrinks()
 
         didSelectDate(date: selectedDate)
 

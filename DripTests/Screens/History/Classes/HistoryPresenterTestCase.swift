@@ -70,7 +70,7 @@ class HistoryPresenterTestCase: XCTestCase {
     }
 
     func flushCoreData() {
-        for entry in coreDataController.allEntries {
+        for entry in coreDataController.fetchDrinks(from: nil) {
             coreDataController.deleteEntry(entry: entry)
         }
     }
@@ -111,30 +111,23 @@ class HistoryPresenterTestCase: XCTestCase {
 
     // MARK: - onViewDidAppear -
 
-    func test_given0DrinksInCoreData_whenOnViewDidAppearCalled_thenFetchesDrinks() {
+    func test_given0DrinksInCoreData_whenOnViewDidAppearCalled_thenPopulatesDrinksAndUpdatesRingView() {
         // given & when
         sut.onViewDidAppear()
 
         // then
-        XCTAssertEqual(coreDataController.allEntries.count, 0)
-    }
-
-    func test_given1DrinkInCoreData_whenOnViewDidAppearCalled_thenFetchesDrinks() {
-        // given
-        coreDataController.addDrink(name: "test", volume: 250, imageName: "test", timeStamp: Date())
-
-        // when
-        sut.onViewDidAppear()
-
-        // then
-        XCTAssertEqual(coreDataController.allEntries.count, 1)
+        XCTAssertEqual(sut.selectedDayDrinks.count, 0)
+        XCTAssertEqual(mockedView.didUpdateRingView?.progress, 0/2000)
+        XCTAssertTrue(Calendar.current.isDate(mockedView.didUpdateRingView!.date, inSameDayAs: Date()))
+        XCTAssertEqual(mockedView.didUpdateRingView?.total, 0)
+        XCTAssertEqual(mockedView.didUpdateRingView?.goal, 2000)
     }
 
     func test_whenOnViewDidAppearCalled_thenPopulatesDrinksAndUpdatesRingView() {
         // given & when
-        coreDataController.addDrink(name: "testDrink", volume: 250, imageName: "testImage", timeStamp: Date())
-        coreDataController.addDrink(name: "testDrink", volume: 500, imageName: "testImage", timeStamp: Date())
-        coreDataController.addDrink(name: "testDrink", volume: 1000, imageName: "testImage", timeStamp: Date())
+        coreDataController.addDrinkForDay(name: "testDrink", volume: 250, imageName: "testImage", timeStamp: Date())
+        coreDataController.addDrinkForDay(name: "testDrink", volume: 500, imageName: "testImage", timeStamp: Date())
+        coreDataController.addDrinkForDay(name: "testDrink", volume: 1000, imageName: "testImage", timeStamp: Date())
         sut.onViewDidAppear()
 
         // then
@@ -195,7 +188,9 @@ class HistoryPresenterTestCase: XCTestCase {
 
     func test_givenSingleDrinkOf250_whenCellForDateCalled_thenReturnsCorrectProgressForRingView() {
         // given
-        coreDataController.addDrink(name: "testDrink", volume: 250, imageName: "testImage", timeStamp: Date())
+//        coreDataController.addDrinkForDay(name: "testDrink", volume: 250, imageName: "testImage", timeStamp: Date())
+        sut.selectedDate = Date()
+        sut.addDrinkTapped(drinkName: "test", volume: 250, imageName: "testImageName")
 
         // then
         XCTAssertEqual(sut.cellForDate(date: Date()), 250/2000)
@@ -209,10 +204,10 @@ class HistoryPresenterTestCase: XCTestCase {
 
     func test_given3ItemsInCoreData_numberOfRowsInSectionReturnsCorrectValue() {
         // given
-        coreDataController.addDrink(name: "testDrink", volume: 250, imageName: "testImage", timeStamp: Date())
-        coreDataController.addDrink(name: "testDrink", volume: 250, imageName: "testImage", timeStamp: Date())
-        coreDataController.addDrink(name: "testDrink", volume: 250, imageName: "testImage", timeStamp: Date())
-        sut.populateDrinks()
+        sut.selectedDate = Date()
+        sut.addDrinkTapped(drinkName: "test", volume: 250, imageName: "testImageName")
+        sut.addDrinkTapped(drinkName: "test", volume: 250, imageName: "testImageName")
+        sut.addDrinkTapped(drinkName: "test", volume: 250, imageName: "testImageName")
 
         // then
         XCTAssertEqual(sut.numberOfRowsInSection(), 3)
@@ -225,9 +220,8 @@ class HistoryPresenterTestCase: XCTestCase {
 
         dateComponents.hour = 20
         dateComponents.minute = 15
-        coreDataController.addDrink(name: "test", volume: 250, imageName: "testImageName",
-                                    timeStamp: Calendar.current.date(from: dateComponents)!)
-        sut.populateDrinks()
+        sut.selectedDate = Calendar.current.date(from: dateComponents)!
+        sut.addDrinkTapped(drinkName: "test", volume: 250, imageName: "testImageName")
 
         // when
         let testCell = sut.cellForRowAt(row: 0)

@@ -1,11 +1,12 @@
 import CoreData
 class CoreDataController: CoreDataControllerProtocol {
-
-    var allEntries: [Drink] = []
-
     // MARK: - Core Data stack
 
     static var shared = CoreDataController()
+
+    var isRunningTests: Bool {
+        return ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+    }
 
     lazy var persistentContainer: NSPersistentContainer = {
         /*
@@ -15,13 +16,18 @@ class CoreDataController: CoreDataControllerProtocol {
          error conditions that could cause the creation of the store to fail.
         */
         let container = NSPersistentContainer(name: "Drip")
-        var isRunningTests: Bool {
-            return ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
-        }
-        if isRunningTests {
-            print("IS RUNNING TESTS")
-            container.persistentStoreDescriptions.first?.type = NSInMemoryStoreType
-        }
+
+        // The below if statement is commented out as running core data in memory causes
+        // crashes when using NSExpressions. It is a long standing bug. More info here:
+        // https://openradar.appspot.com/12021880
+        // https://openradar.appspot.com/16644607
+        // Instead we flush and use SQLite core data for the simulator.
+
+//        if isRunningTests {
+//            print("IS RUNNING TESTS")
+//            container.persistentStoreDescriptions.first?.type = NSInMemoryStoreType
+//        }
+
         container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
@@ -46,23 +52,6 @@ class CoreDataController: CoreDataControllerProtocol {
         }
     }
 
-    func fetchDrinks() {
-        do {
-            allEntries = try context.fetch(Drink.fetchRequest())
-        } catch {
-            fatalError("Error has occured")
-        }
-    }
-
-    func addDrink(name: String, volume: Double, imageName: String, timeStamp: Date) {
-        let drink = Drink(context: context)
-        drink.name = name
-        drink.volume = volume
-        drink.imageName = imageName
-        drink.timeStamp = timeStamp
-        allEntries.append(drink)
-    }
-
     func addDrinkForDay(name: String, volume: Double, imageName: String, timeStamp: Date) {
         var day: [Day] = []
         do {
@@ -77,7 +66,7 @@ class CoreDataController: CoreDataControllerProtocol {
 
         if day.isEmpty {
             let day = Day(context: context)
-            day.goal = UserDefaultsController.shared.drinkGoal
+            day.goal = isRunningTests ? 2000 : UserDefaultsController.shared.drinkGoal
             day.timeStamp = timeStamp
             day.didReachGoal = false
             day.total = volume
