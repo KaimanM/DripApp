@@ -175,8 +175,6 @@ final class TrendsPresenter: TrendsPresenterProtocol {
         arrangedDays = days.sorted(by: { $0.timeStamp! > $1.timeStamp!})
     }
 
-
-// TODO: Best and current streaks can't be foolproof till DST fix implemented.
     func getCurrentStreak() -> String {
         var date = Date()
         var streak = 0
@@ -186,7 +184,7 @@ final class TrendsPresenter: TrendsPresenterProtocol {
             }
             if day.didReachGoal {
                 streak += 1
-                date = date.addingTimeInterval(-86400)
+                date = date.dayBefore
             }
         }
 
@@ -199,8 +197,9 @@ final class TrendsPresenter: TrendsPresenterProtocol {
         var best = 0
 
         for day in arrangedDays {
-            if Date.daysBetween(start: date, end: day.timeStamp!) > 1 {
+            if !Calendar.current.isDate(date, inSameDayAs: day.timeStamp!) {
                 streak = 0
+                date = day.timeStamp!
             }
             if day.didReachGoal {
                 streak += 1
@@ -208,7 +207,7 @@ final class TrendsPresenter: TrendsPresenterProtocol {
                 streak = 0
             }
             if streak > best { best = streak }
-            date = date.addingTimeInterval(-86400)
+            date = date.dayBefore
         }
         return "\(best) day\(best == 1 ? "" : "s")"
     }

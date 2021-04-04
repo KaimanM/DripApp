@@ -103,12 +103,15 @@ class TodayPresenterTestCase: XCTestCase {
 
     override func setUp() {
         super.setUp()
+        flushCoreData()
         mockedView.userDefaultsController = mockedUserDefaultsController
         sut = TodayPresenter(view: mockedView)
     }
 
-    override func tearDown() {
-        super.tearDown()
+    func flushCoreData() {
+        for entry in coreDataController.fetchDrinks(from: nil) {
+            coreDataController.deleteEntry(entry: entry)
+        }
     }
 
     // MARK: - onViewDidLoad -
