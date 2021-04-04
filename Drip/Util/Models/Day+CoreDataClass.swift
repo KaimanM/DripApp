@@ -1,5 +1,5 @@
 //
-//  Drink+CoreDataClass.swift
+//  Day+CoreDataClass.swift
 //  Drip
 //
 //  Created by Kaiman Mehmet on 31/03/2021.
@@ -10,7 +10,8 @@
 import Foundation
 import CoreData
 
-@objc(Drink)
-public class Drink: NSManagedObject {
+@objc(Day)
+//swiftlint:disable:next type_name
+public class Day: NSManagedObject {
 
 }

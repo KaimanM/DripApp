@@ -71,6 +71,7 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
 
     override func viewWillDisappear(_ animated: Bool) {
         drinksLauncher.removeFromWindow()
+        presenter.onViewWillDisappear()
     }
 
     func setupInfoPanel() {

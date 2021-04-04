@@ -3,6 +3,7 @@ protocol TrendsPresenterProtocol: class {
 
     func onViewDidAppear()
     func onViewDidLoad()
+    func onViewWillDisappear()
 
     func getSectionCount() -> Int
     func getSectionHeader(for index: Int) -> String

@@ -5,11 +5,8 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     weak private(set) var view: HistoryViewProtocol?
     var selectedDayDrinks: [Drink] = []
     var selectedDate = Date()
+    var selectedDay: Day?
     var editingMode = false
-
-    var goal: Double {
-        return (view?.userDefaultsController.drinkGoal)!
-    }
 
     init(view: HistoryViewProtocol) {
         self.view = view
@@ -26,28 +23,42 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     func onViewWillAppear() {}
 
     func onViewDidAppear() {
-        view?.coreDataController.fetchDrinks()
+//        view?.coreDataController.fetchDrinks()
 
         didSelectDate(date: selectedDate)
+
+    }
+
+    func onViewWillDisappear() {
+        if let coreDataController = view?.coreDataController {
+            coreDataController.saveContext()
+        }
     }
 
     func didSelectDate(date: Date) {
         selectedDate = date
+        selectedDay = view?.coreDataController.getDayForDate(date: date)
         populateDrinks()
     }
 
     func populateDrinks() {
         selectedDayDrinks = []
         var total: Double = 0
-//        let goal: Double = 2000
+        var goal2: Double = (view?.userDefaultsController.drinkGoal)!
 
-        for drink in view?.coreDataController?.fetchEntriesForDate(date: selectedDate)
-            .sorted(by: { $0.timeStamp < $1.timeStamp}) ?? [] {
-                total += drink.volume
-                selectedDayDrinks.append(drink)
+        if let selectedDay = selectedDay {
+            total = selectedDay.total
+            goal2 = selectedDay.goal
         }
 
-        view?.updateRingView(progress: CGFloat(total/goal), date: selectedDate, total: total, goal: goal)
+        if let drinks = (selectedDay?.drinks?.allObjects as? [Drink])?
+            .sorted(by: { $0.timeStamp < $1.timeStamp}) {
+            for drink in drinks {
+                selectedDayDrinks.append(drink)
+            }
+        }
+
+        view?.updateRingView(progress: CGFloat(total/goal2), date: selectedDate, total: total, goal: goal2)
     }
 
     func editToggleTapped() {
@@ -66,17 +77,21 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     }
 
     func cellForDate(date: Date) -> Double {
-        var total: Double = 0
-//        let goal: Double = 2000
-
-        for drink in view?.coreDataController?.fetchEntriesForDate(date: date) ?? [] {
-                total += drink.volume
+        var progress: Double = 0
+        // can be quite expensive
+        if let selectedDay = view?.coreDataController.getDayForDate(date: date) {
+            progress = selectedDay.total/selectedDay.goal
         }
-        return total/goal
+
+        return progress
     }
 
     func numberOfRowsInSection() -> Int {
-        return selectedDayDrinks.count
+        if let selectedDayDrinks = selectedDay?.drinks {
+            return selectedDayDrinks.count
+        } else {
+            return 0
+        }
     }
 
     //swiftlint:disable:next large_tuple
@@ -100,6 +115,7 @@ final class HistoryPresenter: HistoryPresenterProtocol {
 
         confirmDeleteAlert.addAction(UIAlertAction(title: "Delete", style: .default, handler: {_ in
             self.view?.coreDataController.deleteEntry(entry: self.selectedDayDrinks[row])
+            self.selectedDay = self.view?.coreDataController.getDayForDate(date: self.selectedDate)
             self.populateDrinks()
             self.view?.refreshUI()
         }))
@@ -110,10 +126,13 @@ final class HistoryPresenter: HistoryPresenterProtocol {
     }
 
     func addDrinkTapped(drinkName: String, volume: Double, imageName: String) {
-        view?.coreDataController.addDrink(name: drinkName,
-                                          volume: volume,
-                                          imageName: imageName,
-                                          timeStamp: selectedDate)
+        view?.coreDataController.addDrinkForDay(name: drinkName,
+                                                volume: volume,
+                                                imageName: imageName,
+                                                timeStamp: selectedDate)
+        if selectedDay == nil {
+            selectedDay = view?.coreDataController.getDayForDate(date: selectedDate)
+        }
         populateDrinks()
         view?.refreshUI()
     }

@@ -108,14 +108,7 @@ class TodayPresenterTestCase: XCTestCase {
     }
 
     override func tearDown() {
-        flushCoreData()
         super.tearDown()
-    }
-
-    func flushCoreData() {
-        for entry in coreDataController.allEntries {
-            coreDataController.deleteEntry(entry: entry)
-        }
     }
 
     // MARK: - onViewDidLoad -
@@ -174,15 +167,15 @@ class TodayPresenterTestCase: XCTestCase {
 
         dateComponents.hour = 9
         var timeStamp = Calendar.current.date(from: dateComponents)!
-        coreDataController.addDrink(name: "testDrink", volume: 250, imageName: "testImage", timeStamp: timeStamp)
+        coreDataController.addDrinkForDay(name: "testDrink", volume: 250, imageName: "testImage", timeStamp: timeStamp)
 
         dateComponents.hour = 15
         timeStamp = Calendar.current.date(from: dateComponents)!
-        coreDataController.addDrink(name: "testDrink", volume: 500, imageName: "testImage", timeStamp: timeStamp)
+        coreDataController.addDrinkForDay(name: "testDrink", volume: 500, imageName: "testImage", timeStamp: timeStamp)
 
         dateComponents.hour = 20
         timeStamp = Calendar.current.date(from: dateComponents)!
-        coreDataController.addDrink(name: "testDrink", volume: 1000, imageName: "testImage", timeStamp: timeStamp)
+        coreDataController.addDrinkForDay(name: "testDrink", volume: 1000, imageName: "testImage", timeStamp: timeStamp)
         sut.onViewDidAppear()
 
         // then
