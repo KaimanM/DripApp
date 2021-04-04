@@ -43,7 +43,6 @@ class CoreDataController: CoreDataControllerProtocol {
     func saveContext () {
         if context.hasChanges {
             do {
-                print("is thread main \(Thread.isMainThread)")
                 try context.save()
             } catch {
                 let nserror = error as NSError
@@ -122,13 +121,6 @@ class CoreDataController: CoreDataControllerProtocol {
     }
 
     func fetchDays(from date: Date? = nil) -> [Day] {
-        print("""
-                Avg Drink: \(averageDrink())
-                Avg Daily: \(averageDaily())
-                Best Day: \(bestDay())
-                Worst Day: \(worstDay())
-                Daily Drinks: \(dailyDrinks())
-            """)
         do {
             let request = Day.fetchRequest() as NSFetchRequest<Day>
 
