@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ConfettiView
+import SwiftConfettiView
 
 final class AwardsDetailView: UIViewController {
 
@@ -35,14 +35,14 @@ final class AwardsDetailView: UIViewController {
         return label
     }()
 
-    let confettiView = ConfettiView()
-
     var dataSource: AwardsDetailDataSourceProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
         self.navigationItem.largeTitleDisplayMode = .never
+
+        let confettiView = SwiftConfettiView(frame: self.view.bounds)
 
         let subViews = [imageView, awardNameLabel, awardBodyLabel, confettiView]
         subViews.forEach({ view.addSubview($0) })
@@ -62,13 +62,12 @@ final class AwardsDetailView: UIViewController {
                               trailing: view.trailingAnchor,
                               padding: .init(top: 5, left: 20, bottom: 0, right: 20))
 
-        confettiView.fillSuperViewSafely()
+        confettiView.intensity = 1
+        confettiView.startConfetti()
 
-        confettiView.emit(with: [
-            .shape(.circle, .dripPrimary),
-            .shape(.triangle, .dripSecondary)
-        ],
-        for: 2.0)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            confettiView.stopConfetti()
+        }
 
         populateData()
     }
