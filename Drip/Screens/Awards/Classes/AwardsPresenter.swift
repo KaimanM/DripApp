@@ -1,9 +1,10 @@
 final class AwardsPresenter: AwardsPresenterProtocol {
     weak private(set) var view: AwardsViewProtocol?
 
-    let awards: [AwardsDetailDataSourceProtocol] = [TenDrinksAwardDataSource(), FiftyDrinksAwardDataSource(), HundredDrinksAwardDataSource(),
-    FiveHundredDrinksAwardDataSource(), SevenDayBestAwardDataSource(), TwentyEightStreakAwardDataSource(),
-    NinetyDayStreakAwardDataSource(), YearStreakAwardDataSource()]
+    let awards: [AwardsDetailDataSourceProtocol] =
+        [TenDrinksAwardDataSource(), FiftyDrinksAwardDataSource(), HundredDrinksAwardDataSource(),
+         FiveHundredDrinksAwardDataSource(), SevenDayBestAwardDataSource(), TwentyEightStreakAwardDataSource(),
+         NinetyDayStreakAwardDataSource(), YearStreakAwardDataSource()]
 
     init(view: AwardsViewProtocol) {
         self.view = view

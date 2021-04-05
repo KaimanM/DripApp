@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ConfettiView
 
 final class AwardsDetailView: UIViewController {
 
@@ -34,6 +35,8 @@ final class AwardsDetailView: UIViewController {
         return label
     }()
 
+    let confettiView = ConfettiView()
+
     var dataSource: AwardsDetailDataSourceProtocol?
 
     override func viewDidLoad() {
@@ -41,7 +44,7 @@ final class AwardsDetailView: UIViewController {
         view.backgroundColor = .black
         self.navigationItem.largeTitleDisplayMode = .never
 
-        let subViews = [imageView, awardNameLabel, awardBodyLabel]
+        let subViews = [imageView, awardNameLabel, awardBodyLabel, confettiView]
         subViews.forEach({ view.addSubview($0) })
 
         imageView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
@@ -58,6 +61,14 @@ final class AwardsDetailView: UIViewController {
                               leading: view.leadingAnchor,
                               trailing: view.trailingAnchor,
                               padding: .init(top: 5, left: 20, bottom: 0, right: 20))
+
+        confettiView.fillSuperViewSafely()
+
+        confettiView.emit(with: [
+            .shape(.circle, .dripPrimary),
+            .shape(.triangle, .dripSecondary)
+        ],
+        for: 2.0)
 
         populateData()
     }

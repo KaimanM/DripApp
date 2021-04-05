@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "ConfettiView",
+        "repositoryURL": "https://github.com/NSHipster/ConfettiView.git",
+        "state": {
+          "branch": null,
+          "revision": "fa2994301c6747ec70fe86b25559f57c9d3ff178",
+          "version": "0.3.0"
+        }
+      },
+      {
         "package": "FSCalendar",
         "repositoryURL": "https://github.com/WenchaoD/FSCalendar",
         "state": {

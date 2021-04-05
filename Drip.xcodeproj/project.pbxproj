@@ -101,6 +101,7 @@
 		36A0A934261B592B00F1BE8B /* TwentyEightStreakAwardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A0A933261B592B00F1BE8B /* TwentyEightStreakAwardDataSource.swift */; };
 		36A0A937261B59B900F1BE8B /* NinetyDayStreakAwardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A0A936261B59B900F1BE8B /* NinetyDayStreakAwardDataSource.swift */; };
 		36A0A93A261B5A3000F1BE8B /* YearStreakAwardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A0A939261B5A3000F1BE8B /* YearStreakAwardDataSource.swift */; };
+		36A0A93E261B5F8B00F1BE8B /* ConfettiView in Frameworks */ = {isa = PBXBuildFile; productRef = 36A0A93D261B5F8B00F1BE8B /* ConfettiView */; };
 		36B6F46825DD78FA004A7EA5 /* DrinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B6F46725DD78FA004A7EA5 /* DrinkTableViewCell.swift */; };
 		36BBB73126149DA10005D63E /* Drink+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BBB72D26149DA10005D63E /* Drink+CoreDataClass.swift */; };
 		36BBB73226149DA10005D63E /* Drink+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BBB72E26149DA10005D63E /* Drink+CoreDataProperties.swift */; };
@@ -244,6 +245,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3644F1E026101FAD0012FF09 /* FSCalendar in Frameworks */,
+				36A0A93E261B5F8B00F1BE8B /* ConfettiView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -682,6 +684,7 @@
 			name = Drip;
 			packageProductDependencies = (
 				3644F1DF26101FAD0012FF09 /* FSCalendar */,
+				36A0A93D261B5F8B00F1BE8B /* ConfettiView */,
 			);
 			productName = Drip;
 			productReference = 0ACB981E24546717007BF01D /* Drip.app */;
@@ -735,6 +738,7 @@
 			mainGroup = 0ACB981524546717007BF01D;
 			packageReferences = (
 				3644F1DE26101FAD0012FF09 /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				36A0A93C261B5F8B00F1BE8B /* XCRemoteSwiftPackageReference "ConfettiView" */,
 			);
 			productRefGroup = 0ACB981F24546717007BF01D /* Products */;
 			projectDirPath = "";
@@ -1160,6 +1164,14 @@
 				revision = c4a443ac79bd62e483093aa3916aaa7347f1645e;
 			};
 		};
+		36A0A93C261B5F8B00F1BE8B /* XCRemoteSwiftPackageReference "ConfettiView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/NSHipster/ConfettiView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1167,6 +1179,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3644F1DE26101FAD0012FF09 /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
+		};
+		36A0A93D261B5F8B00F1BE8B /* ConfettiView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 36A0A93C261B5F8B00F1BE8B /* XCRemoteSwiftPackageReference "ConfettiView" */;
+			productName = ConfettiView;
 		};
 /* End XCSwiftPackageProductDependency section */
 
