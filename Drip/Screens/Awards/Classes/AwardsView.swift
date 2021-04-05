@@ -38,6 +38,10 @@ final class AwardsView: UIViewController, AwardsViewProtocol, PersistentDataView
         show(view, sender: self)
     }
 
+    func pushView(_ view: UIViewController) {
+        self.navigationController!.pushViewController(view, animated: true)
+    }
+
     func updateTitle(title: String) {
         self.title = title
     }
@@ -47,8 +51,7 @@ final class AwardsView: UIViewController, AwardsViewProtocol, PersistentDataView
 extension AwardsView: UICollectionViewDelegate, UICollectionViewDataSource,
                                UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let count = 12
-        return count
+        return presenter.numberOfItemsInSection()
     }
 
     func collectionView(_ collectionView: UICollectionView,
@@ -56,8 +59,9 @@ extension AwardsView: UICollectionViewDelegate, UICollectionViewDataSource,
         var cell = UICollectionViewCell()
         if let awardsCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId,
                                                               for: indexPath) as? DrinksCell {
-            awardsCell.nameLabel.text = "???"
-            awardsCell.imageView.image = UIImage(named: "locked.svg")
+            let cellData = presenter.cellForRowAt(index: indexPath.item)
+            awardsCell.nameLabel.text = cellData.title
+            awardsCell.imageView.image = UIImage(named: cellData.imageName)
             awardsCell.imageContainerView.backgroundColor = .clear
             awardsCell.backgroundColor = .black
             cell = awardsCell
@@ -83,10 +87,7 @@ extension AwardsView: UICollectionViewDelegate, UICollectionViewDataSource,
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let view = AwardsDetailView()
-        view.dataSource = YearStreakAwardDataSource()
-//        view.modalPresentationStyle = .fullScreen
-        self.navigationController!.pushViewController(view, animated: true)
+        presenter.didSelectItemAt(index: indexPath.item)
     }
 
 }
