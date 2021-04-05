@@ -90,6 +90,8 @@
 		36877C1F25F9068B00918E04 /* TrendsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36877C1E25F9068B00918E04 /* TrendsCollectionViewCell.swift */; };
 		36877C2225F917E300918E04 /* TrendsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36877C2125F917E300918E04 /* TrendsHeaderView.swift */; };
 		368BAE2A25DC7A4F00D799F2 /* CustomFSCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368BAE2925DC7A4F00D799F2 /* CustomFSCell.swift */; };
+		36A0A912261B46CE00F1BE8B /* AwardsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A0A911261B46CE00F1BE8B /* AwardsDetailView.swift */; };
+		36A0A916261B4E7400F1BE8B /* LockedAwardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A0A915261B4E7400F1BE8B /* LockedAwardDataSource.swift */; };
 		36B6F46825DD78FA004A7EA5 /* DrinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B6F46725DD78FA004A7EA5 /* DrinkTableViewCell.swift */; };
 		36BBB73126149DA10005D63E /* Drink+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BBB72D26149DA10005D63E /* Drink+CoreDataClass.swift */; };
 		36BBB73226149DA10005D63E /* Drink+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BBB72E26149DA10005D63E /* Drink+CoreDataProperties.swift */; };
@@ -208,6 +210,8 @@
 		36877C1E25F9068B00918E04 /* TrendsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsCollectionViewCell.swift; sourceTree = "<group>"; };
 		36877C2125F917E300918E04 /* TrendsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsHeaderView.swift; sourceTree = "<group>"; };
 		368BAE2925DC7A4F00D799F2 /* CustomFSCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFSCell.swift; sourceTree = "<group>"; };
+		36A0A911261B46CE00F1BE8B /* AwardsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsDetailView.swift; sourceTree = "<group>"; };
+		36A0A915261B4E7400F1BE8B /* LockedAwardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockedAwardDataSource.swift; sourceTree = "<group>"; };
 		36B6F46725DD78FA004A7EA5 /* DrinkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkTableViewCell.swift; sourceTree = "<group>"; };
 		36BBB72D26149DA10005D63E /* Drink+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Drink+CoreDataClass.swift"; sourceTree = "<group>"; };
 		36BBB72E26149DA10005D63E /* Drink+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Drink+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -273,6 +277,7 @@
 				0A8BEA7D2455D24A00AA9880 /* AwardsView.swift */,
 				0A8BEA7E2455D24A00AA9880 /* AwardsPresenter.swift */,
 				0A8BEA7F2455D24A00AA9880 /* AwardsViewProtocol.swift */,
+				36A0A910261B46A000F1BE8B /* AwardsDetailView */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -613,6 +618,15 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
+		36A0A910261B46A000F1BE8B /* AwardsDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				36A0A911261B46CE00F1BE8B /* AwardsDetailView.swift */,
+				36A0A915261B4E7400F1BE8B /* LockedAwardDataSource.swift */,
+			);
+			path = AwardsDetailView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -751,6 +765,7 @@
 				0A8BEA902455D45A00AA9880 /* AboutView.swift in Sources */,
 				0ACB9846245467BC007BF01D /* UIViewController+ViewControllerName.swift in Sources */,
 				0A2B8B732454D8C700D9E8E7 /* TodayPresenterProtocol.swift in Sources */,
+				36A0A912261B46CE00F1BE8B /* AwardsDetailView.swift in Sources */,
 				3680E0CF24B3C8CC009E9DB8 /* GradientBarView.swift in Sources */,
 				3677D436260630B20086E89A /* DrinksLauncher.swift in Sources */,
 				0A8BEA912455D45A00AA9880 /* AboutPresenter.swift in Sources */,
@@ -765,6 +780,7 @@
 				0ACB982224546717007BF01D /* AppDelegate.swift in Sources */,
 				0AD1511B2454EFF600F45042 /* TrendsPresenter.swift in Sources */,
 				0A2B8B712454D8B500D9E8E7 /* TodayViewProtocol.swift in Sources */,
+				36A0A916261B4E7400F1BE8B /* LockedAwardDataSource.swift in Sources */,
 				36BBB73126149DA10005D63E /* Drink+CoreDataClass.swift in Sources */,
 				0A2B8B6D2454D87000D9E8E7 /* TodayScreenBuilder.swift in Sources */,
 				36B6F46825DD78FA004A7EA5 /* DrinkTableViewCell.swift in Sources */,

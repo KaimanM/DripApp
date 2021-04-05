@@ -82,4 +82,11 @@ extension AwardsView: UICollectionViewDelegate, UICollectionViewDataSource,
                       height: collectionView.bounds.width/2)
     }
 
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let view = AwardsDetailView()
+        view.dataSource = LockedAwardDataSource()
+//        view.modalPresentationStyle = .fullScreen
+        self.navigationController!.pushViewController(view, animated: true)
+    }
+
 }
