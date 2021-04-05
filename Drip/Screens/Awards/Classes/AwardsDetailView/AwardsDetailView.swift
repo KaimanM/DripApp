@@ -6,13 +6,6 @@
 //  Copyright © 2021 Kaiman Mehmet. All rights reserved.
 //
 
-
-protocol AwardsDetailDataSourceProtocol {
-    var imageName: String { get }
-    var awardName: String { get }
-    var awardBody: String { get }
-}
-
 import UIKit
 
 final class AwardsDetailView: UIViewController {

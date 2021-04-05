@@ -84,7 +84,7 @@ extension AwardsView: UICollectionViewDelegate, UICollectionViewDataSource,
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let view = AwardsDetailView()
-        view.dataSource = LockedAwardDataSource()
+        view.dataSource = YearStreakAwardDataSource()
 //        view.modalPresentationStyle = .fullScreen
         self.navigationController!.pushViewController(view, animated: true)
     }
