@@ -60,13 +60,9 @@ class HistoryPresenterTestCase: XCTestCase {
 
     override func setUp() {
         super.setUp()
+        flushCoreData()
         mockedView.userDefaultsController = mockedUserDefaultsController
         sut = HistoryPresenter(view: mockedView)
-    }
-
-    override func tearDown() {
-        flushCoreData()
-        super.tearDown()
     }
 
     func flushCoreData() {

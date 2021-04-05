@@ -16,4 +16,9 @@ extension Date {
         let aaa = calendar.dateComponents([.day], from: date1, to: date2)
         return abs(aaa.value(for: .day)!)
     }
+
+    var dayBefore: Date {
+        return Calendar.current.date(byAdding: .day, value: -1, to: self)!
+    }
+
 }

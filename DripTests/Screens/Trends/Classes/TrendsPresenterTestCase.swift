@@ -38,12 +38,8 @@ class TrendsPresenterTestCase: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        sut = TrendsPresenter(view: mockedView)
-    }
-
-    override func tearDown() {
         flushCoreData()
-        super.tearDown()
+        sut = TrendsPresenter(view: mockedView)
     }
 
     func flushCoreData() {
