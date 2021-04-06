@@ -311,6 +311,15 @@ class CoreDataController: CoreDataControllerProtocol {
         saveContext()
     }
 
+    func fetchDrinkCount() -> Int {
+        let fetchRequest = Drink.fetchRequest() as NSFetchRequest<Drink>
+        do {
+            return try context.count(for: fetchRequest)
+        } catch {
+            return 0
+        }
+    }
+
     // Used to generate a predicate filter for a range of all day on a selected date
     private func predicateForDayFromDate(date: Date) -> NSPredicate {
         let calendar = Calendar(identifier: Calendar.Identifier.gregorian)

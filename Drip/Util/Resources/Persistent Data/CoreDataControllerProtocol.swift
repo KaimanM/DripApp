@@ -20,4 +20,5 @@ protocol CoreDataControllerProtocol: class {
 
     func fetchUnlockedAwards() -> [Award]
     func unlockAwardWithId(id: Int)
+    func fetchDrinkCount() -> Int
 }
