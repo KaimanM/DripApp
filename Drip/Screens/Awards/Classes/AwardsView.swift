@@ -24,10 +24,16 @@ final class AwardsView: UIViewController, AwardsViewProtocol, PersistentDataView
         collectionView.register(DrinksCell.self, forCellWithReuseIdentifier: cellId)
         view.addSubview(collectionView)
         collectionView.fillSuperView()
+        let awards = coreDataController.fetchUnlockedAwards()
+        for award in awards {
+            print("award id unlocked: \(award.id)")
+            print("unlocked at \(award.timeStamp)")
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         presenter.onViewDidAppear()
+        coreDataController.unlockAwardWithId(id: 25)
     }
 
     func presentView(_ view: UIViewController) {

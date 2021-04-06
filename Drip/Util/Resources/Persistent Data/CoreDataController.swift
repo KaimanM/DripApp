@@ -94,6 +94,44 @@ class CoreDataController: CoreDataControllerProtocol {
         }
     }
 
+    func fetchUnlockedAwards() -> [Award] {
+        var unlockedAwards: [Award] = []
+        do {
+            let request = Award.fetchRequest() as NSFetchRequest<Award>
+            try unlockedAwards = context.fetch(request)
+        } catch {
+            fatalError("Error has occured")
+        }
+
+        if unlockedAwards.isEmpty {
+            print("no awards unlocked")
+            return []
+        } else {
+            return unlockedAwards
+        }
+    }
+
+    func unlockAwardWithId(id: Int) {
+        var isAwardUnlocked = false
+        do {
+            let request = Award.fetchRequest() as NSFetchRequest<Award>
+            request.predicate = NSPredicate(format: "id == %@", id as NSNumber)
+            let award = try context.fetch(request).first
+            if award != nil {
+                isAwardUnlocked = true
+                print("award is already unlocked")
+            }
+        } catch {
+            fatalError("Error has occured")
+        }
+
+        if !isAwardUnlocked {
+            let award = Award(context: context)
+            award.id = Int64(id)
+            award.timeStamp = Date()
+        }
+    }
+
     func getDayForDate(date: Date) -> Day? {
         do {
             let request = Day.fetchRequest() as NSFetchRequest<Day>

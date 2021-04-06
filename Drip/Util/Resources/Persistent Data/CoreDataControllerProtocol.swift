@@ -17,4 +17,7 @@ protocol CoreDataControllerProtocol: class {
     func dailyDrinks(from date: Date?) -> Double
     func bestDay(from date: Date?) -> Double
     func worstDay(from date: Date?) -> Double
+
+    func fetchUnlockedAwards() -> [Award]
+    func unlockAwardWithId(id: Int)
 }
