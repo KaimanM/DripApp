@@ -1,7 +1,7 @@
 struct TwentyEightStreakAwardDataSource: AwardsDetailDataSourceProtocol {
     var id = 5
     var imageName: String = "28dayBest.svg"
-    var awardName: String = "It's a Habit!"
+    var awardName: String = "It's a habit!"
     var awardBody: String =
     """
     This award was unlocked by achieving a 28 day streak.
