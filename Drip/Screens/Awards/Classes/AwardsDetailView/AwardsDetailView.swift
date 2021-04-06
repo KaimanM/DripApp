@@ -35,7 +35,17 @@ final class AwardsDetailView: UIViewController {
         return label
     }()
 
+    let timeStampLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .darkGray
+        label.textAlignment = .right
+        return label
+    }()
+
     var dataSource: AwardsDetailDataSourceProtocol?
+
+    var timeStamp: Date?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +54,7 @@ final class AwardsDetailView: UIViewController {
 
         let confettiView = SwiftConfettiView(frame: self.view.bounds)
 
-        let subViews = [imageView, awardNameLabel, awardBodyLabel, confettiView]
+        let subViews = [imageView, awardNameLabel, awardBodyLabel, timeStampLabel, confettiView]
         subViews.forEach({ view.addSubview($0) })
 
         imageView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
@@ -61,12 +71,22 @@ final class AwardsDetailView: UIViewController {
                               leading: view.leadingAnchor,
                               trailing: view.trailingAnchor,
                               padding: .init(top: 5, left: 20, bottom: 0, right: 20))
+        timeStampLabel.anchor(top: awardBodyLabel.bottomAnchor,
+                              leading: view.leadingAnchor,
+                              trailing: view.trailingAnchor,
+                              padding: .init(top: 5, left: 20, bottom: 0, right: 20))
 
-        confettiView.intensity = 1
-        confettiView.startConfetti()
+        if let timeStamp = timeStamp {
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            timeStampLabel.text = "Unlocked on \(formatter.string(from: timeStamp))"
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            confettiView.stopConfetti()
+            confettiView.intensity = 1
+            confettiView.startConfetti()
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                confettiView.stopConfetti()
+            }
         }
 
         populateData()

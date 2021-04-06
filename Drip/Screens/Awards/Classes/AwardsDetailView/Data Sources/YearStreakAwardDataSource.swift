@@ -1,4 +1,5 @@
 struct YearStreakAwardDataSource: AwardsDetailDataSourceProtocol {
+    var id = 7
     var imageName: String = "365dayBest.svg"
     var awardName: String = "A WHOLE YEAR!"
     var awardBody: String =

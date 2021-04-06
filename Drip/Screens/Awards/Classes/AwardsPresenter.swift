@@ -6,12 +6,20 @@ final class AwardsPresenter: AwardsPresenterProtocol {
          FiveHundredDrinksAwardDataSource(), SevenDayBestAwardDataSource(), TwentyEightStreakAwardDataSource(),
          NinetyDayStreakAwardDataSource(), YearStreakAwardDataSource()]
 
+    var unlockedAwards: [Award] = []
+
     init(view: AwardsViewProtocol) {
         self.view = view
     }
 
     func onViewDidAppear() {
         print("Awards Presenter onViewDidAppear firing correctly")
+        view?.coreDataController.unlockAwardWithId(id: 0)
+        unlockedAwards = view?.coreDataController.fetchUnlockedAwards() ?? []
+        print(unlockedAwards)
+
+        print(unlockedAwards.map({$0.id}).contains(2))
+        view?.reloadData()
     }
 
     func onViewDidLoad() {
@@ -20,12 +28,24 @@ final class AwardsPresenter: AwardsPresenterProtocol {
     }
 
     func cellForRowAt(index: Int) -> (title: String, imageName: String) {
-        return (awards[index].awardName, awards[index].imageName)
+        if unlockedAwards.map({$0.id}).contains(Int64(awards[index].id)) {
+            return (awards[index].awardName, awards[index].imageName)
+        } else {
+            return ("???", "locked.svg")
+        }
     }
 
     func didSelectItemAt(index: Int) {
         let detailView = AwardsDetailView()
-        detailView.dataSource = awards[index]
+
+        if unlockedAwards.map({$0.id}).contains(Int64(awards[index].id)) {
+            detailView.dataSource = awards[index]
+            let timeStamp = unlockedAwards.first(where: { $0.id == index})?.timeStamp
+            detailView.timeStamp = timeStamp
+        } else {
+            detailView.dataSource = LockedAwardDataSource()
+        }
+
         view?.pushView(detailView)
     }
 
