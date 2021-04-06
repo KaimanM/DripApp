@@ -6,7 +6,9 @@ final class AwardsPresenter: AwardsPresenterProtocol {
     let awards: [AwardsDetailDataSourceProtocol] =
         [TenDrinksAwardDataSource(), FiftyDrinksAwardDataSource(), HundredDrinksAwardDataSource(),
          FiveHundredDrinksAwardDataSource(), SevenDayBestAwardDataSource(), TwentyEightStreakAwardDataSource(),
-         NinetyDayStreakAwardDataSource(), YearStreakAwardDataSource()]
+         NinetyDayStreakAwardDataSource(), YearStreakAwardDataSource(), ThreeUniqueDrinksAwardDataSource(),
+         FiveUniqueDrinksAwardDataSource(), SevenUniqueDrinksAwardDataSource(), LitreDrinkAwardDataSource(),
+         FiftymlDrinkAwardDataSource(), MissingDrinkAwardDataSource()]
 
     var unlockedAwards: [Award] = []
 
@@ -14,11 +16,6 @@ final class AwardsPresenter: AwardsPresenterProtocol {
 
     init(view: AwardsViewProtocol) {
         self.view = view
-    }
-
-    func populateArrangedDays() {
-        guard let days = view?.coreDataController.fetchDays(from: nil) else { return }
-        arrangedDays = days.sorted(by: { $0.timeStamp! > $1.timeStamp!})
     }
 
     func drinkCountAwardChecker() {
@@ -35,6 +32,11 @@ final class AwardsPresenter: AwardsPresenterProtocol {
             awardsToUnlock = [0]
         }
         awardsToUnlock.forEach({ view?.coreDataController.unlockAwardWithId(id: $0) })
+    }
+
+    func populateArrangedDays() {
+        guard let days = view?.coreDataController.fetchDays(from: nil) else { return }
+        arrangedDays = days.sorted(by: { $0.timeStamp! > $1.timeStamp!})
     }
 
     func bestStreakAwardChecker() {
@@ -69,16 +71,53 @@ final class AwardsPresenter: AwardsPresenterProtocol {
         awardsToUnlock.forEach({ view?.coreDataController.unlockAwardWithId(id: $0) })
     }
 
+    func uniqueDrinksAwardChecker() {
+        var drinkDictionary = [String: Int]()
+        guard let drinkArray = view?.coreDataController.fetchDrinks(from: nil) else { return }
+
+        for drink in drinkArray {
+            if let count = drinkDictionary[drink.name] {
+                drinkDictionary[drink.name] = count + 1
+            } else {
+                drinkDictionary[drink.name] = 1
+            }
+        }
+
+        let uniqueDrinks = drinkDictionary.keys.count
+
+        var awardsToUnlock: [Int] = []
+        if uniqueDrinks >= 7 {
+            awardsToUnlock = [8, 9, 10]
+        } else if uniqueDrinks >= 5 {
+            awardsToUnlock = [8, 9]
+        } else if uniqueDrinks >= 3 {
+            awardsToUnlock = [8]
+        }
+        awardsToUnlock.forEach({ view?.coreDataController.unlockAwardWithId(id: $0) })
+    }
+
     func onViewDidAppear() {
         fetchUnlockedAwards()
     }
 
     func fetchUnlockedAwards() {
-        populateArrangedDays()
-        drinkCountAwardChecker()
-        bestStreakAwardChecker()
         unlockedAwards = view?.coreDataController.fetchUnlockedAwards() ?? []
+        let unlockedAwardIds = unlockedAwards.map({ $0.id })
+        print(unlockedAwardIds)
+        if !unlockedAwardIds.contains(7) {
+            populateArrangedDays()
+            bestStreakAwardChecker()
+        }
 
+        if !unlockedAwardIds.contains(3) {
+            drinkCountAwardChecker()
+        }
+
+        if !unlockedAwardIds.contains(10) {
+            uniqueDrinksAwardChecker()
+        }
+
+        unlockedAwards = view?.coreDataController.fetchUnlockedAwards() ?? []
         view?.reloadData()
     }
 

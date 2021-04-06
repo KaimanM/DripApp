@@ -92,6 +92,12 @@ class CoreDataController: CoreDataControllerProtocol {
 
             day.addToDrinks(drink)
         }
+
+        if volume == 1000 {
+            unlockAwardWithId(id: 11)
+        } else if volume == 50 {
+            unlockAwardWithId(id: 12)
+        }
     }
 
     func fetchUnlockedAwards() -> [Award] {

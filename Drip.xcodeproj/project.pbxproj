@@ -108,6 +108,12 @@
 		36A0A937261B59B900F1BE8B /* NinetyDayStreakAwardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A0A936261B59B900F1BE8B /* NinetyDayStreakAwardDataSource.swift */; };
 		36A0A93A261B5A3000F1BE8B /* YearStreakAwardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A0A939261B5A3000F1BE8B /* YearStreakAwardDataSource.swift */; };
 		36A0A945261B6C3E00F1BE8B /* SwiftConfettiView in Frameworks */ = {isa = PBXBuildFile; productRef = 36A0A944261B6C3E00F1BE8B /* SwiftConfettiView */; };
+		36A37EEF261CC98100BB7C15 /* ThreeUniqueDrinksAwardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A37EEE261CC98100BB7C15 /* ThreeUniqueDrinksAwardDataSource.swift */; };
+		36A37EF2261CCA0F00BB7C15 /* FiveUniqueDrinksAwardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A37EF1261CCA0F00BB7C15 /* FiveUniqueDrinksAwardDataSource.swift */; };
+		36A37EF5261CCA8600BB7C15 /* SevenUniqueDrinksAwardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A37EF4261CCA8600BB7C15 /* SevenUniqueDrinksAwardDataSource.swift */; };
+		36A37EF8261CCC2300BB7C15 /* LitreDrinkAwardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A37EF7261CCC2300BB7C15 /* LitreDrinkAwardDataSource.swift */; };
+		36A37EFB261CCC7000BB7C15 /* FiftymlDrinkAwardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A37EFA261CCC7000BB7C15 /* FiftymlDrinkAwardDataSource.swift */; };
+		36A37EFE261CCCC600BB7C15 /* MissingDrinkAwardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A37EFD261CCCC600BB7C15 /* MissingDrinkAwardDataSource.swift */; };
 		36B6F46825DD78FA004A7EA5 /* DrinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B6F46725DD78FA004A7EA5 /* DrinkTableViewCell.swift */; };
 		36BFF50F25D17653003456F3 /* RoundDrinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BFF50E25D17653003456F3 /* RoundDrinkButton.swift */; };
 /* End PBXBuildFile section */
@@ -239,6 +245,12 @@
 		36A0A933261B592B00F1BE8B /* TwentyEightStreakAwardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwentyEightStreakAwardDataSource.swift; sourceTree = "<group>"; };
 		36A0A936261B59B900F1BE8B /* NinetyDayStreakAwardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NinetyDayStreakAwardDataSource.swift; sourceTree = "<group>"; };
 		36A0A939261B5A3000F1BE8B /* YearStreakAwardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearStreakAwardDataSource.swift; sourceTree = "<group>"; };
+		36A37EEE261CC98100BB7C15 /* ThreeUniqueDrinksAwardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeUniqueDrinksAwardDataSource.swift; sourceTree = "<group>"; };
+		36A37EF1261CCA0F00BB7C15 /* FiveUniqueDrinksAwardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveUniqueDrinksAwardDataSource.swift; sourceTree = "<group>"; };
+		36A37EF4261CCA8600BB7C15 /* SevenUniqueDrinksAwardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SevenUniqueDrinksAwardDataSource.swift; sourceTree = "<group>"; };
+		36A37EF7261CCC2300BB7C15 /* LitreDrinkAwardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LitreDrinkAwardDataSource.swift; sourceTree = "<group>"; };
+		36A37EFA261CCC7000BB7C15 /* FiftymlDrinkAwardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiftymlDrinkAwardDataSource.swift; sourceTree = "<group>"; };
+		36A37EFD261CCCC600BB7C15 /* MissingDrinkAwardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingDrinkAwardDataSource.swift; sourceTree = "<group>"; };
 		36B6F46725DD78FA004A7EA5 /* DrinkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkTableViewCell.swift; sourceTree = "<group>"; };
 		36BFF50E25D17653003456F3 /* RoundDrinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundDrinkButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -666,6 +678,12 @@
 				36A0A933261B592B00F1BE8B /* TwentyEightStreakAwardDataSource.swift */,
 				36A0A936261B59B900F1BE8B /* NinetyDayStreakAwardDataSource.swift */,
 				36A0A939261B5A3000F1BE8B /* YearStreakAwardDataSource.swift */,
+				36A37EEE261CC98100BB7C15 /* ThreeUniqueDrinksAwardDataSource.swift */,
+				36A37EF1261CCA0F00BB7C15 /* FiveUniqueDrinksAwardDataSource.swift */,
+				36A37EF4261CCA8600BB7C15 /* SevenUniqueDrinksAwardDataSource.swift */,
+				36A37EF7261CCC2300BB7C15 /* LitreDrinkAwardDataSource.swift */,
+				36A37EFA261CCC7000BB7C15 /* FiftymlDrinkAwardDataSource.swift */,
+				36A37EFD261CCCC600BB7C15 /* MissingDrinkAwardDataSource.swift */,
 			);
 			path = "Data Sources";
 			sourceTree = "<group>";
@@ -817,6 +835,7 @@
 				0ACB984E24546887007BF01D /* HistoryScreenBuilder.swift in Sources */,
 				0ACB986924549DF5007BF01D /* TabBarView.swift in Sources */,
 				0ACB986024549DBC007BF01D /* TabBarScreenBuilder.swift in Sources */,
+				36A37EFE261CCCC600BB7C15 /* MissingDrinkAwardDataSource.swift in Sources */,
 				36538D16260CDBD400CFB656 /* OnboardingPagesPresenterProtocol.swift in Sources */,
 				3644EA34261BB85E00E257CC /* Award+CoreDataClass.swift in Sources */,
 				0A8BEA852455D24A00AA9880 /* AwardsViewProtocol.swift in Sources */,
@@ -843,18 +862,22 @@
 				36BFF50F25D17653003456F3 /* RoundDrinkButton.swift in Sources */,
 				0ACB986B24549DFE007BF01D /* TabBarPresenter.swift in Sources */,
 				0ACB986524549DE2007BF01D /* TabBarViewProtocol.swift in Sources */,
+				36A37EF8261CCC2300BB7C15 /* LitreDrinkAwardDataSource.swift in Sources */,
 				3644493F25FFC54D006E1B0F /* Date+Extensions.swift in Sources */,
 				0AD151172454EFE300F45042 /* TrendsPresenterProtocol.swift in Sources */,
 				0A44B3962457631C0023433A /* ProgressRingView.swift in Sources */,
 				36A0A92A261B578A00F1BE8B /* FiveHundredDrinksAwardDataSource.swift in Sources */,
+				36A37EF5261CCA8600BB7C15 /* SevenUniqueDrinksAwardDataSource.swift in Sources */,
 				36538D04260CB0D300CFB656 /* UserDefaultsControllerProtocol.swift in Sources */,
 				362A52A125EFA59800B6AA8D /* CoreDataControllerProtocol.swift in Sources */,
+				36A37EF2261CCA0F00BB7C15 /* FiveUniqueDrinksAwardDataSource.swift in Sources */,
 				0ACB986D2454AEEB007BF01D /* DarkTabBarController.swift in Sources */,
 				0AD151122454EFB400F45042 /* TrendsScreenBuilder.swift in Sources */,
 				0ACB986724549DED007BF01D /* TabBarPresenterProtocol.swift in Sources */,
 				36538D13260CDBC700CFB656 /* OnboardingPagesViewProtocol.swift in Sources */,
 				3655D96E2610DCF7002B95EE /* OnboardingPage4Cell.swift in Sources */,
 				36538D1C260CDBE200CFB656 /* OnboardingPagesPresenter.swift in Sources */,
+				36A37EFB261CCC7000BB7C15 /* FiftymlDrinkAwardDataSource.swift in Sources */,
 				36538D19260CDBDC00CFB656 /* OnboardingPagesView.swift in Sources */,
 				3677D439260630E10086E89A /* DrinksCell.swift in Sources */,
 				3655D96B2610B6AB002B95EE /* OnboardingPage3Cell.swift in Sources */,
@@ -872,6 +895,7 @@
 				36877C2225F917E300918E04 /* TrendsHeaderView.swift in Sources */,
 				0ACB9855245468E7007BF01D /* HistoryView.swift in Sources */,
 				0ACB984A245467F5007BF01D /* ScreenBuilder.swift in Sources */,
+				36A37EEF261CC98100BB7C15 /* ThreeUniqueDrinksAwardDataSource.swift in Sources */,
 				3644EA38261BB85E00E257CC /* Day+CoreDataClass.swift in Sources */,
 				0A8BEA842455D24A00AA9880 /* AwardsPresenter.swift in Sources */,
 				3680E0CD24B3BF50009E9DB8 /* UIColor+Extensions.swift in Sources */,

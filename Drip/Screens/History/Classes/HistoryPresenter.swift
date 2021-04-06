@@ -135,5 +135,6 @@ final class HistoryPresenter: HistoryPresenterProtocol {
         }
         populateDrinks()
         view?.refreshUI()
+        view?.coreDataController.unlockAwardWithId(id: 13)
     }
 }
