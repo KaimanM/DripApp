@@ -128,7 +128,7 @@ final class AwardsPresenter: AwardsPresenterProtocol {
         if unlockedAwards.map({$0.id}).contains(Int64(awards[index].id)) {
             return (awards[index].awardName, awards[index].imageName)
         } else {
-            return ("???", "locked.pdf")
+            return ("???", "isLocked.pdf")
         }
     }
 

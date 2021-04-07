@@ -7,7 +7,7 @@ final class AwardsDetailView: UIViewController, AwardsDetailViewProtocol {
 
     let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "locked.pdf")
+        imageView.image = UIImage(named: "isLocked.pdf")
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()

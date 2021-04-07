@@ -349,7 +349,7 @@ class AwardsPresenterTestCase: XCTestCase {
 
         // then
         XCTAssertEqual(data.title, "???")
-        XCTAssertEqual(data.imageName, "locked.pdf")
+        XCTAssertEqual(data.imageName, "isLocked.pdf")
 
     }
 
