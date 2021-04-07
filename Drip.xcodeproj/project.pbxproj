@@ -81,6 +81,10 @@
 		36538D1C260CDBE200CFB656 /* OnboardingPagesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36538D1B260CDBE200CFB656 /* OnboardingPagesPresenter.swift */; };
 		3655D96B2610B6AB002B95EE /* OnboardingPage3Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3655D96A2610B6AB002B95EE /* OnboardingPage3Cell.swift */; };
 		3655D96E2610DCF7002B95EE /* OnboardingPage4Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3655D96D2610DCF7002B95EE /* OnboardingPage4Cell.swift */; };
+		3665E6B4261DF8C600DB6971 /* AwardsDetailScreenBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3665E6B3261DF8C600DB6971 /* AwardsDetailScreenBuilder.swift */; };
+		3665E6B8261DF92C00DB6971 /* AwardsDetailPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3665E6B7261DF92C00DB6971 /* AwardsDetailPresenterProtocol.swift */; };
+		3665E6BB261DF93700DB6971 /* AwardsDetailViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3665E6BA261DF93700DB6971 /* AwardsDetailViewProtocol.swift */; };
+		3665E6BE261DF94000DB6971 /* AwardsDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3665E6BD261DF94000DB6971 /* AwardsDetailPresenter.swift */; };
 		366DFC30260B8945009BEAC5 /* UserDefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366DFC2F260B8945009BEAC5 /* UserDefaultsController.swift */; };
 		3675583A260D15F40099C61A /* OnboardingPage1Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36755839260D15F40099C61A /* OnboardingPage1Cell.swift */; };
 		3677D436260630B20086E89A /* DrinksLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3677D435260630B20086E89A /* DrinksLauncher.swift */; };
@@ -117,6 +121,8 @@
 		36A37EFE261CCCC600BB7C15 /* MissingDrinkAwardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A37EFD261CCCC600BB7C15 /* MissingDrinkAwardDataSource.swift */; };
 		36B6F46825DD78FA004A7EA5 /* DrinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B6F46725DD78FA004A7EA5 /* DrinkTableViewCell.swift */; };
 		36BFF50F25D17653003456F3 /* RoundDrinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BFF50E25D17653003456F3 /* RoundDrinkButton.swift */; };
+		36C1F6EA261E005300224846 /* AwardsDetailScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1F6E9261E005300224846 /* AwardsDetailScreenBuilderTestCase.swift */; };
+		36C1F6EF261E007A00224846 /* AwardsDetailPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1F6EE261E007A00224846 /* AwardsDetailPresenterTestCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -220,6 +226,10 @@
 		36538D1B260CDBE200CFB656 /* OnboardingPagesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPagesPresenter.swift; sourceTree = "<group>"; };
 		3655D96A2610B6AB002B95EE /* OnboardingPage3Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage3Cell.swift; sourceTree = "<group>"; };
 		3655D96D2610DCF7002B95EE /* OnboardingPage4Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage4Cell.swift; sourceTree = "<group>"; };
+		3665E6B3261DF8C600DB6971 /* AwardsDetailScreenBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsDetailScreenBuilder.swift; sourceTree = "<group>"; };
+		3665E6B7261DF92C00DB6971 /* AwardsDetailPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsDetailPresenterProtocol.swift; sourceTree = "<group>"; };
+		3665E6BA261DF93700DB6971 /* AwardsDetailViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsDetailViewProtocol.swift; sourceTree = "<group>"; };
+		3665E6BD261DF94000DB6971 /* AwardsDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsDetailPresenter.swift; sourceTree = "<group>"; };
 		366DFC2F260B8945009BEAC5 /* UserDefaultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsController.swift; sourceTree = "<group>"; };
 		36755839260D15F40099C61A /* OnboardingPage1Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage1Cell.swift; sourceTree = "<group>"; };
 		3677D435260630B20086E89A /* DrinksLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinksLauncher.swift; sourceTree = "<group>"; };
@@ -255,6 +265,8 @@
 		36A37EFD261CCCC600BB7C15 /* MissingDrinkAwardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingDrinkAwardDataSource.swift; sourceTree = "<group>"; };
 		36B6F46725DD78FA004A7EA5 /* DrinkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkTableViewCell.swift; sourceTree = "<group>"; };
 		36BFF50E25D17653003456F3 /* RoundDrinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundDrinkButton.swift; sourceTree = "<group>"; };
+		36C1F6E9261E005300224846 /* AwardsDetailScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsDetailScreenBuilderTestCase.swift; sourceTree = "<group>"; };
+		36C1F6EE261E007A00224846 /* AwardsDetailPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsDetailPresenterTestCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -314,7 +326,6 @@
 				0A8BEA7D2455D24A00AA9880 /* AwardsView.swift */,
 				0A8BEA7E2455D24A00AA9880 /* AwardsPresenter.swift */,
 				0A8BEA7F2455D24A00AA9880 /* AwardsViewProtocol.swift */,
-				36A0A910261B46A000F1BE8B /* AwardsDetailView */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -375,6 +386,7 @@
 			isa = PBXGroup;
 			children = (
 				364A9279256BE8EA00F84985 /* Screens */,
+				36C1F6F2261E03F600224846 /* Resources */,
 				0ACB983A24546719007BF01D /* Info.plist */,
 			);
 			path = DripTests;
@@ -410,6 +422,7 @@
 				0ACB984C24546879007BF01D /* History */,
 				0A2B8B6A2454D69D00D9E8E7 /* Today */,
 				0A8BEA962455D50C00AA9880 /* Awards */,
+				36A0A910261B46A000F1BE8B /* AwardsDetailView */,
 				0A8BEA982455D53A00AA9880 /* About */,
 			);
 			path = Screens;
@@ -587,7 +600,7 @@
 				360CAA0025F69F8600C7676A /* History */,
 				364A927A256BE8FF00F84985 /* Today */,
 				36905773261DE243001FE2C6 /* Awards */,
-				36406024261208D000C00117 /* MockUserDefaultsController.swift */,
+				36C1F6E8261E003700224846 /* AwardsDetail */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -626,6 +639,17 @@
 				36538D18260CDBDC00CFB656 /* OnboardingPagesView.swift */,
 				36538D1B260CDBE200CFB656 /* OnboardingPagesPresenter.swift */,
 				367AC78C260DEB4E00AAE2FF /* Cells */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		3665E6B6261DF90D00DB6971 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				36A0A911261B46CE00F1BE8B /* AwardsDetailView.swift */,
+				3665E6BA261DF93700DB6971 /* AwardsDetailViewProtocol.swift */,
+				3665E6BD261DF94000DB6971 /* AwardsDetailPresenter.swift */,
+				3665E6B7261DF92C00DB6971 /* AwardsDetailPresenterProtocol.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -678,7 +702,8 @@
 		36A0A910261B46A000F1BE8B /* AwardsDetailView */ = {
 			isa = PBXGroup;
 			children = (
-				36A0A911261B46CE00F1BE8B /* AwardsDetailView.swift */,
+				3665E6B3261DF8C600DB6971 /* AwardsDetailScreenBuilder.swift */,
+				3665E6B6261DF90D00DB6971 /* Classes */,
 				36A0A924261B56DB00F1BE8B /* Data Sources */,
 			);
 			path = AwardsDetailView;
@@ -705,6 +730,31 @@
 				36A37EFD261CCCC600BB7C15 /* MissingDrinkAwardDataSource.swift */,
 			);
 			path = "Data Sources";
+			sourceTree = "<group>";
+		};
+		36C1F6E8261E003700224846 /* AwardsDetail */ = {
+			isa = PBXGroup;
+			children = (
+				36C1F6E9261E005300224846 /* AwardsDetailScreenBuilderTestCase.swift */,
+				36C1F6ED261E006A00224846 /* Classes */,
+			);
+			path = AwardsDetail;
+			sourceTree = "<group>";
+		};
+		36C1F6ED261E006A00224846 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				36C1F6EE261E007A00224846 /* AwardsDetailPresenterTestCase.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		36C1F6F2261E03F600224846 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				36406024261208D000C00117 /* MockUserDefaultsController.swift */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -861,6 +911,7 @@
 				36A0A91D261B557F00F1BE8B /* TenDrinksAwardDataSource.swift in Sources */,
 				3644EA37261BB85E00E257CC /* Drink+CoreDataProperties.swift in Sources */,
 				3677D43F260633C30086E89A /* UIView+Extensions.swift in Sources */,
+				3665E6B4261DF8C600DB6971 /* AwardsDetailScreenBuilder.swift in Sources */,
 				3644EA36261BB85E00E257CC /* Drink+CoreDataClass.swift in Sources */,
 				0ACB982224546717007BF01D /* AppDelegate.swift in Sources */,
 				36A0A934261B592B00F1BE8B /* TwentyEightStreakAwardDataSource.swift in Sources */,
@@ -870,6 +921,7 @@
 				36A0A916261B4E7400F1BE8B /* LockedAwardDataSource.swift in Sources */,
 				0A2B8B6D2454D87000D9E8E7 /* TodayScreenBuilder.swift in Sources */,
 				36B6F46825DD78FA004A7EA5 /* DrinkTableViewCell.swift in Sources */,
+				3665E6B8261DF92C00DB6971 /* AwardsDetailPresenterProtocol.swift in Sources */,
 				0A4B4E092464505B00C2350B /* PlaceholderView.swift in Sources */,
 				36A0A93A261B5A3000F1BE8B /* YearStreakAwardDataSource.swift in Sources */,
 				36877C1F25F9068B00918E04 /* TrendsCollectionViewCell.swift in Sources */,
@@ -899,7 +951,9 @@
 				36538D19260CDBDC00CFB656 /* OnboardingPagesView.swift in Sources */,
 				3677D439260630E10086E89A /* DrinksCell.swift in Sources */,
 				3655D96B2610B6AB002B95EE /* OnboardingPage3Cell.swift in Sources */,
+				3665E6BE261DF94000DB6971 /* AwardsDetailPresenter.swift in Sources */,
 				0ACB9857245468EC007BF01D /* HistoryPresenter.swift in Sources */,
+				3665E6BB261DF93700DB6971 /* AwardsDetailViewProtocol.swift in Sources */,
 				0AD151192454EFEB00F45042 /* TrendsView.swift in Sources */,
 				362A52A525EFA68100B6AA8D /* Drip.xcdatamodeld in Sources */,
 				0A8BEA942455D45A00AA9880 /* AboutScreenBuilder.swift in Sources */,
@@ -945,6 +999,8 @@
 				364A927C256BE91400F84985 /* TodayScreenBuilderTestCase.swift in Sources */,
 				360CAA0225F69F9900C7676A /* HistoryScreenBuilderTestCase.swift in Sources */,
 				36830E692611FFF600E55C7A /* OnboardingScreenBuilderTestCase.swift in Sources */,
+				36C1F6EF261E007A00224846 /* AwardsDetailPresenterTestCase.swift in Sources */,
+				36C1F6EA261E005300224846 /* AwardsDetailScreenBuilderTestCase.swift in Sources */,
 				360CAA0825F6A01300C7676A /* HistoryPresenterTestCase.swift in Sources */,
 				36905775261DE267001FE2C6 /* AwardsScreenBuilderTestCase.swift in Sources */,
 				3605E3F92600E22400FFE3C2 /* TrendsPresenterTestCase.swift in Sources */,

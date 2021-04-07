@@ -133,7 +133,7 @@ final class AwardsPresenter: AwardsPresenterProtocol {
     }
 
     func didSelectItemAt(index: Int) {
-        let detailView = AwardsDetailView()
+        let detailView = AwardsDetailScreenBuilder().build()
 
         if unlockedAwards.map({$0.id}).contains(Int64(awards[index].id)) {
             detailView.dataSource = awards[index]

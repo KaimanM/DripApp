@@ -1,19 +1,13 @@
-//
-//  AwardsDetailView.swift
-//  Drip
-//
-//  Created by Kaiman Mehmet on 05/04/2021.
-//  Copyright © 2021 Kaiman Mehmet. All rights reserved.
-//
-
 import UIKit
 import SwiftConfettiView
 
-final class AwardsDetailView: UIViewController {
+final class AwardsDetailView: UIViewController, AwardsDetailViewProtocol {
+
+    var presenter: AwardsDetailPresenterProtocol!
 
     let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "locked.svg")
+        imageView.image = UIImage(named: "locked.pdf")
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -43,6 +37,8 @@ final class AwardsDetailView: UIViewController {
         return label
     }()
 
+    let confettiView = SwiftConfettiView(frame: .zero)
+
     var dataSource: AwardsDetailDataSourceProtocol?
 
     var timeStamp: Date?
@@ -51,9 +47,12 @@ final class AwardsDetailView: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .black
         self.navigationItem.largeTitleDisplayMode = .never
+        presenter.onViewDidLoad()
+        setupSubviews()
+        animateConfetti()
+    }
 
-        let confettiView = SwiftConfettiView(frame: self.view.bounds)
-
+    func setupSubviews() {
         let subViews = [imageView, awardNameLabel, awardBodyLabel, timeStampLabel, confettiView]
         subViews.forEach({ view.addSubview($0) })
 
@@ -75,28 +74,28 @@ final class AwardsDetailView: UIViewController {
                               leading: view.leadingAnchor,
                               trailing: view.trailingAnchor,
                               padding: .init(top: 5, left: 20, bottom: 0, right: 20))
+        confettiView.frame = self.view.bounds
+    }
 
-        if let timeStamp = timeStamp {
-            let formatter = DateFormatter()
-            formatter.dateStyle = .medium
-            timeStampLabel.text = "Unlocked on \(formatter.string(from: timeStamp))"
-
+    func animateConfetti() {
+        if timeStamp != nil {
             confettiView.intensity = 1
             confettiView.startConfetti()
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                confettiView.stopConfetti()
+                self.confettiView.stopConfetti()
             }
         }
-
-        populateData()
     }
 
-    func populateData() {
-        guard let dataSource = dataSource else { return }
-        imageView.image = UIImage(named: dataSource.imageName)
-        awardNameLabel.text = dataSource.awardName
-        awardBodyLabel.text = dataSource.awardBody
+    func updateLabels(awardName: String, awardBody: String, timeStamp: String) {
+        awardNameLabel.text = awardName
+        awardBodyLabel.text = awardBody
+        timeStampLabel.text = timeStamp
+    }
+
+    func updateImage(imageName: String) {
+        imageView.image = UIImage(named: imageName)
     }
 
 }
