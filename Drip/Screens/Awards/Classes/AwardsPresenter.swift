@@ -103,7 +103,6 @@ final class AwardsPresenter: AwardsPresenterProtocol {
     func fetchUnlockedAwards() {
         unlockedAwards = view?.coreDataController.fetchUnlockedAwards() ?? []
         let unlockedAwardIds = unlockedAwards.map({ $0.id })
-        print(unlockedAwardIds)
         if !unlockedAwardIds.contains(7) {
             populateArrangedDays()
             bestStreakAwardChecker()
@@ -122,7 +121,6 @@ final class AwardsPresenter: AwardsPresenterProtocol {
     }
 
     func onViewDidLoad() {
-        print("Awards Presenter onViewDidLoad firing correctly")
         view?.updateTitle(title: "Awards")
     }
 
@@ -130,7 +128,7 @@ final class AwardsPresenter: AwardsPresenterProtocol {
         if unlockedAwards.map({$0.id}).contains(Int64(awards[index].id)) {
             return (awards[index].awardName, awards[index].imageName)
         } else {
-            return ("???", "locked.svg")
+            return ("???", "locked.pdf")
         }
     }
 

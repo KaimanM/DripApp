@@ -24,6 +24,7 @@ final class AwardsView: UIViewController, AwardsViewProtocol, PersistentDataView
         collectionView.register(DrinksCell.self, forCellWithReuseIdentifier: cellId)
         view.addSubview(collectionView)
         collectionView.fillSuperView()
+        collectionView.contentInset.bottom = 20
     }
 
     override func viewDidAppear(_ animated: Bool) {

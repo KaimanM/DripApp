@@ -317,6 +317,11 @@ class CoreDataController: CoreDataControllerProtocol {
         saveContext()
     }
 
+    func deleteAward(award: Award) {
+        context.delete(award)
+        saveContext()
+    }
+
     func fetchDrinkCount() -> Int {
         let fetchRequest = Drink.fetchRequest() as NSFetchRequest<Drink>
         do {
