@@ -1,6 +1,6 @@
 struct TwentyEightStreakAwardDataSource: AwardsDetailDataSourceProtocol {
     var id = 5
-    var imageName: String = "28dayBest.svg"
+    var imageName: String = "28dayBest.pdf"
     var awardName: String = "It's a habit!"
     var awardBody: String =
     """

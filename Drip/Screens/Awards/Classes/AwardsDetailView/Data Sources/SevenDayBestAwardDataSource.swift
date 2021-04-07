@@ -1,6 +1,6 @@
 struct SevenDayBestAwardDataSource: AwardsDetailDataSourceProtocol {
     var id = 4
-    var imageName: String = "7dayBest.svg"
+    var imageName: String = "7dayBest.pdf"
     var awardName: String = "About a week ago."
     var awardBody: String =
     """

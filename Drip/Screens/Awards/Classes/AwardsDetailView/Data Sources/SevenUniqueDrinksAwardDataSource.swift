@@ -1,6 +1,6 @@
 struct SevenUniqueDrinksAwardDataSource: AwardsDetailDataSourceProtocol {
     var id = 10
-    var imageName: String = "7unique.svg"
+    var imageName: String = "7unique.pdf"
     var awardName: String = "Connoisseur"
     var awardBody: String =
     """

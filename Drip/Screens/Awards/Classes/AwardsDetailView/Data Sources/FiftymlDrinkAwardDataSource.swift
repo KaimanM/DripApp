@@ -1,6 +1,6 @@
 struct FiftymlDrinkAwardDataSource: AwardsDetailDataSourceProtocol {
     var id = 12
-    var imageName: String = "50ml.svg"
+    var imageName: String = "50ml.pdf"
     var awardName: String = "Espresso to go?"
     var awardBody: String =
     """
