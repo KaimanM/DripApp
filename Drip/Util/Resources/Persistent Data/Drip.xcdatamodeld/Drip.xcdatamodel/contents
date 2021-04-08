@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D75" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Award" representedClassName="Award" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="timeStamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
     <entity name="Day" representedClassName="Day" syncable="YES">
         <attribute name="didReachGoal" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="goal" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -17,5 +21,6 @@
     <elements>
         <element name="Day" positionX="-278.8585205078125" positionY="-128.3338623046875" width="128" height="104"/>
         <element name="Drink" positionX="-63" positionY="-18" width="128" height="104"/>
+        <element name="Award" positionX="-171" positionY="-27" width="128" height="59"/>
     </elements>
 </model>

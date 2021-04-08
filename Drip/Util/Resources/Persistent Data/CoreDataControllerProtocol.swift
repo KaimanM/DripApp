@@ -3,7 +3,6 @@ import Foundation
 protocol CoreDataControllerProtocol: class {
 
     func saveContext()
-    func fetchEntriesForDate(date: Date) -> [Drink]
     func deleteEntry(entry: Drink)
 
     func addDrinkForDay(name: String, volume: Double, imageName: String, timeStamp: Date)
@@ -17,4 +16,9 @@ protocol CoreDataControllerProtocol: class {
     func dailyDrinks(from date: Date?) -> Double
     func bestDay(from date: Date?) -> Double
     func worstDay(from date: Date?) -> Double
+
+    func fetchUnlockedAwards() -> [Award]
+    func unlockAwardWithId(id: Int)
+    func fetchDrinkCount() -> Int
+    func deleteAward(award: Award)
 }

@@ -9,6 +9,15 @@
           "revision": "c4a443ac79bd62e483093aa3916aaa7347f1645e",
           "version": null
         }
+      },
+      {
+        "package": "SwiftConfettiView",
+        "repositoryURL": "https://github.com/theoriginalbit/SwiftConfettiView.git",
+        "state": {
+          "branch": null,
+          "revision": "70801fc20faf34d136da4985c2b47f4eb4725bdf",
+          "version": "0.2.0"
+        }
       }
     ]
   },

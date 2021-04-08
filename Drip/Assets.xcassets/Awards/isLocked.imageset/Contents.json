@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "isLocked.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

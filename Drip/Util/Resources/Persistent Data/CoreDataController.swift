@@ -9,12 +9,6 @@ class CoreDataController: CoreDataControllerProtocol {
     }
 
     lazy var persistentContainer: NSPersistentContainer = {
-        /*
-         The persistent container for the application. This implementation
-         creates and returns a container, having loaded the store for the
-         application to it. This property is optional since there are legitimate
-         error conditions that could cause the creation of the store to fail.
-        */
         let container = NSPersistentContainer(name: "Drip")
 
         // The below if statement is commented out as running core data in memory causes
@@ -51,6 +45,9 @@ class CoreDataController: CoreDataControllerProtocol {
         }
     }
 
+    // MARK: - Drink + Day Code -
+
+    // Adds drink into coredata and establishes a relationship with a day object, creates day object if it doesnt exist.
     func addDrinkForDay(name: String, volume: Double, imageName: String, timeStamp: Date) {
         var day: [Day] = []
         do {
@@ -92,8 +89,15 @@ class CoreDataController: CoreDataControllerProtocol {
 
             day.addToDrinks(drink)
         }
+
+        if volume == 1000 {
+            unlockAwardWithId(id: 11)
+        } else if volume == 50 {
+            unlockAwardWithId(id: 12)
+        }
     }
 
+    // Returns the day object for a given date if it exists.
     func getDayForDate(date: Date) -> Day? {
         do {
             let request = Day.fetchRequest() as NSFetchRequest<Day>
@@ -106,6 +110,7 @@ class CoreDataController: CoreDataControllerProtocol {
         }
     }
 
+    // Returns an array containing all drinks that appear after a given date, returns all drinks if given date is nil.
     func fetchDrinks(from date: Date? = nil) -> [Drink] {
         do {
             let request = Drink.fetchRequest() as NSFetchRequest<Drink>
@@ -120,6 +125,7 @@ class CoreDataController: CoreDataControllerProtocol {
         }
     }
 
+    // Returns an array containing all days that appear after a given date, returns all days if given date is nil.
     func fetchDays(from date: Date? = nil) -> [Day] {
         do {
             let request = Day.fetchRequest() as NSFetchRequest<Day>
@@ -134,7 +140,47 @@ class CoreDataController: CoreDataControllerProtocol {
         }
     }
 
-    // Average Drink in trends
+    // Returns an array containing all drinks for a given date.
+    func getDrinksForDate(date: Date) -> [Drink] {
+        if let day = getDayForDate(date: date),
+           let drinks = day.drinks?.allObjects as? [Drink] {
+            return drinks
+        } else {
+            return []
+        }
+    }
+
+    // Deletes a drink and removes it from the day object, also deletes day if it was the only drink.
+    func deleteEntry(entry: Drink) {
+        guard let day = entry.day else { fatalError() }
+        day.total -= entry.volume
+        day.removeFromDrinks(entry)
+        context.delete(entry)
+
+        if day.goal > day.total {
+            day.didReachGoal = false
+        }
+
+        //swiftlint:disable:next empty_count
+        if day.drinks!.count == 0 {
+            context.delete(day)
+        }
+        saveContext()
+    }
+
+    // Returns an Int for the number of drink objects in core data.
+    func fetchDrinkCount() -> Int {
+        let fetchRequest = Drink.fetchRequest() as NSFetchRequest<Drink>
+        do {
+            return try context.count(for: fetchRequest)
+        } catch {
+            return 0
+        }
+    }
+
+    // MARK: - Trends Code -
+
+    // Returns the average drink volume from a specified date.
     func averageDrink(from date: Date? = nil) -> Double {
         var averageDrink: Double = 0
         let expressionKey = "averageDrinkVolume"
@@ -154,7 +200,7 @@ class CoreDataController: CoreDataControllerProtocol {
         return averageDrink
     }
 
-    // Average Daily in trends
+    // Returns the average daily volume from a specified date.
     func averageDaily(from date: Date? = nil) -> Double {
         var averageDaily: Double = 0
         let expressionKey = "sumOfTotals"
@@ -174,7 +220,7 @@ class CoreDataController: CoreDataControllerProtocol {
         return averageDaily
     }
 
-    // Daily drinks in trends
+    // Returns the average amount of drinks from a specified date.
     func dailyDrinks(from date: Date? = nil) -> Double {
         var dailyDrinks: Double = 0
         let drinksRequest = Drink.fetchRequest() as NSFetchRequest<Drink>
@@ -194,6 +240,7 @@ class CoreDataController: CoreDataControllerProtocol {
         return dailyDrinks
     }
 
+    // Returns the best day total from a specified date.
     func bestDay(from date: Date? = nil) -> Double {
         var bestDay: Double = 0
         let expressionKey = "bestDayTotal"
@@ -214,6 +261,7 @@ class CoreDataController: CoreDataControllerProtocol {
         return bestDay
     }
 
+    // Returns the worst day total from a specified date.
     func worstDay(from date: Date? = nil) -> Double {
         var worstDay: Double = 0
         let expressionKey = "worstDayTotal"
@@ -233,47 +281,56 @@ class CoreDataController: CoreDataControllerProtocol {
         return worstDay
     }
 
-    func getDrinksForDate(date: Date) -> [Drink] {
-        if let day = getDayForDate(date: date),
-           let drinks = day.drinks?.allObjects as? [Drink] {
-            return drinks
-        } else {
-            return []
-        }
-    }
+    // MARK: - Award Code -
 
-    func fetchEntriesForDate(date: Date) -> [Drink] {
+    // Returns an array containing all unlocked awards.
+    func fetchUnlockedAwards() -> [Award] {
+        var unlockedAwards: [Award] = []
         do {
-            let request = Drink.fetchRequest() as NSFetchRequest<Drink>
-
-            request.predicate = predicateForDayFromDate(date: date)
-
-            return try context.fetch(request)
+            let request = Award.fetchRequest() as NSFetchRequest<Award>
+            try unlockedAwards = context.fetch(request)
         } catch {
             fatalError("Error has occured")
         }
+
+        if unlockedAwards.isEmpty {
+            print("no awards unlocked")
+            return []
+        } else {
+            return unlockedAwards
+        }
     }
 
-    func deleteEntry(entry: Drink) {
-        guard let day = entry.day else { fatalError() }
-        day.total -= entry.volume
-        day.removeFromDrinks(entry)
-        context.delete(entry)
-
-        if day.goal > day.total {
-            day.didReachGoal = false
+    // Creates an award core data entry with a specified id.
+    func unlockAwardWithId(id: Int) {
+        var isAwardUnlocked = false
+        do {
+            let request = Award.fetchRequest() as NSFetchRequest<Award>
+            request.predicate = NSPredicate(format: "id == %@", id as NSNumber)
+            let award = try context.fetch(request).first
+            if award != nil {
+                isAwardUnlocked = true
+            }
+        } catch {
+            fatalError("Error has occured")
         }
 
-        //swiftlint:disable:next empty_count
-        if day.drinks!.count == 0 {
-            print("deleting day")
-            context.delete(day)
+        if !isAwardUnlocked {
+            let award = Award(context: context)
+            award.id = Int64(id)
+            award.timeStamp = Date()
         }
+    }
 
+    // Deletes a specified award.
+    func deleteAward(award: Award) {
+        context.delete(award)
         saveContext()
     }
 
-    // Used to generate a predicate filter for a range of all day on a selected date
+    // MARK: - Extra Utility Functions -
+
+    // Returns a NSPredicate for a time range of a whole day based on a specified date.
     private func predicateForDayFromDate(date: Date) -> NSPredicate {
         let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         var components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
@@ -289,11 +346,12 @@ class CoreDataController: CoreDataControllerProtocol {
         return NSPredicate(format: "timeStamp >= %@ AND timeStamp =< %@", argumentArray: [startDate!, endDate!])
     }
 
-    func generateRequest(entityName: String,
-                         from date: Date? = nil,
-                         function: String,
-                         attributeKey: String,
-                         expressionKey: String) -> NSFetchRequest<NSFetchRequestResult> {
+    // Returns a NSFetchRequest created from the specfied parameters.
+    private func generateRequest(entityName: String,
+                                 from date: Date? = nil,
+                                 function: String,
+                                 attributeKey: String,
+                                 expressionKey: String) -> NSFetchRequest<NSFetchRequestResult> {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
 
         if let date = date {

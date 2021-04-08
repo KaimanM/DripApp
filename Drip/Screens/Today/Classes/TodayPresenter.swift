@@ -2,7 +2,7 @@ import Foundation
 
 final class TodayPresenter: TodayPresenterProtocol {
     weak private(set) var view: TodayViewProtocol?
-    
+
     var todaysTotal: Double {
         if let today = today {
             return today.total
