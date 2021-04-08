@@ -3,7 +3,6 @@ import Foundation
 protocol CoreDataControllerProtocol: class {
 
     func saveContext()
-    func fetchEntriesForDate(date: Date) -> [Drink]
     func deleteEntry(entry: Drink)
 
     func addDrinkForDay(name: String, volume: Double, imageName: String, timeStamp: Date)
