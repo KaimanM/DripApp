@@ -37,7 +37,7 @@ final class AwardsDetailView: UIViewController, AwardsDetailViewProtocol {
         return label
     }()
 
-    let confettiView = SwiftConfettiView(frame: .zero)
+    let confettiView = SwiftConfettiView()
 
     var dataSource: AwardsDetailDataSourceProtocol?
 
@@ -74,7 +74,7 @@ final class AwardsDetailView: UIViewController, AwardsDetailViewProtocol {
                               leading: view.leadingAnchor,
                               trailing: view.trailingAnchor,
                               padding: .init(top: 5, left: 20, bottom: 0, right: 20))
-        confettiView.frame = self.view.bounds
+        confettiView.fillSuperView()
     }
 
     func animateConfetti() {
