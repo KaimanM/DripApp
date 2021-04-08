@@ -1,7 +1,7 @@
 struct NinetyDayStreakAwardDataSource: AwardsDetailDataSourceProtocol {
     var id = 6
     var imageName: String = "90dayBest.pdf"
-    var awardName: String = "Quarter of a year!"
+    var awardName: String = "That's a quarter!"
     var awardBody: String =
     """
     This award was unlocked by achieving a 90 day streak.

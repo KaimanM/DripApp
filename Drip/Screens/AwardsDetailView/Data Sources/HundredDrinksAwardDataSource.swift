@@ -4,7 +4,7 @@ struct HundredDrinksAwardDataSource: AwardsDetailDataSourceProtocol {
     var awardName: String = "One hunna!"
     var awardBody: String =
     """
-    This award was unlocked by consuming 100 drinks. Happy to see you here. This still only the beggining. \
+    This award was unlocked by consuming 100 drinks. Happy to still see you here. This is only the beggining. \
     Keep going, we're right behind you!
     """
 }

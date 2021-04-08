@@ -6,6 +6,6 @@ struct FiveUniqueDrinksAwardDataSource: AwardsDetailDataSourceProtocol {
     """
     This award was unlocked by adding 5 different types of drinks.
 
-    Are you going for a record with how many unique drinks? We're jealous. Will you drink more?
+    Are you going for a record? We're jealous. Will you drink more?
     """
 }
