@@ -1,8 +1,8 @@
 import UIKit
 
-final class AboutView: UIViewController, AboutViewProtocol, PersistentDataViewProtocol {
+final class SettingsView: UIViewController, SettingsViewProtocol, PersistentDataViewProtocol {
 
-    var presenter: AboutPresenterProtocol!
+    var presenter: SettingsPresenterProtocol!
     var coreDataController: CoreDataControllerProtocol!
     var userDefaultsController: UserDefaultsControllerProtocol!
 
