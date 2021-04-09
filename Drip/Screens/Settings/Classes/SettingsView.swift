@@ -6,25 +6,38 @@ final class SettingsView: UIViewController, SettingsViewProtocol, PersistentData
     var coreDataController: CoreDataControllerProtocol!
     var userDefaultsController: UserDefaultsControllerProtocol!
 
-    let button: UIButton = {
-        let button = UIButton()
-        button.setTitle("Add fake data", for: .normal)
-        button.backgroundColor = .purple
-        return button
-    }()
+    let tableView = UITableView(frame: .zero, style: .grouped)
+
+    let cellId = "settingsCell"
+
+    let cellDataSection1: [SettingsCellData] = [
+        SettingsCellData(title: "Edit Name", imageName: "square.and.pencil", backgroundColour: .systemBlue),
+        SettingsCellData(title: "Edit Goal", imageName: "slider.horizontal.3", backgroundColour: .systemIndigo),
+        SettingsCellData(title: "Edit Favourites", imageName: "bookmark", backgroundColour: .systemRed),
+        SettingsCellData(title: "Drink Coefficients", imageName: "number", backgroundColour: .systemTeal)
+    ]
+
+    let cellDataSection2: [SettingsCellData] = [
+        SettingsCellData(title: "About", imageName: "at", backgroundColour: .systemBlue),
+        SettingsCellData(title: "Thanks to", imageName: "gift", backgroundColour: .systemIndigo),
+        SettingsCellData(title: "Privacy Policy", imageName: "hand.raised", backgroundColour: .systemGreen),
+        SettingsCellData(title: "Rate Drip", imageName: "heart.fill", backgroundColour: .systemRed)
+    ]
 
     override func viewDidLoad() {
         presenter.onViewDidLoad()
         self.navigationItem.largeTitleDisplayMode = .automatic
         self.navigationController?.navigationBar.prefersLargeTitles = true
 
-        view.addSubview(button)
-        button.anchor(leading: view.leadingAnchor,
-                      trailing: view.trailingAnchor,
-                      padding: .init(top: 0, left: 20, bottom: 0, right: 20),
-                      size: .init(width: 0, height: 42))
-        button.centerVerticallyInSuperview()
-        button.addTarget(self, action: #selector(addFakeData), for: .touchUpInside)
+        tableView.delegate = self
+        tableView.dataSource = self
+
+        tableView.register(SettingsCell.self, forCellReuseIdentifier: cellId)
+        tableView.rowHeight = 44
+
+        view.addSubview(tableView)
+        tableView.fillSuperView()
+
     }
 
     @objc func addFakeData() {
@@ -78,4 +91,64 @@ final class SettingsView: UIViewController, SettingsViewProtocol, PersistentData
         self.title = title
     }
 
+}
+
+extension SettingsView: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return cellDataSection1.count
+        } else {
+            return cellDataSection2.count
+        }
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as? SettingsCell else {
+            return UITableViewCell()
+        }
+        if indexPath.section == 0 {
+            cell.textLabel?.text = cellDataSection1[indexPath.row].title
+            cell.iconImageView.image = UIImage(systemName: cellDataSection1[indexPath.row].imageName)
+            cell.imageContainerView.backgroundColor = cellDataSection1[indexPath.row].backgroundColour
+        } else {
+            cell.textLabel?.text = cellDataSection2[indexPath.row].title
+            cell.iconImageView.image = UIImage(systemName: cellDataSection2[indexPath.row].imageName)
+            cell.imageContainerView.backgroundColor = cellDataSection2[indexPath.row].backgroundColour
+        }
+        return cell
+    }
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 40
+        }
+        return 20
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.isUserInteractionEnabled = false
+        return view
+    }
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
+    }
+
+}
+
+struct SettingsCellData {
+    var title: String
+    var imageName: String
+    var backgroundColour: UIColor
+
+    init(title: String, imageName: String, backgroundColour: UIColor) {
+        self.title = title
+        self.imageName = imageName
+        self.backgroundColour = backgroundColour
+    }
 }

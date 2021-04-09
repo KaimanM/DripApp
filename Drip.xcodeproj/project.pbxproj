@@ -81,6 +81,7 @@
 		36538D1C260CDBE200CFB656 /* OnboardingPagesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36538D1B260CDBE200CFB656 /* OnboardingPagesPresenter.swift */; };
 		3655D96B2610B6AB002B95EE /* OnboardingPage3Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3655D96A2610B6AB002B95EE /* OnboardingPage3Cell.swift */; };
 		3655D96E2610DCF7002B95EE /* OnboardingPage4Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3655D96D2610DCF7002B95EE /* OnboardingPage4Cell.swift */; };
+		365F642F262079BD00A9B4C0 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365F642E262079BD00A9B4C0 /* SettingsCell.swift */; };
 		3665E6B4261DF8C600DB6971 /* AwardsDetailScreenBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3665E6B3261DF8C600DB6971 /* AwardsDetailScreenBuilder.swift */; };
 		3665E6B8261DF92C00DB6971 /* AwardsDetailPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3665E6B7261DF92C00DB6971 /* AwardsDetailPresenterProtocol.swift */; };
 		3665E6BB261DF93700DB6971 /* AwardsDetailViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3665E6BA261DF93700DB6971 /* AwardsDetailViewProtocol.swift */; };
@@ -226,6 +227,7 @@
 		36538D1B260CDBE200CFB656 /* OnboardingPagesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPagesPresenter.swift; sourceTree = "<group>"; };
 		3655D96A2610B6AB002B95EE /* OnboardingPage3Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage3Cell.swift; sourceTree = "<group>"; };
 		3655D96D2610DCF7002B95EE /* OnboardingPage4Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage4Cell.swift; sourceTree = "<group>"; };
+		365F642E262079BD00A9B4C0 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		3665E6B3261DF8C600DB6971 /* AwardsDetailScreenBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsDetailScreenBuilder.swift; sourceTree = "<group>"; };
 		3665E6B7261DF92C00DB6971 /* AwardsDetailPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsDetailPresenterProtocol.swift; sourceTree = "<group>"; };
 		3665E6BA261DF93700DB6971 /* AwardsDetailViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsDetailViewProtocol.swift; sourceTree = "<group>"; };
@@ -539,6 +541,7 @@
 				368BAE2925DC7A4F00D799F2 /* CustomFSCell.swift */,
 				36B6F46725DD78FA004A7EA5 /* DrinkTableViewCell.swift */,
 				36877C1E25F9068B00918E04 /* TrendsCollectionViewCell.swift */,
+				365F642E262079BD00A9B4C0 /* SettingsCell.swift */,
 				3680E0CE24B3C8CC009E9DB8 /* GradientBarView.swift */,
 				36BFF50E25D17653003456F3 /* RoundDrinkButton.swift */,
 				0A44B3952457631C0023433A /* ProgressRingView.swift */,
@@ -949,6 +952,7 @@
 				36538D1C260CDBE200CFB656 /* OnboardingPagesPresenter.swift in Sources */,
 				36A37EFB261CCC7000BB7C15 /* FiftymlDrinkAwardDataSource.swift in Sources */,
 				36538D19260CDBDC00CFB656 /* OnboardingPagesView.swift in Sources */,
+				365F642F262079BD00A9B4C0 /* SettingsCell.swift in Sources */,
 				3677D439260630E10086E89A /* DrinksCell.swift in Sources */,
 				3655D96B2610B6AB002B95EE /* OnboardingPage3Cell.swift in Sources */,
 				3665E6BE261DF94000DB6971 /* AwardsDetailPresenter.swift in Sources */,
