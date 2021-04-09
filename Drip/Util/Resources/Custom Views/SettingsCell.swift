@@ -30,8 +30,14 @@ class SettingsCell: UITableViewCell {
         iconImageView.centerInSuperview()
 
         separatorInset.left = 60
-        accessoryType = .disclosureIndicator
+//        accessoryType = .disclosureIndicator
+
+        textLabel?.textColor = .whiteText
         backgroundColor = .infoPanelBG
+
+        let chevronImageView = UIImageView(image: UIImage(systemName: "chevron.right"))
+        accessoryView = chevronImageView
+        tintColor = UIColor.white.withAlphaComponent(0.2)
     }
 
     required init?(coder: NSCoder) {

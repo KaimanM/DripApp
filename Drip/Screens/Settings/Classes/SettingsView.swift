@@ -33,10 +33,11 @@ final class SettingsView: UIViewController, SettingsViewProtocol, PersistentData
         tableView.dataSource = self
 
         tableView.register(SettingsCell.self, forCellReuseIdentifier: cellId)
-        tableView.rowHeight = 44
-
+        tableView.backgroundColor = .black
         view.addSubview(tableView)
         tableView.fillSuperView()
+
+        tableView.separatorColor = UIColor.white.withAlphaComponent(0.2)
 
     }
 
@@ -124,7 +125,7 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
-            return 40
+            return 120
         }
         return 20
     }
@@ -132,11 +133,57 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
         view.isUserInteractionEnabled = false
+        if section == 0 {
+
+            let containerView = UIView()
+
+            let imageView = UIImageView()
+            imageView.image = Bundle.main.icon
+            imageView.layer.cornerRadius = 15
+            imageView.layer.masksToBounds = true
+//            imageView.anchor(size: .init(width: 80, height: 80))
+
+            let appNameLabel = UILabel()
+            appNameLabel.text = "Drip \(Bundle.main.appVersion)"
+            appNameLabel.font = UIFont.boldSystemFont(ofSize: 15)
+            appNameLabel.textColor = .whiteText
+
+            let devNameLabel = UILabel()
+            devNameLabel.text = "by Kaiman Mehmet"
+            devNameLabel.font = UIFont.systemFont(ofSize: 14, weight: .light)
+            devNameLabel.textColor = .lightGray
+
+            containerView.addSubview(imageView)
+            containerView.addSubview(appNameLabel)
+            containerView.addSubview(devNameLabel)
+
+            imageView.anchor(top: containerView.topAnchor,
+                             leading: containerView.leadingAnchor,
+                             bottom: containerView.bottomAnchor,
+                             size: .init(width: 80, height: 80))
+
+            appNameLabel.anchor(top: containerView.topAnchor,
+                                leading: imageView.trailingAnchor,
+                                trailing: containerView.trailingAnchor,
+                                padding: .init(top: 20, left: 10, bottom: 0, right: 10))
+
+            devNameLabel.anchor(leading: imageView.trailingAnchor,
+                                bottom: containerView.bottomAnchor,
+                                trailing: containerView.trailingAnchor,
+                                padding: .init(top: 0, left: 10, bottom: 20, right: 10))
+
+            view.addSubview(containerView)
+            containerView.centerInSuperview()
+        }
         return view
     }
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView()
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 44
     }
 
 }

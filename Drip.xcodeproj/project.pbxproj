@@ -82,6 +82,7 @@
 		3655D96B2610B6AB002B95EE /* OnboardingPage3Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3655D96A2610B6AB002B95EE /* OnboardingPage3Cell.swift */; };
 		3655D96E2610DCF7002B95EE /* OnboardingPage4Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3655D96D2610DCF7002B95EE /* OnboardingPage4Cell.swift */; };
 		365F642F262079BD00A9B4C0 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365F642E262079BD00A9B4C0 /* SettingsCell.swift */; };
+		365F6432262098E700A9B4C0 /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365F6431262098E700A9B4C0 /* Bundle+Extensions.swift */; };
 		3665E6B4261DF8C600DB6971 /* AwardsDetailScreenBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3665E6B3261DF8C600DB6971 /* AwardsDetailScreenBuilder.swift */; };
 		3665E6B8261DF92C00DB6971 /* AwardsDetailPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3665E6B7261DF92C00DB6971 /* AwardsDetailPresenterProtocol.swift */; };
 		3665E6BB261DF93700DB6971 /* AwardsDetailViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3665E6BA261DF93700DB6971 /* AwardsDetailViewProtocol.swift */; };
@@ -228,6 +229,7 @@
 		3655D96A2610B6AB002B95EE /* OnboardingPage3Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage3Cell.swift; sourceTree = "<group>"; };
 		3655D96D2610DCF7002B95EE /* OnboardingPage4Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage4Cell.swift; sourceTree = "<group>"; };
 		365F642E262079BD00A9B4C0 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		365F6431262098E700A9B4C0 /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
 		3665E6B3261DF8C600DB6971 /* AwardsDetailScreenBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsDetailScreenBuilder.swift; sourceTree = "<group>"; };
 		3665E6B7261DF92C00DB6971 /* AwardsDetailPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsDetailPresenterProtocol.swift; sourceTree = "<group>"; };
 		3665E6BA261DF93700DB6971 /* AwardsDetailViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsDetailViewProtocol.swift; sourceTree = "<group>"; };
@@ -531,6 +533,7 @@
 				3680E0CA24B3BC2E009E9DB8 /* UIFont+Extensions.swift */,
 				3680E0CC24B3BF50009E9DB8 /* UIColor+Extensions.swift */,
 				3644493E25FFC54D006E1B0F /* Date+Extensions.swift */,
+				365F6431262098E700A9B4C0 /* Bundle+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -907,6 +910,7 @@
 				0ACB986924549DF5007BF01D /* TabBarView.swift in Sources */,
 				0ACB986024549DBC007BF01D /* TabBarScreenBuilder.swift in Sources */,
 				36A37EFE261CCCC600BB7C15 /* MissingDrinkAwardDataSource.swift in Sources */,
+				365F6432262098E700A9B4C0 /* Bundle+Extensions.swift in Sources */,
 				36538D16260CDBD400CFB656 /* OnboardingPagesPresenterProtocol.swift in Sources */,
 				3644EA34261BB85E00E257CC /* Award+CoreDataClass.swift in Sources */,
 				0A8BEA852455D24A00AA9880 /* AwardsViewProtocol.swift in Sources */,
