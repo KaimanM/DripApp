@@ -221,9 +221,11 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
         case 0:
             changeNameTapped()
         case 1:
-            showView(SettingsDetailView())
+            pushView(SettingsDetailScreenBuilder(type: .goal,
+                                                 userDefaultsController: userDefaultsController).build())
         case 2:
-            pushView(SettingsDetailView())
+            pushView(SettingsDetailScreenBuilder(type: .favourite,
+                                                 userDefaultsController: userDefaultsController).build())
         default:
             print("do nothing")
         }

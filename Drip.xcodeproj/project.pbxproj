@@ -75,6 +75,9 @@
 		364A9280256BE93500F84985 /* TodayPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364A927F256BE93500F84985 /* TodayPresenterTestCase.swift */; };
 		364BB8002621CEFD009CAEE6 /* SettingsDetailScreenBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364BB7FF2621CEFD009CAEE6 /* SettingsDetailScreenBuilder.swift */; };
 		364BB8052621CF41009CAEE6 /* SettingsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364BB8042621CF41009CAEE6 /* SettingsDetailView.swift */; };
+		364BB8082621EA52009CAEE6 /* SettingsDetailViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364BB8072621EA52009CAEE6 /* SettingsDetailViewProtocol.swift */; };
+		364BB80B2621EA59009CAEE6 /* SettingsDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364BB80A2621EA59009CAEE6 /* SettingsDetailPresenter.swift */; };
+		364BB80E2621EA61009CAEE6 /* SettingsDetailPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364BB80D2621EA61009CAEE6 /* SettingsDetailPresenterProtocol.swift */; };
 		36538D04260CB0D300CFB656 /* UserDefaultsControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36538D03260CB0D300CFB656 /* UserDefaultsControllerProtocol.swift */; };
 		36538D0C260CDAD300CFB656 /* OnboardingPagesScreenBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36538D0B260CDAD300CFB656 /* OnboardingPagesScreenBuilder.swift */; };
 		36538D13260CDBC700CFB656 /* OnboardingPagesViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36538D12260CDBC700CFB656 /* OnboardingPagesViewProtocol.swift */; };
@@ -224,6 +227,9 @@
 		364A927F256BE93500F84985 /* TodayPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayPresenterTestCase.swift; sourceTree = "<group>"; };
 		364BB7FF2621CEFD009CAEE6 /* SettingsDetailScreenBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailScreenBuilder.swift; sourceTree = "<group>"; };
 		364BB8042621CF41009CAEE6 /* SettingsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailView.swift; sourceTree = "<group>"; };
+		364BB8072621EA52009CAEE6 /* SettingsDetailViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailViewProtocol.swift; sourceTree = "<group>"; };
+		364BB80A2621EA59009CAEE6 /* SettingsDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailPresenter.swift; sourceTree = "<group>"; };
+		364BB80D2621EA61009CAEE6 /* SettingsDetailPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailPresenterProtocol.swift; sourceTree = "<group>"; };
 		36538D03260CB0D300CFB656 /* UserDefaultsControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsControllerProtocol.swift; sourceTree = "<group>"; };
 		36538D0B260CDAD300CFB656 /* OnboardingPagesScreenBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPagesScreenBuilder.swift; sourceTree = "<group>"; };
 		36538D12260CDBC700CFB656 /* OnboardingPagesViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPagesViewProtocol.swift; sourceTree = "<group>"; };
@@ -646,6 +652,9 @@
 			isa = PBXGroup;
 			children = (
 				364BB8042621CF41009CAEE6 /* SettingsDetailView.swift */,
+				364BB8072621EA52009CAEE6 /* SettingsDetailViewProtocol.swift */,
+				364BB80A2621EA59009CAEE6 /* SettingsDetailPresenter.swift */,
+				364BB80D2621EA61009CAEE6 /* SettingsDetailPresenterProtocol.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -921,6 +930,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				364BB80B2621EA59009CAEE6 /* SettingsDetailPresenter.swift in Sources */,
 				0A8BEA902455D45A00AA9880 /* SettingsView.swift in Sources */,
 				0ACB9846245467BC007BF01D /* UIViewController+ViewControllerName.swift in Sources */,
 				0A2B8B732454D8C700D9E8E7 /* TodayPresenterProtocol.swift in Sources */,
@@ -999,6 +1009,7 @@
 				36877C2225F917E300918E04 /* TrendsHeaderView.swift in Sources */,
 				0ACB9855245468E7007BF01D /* HistoryView.swift in Sources */,
 				0ACB984A245467F5007BF01D /* ScreenBuilder.swift in Sources */,
+				364BB8082621EA52009CAEE6 /* SettingsDetailViewProtocol.swift in Sources */,
 				36A37EEF261CC98100BB7C15 /* ThreeUniqueDrinksAwardDataSource.swift in Sources */,
 				3644EA38261BB85E00E257CC /* Day+CoreDataClass.swift in Sources */,
 				0A8BEA842455D24A00AA9880 /* AwardsPresenter.swift in Sources */,
@@ -1013,6 +1024,7 @@
 				0A8BEA822455D24A00AA9880 /* AwardsPresenterProtocol.swift in Sources */,
 				0A2B8B752454D8E200D9E8E7 /* TodayView.swift in Sources */,
 				36A0A921261B565200F1BE8B /* FiftyDrinksAwardDataSource.swift in Sources */,
+				364BB80E2621EA61009CAEE6 /* SettingsDetailPresenterProtocol.swift in Sources */,
 				3680E0CB24B3BC2E009E9DB8 /* UIFont+Extensions.swift in Sources */,
 				0ACB9848245467D6007BF01D /* ViewControllerName.swift in Sources */,
 				0A2B8B772454D8F300D9E8E7 /* TodayPresenter.swift in Sources */,

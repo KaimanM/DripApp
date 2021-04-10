@@ -2,11 +2,26 @@ import UIKit
 
 final class SettingsDetailScreenBuilder: ScreenBuilder {
 
-    func build() -> AwardsDetailView {
-        let view = AwardsDetailView()
+    let type: SettingsType
+    let userDefaultsController: UserDefaultsControllerProtocol
 
-        view.presenter = AwardsDetailPresenter(view: view)
+    init(type: SettingsType, userDefaultsController: UserDefaultsControllerProtocol) {
+        self.type = type
+        self.userDefaultsController = userDefaultsController
+    }
+
+    func build() -> SettingsDetailView {
+        let view = SettingsDetailView()
+        view.settingsType = type
+        view.userDefaultsController = userDefaultsController
+        view.presenter = SettingsDetailPresenter(view: view)
 
         return view
     }
+}
+
+enum SettingsType {
+    case goal
+    case favourite
+    case coefficient
 }

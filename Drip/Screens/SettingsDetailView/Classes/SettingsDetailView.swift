@@ -1,12 +1,10 @@
 import UIKit
 
-class SettingsDetailView: UIViewController {
+class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
 
-    enum SettingsType {
-        case goal
-        case favourite
-        case coefficient
-    }
+    var presenter: SettingsDetailPresenterProtocol!
+    var settingsType: SettingsType!
+    var userDefaultsController: UserDefaultsControllerProtocol!
 
     let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -18,7 +16,6 @@ class SettingsDetailView: UIViewController {
 
     let saveButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Save", for: .normal)
         button.backgroundColor = .infoPanelBG
         button.layer.cornerRadius = 10
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
@@ -57,16 +54,7 @@ class SettingsDetailView: UIViewController {
 
     let cellId = "cellId"
 
-    var goalValue: Double = 2000
-
-    var settingsType: SettingsType = .favourite
-    var userDefaultsController: UserDefaultsControllerProtocol! = UserDefaultsController.shared
-
     lazy var drinksLauncher = DrinksLauncher(userDefaults: userDefaultsController, isOnboarding: true)
-
-
-    var selectedFavourite = 0
-
 
     override func viewDidLoad() {
         self.navigationItem.largeTitleDisplayMode = .never
@@ -89,32 +77,25 @@ class SettingsDetailView: UIViewController {
 
         saveButton.addTarget(self, action: #selector(saveButtonAction), for: .touchUpInside)
 
-        switch settingsType {
-        case .goal:
-            setupGoalView()
-        case .favourite:
-            setupFavouritesView()
-        case .coefficient:
-            print("do something")
-        }
+        presenter.onViewDidLoad()
+
     }
 
-    func setupGoalView() {
-        title = "Change Goal"
-        let currentGoal = userDefaultsController.drinkGoal
+    override func viewWillDisappear(_ animated: Bool) {
+        drinksLauncher.removeFromWindow()
+        super.viewWillDisappear(animated)
+    }
+
+    func updateTitle(title: String) {
+        self.title = title
+    }
+
+    func setupGoalView(currentGoal: Double, headingText: String, bodyText: String) {
         goalLabel.text = "\(Int(currentGoal))ml"
-        goalValue = currentGoal
 
-        headingLabel.text = "Need to update your goal?"
-        bodyLabel.text = """
-                    This number is how much you plan to drink daily. It's okay if you need to change it. \
-                    It's normal to play around with it a few times until it feels just right.
-
-                    Adjust the slider below to amend it to your liking. \
-                    It has a minimum of 1000ml and a maximum of 4000ml.
-
-                    Note: Changing the goal does not affect days that already have a drink entry.
-                    """
+        headingLabel.text = headingText
+        bodyLabel.text = bodyText
+        saveButton.setTitle("Save", for: .normal)
 
         let slider: UISlider = {
             let slider = UISlider()
@@ -145,20 +126,18 @@ class SettingsDetailView: UIViewController {
         spacer2.heightAnchor.constraint(equalTo: spacer1.heightAnchor, multiplier: 0.1).isActive = true
     }
 
-    func setupFavouritesView() {
-        title = "Change Favourites"
-
-        headingLabel.text = "Fancy a new favourite?"
-        bodyLabel.text = """
-                    To change a favourite, simply tap the one below you wish the change and choose a new drink \
-                    and volume and we'll save it for you.
-                    """
-
+    func setupFavouritesView(headingText: String, bodyText: String) {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(DrinksCell.self, forCellWithReuseIdentifier: cellId)
+        drinksLauncher.delegate = self
 
-        let spacer1 = UIView(), spacer2 = UIView(), spacer3 = UIView(), spacer4 = UIView(), spacer5 = UIView(), collectionViewContainer = UIView()
+        headingLabel.text = headingText
+        bodyLabel.text = bodyText
+        saveButton.setTitle("Finished", for: .normal)
+
+        let spacer1 = UIView(), spacer2 = UIView(), spacer3 = UIView(), spacer4 = UIView(),
+            collectionViewContainer = UIView()
 
         collectionViewContainer.addSubview(collectionView)
 
@@ -169,18 +148,16 @@ class SettingsDetailView: UIViewController {
                               size: .init(width: 250, height: 250))
         collectionView.centerHorizontallyInSuperview()
 
-        let subViews = [spacer1, headingLabel, spacer2, bodyLabel, spacer3, collectionViewContainer, spacer5]
+        let subViews = [spacer1, headingLabel, spacer2, bodyLabel, spacer3, collectionViewContainer, spacer4]
         subViews.forEach({stackView.addArrangedSubview($0)})
 
         spacer1.translatesAutoresizingMaskIntoConstraints = false
         spacer2.translatesAutoresizingMaskIntoConstraints = false
         spacer3.translatesAutoresizingMaskIntoConstraints = false
         spacer4.translatesAutoresizingMaskIntoConstraints = false
-        spacer5.translatesAutoresizingMaskIntoConstraints = false
 
-        spacer5.heightAnchor.constraint(equalTo: spacer1.heightAnchor, multiplier: 0.9).isActive = true
+        spacer4.heightAnchor.constraint(equalTo: spacer1.heightAnchor, multiplier: 0.9).isActive = true
         spacer3.heightAnchor.constraint(equalTo: spacer1.heightAnchor, multiplier: 0.5).isActive = true
-//            spacer4.heightAnchor.constraint(equalTo: spacer1.heightAnchor, multiplier: 0.25).isActive = true
         spacer2.heightAnchor.constraint(equalTo: spacer1.heightAnchor, multiplier: 0.1).isActive = true
     }
 
@@ -189,50 +166,22 @@ class SettingsDetailView: UIViewController {
         let roundedStepValue = round(sender.value / step) * step
         sender.value = roundedStepValue
 
-        goalValue = Double(roundedStepValue)
+        presenter.updateGoalValue(newGoal: Double(roundedStepValue))
         goalLabel.text = "\(Int(roundedStepValue))ml"
     }
 
     @objc func saveButtonAction() {
-        switch settingsType {
-        case .goal:
-            userDefaultsController.drinkGoal = goalValue
-        default:
-            print("do nothing")
-        }
+        presenter.saveButtonTapped()
+    }
 
+    func popView() {
         if let navController = self.navigationController {
             navController.popViewController(animated: true)
         }
     }
 
-    // needs to be moved into presenter
-    func drinkForCellAt(index: Int) -> (imageName: String, volume: Double) {
-        var volume: Double
-        var imageName: String
-
-        guard let userDefaults = userDefaultsController else { return ("waterbottle.svg", 100.0)}
-
-        switch index {
-        case 0:
-            volume = userDefaults.favDrink1Volume
-            imageName = userDefaults.favDrink1ImageName
-        case 1:
-            volume = userDefaults.favDrink2Volume
-            imageName = userDefaults.favDrink2ImageName
-        case 2:
-            volume = userDefaults.favDrink3Volume
-            imageName = userDefaults.favDrink3ImageName
-        case 3:
-            volume = userDefaults.favDrink4Volume
-            imageName = userDefaults.favDrink4ImageName
-        default:
-            volume = userDefaults.favDrink1Volume
-            imageName = userDefaults.favDrink1ImageName
-        }
-
-        return (imageName, volume)
-
+    func reloadCollectionView() {
+        collectionView.reloadData()
     }
 }
 
@@ -246,7 +195,7 @@ extension SettingsDetailView: UICollectionViewDataSource, UICollectionViewDelega
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        delegate?.showDrinksForIndex(index: indexPath.item)
-        selectedFavourite = indexPath.item
+        presenter.setSelectedFavourite(selected: indexPath.item)
         drinksLauncher.showDrinks()
     }
 
@@ -256,8 +205,8 @@ extension SettingsDetailView: UICollectionViewDataSource, UICollectionViewDelega
         var cell = UICollectionViewCell()
 
         if let drinkCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId,
-                                                              for: indexPath) as? DrinksCell {
-            let cellData = drinkForCellAt(index: indexPath.item)
+                                                              for: indexPath) as? DrinksCell,
+           let cellData = presenter?.drinkForCellAt(index: indexPath.item) {
             drinkCell.imageView.image = UIImage(named: cellData.imageName)
             drinkCell.nameLabel.text = "\(Int(cellData.volume))ml"
 
@@ -280,5 +229,11 @@ extension SettingsDetailView: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.width/2, height: collectionView.bounds.height/2)
+    }
+}
+
+extension SettingsDetailView: DrinksLauncherDelegate {
+    func didAddDrink(name: String, imageName: String, volume: Double) {
+        presenter.addFavourite(name: name, volume: volume, imageName: imageName)
     }
 }
