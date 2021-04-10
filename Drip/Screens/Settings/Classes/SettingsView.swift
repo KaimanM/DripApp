@@ -222,6 +222,8 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
             changeNameTapped()
         case 1:
             showView(SettingsDetailView())
+        case 2:
+            pushView(SettingsDetailView())
         default:
             print("do nothing")
         }
