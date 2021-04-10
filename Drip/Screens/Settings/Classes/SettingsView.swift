@@ -13,8 +13,8 @@ final class SettingsView: UIViewController, SettingsViewProtocol, PersistentData
     let cellDataSection1: [SettingsCellData] = [
         SettingsCellData(title: "Name", imageName: "square.and.pencil", backgroundColour: .systemBlue),
         SettingsCellData(title: "Goal", imageName: "slider.horizontal.3", backgroundColour: .systemIndigo),
-        SettingsCellData(title: "Favourites", imageName: "bookmark", backgroundColour: .systemRed),
-        SettingsCellData(title: "Drink Coefficients", imageName: "number", backgroundColour: .systemTeal)
+        SettingsCellData(title: "Favourites", imageName: "star", backgroundColour: .systemRed),
+        SettingsCellData(title: "Drink Coefficients", imageName: "info.circle", backgroundColour: .systemTeal)
     ]
 
     let cellDataSection2: [SettingsCellData] = [
@@ -86,6 +86,10 @@ final class SettingsView: UIViewController, SettingsViewProtocol, PersistentData
 
     func showView(_ view: UIViewController) {
         show(view, sender: self)
+    }
+
+    func pushView(_ view: UIViewController) {
+        self.navigationController!.pushViewController(view, animated: true)
     }
 
     func updateTitle(title: String) {
@@ -212,7 +216,16 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        changeNameTapped()
+
+        switch indexPath.row {
+        case 0:
+            changeNameTapped()
+        case 1:
+            showView(SettingsDetailView())
+        default:
+            print("do nothing")
+        }
+
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
