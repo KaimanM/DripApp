@@ -181,7 +181,6 @@ class OnboardingPage3Cell: UICollectionViewCell {
         populateContentStackView()
     }
 
-    // swiftlint:disable:next function_body_length
     func populateContentStackView() {
         let spacer1 = UIView(), spacer2 = UIView(), spacer3 = UIView(),
             topContainerView = UIView(), bottomContainerView = UIView()
