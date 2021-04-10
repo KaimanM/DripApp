@@ -93,11 +93,8 @@ class OnboardingPage2Cell: UICollectionViewCell {
         arrangedSubviews.forEach({stackView.addArrangedSubview($0)})
 
         // constraints so content is just above offcenter in screen
-        spacer1.translatesAutoresizingMaskIntoConstraints = false
-        spacer2.translatesAutoresizingMaskIntoConstraints = false
-        spacer3.translatesAutoresizingMaskIntoConstraints = false
-        spacer2.heightAnchor.constraint(equalTo: spacer1.heightAnchor, multiplier: 0.5).isActive = true
-        spacer1.heightAnchor.constraint(equalTo: spacer3.heightAnchor, multiplier: 0.6).isActive = true
+        spacer2.equalHeightTo(spacer1, multiplier: 0.5)
+        spacer1.equalHeightTo(spacer3, multiplier: 0.6)
 
         collectionView.anchor(size: .init(width: contentView.frame.width, height: 395))
         collectionView.delegate = self

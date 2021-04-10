@@ -91,9 +91,7 @@ class OnboardingPage1Cell: UICollectionViewCell {
         let arrangedSubViews = [spacer1, containerView, spacer2]
         arrangedSubViews.forEach({stackView.addArrangedSubview($0)})
 
-        spacer1.translatesAutoresizingMaskIntoConstraints = false
-        spacer2.translatesAutoresizingMaskIntoConstraints = false
-        spacer1.heightAnchor.constraint(equalTo: spacer2.heightAnchor, multiplier: 0.5).isActive = true
+        spacer1.equalHeightTo(spacer2, multiplier: 0.5)
 
         containerView.addSubview(bodyLabel)
         containerView.anchor(leading: stackView.leadingAnchor,

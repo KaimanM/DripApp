@@ -174,11 +174,8 @@ class OnboardingPage3Cell: UICollectionViewCell {
         let arrangedSubviews = [spacer1, titleContainerView, spacer2, contentStackView, spacer3]
         arrangedSubviews.forEach({stackView.addArrangedSubview($0)})
 
-        spacer1.translatesAutoresizingMaskIntoConstraints = false
-        spacer2.translatesAutoresizingMaskIntoConstraints = false
-        spacer3.translatesAutoresizingMaskIntoConstraints = false
-        spacer2.heightAnchor.constraint(equalTo: spacer1.heightAnchor, multiplier: 0.5).isActive = true
-        spacer1.heightAnchor.constraint(equalTo: spacer3.heightAnchor, multiplier: 0.6).isActive = true
+        spacer2.equalHeightTo(spacer1, multiplier: 0.5)
+        spacer1.equalHeightTo(spacer3, multiplier: 0.6)
 
         contentStackView.anchor(size: .init(width: contentView.frame.width, height: 370))
         populateContentStackView()
@@ -230,11 +227,8 @@ class OnboardingPage3Cell: UICollectionViewCell {
         arrangedSubviews.forEach({contentStackView.addArrangedSubview($0)})
 
         // constraints so content is just above offcenter in screen
-        spacer1.translatesAutoresizingMaskIntoConstraints = false
-        spacer2.translatesAutoresizingMaskIntoConstraints = false
-        spacer3.translatesAutoresizingMaskIntoConstraints = false
-        spacer1.heightAnchor.constraint(equalTo: spacer2.heightAnchor, multiplier: 0.45).isActive = true
-        spacer3.heightAnchor.constraint(equalTo: spacer2.heightAnchor, multiplier: 0.45).isActive = true
+        spacer1.equalHeightTo(spacer2, multiplier: 0.45)
+        spacer3.equalHeightTo(spacer2, multiplier: 0.45)
     }
 
     required init?(coder: NSCoder) {

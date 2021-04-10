@@ -114,16 +114,10 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
         let subViews = [spacer1, headingLabel, spacer2, bodyLabel, spacer3, goalLabel, spacer4, slider, spacer5]
         subViews.forEach({stackView.addArrangedSubview($0)})
 
-        spacer1.translatesAutoresizingMaskIntoConstraints = false
-        spacer2.translatesAutoresizingMaskIntoConstraints = false
-        spacer3.translatesAutoresizingMaskIntoConstraints = false
-        spacer4.translatesAutoresizingMaskIntoConstraints = false
-        spacer5.translatesAutoresizingMaskIntoConstraints = false
-
-        spacer5.heightAnchor.constraint(equalTo: spacer1.heightAnchor, multiplier: 0.9).isActive = true
-        spacer3.heightAnchor.constraint(equalTo: spacer1.heightAnchor, multiplier: 0.5).isActive = true
-        spacer4.heightAnchor.constraint(equalTo: spacer1.heightAnchor, multiplier: 0.25).isActive = true
-        spacer2.heightAnchor.constraint(equalTo: spacer1.heightAnchor, multiplier: 0.1).isActive = true
+        spacer2.equalHeightTo(spacer1, multiplier: 0.1)
+        spacer3.equalHeightTo(spacer1, multiplier: 0.5)
+        spacer4.equalHeightTo(spacer1, multiplier: 0.25)
+        spacer5.equalHeightTo(spacer1, multiplier: 0.9)
     }
 
     func setupFavouritesView(headingText: String, bodyText: String) {
@@ -151,14 +145,10 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
         let subViews = [spacer1, headingLabel, spacer2, bodyLabel, spacer3, collectionViewContainer, spacer4]
         subViews.forEach({stackView.addArrangedSubview($0)})
 
-        spacer1.translatesAutoresizingMaskIntoConstraints = false
-        spacer2.translatesAutoresizingMaskIntoConstraints = false
-        spacer3.translatesAutoresizingMaskIntoConstraints = false
-        spacer4.translatesAutoresizingMaskIntoConstraints = false
+        spacer4.equalHeightTo(spacer1, multiplier: 0.9)
+        spacer3.equalHeightTo(spacer1, multiplier: 0.5)
+        spacer2.equalHeightTo(spacer1, multiplier: 0.1)
 
-        spacer4.heightAnchor.constraint(equalTo: spacer1.heightAnchor, multiplier: 0.9).isActive = true
-        spacer3.heightAnchor.constraint(equalTo: spacer1.heightAnchor, multiplier: 0.5).isActive = true
-        spacer2.heightAnchor.constraint(equalTo: spacer1.heightAnchor, multiplier: 0.1).isActive = true
     }
 
     @objc func sliderValueDidChange(_ sender: UISlider!) {

@@ -91,6 +91,11 @@ extension UIView {
         widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
     }
 
+    func equalHeightTo(_ view: UIView, multiplier: CGFloat = 1) {
+        translatesAutoresizingMaskIntoConstraints = false
+        heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: multiplier).isActive = true
+    }
+
     func addVerticalDottedLine(color: UIColor = UIColor.white.withAlphaComponent(0.25)) {
         let shapeLayer = CAShapeLayer()
         shapeLayer.strokeColor = color.cgColor
