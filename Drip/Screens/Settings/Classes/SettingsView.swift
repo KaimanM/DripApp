@@ -11,9 +11,9 @@ final class SettingsView: UIViewController, SettingsViewProtocol, PersistentData
     let cellId = "settingsCell"
 
     let cellDataSection1: [SettingsCellData] = [
-        SettingsCellData(title: "Edit Name", imageName: "square.and.pencil", backgroundColour: .systemBlue),
-        SettingsCellData(title: "Edit Goal", imageName: "slider.horizontal.3", backgroundColour: .systemIndigo),
-        SettingsCellData(title: "Edit Favourites", imageName: "bookmark", backgroundColour: .systemRed),
+        SettingsCellData(title: "Name", imageName: "square.and.pencil", backgroundColour: .systemBlue),
+        SettingsCellData(title: "Goal", imageName: "slider.horizontal.3", backgroundColour: .systemIndigo),
+        SettingsCellData(title: "Favourites", imageName: "bookmark", backgroundColour: .systemRed),
         SettingsCellData(title: "Drink Coefficients", imageName: "number", backgroundColour: .systemTeal)
     ]
 
@@ -92,6 +92,31 @@ final class SettingsView: UIViewController, SettingsViewProtocol, PersistentData
         self.title = title
     }
 
+    func changeNameTapped() {
+        let name = userDefaultsController.name
+        let message = "We're currently calling you \"\(name)\". What should we call you instead?"
+        let alertContoller = UIAlertController(title: "Change Name",
+                                               message: message,
+                                               preferredStyle: .alert)
+
+        alertContoller.addTextField()
+        alertContoller.textFields![0].keyboardType = UIKeyboardType.alphabet
+
+        let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertContoller] _ in
+            if let answer: String = alertContoller.textFields![0].text {
+                self.userDefaultsController.name = answer
+            } else {
+                print("invalid")
+            }
+        }
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+
+        alertContoller.addAction(cancelAction)
+        alertContoller.addAction(submitAction)
+
+        present(alertContoller, animated: true)
+    }
 }
 
 extension SettingsView: UITableViewDelegate, UITableViewDataSource {
@@ -184,6 +209,11 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        changeNameTapped()
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
 }
