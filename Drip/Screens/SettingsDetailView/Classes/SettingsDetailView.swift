@@ -52,6 +52,14 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
         return collectionView
     }()
 
+    let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .black
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        tableView.contentInset.bottom = 5
+        return tableView
+    }()
+
     let cellId = "cellId"
 
     lazy var drinksLauncher = DrinksLauncher(userDefaults: userDefaultsController, isOnboarding: true)
@@ -59,23 +67,6 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
     override func viewDidLoad() {
         self.navigationItem.largeTitleDisplayMode = .never
         view.backgroundColor = .black
-
-        view.addSubview(saveButton)
-        saveButton.anchor(top: nil,
-                          leading: view.leadingAnchor,
-                          bottom: view.safeAreaLayoutGuide.bottomAnchor,
-                          trailing: view.trailingAnchor,
-                          padding: .init(top: 0, left: 35, bottom: 20, right: 35),
-                          size: .init(width: 0, height: 50))
-
-        view.addSubview(stackView)
-        stackView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
-                         leading: view.leadingAnchor,
-                         bottom: saveButton.topAnchor,
-                         trailing: view.trailingAnchor,
-                         padding: .init(top: 0, left: 35, bottom: 0, right: 35))
-
-        saveButton.addTarget(self, action: #selector(saveButtonAction), for: .touchUpInside)
 
         presenter.onViewDidLoad()
 
@@ -90,12 +81,35 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
         self.title = title
     }
 
+    func setupButton() {
+        view.addSubview(saveButton)
+        saveButton.anchor(top: nil,
+                          leading: view.leadingAnchor,
+                          bottom: view.safeAreaLayoutGuide.bottomAnchor,
+                          trailing: view.trailingAnchor,
+                          padding: .init(top: 0, left: 35, bottom: 20, right: 35),
+                          size: .init(width: 0, height: 50))
+        saveButton.addTarget(self, action: #selector(saveButtonAction), for: .touchUpInside)
+    }
+
+    func setupStackView() {
+        view.addSubview(stackView)
+        stackView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                         leading: view.leadingAnchor,
+                         bottom: saveButton.topAnchor,
+                         trailing: view.trailingAnchor,
+                         padding: .init(top: 0, left: 35, bottom: 0, right: 35))
+    }
+
     func setupGoalView(currentGoal: Double, headingText: String, bodyText: String) {
         goalLabel.text = "\(Int(currentGoal))ml"
 
         headingLabel.text = headingText
         bodyLabel.text = bodyText
         saveButton.setTitle("Save", for: .normal)
+
+        setupButton()
+        setupStackView()
 
         let slider: UISlider = {
             let slider = UISlider()
@@ -130,6 +144,9 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
         bodyLabel.text = bodyText
         saveButton.setTitle("Finished", for: .normal)
 
+        setupButton()
+        setupStackView()
+
         let spacer1 = UIView(), spacer2 = UIView(), spacer3 = UIView(), spacer4 = UIView(),
             collectionViewContainer = UIView()
 
@@ -149,6 +166,32 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
         spacer3.equalHeightTo(spacer1, multiplier: 0.5)
         spacer2.equalHeightTo(spacer1, multiplier: 0.1)
 
+    }
+
+    func setupCoefficientView(headingText: String, bodyText: String) {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(CoefficientTableViewCell.self, forCellReuseIdentifier: cellId)
+
+        let subViews = [headingLabel, bodyLabel, tableView]
+        subViews.forEach({view.addSubview($0)})
+
+        headingLabel.text = headingText
+        bodyLabel.text = bodyText
+
+        headingLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                            leading: view.leadingAnchor,
+                            trailing: view.trailingAnchor,
+                            padding: .init(top: 10, left: 20, bottom: 0, right: 20))
+        bodyLabel.anchor(top: headingLabel.bottomAnchor,
+                            leading: view.leadingAnchor,
+                            trailing: view.trailingAnchor,
+                            padding: .init(top: 5, left: 20, bottom: 0, right: 20))
+        tableView.anchor(top: bodyLabel.bottomAnchor,
+                         leading: view.leadingAnchor,
+                         bottom: view.bottomAnchor,
+                         trailing: view.trailingAnchor,
+                         padding: .init(top: 5, left: 0, bottom: 0, right: 0))
     }
 
     @objc func sliderValueDidChange(_ sender: UISlider!) {
@@ -184,7 +227,6 @@ extension SettingsDetailView: UICollectionViewDataSource, UICollectionViewDelega
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        delegate?.showDrinksForIndex(index: indexPath.item)
         presenter.setSelectedFavourite(selected: indexPath.item)
         drinksLauncher.showDrinks()
     }
@@ -226,4 +268,22 @@ extension SettingsDetailView: DrinksLauncherDelegate {
     func didAddDrink(name: String, imageName: String, volume: Double) {
         presenter.addFavourite(name: name, volume: volume, imageName: imageName)
     }
+}
+
+extension SettingsDetailView: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        20
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as? CoefficientTableViewCell else {
+            return UITableViewCell()
+        }
+        cell.textLabel?.text = "testy123"
+        return cell
+    }
+
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 90
+//    }
 }

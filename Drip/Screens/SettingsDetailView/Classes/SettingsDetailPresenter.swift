@@ -21,7 +21,7 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
         case .favourite:
             initialiseFavView()
         case .coefficient:
-            print("do something")
+            initialiseCoefficientView()
         case .none:
             print("do something")
         }
@@ -56,6 +56,17 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
                     """
 
         view?.setupFavouritesView(headingText: headingText, bodyText: bodyText)
+    }
+
+    func initialiseCoefficientView() {
+        view?.updateTitle(title: "Drink Coefficients")
+        let headingText = "Implemented Drink Coefficients"
+        let bodyText = """
+            Drink Coefficients are a representation of how much water is in each ml of a drink.
+            A drink with a coefficient of 0.87 will have 87ml of water in it for each 100ml.
+            """
+
+        view?.setupCoefficientView(headingText: headingText, bodyText: bodyText)
     }
 
     func updateGoalValue(newGoal: Double) {

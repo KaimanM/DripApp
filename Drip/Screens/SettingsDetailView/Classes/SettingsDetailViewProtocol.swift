@@ -8,6 +8,7 @@ protocol SettingsDetailViewProtocol: class {
     func updateTitle(title: String)
     func setupGoalView(currentGoal: Double, headingText: String, bodyText: String)
     func setupFavouritesView(headingText: String, bodyText: String)
+    func setupCoefficientView(headingText: String, bodyText: String)
     func popView()
     func reloadCollectionView()
 }

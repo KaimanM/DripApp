@@ -78,6 +78,8 @@
 		364BB8082621EA52009CAEE6 /* SettingsDetailViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364BB8072621EA52009CAEE6 /* SettingsDetailViewProtocol.swift */; };
 		364BB80B2621EA59009CAEE6 /* SettingsDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364BB80A2621EA59009CAEE6 /* SettingsDetailPresenter.swift */; };
 		364BB80E2621EA61009CAEE6 /* SettingsDetailPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364BB80D2621EA61009CAEE6 /* SettingsDetailPresenterProtocol.swift */; };
+		364E80B92623331700954E8B /* CoefficientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364E80B82623331700954E8B /* CoefficientTableViewCell.swift */; };
+		364E80BD2623487400954E8B /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364E80BC2623487400954E8B /* GradientView.swift */; };
 		36538D04260CB0D300CFB656 /* UserDefaultsControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36538D03260CB0D300CFB656 /* UserDefaultsControllerProtocol.swift */; };
 		36538D0C260CDAD300CFB656 /* OnboardingPagesScreenBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36538D0B260CDAD300CFB656 /* OnboardingPagesScreenBuilder.swift */; };
 		36538D13260CDBC700CFB656 /* OnboardingPagesViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36538D12260CDBC700CFB656 /* OnboardingPagesViewProtocol.swift */; };
@@ -230,6 +232,8 @@
 		364BB8072621EA52009CAEE6 /* SettingsDetailViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailViewProtocol.swift; sourceTree = "<group>"; };
 		364BB80A2621EA59009CAEE6 /* SettingsDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailPresenter.swift; sourceTree = "<group>"; };
 		364BB80D2621EA61009CAEE6 /* SettingsDetailPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailPresenterProtocol.swift; sourceTree = "<group>"; };
+		364E80B82623331700954E8B /* CoefficientTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoefficientTableViewCell.swift; sourceTree = "<group>"; };
+		364E80BC2623487400954E8B /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		36538D03260CB0D300CFB656 /* UserDefaultsControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsControllerProtocol.swift; sourceTree = "<group>"; };
 		36538D0B260CDAD300CFB656 /* OnboardingPagesScreenBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPagesScreenBuilder.swift; sourceTree = "<group>"; };
 		36538D12260CDBC700CFB656 /* OnboardingPagesViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPagesViewProtocol.swift; sourceTree = "<group>"; };
@@ -554,6 +558,7 @@
 			children = (
 				368BAE2925DC7A4F00D799F2 /* CustomFSCell.swift */,
 				36B6F46725DD78FA004A7EA5 /* DrinkTableViewCell.swift */,
+				364E80B82623331700954E8B /* CoefficientTableViewCell.swift */,
 				36877C1E25F9068B00918E04 /* TrendsCollectionViewCell.swift */,
 				365F642E262079BD00A9B4C0 /* SettingsCell.swift */,
 				3680E0CE24B3C8CC009E9DB8 /* GradientBarView.swift */,
@@ -564,6 +569,7 @@
 				3677D435260630B20086E89A /* DrinksLauncher.swift */,
 				3677D43B260631230086E89A /* QuickDrinkView.swift */,
 				3677D438260630E10086E89A /* DrinksCell.swift */,
+				364E80BC2623487400954E8B /* GradientView.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -930,6 +936,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				364E80B92623331700954E8B /* CoefficientTableViewCell.swift in Sources */,
 				364BB80B2621EA59009CAEE6 /* SettingsDetailPresenter.swift in Sources */,
 				0A8BEA902455D45A00AA9880 /* SettingsView.swift in Sources */,
 				0ACB9846245467BC007BF01D /* UIViewController+ViewControllerName.swift in Sources */,
@@ -985,6 +992,7 @@
 				0AD151122454EFB400F45042 /* TrendsScreenBuilder.swift in Sources */,
 				0ACB986724549DED007BF01D /* TabBarPresenterProtocol.swift in Sources */,
 				36538D13260CDBC700CFB656 /* OnboardingPagesViewProtocol.swift in Sources */,
+				364E80BD2623487400954E8B /* GradientView.swift in Sources */,
 				364BB8002621CEFD009CAEE6 /* SettingsDetailScreenBuilder.swift in Sources */,
 				3655D96E2610DCF7002B95EE /* OnboardingPage4Cell.swift in Sources */,
 				36538D1C260CDBE200CFB656 /* OnboardingPagesPresenter.swift in Sources */,

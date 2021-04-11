@@ -226,6 +226,9 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
         case 2:
             pushView(SettingsDetailScreenBuilder(type: .favourite,
                                                  userDefaultsController: userDefaultsController).build())
+        case 3:
+            pushView(SettingsDetailScreenBuilder(type: .coefficient,
+                                                 userDefaultsController: userDefaultsController).build())
         default:
             print("do nothing")
         }
