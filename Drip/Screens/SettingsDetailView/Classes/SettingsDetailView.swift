@@ -1,4 +1,5 @@
 import UIKit
+import SafariServices
 
 class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
 
@@ -53,10 +54,10 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
     }()
 
     let tableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.backgroundColor = .black
-        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.contentInset.bottom = 5
+        tableView.contentInset.top = -30 // Removes padding caused by grouped style
         return tableView
     }()
 
@@ -172,6 +173,35 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CoefficientTableViewCell.self, forCellReuseIdentifier: cellId)
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+
+        let subViews = [headingLabel, bodyLabel, tableView]
+        subViews.forEach({view.addSubview($0)})
+
+        headingLabel.text = headingText
+        bodyLabel.text = bodyText
+
+        headingLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                            leading: view.leadingAnchor,
+                            trailing: view.trailingAnchor,
+                            padding: .init(top: 10, left: 20, bottom: 0, right: 20))
+        bodyLabel.anchor(top: headingLabel.bottomAnchor,
+                            leading: view.leadingAnchor,
+                            trailing: view.trailingAnchor,
+                            padding: .init(top: 5, left: 20, bottom: 0, right: 20))
+        tableView.anchor(top: bodyLabel.bottomAnchor,
+                         leading: view.leadingAnchor,
+                         bottom: view.bottomAnchor,
+                         trailing: view.trailingAnchor,
+                         padding: .init(top: 5, left: 0, bottom: 0, right: 0))
+    }
+
+    func setupAttributionView(headingText: String, bodyText: String) {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
+        tableView.separatorColor = UIColor.white.withAlphaComponent(0.2)
+        tableView.tableFooterView = UIView()
 
         let subViews = [headingLabel, bodyLabel, tableView]
         subViews.forEach({view.addSubview($0)})
@@ -272,21 +302,47 @@ extension SettingsDetailView: DrinksLauncherDelegate {
 
 extension SettingsDetailView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        DrinksList().drinks.count
+        return presenter.numberOfRowsInSection()
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as? CoefficientTableViewCell else {
+        switch settingsType {
+        case .coefficient:
+            guard let cell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as?
+                    CoefficientTableViewCell else {
+                return UITableViewCell()
+            }
+            let cellData = presenter.coefficientCellDataForRow(row: indexPath.row)
+            cell.drinkNameLabel.text = cellData.name
+            cell.drinkImageView.image = UIImage(named: cellData.imageName)
+            cell.coeffientLabel.text = "\(cellData.coefficient)"
+            return cell
+        case .attribution:
+            guard let cell = self.tableView.dequeueReusableCell(withIdentifier: cellId) else {
+                return UITableViewCell() }
+            cell.backgroundColor = .infoPanelBG
+            cell.textLabel?.textColor = .whiteText
+            let chevronImageView = UIImageView(image: UIImage(systemName: "chevron.right"))
+            cell.accessoryView = chevronImageView
+            cell.tintColor = UIColor.white.withAlphaComponent(0.2)
+            cell.textLabel?.text = presenter.attributionTitleForRow(row: indexPath.row)
+            return cell
+        default:
             return UITableViewCell()
         }
-        cell.drinkNameLabel.text = DrinksList().drinks[indexPath.row].name
-        cell.drinkImageView.image = UIImage(named: DrinksList().drinks[indexPath.row].imageName)
-        cell.coeffientLabel.text = "\(DrinksList().drinks[indexPath.row].coefficient)"
-
-        return cell
     }
 
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 90
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch settingsType {
+        case .attribution:
+            let safariVC = SFSafariViewController(url: presenter.getAttributionURLforRow(row: indexPath.row))
+            safariVC.preferredBarTintColor = .black
+            safariVC.preferredControlTintColor = .whiteText
+            safariVC.modalPresentationStyle = .popover
+            self.navigationController?.present(safariVC, animated: true, completion: nil)
+        default:
+            break
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }

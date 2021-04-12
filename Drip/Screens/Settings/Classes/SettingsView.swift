@@ -217,21 +217,41 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        switch indexPath.row {
+        switch indexPath.section {
         case 0:
-            changeNameTapped()
+            switch indexPath.row {
+            case 0:
+                changeNameTapped()
+            case 1:
+                pushView(SettingsDetailScreenBuilder(type: .goal,
+                                                     userDefaultsController: userDefaultsController).build())
+            case 2:
+                pushView(SettingsDetailScreenBuilder(type: .favourite,
+                                                     userDefaultsController: userDefaultsController).build())
+            case 3:
+                pushView(SettingsDetailScreenBuilder(type: .coefficient,
+                                                     userDefaultsController: userDefaultsController).build())
+            default:
+                print("do nothing")
+            }
         case 1:
-            pushView(SettingsDetailScreenBuilder(type: .goal,
-                                                 userDefaultsController: userDefaultsController).build())
-        case 2:
-            pushView(SettingsDetailScreenBuilder(type: .favourite,
-                                                 userDefaultsController: userDefaultsController).build())
-        case 3:
-            pushView(SettingsDetailScreenBuilder(type: .coefficient,
-                                                 userDefaultsController: userDefaultsController).build())
+            switch indexPath.row {
+            case 0:
+                print("show about")
+            case 1:
+                pushView(SettingsDetailScreenBuilder(type: .attribution,
+                                                     userDefaultsController: userDefaultsController).build())
+            case 2:
+                print("show privacy")
+            case 3:
+                print("rate app")
+            default:
+                print("do nothing")
+            }
         default:
             print("do nothing")
         }
+
 
         tableView.deselectRow(at: indexPath, animated: true)
     }

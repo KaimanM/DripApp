@@ -6,6 +6,26 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
     var goalValue: Double = 2000
     var selectedFavourite = 0
 
+    struct AttributionCellData {
+        let title: String
+        let url: URL
+    }
+
+    let attributeCells: [AttributionCellData] = [
+        AttributionCellData(title: "FSCalendar",
+                       url: URL(string: "https://github.com/WenchaoD/FSCalendar")!),
+        AttributionCellData(title: "Swift Confetti View",
+                       url: URL(string: "https://github.com/ugurethemaydin/SwiftConfettiView")!),
+        AttributionCellData(title: "FreePik - Beverages Icon Pack",
+                       url: URL(string: "https://www.freepik.com/")!),
+        AttributionCellData(title: "FreePik - Education Icon Pack",
+                       url: URL(string: "https://www.freepik.com/")!),
+        AttributionCellData(title: "Flat Icon",
+                       url: URL(string: "https://www.flaticon.com/")!),
+        AttributionCellData(title: "Mike Bone",
+                       url: URL(string: "https://github.com/mikecbone")!)
+        ]
+
     init(view: SettingsDetailViewProtocol) {
         self.view = view
     }
@@ -22,6 +42,8 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
             initialiseFavView()
         case .coefficient:
             initialiseCoefficientView()
+        case .attribution:
+            initialiseAttributionView()
         case .none:
             print("do something")
         }
@@ -69,6 +91,16 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
         view?.setupCoefficientView(headingText: headingText, bodyText: bodyText)
     }
 
+    func initialiseAttributionView() {
+        view?.updateTitle(title: "Thanks to")
+        let headingText = "Credits"
+        let bodyText = """
+            Below are links to frameworks, websites or individuals that have assisted in the creation of Drip.
+            """
+
+        view?.setupAttributionView(headingText: headingText, bodyText: bodyText)
+    }
+
     func updateGoalValue(newGoal: Double) {
         goalValue = newGoal
     }
@@ -84,6 +116,7 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
         view?.popView()
     }
 
+    // MARK: - Favourites -
     func drinkForCellAt(index: Int) -> (imageName: String, volume: Double) {
         var volume: Double
         var imageName: String
@@ -142,5 +175,31 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
 
         view?.reloadCollectionView()
     }
+
+    // MARK: - Table view -
+    func numberOfRowsInSection() -> Int {
+        switch view?.settingsType {
+        case .coefficient:
+            return DrinksList().drinks.count
+        case .attribution:
+            return attributeCells.count
+        default:
+            return 0
+        }
+    }
+
+    func coefficientCellDataForRow(row: Int) -> Beverage {
+        return DrinksList().drinks[row]
+    }
+
+    func attributionTitleForRow(row: Int) -> String {
+        return attributeCells[row].title
+    }
+
+    func getAttributionURLforRow(row: Int) -> URL {
+        return attributeCells[row].url
+    }
+
+
 
 }

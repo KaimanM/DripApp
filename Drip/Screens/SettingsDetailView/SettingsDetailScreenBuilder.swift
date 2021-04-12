@@ -24,4 +24,5 @@ enum SettingsType {
     case goal
     case favourite
     case coefficient
+    case attribution
 }
