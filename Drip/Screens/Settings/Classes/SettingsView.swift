@@ -107,10 +107,11 @@ final class SettingsView: UIViewController, SettingsViewProtocol, PersistentData
         alertContoller.textFields![0].keyboardType = UIKeyboardType.alphabet
 
         let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertContoller] _ in
-            if let answer: String = alertContoller.textFields![0].text {
+            if let answer: String = alertContoller.textFields![0].text,
+               !answer.isEmpty, answer.count < 30 {
                 self.userDefaultsController.name = answer
             } else {
-                print("invalid")
+                self.invalidName()
             }
         }
 
@@ -120,6 +121,15 @@ final class SettingsView: UIViewController, SettingsViewProtocol, PersistentData
         alertContoller.addAction(submitAction)
 
         present(alertContoller, animated: true)
+    }
+
+    func invalidName() {
+        let message = "Names can not be empty, and must be less than 30 characters in length."
+        let alertController = UIAlertController(title: "Invalid Name",
+                                                message: message, preferredStyle: .alert)
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .default)
+        alertController.addAction(dismissAction)
+        present(alertController, animated: true)
     }
 }
 
