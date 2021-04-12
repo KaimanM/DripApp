@@ -272,14 +272,17 @@ extension SettingsDetailView: DrinksLauncherDelegate {
 
 extension SettingsDetailView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        20
+        DrinksList().drinks.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as? CoefficientTableViewCell else {
             return UITableViewCell()
         }
-        cell.textLabel?.text = "testy123"
+        cell.drinkNameLabel.text = DrinksList().drinks[indexPath.row].name
+        cell.drinkImageView.image = UIImage(named: DrinksList().drinks[indexPath.row].imageName)
+        cell.coeffientLabel.text = "\(DrinksList().drinks[indexPath.row].coefficient)"
+
         return cell
     }
 
