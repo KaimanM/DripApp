@@ -25,4 +25,5 @@ enum SettingsType {
     case favourite
     case coefficient
     case attribution
+    case about
 }

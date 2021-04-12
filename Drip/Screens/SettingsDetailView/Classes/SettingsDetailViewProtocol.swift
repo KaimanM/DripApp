@@ -10,6 +10,8 @@ protocol SettingsDetailViewProtocol: class {
     func setupFavouritesView(headingText: String, bodyText: String)
     func setupCoefficientView(headingText: String, bodyText: String)
     func setupAttributionView(headingText: String, bodyText: String)
+    func setupAboutView(headingText: String, bodyText: String)
+    func showAlertController(title: String, message: String)
     func popView()
     func reloadCollectionView()
 }

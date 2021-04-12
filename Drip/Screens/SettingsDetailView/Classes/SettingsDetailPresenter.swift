@@ -8,7 +8,7 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
 
     struct AttributionCellData {
         let title: String
-        let url: URL
+        let url: URL?
     }
 
     let attributeCells: [AttributionCellData] = [
@@ -23,7 +23,9 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
         AttributionCellData(title: "Flat Icon",
                        url: URL(string: "https://www.flaticon.com/")!),
         AttributionCellData(title: "Mike Bone",
-                       url: URL(string: "https://github.com/mikecbone")!)
+                       url: URL(string: "https://github.com/mikecbone")!),
+        AttributionCellData(title: "Marian Butnaru",
+                       url: nil)
         ]
 
     init(view: SettingsDetailViewProtocol) {
@@ -44,6 +46,8 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
             initialiseCoefficientView()
         case .attribution:
             initialiseAttributionView()
+        case .about:
+            initialiseAboutView()
         case .none:
             print("do something")
         }
@@ -99,6 +103,33 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
             """
 
         view?.setupAttributionView(headingText: headingText, bodyText: bodyText)
+    }
+
+    func initialiseAboutView() {
+        view?.updateTitle(title: "About")
+        let headingText = "About the Developer"
+        let bodyText = """
+            Hi, my name's Kaiman.
+
+            I'm the Developer of Drip. I hope you're enjoying your experience so far.
+
+            I made Drip because I wanted something simple, smooth and familiar feeling. I can only hope \
+            your experiences are similar and you have as much fun using this app as I had making it.
+            """
+        view?.setupAboutView(headingText: headingText, bodyText: bodyText)
+    }
+
+    func creditAlertControllerForRow(row: Int) {
+        switch attributeCells[row].title {
+        case "Marian Butnaru":
+            let title = "Marian Butnaru"
+            let message = """
+            Marian Butnaru was the designer of the teardrop icon seen used on icon and launchscreen.
+            """
+            view?.showAlertController(title: title, message: message)
+        default:
+            break
+        }
     }
 
     func updateGoalValue(newGoal: Double) {
@@ -196,10 +227,7 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
         return attributeCells[row].title
     }
 
-    func getAttributionURLforRow(row: Int) -> URL {
+    func getAttributionURLforRow(row: Int) -> URL? {
         return attributeCells[row].url
     }
-
-
-
 }

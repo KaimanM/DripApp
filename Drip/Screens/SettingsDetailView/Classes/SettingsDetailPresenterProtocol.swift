@@ -14,5 +14,6 @@ protocol SettingsDetailPresenterProtocol: class {
     func numberOfRowsInSection() -> Int
     func coefficientCellDataForRow(row: Int) -> Beverage
     func attributionTitleForRow(row: Int) -> String
-    func getAttributionURLforRow(row: Int) -> URL
+    func getAttributionURLforRow(row: Int) -> URL?
+    func creditAlertControllerForRow(row: Int)
 }

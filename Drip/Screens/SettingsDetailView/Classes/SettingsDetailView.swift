@@ -68,9 +68,7 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
     override func viewDidLoad() {
         self.navigationItem.largeTitleDisplayMode = .never
         view.backgroundColor = .black
-
         presenter.onViewDidLoad()
-
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -224,6 +222,37 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
                          padding: .init(top: 5, left: 0, bottom: 0, right: 0))
     }
 
+    func setupAboutView(headingText: String, bodyText: String) {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "portrait")
+        imageView.layer.cornerRadius = 10
+        imageView.clipsToBounds = true
+
+        headingLabel.text = headingText
+        bodyLabel.text = bodyText
+
+        saveButton.setTitle("Back", for: .normal)
+
+        setupButton()
+
+        let subViews = [imageView, headingLabel, bodyLabel]
+        subViews.forEach({view.addSubview($0)})
+
+        imageView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                         padding: .init(top: 10, left: 0, bottom: 0, right: 0),
+                         size: .init(width: 150, height: 150))
+        imageView.centerHorizontallyInSuperview()
+        headingLabel.anchor(top: imageView.bottomAnchor,
+                            leading: view.leadingAnchor,
+                            trailing: view.trailingAnchor,
+                            padding: .init(top: 10, left: 20, bottom: 0, right: 20))
+        bodyLabel.anchor(top: headingLabel.bottomAnchor,
+                            leading: view.leadingAnchor,
+                            trailing: view.trailingAnchor,
+                            padding: .init(top: 5, left: 20, bottom: 0, right: 20))
+
+    }
+
     @objc func sliderValueDidChange(_ sender: UISlider!) {
         let step: Float = 50
         let roundedStepValue = round(sender.value / step) * step
@@ -245,6 +274,13 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
 
     func reloadCollectionView() {
         collectionView.reloadData()
+    }
+
+    func showAlertController(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .default)
+        alertController.addAction(dismissAction)
+        present(alertController, animated: true)
     }
 }
 
@@ -300,6 +336,7 @@ extension SettingsDetailView: DrinksLauncherDelegate {
     }
 }
 
+// MARK: - Table View Deleagate & DataSource -
 extension SettingsDetailView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.numberOfRowsInSection()
@@ -335,11 +372,15 @@ extension SettingsDetailView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch settingsType {
         case .attribution:
-            let safariVC = SFSafariViewController(url: presenter.getAttributionURLforRow(row: indexPath.row))
-            safariVC.preferredBarTintColor = .black
-            safariVC.preferredControlTintColor = .whiteText
-            safariVC.modalPresentationStyle = .popover
-            self.navigationController?.present(safariVC, animated: true, completion: nil)
+            if let url = presenter.getAttributionURLforRow(row: indexPath.row) {
+                let safariVC = SFSafariViewController(url: url)
+                safariVC.preferredBarTintColor = .black
+                safariVC.preferredControlTintColor = .whiteText
+                safariVC.modalPresentationStyle = .popover
+                self.navigationController?.present(safariVC, animated: true, completion: nil)
+            } else {
+                presenter.creditAlertControllerForRow(row: indexPath.row)
+            }
         default:
             break
         }

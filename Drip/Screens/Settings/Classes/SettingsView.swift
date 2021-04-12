@@ -237,7 +237,8 @@ extension SettingsView: UITableViewDelegate, UITableViewDataSource {
         case 1:
             switch indexPath.row {
             case 0:
-                print("show about")
+                pushView(SettingsDetailScreenBuilder(type: .about,
+                                                     userDefaultsController: userDefaultsController).build())
             case 1:
                 pushView(SettingsDetailScreenBuilder(type: .attribution,
                                                      userDefaultsController: userDefaultsController).build())
