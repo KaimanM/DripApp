@@ -22,11 +22,9 @@ final class SettingsPresenter: SettingsPresenterProtocol {
     }
 
     func onViewDidAppear() {
-        print("Settings Presenter onViewDidAppear firing correctly")
     }
 
     func onViewDidLoad() {
-        print("Settings Presenter onViewDidLoad firing correctly")
         view?.updateTitle(title: "Settings")
     }
 
