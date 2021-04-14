@@ -52,6 +52,7 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
     override func viewWillDisappear(_ animated: Bool) {
         drinksLauncher.removeFromWindow()
         presenter.onViewWillDisappear()
+        super.viewWillDisappear(animated)
     }
 
     func setNavigationTitle() {

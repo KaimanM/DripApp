@@ -36,6 +36,7 @@ final class OnboardingPagesView: UIViewController, OnboardingPagesViewProtocol {
 
     override func viewWillDisappear(_ animated: Bool) {
         drinksLauncher.removeFromWindow()
+        super.viewWillDisappear(animated)
     }
 
     func setupSubviews() {
