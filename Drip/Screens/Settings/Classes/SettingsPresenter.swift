@@ -71,7 +71,8 @@ final class SettingsPresenter: SettingsPresenterProtocol {
             view?.pushView(SettingsDetailScreenBuilder(type: .attribution,
                                                  userDefaultsController: userDefaultsController).build())
         case (1, 2):
-            print("show privacy")
+            let privacyPolicyURL = URL(string: "https://dripmobile.app/privacy.html")!
+            view?.showSafariWith(url: privacyPolicyURL)
         case (1, 3):
             print("rate app")
         default:

@@ -36,6 +36,11 @@ final class MockSettingsView: SettingsViewProtocol {
     func invalidName() {
         didCallInvalidName = true
     }
+
+    private(set) var didShowSafariWithUrl: URL?
+    func showSafariWith(url: URL) {
+        didShowSafariWithUrl = url
+    }
 }
 
 class SettingsPresenterTestCase: XCTestCase {
@@ -274,18 +279,18 @@ class SettingsPresenterTestCase: XCTestCase {
                        SettingsType.attribution)
     }
 
-//    func test_givenIndexPathSection1Row2_whenDidSelectRowAtCalled_thenPushesCorrectView() {
-//        // given
-//        let indexPath = IndexPath(row: 2, section: 1)
-//
-//        // when
-//        sut.didSelectRowAt(indexPath: indexPath)
-//
-//        // then
-//
-//        // Probaby sfsafariview
-//    }
-//
+    func test_givenIndexPathSection1Row2_whenDidSelectRowAtCalled_thenPushesCorrectView() {
+        // given
+        let indexPath = IndexPath(row: 2, section: 1)
+
+        // when
+        sut.didSelectRowAt(indexPath: indexPath)
+
+        // then
+        XCTAssertEqual(mockedView.didShowSafariWithUrl?.absoluteString,
+                       "https://dripmobile.app/privacy.html")
+    }
+
 //    func test_givenIndexPathSection1Row3_whenDidSelectRowAtCalled_thenPushesCorrectView() {
 //        // given
 //        let indexPath = IndexPath(row: 3, section: 1)

@@ -1,4 +1,5 @@
 import UIKit
+import SafariServices
 
 final class SettingsView: UIViewController, SettingsViewProtocol, PersistentDataViewProtocol {
 
@@ -80,6 +81,14 @@ final class SettingsView: UIViewController, SettingsViewProtocol, PersistentData
 
     func updateTitle(title: String) {
         self.title = title
+    }
+
+    func showSafariWith(url: URL) {
+        let safariVC = SFSafariViewController(url: url)
+        safariVC.preferredBarTintColor = .black
+        safariVC.preferredControlTintColor = .whiteText
+        safariVC.modalPresentationStyle = .popover
+        self.navigationController?.present(safariVC, animated: true, completion: nil)
     }
 
     func changeNameTapped() {

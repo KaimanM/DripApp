@@ -11,4 +11,5 @@ protocol SettingsViewProtocol: class {
 
     func changeNameTapped()
     func invalidName()
+    func showSafariWith(url: URL)
 }
