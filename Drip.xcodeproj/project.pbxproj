@@ -135,6 +135,8 @@
 		36BFF50F25D17653003456F3 /* RoundDrinkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BFF50E25D17653003456F3 /* RoundDrinkButton.swift */; };
 		36C1F6EA261E005300224846 /* AwardsDetailScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1F6E9261E005300224846 /* AwardsDetailScreenBuilderTestCase.swift */; };
 		36C1F6EF261E007A00224846 /* AwardsDetailPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1F6EE261E007A00224846 /* AwardsDetailPresenterTestCase.swift */; };
+		36F284E7262741ED00FBC0F1 /* SettingsDetailScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F284E6262741ED00FBC0F1 /* SettingsDetailScreenBuilderTestCase.swift */; };
+		36F284EC2627424200FBC0F1 /* SettingsDetailPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F284EB2627424200FBC0F1 /* SettingsDetailPresenterTestCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -291,6 +293,8 @@
 		36BFF50E25D17653003456F3 /* RoundDrinkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundDrinkButton.swift; sourceTree = "<group>"; };
 		36C1F6E9261E005300224846 /* AwardsDetailScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsDetailScreenBuilderTestCase.swift; sourceTree = "<group>"; };
 		36C1F6EE261E007A00224846 /* AwardsDetailPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsDetailPresenterTestCase.swift; sourceTree = "<group>"; };
+		36F284E6262741ED00FBC0F1 /* SettingsDetailScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailScreenBuilderTestCase.swift; sourceTree = "<group>"; };
+		36F284EB2627424200FBC0F1 /* SettingsDetailPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailPresenterTestCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -632,6 +636,7 @@
 				36905773261DE243001FE2C6 /* Awards */,
 				36C1F6E8261E003700224846 /* AwardsDetail */,
 				3657BFD12625C47000C9B7AA /* Settings */,
+				36F284E5262741DB00FBC0F1 /* SettingsDetail */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -823,6 +828,23 @@
 				36406024261208D000C00117 /* MockUserDefaultsController.swift */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		36F284E5262741DB00FBC0F1 /* SettingsDetail */ = {
+			isa = PBXGroup;
+			children = (
+				36F284E6262741ED00FBC0F1 /* SettingsDetailScreenBuilderTestCase.swift */,
+				36F284EA2627423200FBC0F1 /* Classes */,
+			);
+			path = SettingsDetail;
+			sourceTree = "<group>";
+		};
+		36F284EA2627423200FBC0F1 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				36F284EB2627424200FBC0F1 /* SettingsDetailPresenterTestCase.swift */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1082,8 +1104,10 @@
 				36C1F6EA261E005300224846 /* AwardsDetailScreenBuilderTestCase.swift in Sources */,
 				360CAA0825F6A01300C7676A /* HistoryPresenterTestCase.swift in Sources */,
 				36905775261DE267001FE2C6 /* AwardsScreenBuilderTestCase.swift in Sources */,
+				36F284E7262741ED00FBC0F1 /* SettingsDetailScreenBuilderTestCase.swift in Sources */,
 				3605E3F92600E22400FFE3C2 /* TrendsPresenterTestCase.swift in Sources */,
 				3690577A261DE2A8001FE2C6 /* AwardsPresenterTestCase.swift in Sources */,
+				36F284EC2627424200FBC0F1 /* SettingsDetailPresenterTestCase.swift in Sources */,
 				3657BFD32625C49500C9B7AA /* SettingsScreenBuilderTestCase.swift in Sources */,
 				364A9280256BE93500F84985 /* TodayPresenterTestCase.swift in Sources */,
 			);
