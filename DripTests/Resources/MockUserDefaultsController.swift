@@ -1,13 +1,21 @@
 @testable import Drip
 
 final class MockUserDefaultsController: UserDefaultsControllerProtocol {
-    var favDrink1Name: String = "MockDrink1"
+    var favBeverage1: Beverage = Beverage(name: "MockDrink1",
+                                          imageName: "MD1.pdf",
+                                          coefficient: 1.0)
 
-    var favDrink2Name: String = "MockDrink2"
+    var favBeverage2: Beverage = Beverage(name: "MockDrink2",
+                                         imageName: "MD2.pdf",
+                                         coefficient: 1.0)
 
-    var favDrink3Name: String = "MockDrink3"
+    var favBeverage3: Beverage = Beverage(name: "MockDrink3",
+                                          imageName: "MD3.pdf",
+                                          coefficient: 1.0)
 
-    var favDrink4Name: String = "MockDrink4"
+    var favBeverage4: Beverage = Beverage(name: "MockDrink4",
+                                          imageName: "MD4.pdf",
+                                          coefficient: 1.0)
 
     var favDrink1Volume: Double = 100
 
@@ -16,14 +24,6 @@ final class MockUserDefaultsController: UserDefaultsControllerProtocol {
     var favDrink3Volume: Double = 300
 
     var favDrink4Volume: Double = 400
-
-    var favDrink1ImageName: String = "MD1.svg"
-
-    var favDrink2ImageName: String = "MD2.svg"
-
-    var favDrink3ImageName: String = "MD3.svg"
-
-    var favDrink4ImageName: String = "MD4.svg"
 
     var drinkGoal: Double = 2000
 

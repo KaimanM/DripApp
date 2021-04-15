@@ -88,20 +88,9 @@ class DrinksLauncher: NSObject {
                             "850ml", "900ml", "1000ml"]
 
     var currentVolume: Double = 300
-//    var currentDrinkName = "Water"
-//    var currentDrinkImageName = "waterbottle.svg"
 
     let beverages = Beverages().drinks
     var currentBeverage = Beverage(name: "Water", imageName: "waterbottle.svg", coefficient: 1)
-
-//    let drinkNames = ["Water", "Coffee", "Tea", "Milk", "Orange Juice", "Juicebox",
-//                      "Cola", "Cocktail", "Punch", "Milkshake", "Energy Drink", "Beer",
-//                      "Ice Tea", "Coconut Juice", "Ice Coffee", "Smoothie", "Bubble Tea", "Soda"]
-
-//    let drinkImageNames = ["waterbottle.svg", "coffee.svg", "tea.svg", "milk.svg", "orangejuice.svg",
-//                            "juicebox.svg", "cola.svg", "cocktail.svg", "punch.svg", "milkshake.svg",
-//                            "energydrink.svg", "beer.svg", "icetea.svg", "coconutjuice.svg", "icecoffee.svg",
-//                            "smoothie.svg", "bubbletea.svg", "soda.svg"]
 
     var isFirstOpen = true
 

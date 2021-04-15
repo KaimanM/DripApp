@@ -92,9 +92,10 @@ class AwardsPresenterTestCase: XCTestCase {
     func test_given10DrinksInCoreData_whenFetchUnlockedAwardsCalled_thenUnlocksCorrectAward() {
         // given
         for _ in 1...10 {
-            coreDataController.addDrinkForDay(name: "test",
+            coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                                 imageName: "test",
+                                                                 coefficient: 1),
                                               volume: 200,
-                                              imageName: "test",
                                               timeStamp: Date())
         }
 
@@ -109,9 +110,10 @@ class AwardsPresenterTestCase: XCTestCase {
     func test_given50DrinksInCoreData_whenFetchUnlockedAwardsCalled_thenUnlocksCorrectAwards() {
         // given
         for _ in 1...50 {
-            coreDataController.addDrinkForDay(name: "test",
+            coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                                 imageName: "test",
+                                                                 coefficient: 1),
                                               volume: 200,
-                                              imageName: "test",
                                               timeStamp: Date())
         }
 
@@ -127,9 +129,10 @@ class AwardsPresenterTestCase: XCTestCase {
     func test_given100DrinksInCoreData_whenFetchUnlockedAwardsCalled_thenUnlocksCorrectAwards() {
         // given
         for _ in 1...100 {
-            coreDataController.addDrinkForDay(name: "test",
+            coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                                 imageName: "test",
+                                                                 coefficient: 1),
                                               volume: 200,
-                                              imageName: "test",
                                               timeStamp: Date())
         }
 
@@ -146,9 +149,10 @@ class AwardsPresenterTestCase: XCTestCase {
     func test_given500DrinksInCoreData_whenFetchUnlockedAwardsCalled_thenUnlocksCorrectAwards() {
         // given
         for _ in 1...500 {
-            coreDataController.addDrinkForDay(name: "test",
+            coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                                 imageName: "test",
+                                                                 coefficient: 1),
                                               volume: 200,
-                                              imageName: "test",
                                               timeStamp: Date())
         }
 
@@ -167,9 +171,10 @@ class AwardsPresenterTestCase: XCTestCase {
         // given
         var date = Date()
         for _ in 1...7 {
-            coreDataController.addDrinkForDay(name: "test",
+            coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                                 imageName: "test",
+                                                                 coefficient: 1),
                                               volume: 3000,
-                                              imageName: "test",
                                               timeStamp: date)
             date = date.dayBefore
         }
@@ -186,9 +191,10 @@ class AwardsPresenterTestCase: XCTestCase {
         // given
         var date = Date()
         for _ in 1...28 {
-            coreDataController.addDrinkForDay(name: "test",
+            coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                                 imageName: "test",
+                                                                 coefficient: 1),
                                               volume: 3000,
-                                              imageName: "test",
                                               timeStamp: date)
             date = date.dayBefore
         }
@@ -206,9 +212,10 @@ class AwardsPresenterTestCase: XCTestCase {
         // given
         var date = Date()
         for _ in 1...90 {
-            coreDataController.addDrinkForDay(name: "test",
+            coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                                 imageName: "test",
+                                                                 coefficient: 1),
                                               volume: 3000,
-                                              imageName: "test",
                                               timeStamp: date)
             date = date.dayBefore
         }
@@ -227,9 +234,10 @@ class AwardsPresenterTestCase: XCTestCase {
         // given
         var date = Date()
         for _ in 1...365 {
-            coreDataController.addDrinkForDay(name: "test",
+            coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                                 imageName: "test",
+                                                                 coefficient: 1),
                                               volume: 3000,
-                                              imageName: "test",
                                               timeStamp: date)
             date = date.dayBefore
         }
@@ -248,9 +256,10 @@ class AwardsPresenterTestCase: XCTestCase {
     func test_given3UniqueDrinksInCoreData_whenFetchUnlockedAwardsCalled_thenUnlocksCorrectAwards() {
         // given
         for index in 1...3 {
-            coreDataController.addDrinkForDay(name: "test\(index)",
+            coreDataController.addDrinkForDay(beverage: Beverage(name: "test\(index)",
+                                                                 imageName: "test",
+                                                                 coefficient: 1),
                                               volume: 3000,
-                                              imageName: "test",
                                               timeStamp: Date())
         }
 
@@ -265,9 +274,10 @@ class AwardsPresenterTestCase: XCTestCase {
     func test_given5UniqueDrinksInCoreData_whenFetchUnlockedAwardsCalled_thenUnlocksCorrectAwards() {
         // given
         for index in 1...5 {
-            coreDataController.addDrinkForDay(name: "test\(index)",
+            coreDataController.addDrinkForDay(beverage: Beverage(name: "test\(index)",
+                                                                 imageName: "test",
+                                                                 coefficient: 1),
                                               volume: 3000,
-                                              imageName: "test",
                                               timeStamp: Date())
         }
 
@@ -283,9 +293,10 @@ class AwardsPresenterTestCase: XCTestCase {
     func test_given7UniqueDrinksInCoreData_whenFetchUnlockedAwardsCalled_thenUnlocksCorrectAwards() {
         // given
         for index in 1...7 {
-            coreDataController.addDrinkForDay(name: "test\(index)",
+            coreDataController.addDrinkForDay(beverage: Beverage(name: "test\(index)",
+                                                                 imageName: "test",
+                                                                 coefficient: 1),
                                               volume: 3000,
-                                              imageName: "test",
                                               timeStamp: Date())
         }
 
@@ -301,11 +312,11 @@ class AwardsPresenterTestCase: XCTestCase {
 
     func test_given1000mlDrinkInCoreData_whenFetchUnlockedAwardsCalled_thenUnlocksCorrectAwards() {
         // given
-        coreDataController.addDrinkForDay(name: "test",
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                             imageName: "test",
+                                                             coefficient: 1),
                                           volume: 1000,
-                                          imageName: "test",
                                           timeStamp: Date())
-
         // when
         sut.fetchUnlockedAwards()
 
@@ -316,9 +327,10 @@ class AwardsPresenterTestCase: XCTestCase {
 
     func test_given50mlDrinkInCoreData_whenFetchUnlockedAwardsCalled_thenUnlocksCorrectAwards() {
         // given
-        coreDataController.addDrinkForDay(name: "test",
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                             imageName: "test",
+                                                             coefficient: 1),
                                           volume: 50,
-                                          imageName: "test",
                                           timeStamp: Date())
 
         // when

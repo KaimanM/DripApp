@@ -170,15 +170,27 @@ class TodayPresenterTestCase: XCTestCase {
 
         dateComponents.hour = 9
         var timeStamp = Calendar.current.date(from: dateComponents)!
-        coreDataController.addDrinkForDay(name: "testDrink", volume: 250, imageName: "testImage", timeStamp: timeStamp)
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "testDrink",
+                                                             imageName: "testImage",
+                                                             coefficient: 1),
+                                          volume: 250,
+                                          timeStamp: timeStamp)
 
         dateComponents.hour = 15
         timeStamp = Calendar.current.date(from: dateComponents)!
-        coreDataController.addDrinkForDay(name: "testDrink", volume: 500, imageName: "testImage", timeStamp: timeStamp)
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "testDrink",
+                                                             imageName: "testImage",
+                                                             coefficient: 1),
+                                          volume: 500,
+                                          timeStamp: timeStamp)
 
         dateComponents.hour = 20
         timeStamp = Calendar.current.date(from: dateComponents)!
-        coreDataController.addDrinkForDay(name: "testDrink", volume: 1000, imageName: "testImage", timeStamp: timeStamp)
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "testDrink",
+                                                             imageName: "testImage",
+                                                             coefficient: 1),
+                                          volume: 1000,
+                                          timeStamp: timeStamp)
         sut.onViewDidAppear()
 
         // then
