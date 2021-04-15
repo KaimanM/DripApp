@@ -31,6 +31,7 @@ final class MockTrendsView: TrendsViewProtocol {
 
 }
 
+// swiftlint:disable:next type_body_length
 class TrendsPresenterTestCase: XCTestCase {
     private var sut: TrendsPresenter!
     private var mockedView = MockTrendsView()
@@ -148,8 +149,16 @@ class TrendsPresenterTestCase: XCTestCase {
 
     func test_whenGetDataForCellCalledWithSection0Row0_thenReturnsAvgDrinkData() {
         // given two drinks of 250ml & 350ml
-        mockedView.coreDataController.addDrinkForDay(name: "test", volume: 250, imageName: "test", timeStamp: Date())
-        mockedView.coreDataController.addDrinkForDay(name: "test", volume: 350, imageName: "test", timeStamp: Date())
+        mockedView.coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                                            imageName: "testImageName",
+                                                                            coefficient: 1),
+                                                         volume: 250,
+                                                         timeStamp: Date())
+        mockedView.coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                                            imageName: "testImageName",
+                                                                            coefficient: 1),
+                                                         volume: 350,
+                                                         timeStamp: Date())
         mockedView.coreDataController.saveContext()
         sut.didLoadData = true
 
@@ -161,8 +170,16 @@ class TrendsPresenterTestCase: XCTestCase {
 
     func test_whenGetDataForCellCalledWithSection0Row1_thenReturnsAvgDailyData() {
         // given two drinks of 250ml & 350ml
-        coreDataController.addDrinkForDay(name: "test", volume: 250, imageName: "test", timeStamp: Date())
-        coreDataController.addDrinkForDay(name: "test", volume: 350, imageName: "test", timeStamp: Date())
+        mockedView.coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                                            imageName: "testImageName",
+                                                                            coefficient: 1),
+                                                         volume: 250,
+                                                         timeStamp: Date())
+        mockedView.coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                                            imageName: "testImageName",
+                                                                            coefficient: 1),
+                                                         volume: 350,
+                                                         timeStamp: Date())
         coreDataController.saveContext()
         sut.didLoadData = true
 
@@ -172,10 +189,21 @@ class TrendsPresenterTestCase: XCTestCase {
 
     func test_whenGetDataForCellCalledWithSection0Row2_thenReturnsBestDayData() {
         // given
-        coreDataController.addDrinkForDay(name: "test", volume: 250, imageName: "test", timeStamp: Date())
-        coreDataController.addDrinkForDay(name: "test", volume: 350, imageName: "test", timeStamp: Date())
-        coreDataController.addDrinkForDay(name: "test", volume: 500, imageName: "test",
-                                    timeStamp: Date().addingTimeInterval(-24*60*60))
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                                            imageName: "testImageName",
+                                                                            coefficient: 1),
+                                                         volume: 250,
+                                                         timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                                            imageName: "testImageName",
+                                                                            coefficient: 1),
+                                                         volume: 350,
+                                                         timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                                            imageName: "testImageName",
+                                                                            coefficient: 1),
+                                                         volume: 500,
+                                                         timeStamp: Date().addingTimeInterval(-24*60*60))
         coreDataController.saveContext()
         sut.didLoadData = true
 
@@ -185,10 +213,21 @@ class TrendsPresenterTestCase: XCTestCase {
 
     func test_whenGetDataForCellCalledWithSection0Row3_thenReturnsWorstDayData() {
         // given
-        coreDataController.addDrinkForDay(name: "test", volume: 250, imageName: "test", timeStamp: Date())
-        coreDataController.addDrinkForDay(name: "test", volume: 350, imageName: "test", timeStamp: Date())
-        coreDataController.addDrinkForDay(name: "test", volume: 500, imageName: "test",
-                                    timeStamp: Date().addingTimeInterval(-24*60*60))
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                                            imageName: "testImageName",
+                                                                            coefficient: 1),
+                                                         volume: 250,
+                                                         timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                                            imageName: "testImageName",
+                                                                            coefficient: 1),
+                                                         volume: 350,
+                                                         timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                                            imageName: "testImageName",
+                                                                            coefficient: 1),
+                                                         volume: 500,
+                                                         timeStamp: Date().addingTimeInterval(-24*60*60))
         coreDataController.saveContext()
         sut.didLoadData = true
 
@@ -198,11 +237,13 @@ class TrendsPresenterTestCase: XCTestCase {
 
     func test_whenGetDataForCellCalledWithSection0Row4_thenReturnsCurrentStreakData() {
         // given
-        for day in -4 ... -1 {
-            coreDataController.addDrinkForDay(name: "test", volume: 3000, imageName: "test",
-                                        timeStamp: Date().addingTimeInterval(TimeInterval(day*24*60*60)))
+        for day in -4 ... 0 {
+            coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                                 imageName: "testImageName",
+                                                                 coefficient: 1),
+                                              volume: 3000,
+                                              timeStamp: Date().addingTimeInterval(TimeInterval(day*24*60*60)))
         }
-        coreDataController.addDrinkForDay(name: "test", volume: 3000, imageName: "test", timeStamp: Date())
         sut.populateArrangedDays()
         sut.didLoadData = true
 
@@ -213,10 +254,17 @@ class TrendsPresenterTestCase: XCTestCase {
     func test_whenGetDataForCellCalledWithSection0Row5_thenReturnsBestStreakData() {
         // given
         for day in -4 ... -1 {
-            coreDataController.addDrinkForDay(name: "test", volume: 3000, imageName: "test",
-                                        timeStamp: Date().addingTimeInterval(TimeInterval(day*24*60*60)))
+            coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                                 imageName: "testImageName",
+                                                                 coefficient: 1),
+                                              volume: 3000,
+                                              timeStamp: Date().addingTimeInterval(TimeInterval(day*24*60*60)))
         }
-        coreDataController.addDrinkForDay(name: "test", volume: 500, imageName: "test", timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                             imageName: "testImageName",
+                                                             coefficient: 1),
+                                          volume: 500,
+                                          timeStamp: Date())
         sut.populateArrangedDays()
         sut.didLoadData = true
 
@@ -226,9 +274,21 @@ class TrendsPresenterTestCase: XCTestCase {
 
     func test_whenGetDataForCellCalledWithSection0Row6_thenReturnsFavDrinkData() {
         // given
-        coreDataController.addDrinkForDay(name: "water", volume: 500, imageName: "test", timeStamp: Date())
-        coreDataController.addDrinkForDay(name: "water", volume: 500, imageName: "test", timeStamp: Date())
-        coreDataController.addDrinkForDay(name: "coffee", volume: 500, imageName: "test", timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "water",
+                                                             imageName: "testImageName",
+                                                             coefficient: 1),
+                                          volume: 500,
+                                          timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "water",
+                                                             imageName: "testImageName",
+                                                             coefficient: 1),
+                                          volume: 500,
+                                          timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "coffee",
+                                                             imageName: "testImageName",
+                                                             coefficient: 1),
+                                          volume: 500,
+                                          timeStamp: Date())
         coreDataController.saveContext()
         sut.didLoadData = true
 
@@ -238,11 +298,21 @@ class TrendsPresenterTestCase: XCTestCase {
 
     func test_whenGetDataForCellCalledWithSection0Row7_thenReturnsDailyDrinkData() {
         // given
-        coreDataController.addDrinkForDay(name: "water", volume: 500, imageName: "test", timeStamp: Date())
-        coreDataController.addDrinkForDay(name: "water", volume: 500, imageName: "test",
-                                    timeStamp: Date().addingTimeInterval(-24*60*60))
-        coreDataController.addDrinkForDay(name: "coffee", volume: 500, imageName: "test",
-                                    timeStamp: Date().addingTimeInterval(-2*24*60*60))
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "water",
+                                                             imageName: "testImageName",
+                                                             coefficient: 1),
+                                          volume: 500,
+                                          timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "coffee",
+                                                             imageName: "testImageName",
+                                                             coefficient: 1),
+                                          volume: 500,
+                                          timeStamp: Date().addingTimeInterval(-24*60*60))
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "coffee",
+                                                             imageName: "testImageName",
+                                                             coefficient: 1),
+                                          volume: 500,
+                                          timeStamp: Date().addingTimeInterval(-2*24*60*60))
         coreDataController.saveContext()
         sut.didLoadData = true
 
@@ -252,10 +322,21 @@ class TrendsPresenterTestCase: XCTestCase {
 
     func test_whenGetDataForCellCalledWithSection1Row0_thenReturnsAvgDrinkData7Days() {
         // given two drinks of 250ml & 350ml today and another drink 8 days ago
-        coreDataController.addDrinkForDay(name: "test", volume: 250, imageName: "test", timeStamp: Date())
-        coreDataController.addDrinkForDay(name: "test", volume: 350, imageName: "test", timeStamp: Date())
-        coreDataController.addDrinkForDay(name: "test", volume: 1000, imageName: "test",
-                                    timeStamp: Date().addingTimeInterval(-8*24*60*60))
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 250,
+                                          timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 350,
+                                          timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 1000,
+                                          timeStamp: Date().addingTimeInterval(-8*24*60*60))
         coreDataController.saveContext()
         sut.didLoadData = true
 
@@ -265,10 +346,21 @@ class TrendsPresenterTestCase: XCTestCase {
 
     func test_whenGetDataForCellCalledWithSection1Row1_thenReturnsAvgDailyData7Days() {
         // given two drinks of 250ml & 350ml today and another drink 8 days ago
-        coreDataController.addDrinkForDay(name: "test", volume: 250, imageName: "test", timeStamp: Date())
-        coreDataController.addDrinkForDay(name: "test", volume: 350, imageName: "test", timeStamp: Date())
-        coreDataController.addDrinkForDay(name: "test", volume: 1000, imageName: "test",
-                                    timeStamp: Date().addingTimeInterval(-8*24*60*60))
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 250,
+                                          timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 350,
+                                          timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 1000,
+                                          timeStamp: Date().addingTimeInterval(-8*24*60*60))
         coreDataController.saveContext()
         sut.didLoadData = true
 
@@ -278,13 +370,31 @@ class TrendsPresenterTestCase: XCTestCase {
 
     func test_whenGetDataForCellCalledWithSection1Row2_thenReturnsFavDrinkData7Days() {
         // given
-        coreDataController.addDrinkForDay(name: "water", volume: 500, imageName: "test", timeStamp: Date())
-        coreDataController.addDrinkForDay(name: "water", volume: 500, imageName: "test", timeStamp: Date())
-        coreDataController.addDrinkForDay(name: "coffee", volume: 500, imageName: "test", timeStamp: Date())
-        coreDataController.addDrinkForDay(name: "coffee", volume: 1000, imageName: "test",
-                                    timeStamp: Date().addingTimeInterval(-8*24*60*60))
-        coreDataController.addDrinkForDay(name: "coffee", volume: 1000, imageName: "test",
-                                    timeStamp: Date().addingTimeInterval(-8*24*60*60))
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "water",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 250,
+                                          timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "water",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 350,
+                                          timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "coffee",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 1000,
+                                          timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "coffee",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 1000,
+                                          timeStamp: Date().addingTimeInterval(-8*24*60*60))
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "coffee",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 1000,
+                                          timeStamp: Date().addingTimeInterval(-8*24*60*60))
         coreDataController.saveContext()
         sut.didLoadData = true
 
@@ -294,15 +404,32 @@ class TrendsPresenterTestCase: XCTestCase {
 
     func test_whenGetDataForCellCalledWithSection1Row3_thenReturnsDailyDrinkData7days() {
         // given
-        coreDataController.addDrinkForDay(name: "water", volume: 500, imageName: "test", timeStamp: Date())
-        coreDataController.addDrinkForDay(name: "water", volume: 500, imageName: "test",
-                                    timeStamp: Date().addingTimeInterval(-24*60*60))
-        coreDataController.addDrinkForDay(name: "coffee", volume: 500, imageName: "test",
-                                    timeStamp: Date().addingTimeInterval(-2*24*60*60))
-        coreDataController.addDrinkForDay(name: "coffee", volume: 1000, imageName: "test",
-                                    timeStamp: Date().addingTimeInterval(-8*24*60*60))
-        coreDataController.addDrinkForDay(name: "coffee", volume: 1000, imageName: "test",
-                                    timeStamp: Date().addingTimeInterval(-8*24*60*60))
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "water",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 1000,
+                                          timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "water",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 1000,
+                                          timeStamp: Date().addingTimeInterval(-24*60*60))
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "coffee",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 500,
+                                          timeStamp: Date().addingTimeInterval(-2*24*60*60))
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "coffee",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 1000,
+                                          timeStamp: Date().addingTimeInterval(-8*24*60*60))
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "coffee",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 1000,
+                                          timeStamp: Date().addingTimeInterval(-8*24*60*60))
+
         coreDataController.saveContext()
         sut.didLoadData = true
 
@@ -312,13 +439,27 @@ class TrendsPresenterTestCase: XCTestCase {
 
     func test_whenGetDataForCellCalledWithSection2Row0_thenReturnsAvgDrinkData30Days() {
         // given
-        coreDataController.addDrinkForDay(name: "test", volume: 250, imageName: "test", timeStamp: Date())
-        coreDataController.addDrinkForDay(name: "test", volume: 350, imageName: "test", timeStamp: Date())
-        coreDataController.addDrinkForDay(name: "test", volume: 300, imageName: "test",
-                                    timeStamp: Date().addingTimeInterval(-8*24*60*60))
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 250,
+                                          timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 350,
+                                          timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 300,
+                                          timeStamp: Date().addingTimeInterval(-8*24*60*60))
         // this drink is over 30 days ago so shouldnt affect avg of 300
-        coreDataController.addDrinkForDay(name: "test", volume: 1000, imageName: "test",
-                                    timeStamp: Date().addingTimeInterval(-31*24*60*60))
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 1000,
+                                          timeStamp: Date().addingTimeInterval(-31*24*60*60))
         coreDataController.saveContext()
         sut.didLoadData = true
 
@@ -328,13 +469,27 @@ class TrendsPresenterTestCase: XCTestCase {
 
     func test_whenGetDataForCellCalledWithSection2Row1_thenReturnsAvgDailyData30Days() {
         // given two drinks of 250ml & 350ml today and another drink 8 days ago
-        coreDataController.addDrinkForDay(name: "test", volume: 250, imageName: "test", timeStamp: Date())
-        coreDataController.addDrinkForDay(name: "test", volume: 350, imageName: "test", timeStamp: Date())
-        coreDataController.addDrinkForDay(name: "test", volume: 1000, imageName: "test",
-                                    timeStamp: Date().addingTimeInterval(-8*24*60*60))
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 250,
+                                          timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 350,
+                                          timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 1000,
+                                          timeStamp: Date().addingTimeInterval(-8*24*60*60))
         // this drink is over 30 days ago so shouldnt affect avg daily of 800ml
-        coreDataController.addDrinkForDay(name: "test", volume: 1000, imageName: "test",
-                                    timeStamp: Date().addingTimeInterval(-31*24*60*60))
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "test",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 1000,
+                                          timeStamp: Date().addingTimeInterval(-31*24*60*60))
         coreDataController.saveContext()
         sut.didLoadData = true
 
@@ -342,23 +497,54 @@ class TrendsPresenterTestCase: XCTestCase {
         XCTAssertEqual(sut.getDataForCell(section: 2, row: 1), "800ml")
     }
 
+    // swiftlint:disable:next function_body_length
     func test_whenGetDataForCellCalledWithSection2Row2_thenReturnsFavDrinkData30Days() {
         // given
-        coreDataController.addDrinkForDay(name: "water", volume: 500, imageName: "test", timeStamp: Date())
-        coreDataController.addDrinkForDay(name: "water", volume: 500, imageName: "test", timeStamp: Date())
-        coreDataController.addDrinkForDay(name: "coffee", volume: 500, imageName: "test", timeStamp: Date())
-        coreDataController.addDrinkForDay(name: "coffee", volume: 1000, imageName: "test",
-                                    timeStamp: Date().addingTimeInterval(-8*24*60*60))
-        coreDataController.addDrinkForDay(name: "coffee", volume: 1000, imageName: "test",
-                                    timeStamp: Date().addingTimeInterval(-8*24*60*60))
-        coreDataController.addDrinkForDay(name: "coffee", volume: 1000, imageName: "test",
-                                    timeStamp: Date().addingTimeInterval(-8*24*60*60))
-        coreDataController.addDrinkForDay(name: "water", volume: 1000, imageName: "test",
-                                    timeStamp: Date().addingTimeInterval(-32*24*60*60))
-        coreDataController.addDrinkForDay(name: "water", volume: 1000, imageName: "test",
-                                    timeStamp: Date().addingTimeInterval(-33*24*60*60))
-        coreDataController.addDrinkForDay(name: "water", volume: 1000, imageName: "test",
-                                    timeStamp: Date().addingTimeInterval(-31*24*60*60))
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "water",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 500,
+                                          timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "water",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 500,
+                                          timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "coffee",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 500,
+                                          timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "coffee",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 1000,
+                                          timeStamp: Date().addingTimeInterval(-8*24*60*60))
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "coffee",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 1000,
+                                          timeStamp: Date().addingTimeInterval(-8*24*60*60))
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "coffee",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 1000,
+                                          timeStamp: Date().addingTimeInterval(-8*24*60*60))
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "water",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 1000,
+                                          timeStamp: Date().addingTimeInterval(-32*24*60*60))
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "water",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 1000,
+                                          timeStamp: Date().addingTimeInterval(-33*24*60*60))
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "coffee",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 1000,
+                                          timeStamp: Date().addingTimeInterval(-31*24*60*60))
         coreDataController.saveContext()
         sut.didLoadData = true
 
@@ -368,20 +554,36 @@ class TrendsPresenterTestCase: XCTestCase {
 
     func test_whenGetDataForCellCalledWithSection2Row3_thenReturnsDailyDrinkData7days() {
         // given
-        coreDataController.addDrinkForDay(name: "water", volume: 500, imageName: "test", timeStamp: Date())
-        coreDataController.addDrinkForDay(name: "water", volume: 500, imageName: "test",
-                                    timeStamp: Date().addingTimeInterval(-24*60*60))
-        coreDataController.addDrinkForDay(name: "coffee", volume: 500, imageName: "test",
-                                    timeStamp: Date().addingTimeInterval(-2*24*60*60))
-        coreDataController.addDrinkForDay(name: "coffee", volume: 1000, imageName: "test",
-                                    timeStamp: Date().addingTimeInterval(-31*24*60*60))
-        coreDataController.addDrinkForDay(name: "coffee", volume: 1000, imageName: "test",
-                                    timeStamp: Date().addingTimeInterval(-31*24*60*60))
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "water",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 500,
+                                          timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "water",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 500,
+                                          timeStamp: Date().addingTimeInterval(-24*60*60))
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "coffee",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 500,
+                                          timeStamp: Date().addingTimeInterval(-2*24*60*60))
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "coffee",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 1000,
+                                          timeStamp: Date().addingTimeInterval(-31*24*60*60))
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "coffee",
+                                                             imageName: "test",
+                                                             coefficient: 1),
+                                          volume: 1000,
+                                          timeStamp: Date().addingTimeInterval(-31*24*60*60))
         coreDataController.saveContext()
         sut.didLoadData = true
 
         // then
         XCTAssertEqual(sut.getDataForCell(section: 2, row: 3), "1.0 drinks")
     }
-
+    // swiftlint:disable:next file_length
 }

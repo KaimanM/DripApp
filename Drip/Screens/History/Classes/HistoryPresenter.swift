@@ -125,10 +125,9 @@ final class HistoryPresenter: HistoryPresenterProtocol {
         view?.presentView(confirmDeleteAlert)
     }
 
-    func addDrinkTapped(drinkName: String, volume: Double, imageName: String) {
-        view?.coreDataController.addDrinkForDay(name: drinkName,
+    func addDrinkTapped(beverage: Beverage, volume: Double) {
+        view?.coreDataController.addDrinkForDay(beverage: beverage,
                                                 volume: volume,
-                                                imageName: imageName,
                                                 timeStamp: selectedDate)
         if selectedDay == nil {
             selectedDay = view?.coreDataController.getDayForDate(date: selectedDate)

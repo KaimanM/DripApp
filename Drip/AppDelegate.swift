@@ -28,9 +28,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         self.window?.makeKeyAndVisible()
 
-        UIApplication.shared.isIdleTimerDisabled = true
-
         return true
+    }
+
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        // Saves Data on exit.
+        CoreDataController.shared.saveContext()
     }
 
 }

@@ -41,7 +41,7 @@ class OnboardingPagesPresenterTestCase: XCTestCase {
         let cellData = sut.drinkForCellAt(index: 0)
 
         // then
-        XCTAssertEqual(cellData.imageName, "MD1.svg")
+        XCTAssertEqual(cellData.imageName, "MD1.pdf")
         XCTAssertEqual(cellData.volume, 100)
     }
 
@@ -50,7 +50,7 @@ class OnboardingPagesPresenterTestCase: XCTestCase {
         let cellData = sut.drinkForCellAt(index: 1)
 
         // then
-        XCTAssertEqual(cellData.imageName, "MD2.svg")
+        XCTAssertEqual(cellData.imageName, "MD2.pdf")
         XCTAssertEqual(cellData.volume, 200)
     }
 
@@ -59,7 +59,7 @@ class OnboardingPagesPresenterTestCase: XCTestCase {
         let cellData = sut.drinkForCellAt(index: 2)
 
         // then
-        XCTAssertEqual(cellData.imageName, "MD3.svg")
+        XCTAssertEqual(cellData.imageName, "MD3.pdf")
         XCTAssertEqual(cellData.volume, 300)
     }
 
@@ -68,7 +68,7 @@ class OnboardingPagesPresenterTestCase: XCTestCase {
         let cellData = sut.drinkForCellAt(index: 3)
 
         // then
-        XCTAssertEqual(cellData.imageName, "MD4.svg")
+        XCTAssertEqual(cellData.imageName, "MD4.pdf")
         XCTAssertEqual(cellData.volume, 400)
     }
 
@@ -77,7 +77,7 @@ class OnboardingPagesPresenterTestCase: XCTestCase {
         let cellData = sut.drinkForCellAt(index: 5)
 
         // then
-        XCTAssertEqual(cellData.imageName, "MD1.svg")
+        XCTAssertEqual(cellData.imageName, "MD1.pdf")
         XCTAssertEqual(cellData.volume, 100)
     }
 
@@ -99,12 +99,13 @@ class OnboardingPagesPresenterTestCase: XCTestCase {
         sut.selectedFavourite = 0
 
         // when
-        sut.addFavourite(name: "Test", volume: 333, imageName: "test.svg")
+        sut.addFavourite(beverage: Beverage(name: "Test", imageName: "test", coefficient: 1.0), volume: 333)
 
         // then
-        XCTAssertEqual(mockedUserDefaultsController.favDrink1Name, "Test")
+        XCTAssertEqual(mockedUserDefaultsController.favBeverage1.name, "Test")
+        XCTAssertEqual(mockedUserDefaultsController.favBeverage1.imageName, "test")
+        XCTAssertEqual(mockedUserDefaultsController.favBeverage1.coefficient, 1)
         XCTAssertEqual(mockedUserDefaultsController.favDrink1Volume, 333)
-        XCTAssertEqual(mockedUserDefaultsController.favDrink1ImageName, "test.svg")
     }
 
     func test_givenSelectedIndexIs1_whenAddFavouriteCalled_thenUpdatesFav2() {
@@ -112,12 +113,13 @@ class OnboardingPagesPresenterTestCase: XCTestCase {
         sut.selectedFavourite = 1
 
         // when
-        sut.addFavourite(name: "Test2", volume: 444, imageName: "test2.svg")
+        sut.addFavourite(beverage: Beverage(name: "Test2", imageName: "test2", coefficient: 2.0), volume: 444)
 
         // then
-        XCTAssertEqual(mockedUserDefaultsController.favDrink2Name, "Test2")
+        XCTAssertEqual(mockedUserDefaultsController.favBeverage2.name, "Test2")
+        XCTAssertEqual(mockedUserDefaultsController.favBeverage2.imageName, "test2")
+        XCTAssertEqual(mockedUserDefaultsController.favBeverage2.coefficient, 2)
         XCTAssertEqual(mockedUserDefaultsController.favDrink2Volume, 444)
-        XCTAssertEqual(mockedUserDefaultsController.favDrink2ImageName, "test2.svg")
     }
 
     func test_givenSelectedIndexIs2_whenAddFavouriteCalled_thenUpdatesFav3() {
@@ -125,12 +127,13 @@ class OnboardingPagesPresenterTestCase: XCTestCase {
         sut.selectedFavourite = 2
 
         // when
-        sut.addFavourite(name: "Test3", volume: 555, imageName: "test3.svg")
+        sut.addFavourite(beverage: Beverage(name: "Test3", imageName: "test3", coefficient: 3.0), volume: 555)
 
         // then
-        XCTAssertEqual(mockedUserDefaultsController.favDrink3Name, "Test3")
+        XCTAssertEqual(mockedUserDefaultsController.favBeverage3.name, "Test3")
+        XCTAssertEqual(mockedUserDefaultsController.favBeverage3.imageName, "test3")
+        XCTAssertEqual(mockedUserDefaultsController.favBeverage3.coefficient, 3)
         XCTAssertEqual(mockedUserDefaultsController.favDrink3Volume, 555)
-        XCTAssertEqual(mockedUserDefaultsController.favDrink3ImageName, "test3.svg")
     }
 
     func test_givenSelectedIndexIs3_whenAddFavouriteCalledAnd_thenUpdatesFav4() {
@@ -138,12 +141,13 @@ class OnboardingPagesPresenterTestCase: XCTestCase {
         sut.selectedFavourite = 3
 
         // when
-        sut.addFavourite(name: "Test4", volume: 666, imageName: "test4.svg")
+        sut.addFavourite(beverage: Beverage(name: "Test4", imageName: "test4", coefficient: 4.0), volume: 777)
 
         // then
-        XCTAssertEqual(mockedUserDefaultsController.favDrink4Name, "Test4")
-        XCTAssertEqual(mockedUserDefaultsController.favDrink4Volume, 666)
-        XCTAssertEqual(mockedUserDefaultsController.favDrink4ImageName, "test4.svg")
+        XCTAssertEqual(mockedUserDefaultsController.favBeverage4.name, "Test4")
+        XCTAssertEqual(mockedUserDefaultsController.favBeverage4.imageName, "test4")
+        XCTAssertEqual(mockedUserDefaultsController.favBeverage4.coefficient, 4)
+        XCTAssertEqual(mockedUserDefaultsController.favDrink4Volume, 777)
     }
 
     func test_givenSelectedIndexIs4_whenAddFavouriteCalledAnd_thenUpdatesNothing() {
@@ -151,21 +155,26 @@ class OnboardingPagesPresenterTestCase: XCTestCase {
         sut.selectedFavourite = 4
 
         // when
-        sut.addFavourite(name: "Test5", volume: 777, imageName: "test5.svg")
+        sut.addFavourite(beverage: Beverage(name: "Test5", imageName: "test5", coefficient: 4.0), volume: 777)
 
         // then
-        XCTAssertEqual(mockedUserDefaultsController.favDrink1Name, "MockDrink1")
+        XCTAssertEqual(mockedUserDefaultsController.favBeverage1.name, "MockDrink1")
+        XCTAssertEqual(mockedUserDefaultsController.favBeverage1.imageName, "MD1.pdf")
+        XCTAssertEqual(mockedUserDefaultsController.favBeverage1.coefficient, 1)
         XCTAssertEqual(mockedUserDefaultsController.favDrink1Volume, 100)
-        XCTAssertEqual(mockedUserDefaultsController.favDrink1ImageName, "MD1.svg")
-        XCTAssertEqual(mockedUserDefaultsController.favDrink2Name, "MockDrink2")
+        XCTAssertEqual(mockedUserDefaultsController.favBeverage2.name, "MockDrink2")
+        XCTAssertEqual(mockedUserDefaultsController.favBeverage2.imageName, "MD2.pdf")
+        XCTAssertEqual(mockedUserDefaultsController.favBeverage2.coefficient, 1)
         XCTAssertEqual(mockedUserDefaultsController.favDrink2Volume, 200)
-        XCTAssertEqual(mockedUserDefaultsController.favDrink2ImageName, "MD2.svg")
-        XCTAssertEqual(mockedUserDefaultsController.favDrink3Name, "MockDrink3")
+        XCTAssertEqual(mockedUserDefaultsController.favBeverage3.name, "MockDrink3")
+        XCTAssertEqual(mockedUserDefaultsController.favBeverage3.imageName, "MD3.pdf")
+        XCTAssertEqual(mockedUserDefaultsController.favBeverage3.coefficient, 1)
         XCTAssertEqual(mockedUserDefaultsController.favDrink3Volume, 300)
-        XCTAssertEqual(mockedUserDefaultsController.favDrink3ImageName, "MD3.svg")
-        XCTAssertEqual(mockedUserDefaultsController.favDrink4Name, "MockDrink4")
+        XCTAssertEqual(mockedUserDefaultsController.favBeverage4.name, "MockDrink4")
+        XCTAssertEqual(mockedUserDefaultsController.favBeverage4.imageName, "MD4.pdf")
+        XCTAssertEqual(mockedUserDefaultsController.favBeverage4.coefficient, 1)
         XCTAssertEqual(mockedUserDefaultsController.favDrink4Volume, 400)
-        XCTAssertEqual(mockedUserDefaultsController.favDrink4ImageName, "MD4.svg")
+
     }
 
     // MARK: - setNameAndGoal -

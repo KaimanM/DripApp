@@ -13,20 +13,16 @@ class UserDefaultsController: UserDefaultsControllerProtocol {
     static var shared = UserDefaultsController()
 
     let defaults = UserDefaults.standard
-    let favDrink1NameKey = "favDrink1Name"
-    let favDrink2NameKey = "favDrink2Name"
-    let favDrink3NameKey = "favDrink3Name"
-    let favDrink4NameKey = "favDrink4Name"
+    let beverages = Beverages().drinks
+    let favBeverage1Key = "favBeverage1"
+    let favBeverage2Key = "favBeverage2"
+    let favBeverage3Key = "favBeverage3"
+    let favBeverage4Key = "favBeverage4"
 
     let favDrink1VolumeKey = "favDrink1Volume"
     let favDrink2VolumeKey = "favDrink2Volume"
     let favDrink3VolumeKey = "favDrink3Volume"
     let favDrink4VolumeKey = "favDrink4Volume"
-
-    let favDrink1ImageNameKey = "favDrink1ImageName"
-    let favDrink2ImageNameKey = "favDrink2ImageName"
-    let favDrink3ImageNameKey = "favDrink3ImageName"
-    let favDrink4ImageNameKey = "favDrink4ImageName"
 
     let drinkGoalKey = "drinkGoal"
 
@@ -35,52 +31,59 @@ class UserDefaultsController: UserDefaultsControllerProtocol {
     let completedOnboardingKey = "completedOnboarding"
 
     init() {
-        defaults.register(defaults: [favDrink1NameKey : "Water",
-                                     favDrink2NameKey : "Coffee",
-                                     favDrink3NameKey : "Tea",
-                                     favDrink4NameKey : "Milk",
-                                     favDrink1VolumeKey : 500,
+        defaults.register(defaults: [favDrink1VolumeKey : 500,
                                      favDrink2VolumeKey : 250,
                                      favDrink3VolumeKey : 300,
                                      favDrink4VolumeKey : 350,
-                                     favDrink1ImageNameKey : "waterbottle.svg",
-                                     favDrink2ImageNameKey : "coffee.svg",
-                                     favDrink3ImageNameKey : "tea.svg",
-                                     favDrink4ImageNameKey : "milk.svg",
                                      drinkGoalKey : 2000,
                                      nameKey : "Buddy",
-                                     completedOnboardingKey : false
+                                     completedOnboardingKey : false,
+                                     favBeverage1Key : encodeBeverage(beverages[0]),
+                                     favBeverage2Key : encodeBeverage(beverages[1]),
+                                     favBeverage3Key : encodeBeverage(beverages[2]),
+                                     favBeverage4Key : encodeBeverage(beverages[3])
         ])
     }
 
-    lazy var favDrink1Name: String = {
-            return defaults.string(forKey: favDrink1NameKey)!
-        }() {
-            didSet {
-                defaults.set(favDrink1Name, forKey: favDrink1NameKey)
-            }
+    lazy var favBeverage1: Beverage = {
+        let decoder = JSONDecoder()
+        let savedBeverage = defaults.object(forKey: favBeverage1Key) as? Data
+        return decodeBeverage(savedBeverage)
+    }() {
+        didSet {
+            defaults.set(encodeBeverage(favBeverage1), forKey: favBeverage1Key)
         }
-    lazy var favDrink2Name: String = {
-            return defaults.string(forKey: favDrink2NameKey)!
-        }() {
-            didSet {
-                defaults.set(favDrink2Name, forKey: favDrink2NameKey)
-            }
+    }
+
+    lazy var favBeverage2: Beverage = {
+        let decoder = JSONDecoder()
+        let savedBeverage = defaults.object(forKey: favBeverage2Key) as? Data
+        return decodeBeverage(savedBeverage)
+    }() {
+        didSet {
+            defaults.set(encodeBeverage(favBeverage2), forKey: favBeverage2Key)
         }
-    lazy var favDrink3Name: String = {
-            return defaults.string(forKey: favDrink3NameKey)!
-        }() {
-            didSet {
-                defaults.set(favDrink3Name, forKey: favDrink3NameKey)
-            }
+    }
+
+    lazy var favBeverage3: Beverage = {
+        let decoder = JSONDecoder()
+        let savedBeverage = defaults.object(forKey: favBeverage3Key) as? Data
+        return decodeBeverage(savedBeverage)
+    }() {
+        didSet {
+            defaults.set(encodeBeverage(favBeverage3), forKey: favBeverage3Key)
         }
-    lazy var favDrink4Name: String = {
-            return defaults.string(forKey: favDrink4NameKey)!
-        }() {
-            didSet {
-                defaults.set(favDrink4Name, forKey: favDrink4NameKey)
-            }
+    }
+
+    lazy var favBeverage4: Beverage = {
+        let decoder = JSONDecoder()
+        let savedBeverage = defaults.object(forKey: favBeverage4Key) as? Data
+        return decodeBeverage(savedBeverage)
+    }() {
+        didSet {
+            defaults.set(encodeBeverage(favBeverage4), forKey: favBeverage4Key)
         }
+    }
 
     lazy var favDrink1Volume: Double = {
             return defaults.double(forKey: favDrink1VolumeKey)
@@ -111,35 +114,6 @@ class UserDefaultsController: UserDefaultsControllerProtocol {
             }
         }
 
-    lazy var favDrink1ImageName: String = {
-            return defaults.string(forKey: favDrink1ImageNameKey)!
-        }() {
-            didSet {
-                defaults.set(favDrink1ImageName, forKey: favDrink1ImageNameKey)
-            }
-        }
-    lazy var favDrink2ImageName: String = {
-            return defaults.string(forKey: favDrink2ImageNameKey)!
-        }() {
-            didSet {
-                defaults.set(favDrink2ImageName, forKey: favDrink2ImageNameKey)
-            }
-        }
-    lazy var favDrink3ImageName: String = {
-            return defaults.string(forKey: favDrink3ImageNameKey)!
-        }() {
-            didSet {
-                defaults.set(favDrink3ImageName, forKey: favDrink3ImageNameKey)
-            }
-        }
-    lazy var favDrink4ImageName: String = {
-            return defaults.string(forKey: favDrink4ImageNameKey)!
-        }() {
-            didSet {
-                defaults.set(favDrink4ImageName, forKey: favDrink4ImageNameKey)
-            }
-        }
-
     lazy var drinkGoal: Double = {
             return defaults.double(forKey: drinkGoalKey)
         }() {
@@ -161,6 +135,22 @@ class UserDefaultsController: UserDefaultsControllerProtocol {
     }() {
         didSet {
             defaults.set(completedOnboarding, forKey: completedOnboardingKey)
+        }
+    }
+
+    func encodeBeverage(_ beverage: Beverage) -> Data {
+        let encoder = JSONEncoder() // should this be safer?
+        let encodedBeverage = try? encoder.encode(beverage)
+        return encodedBeverage!
+    }
+
+    func decodeBeverage(_ data: Data?) -> Beverage {
+        let decoder = JSONDecoder()
+        if let data = data,
+           let loadedBeverage = try? decoder.decode(Beverage.self, from: data) {
+            return loadedBeverage
+        } else {
+            return beverages[0]
         }
     }
 }

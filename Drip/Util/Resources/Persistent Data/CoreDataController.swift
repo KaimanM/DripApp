@@ -48,7 +48,7 @@ class CoreDataController: CoreDataControllerProtocol {
     // MARK: - Drink + Day Code -
 
     // Adds drink into coredata and establishes a relationship with a day object, creates day object if it doesnt exist.
-    func addDrinkForDay(name: String, volume: Double, imageName: String, timeStamp: Date) {
+    func addDrinkForDay(beverage: Beverage, volume: Double, timeStamp: Date) {
         var day: [Day] = []
         do {
             let request = Day.fetchRequest() as NSFetchRequest<Day>
@@ -65,13 +65,13 @@ class CoreDataController: CoreDataControllerProtocol {
             day.goal = isRunningTests ? 2000 : UserDefaultsController.shared.drinkGoal
             day.timeStamp = timeStamp
             day.didReachGoal = false
-            day.total = volume
+            day.total = volume*beverage.coefficient
             if day.total >= day.goal { day.didReachGoal = true }
 
             let drink = Drink(context: context)
-            drink.name = name
+            drink.name = beverage.name
             drink.volume = volume
-            drink.imageName = imageName
+            drink.imageName = beverage.imageName
             drink.timeStamp = timeStamp
 
             day.addToDrinks(drink)
@@ -79,12 +79,12 @@ class CoreDataController: CoreDataControllerProtocol {
             let day = day.first!
 
             let drink = Drink(context: context)
-            drink.name = name
+            drink.name = beverage.name
             drink.volume = volume
-            drink.imageName = imageName
+            drink.imageName = beverage.imageName
             drink.timeStamp = timeStamp
 
-            day.total += volume
+            day.total += volume*beverage.coefficient
             if day.total >= day.goal { day.didReachGoal = true}
 
             day.addToDrinks(drink)

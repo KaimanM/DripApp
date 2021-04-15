@@ -121,9 +121,21 @@ class HistoryPresenterTestCase: XCTestCase {
 
     func test_whenOnViewDidAppearCalled_thenPopulatesDrinksAndUpdatesRingView() {
         // given & when
-        coreDataController.addDrinkForDay(name: "testDrink", volume: 250, imageName: "testImage", timeStamp: Date())
-        coreDataController.addDrinkForDay(name: "testDrink", volume: 500, imageName: "testImage", timeStamp: Date())
-        coreDataController.addDrinkForDay(name: "testDrink", volume: 1000, imageName: "testImage", timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "testDrink",
+                                                             imageName: "testImage",
+                                                             coefficient: 1),
+                                          volume: 250,
+                                          timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "testDrink",
+                                                             imageName: "testImage",
+                                                             coefficient: 1),
+                                          volume: 500,
+                                          timeStamp: Date())
+        coreDataController.addDrinkForDay(beverage: Beverage(name: "testDrink",
+                                                             imageName: "testImage",
+                                                             coefficient: 1),
+                                          volume: 1000,
+                                          timeStamp: Date())
         sut.onViewDidAppear()
 
         // then
@@ -186,7 +198,10 @@ class HistoryPresenterTestCase: XCTestCase {
         // given
 //        coreDataController.addDrinkForDay(name: "testDrink", volume: 250, imageName: "testImage", timeStamp: Date())
         sut.selectedDate = Date()
-        sut.addDrinkTapped(drinkName: "test", volume: 250, imageName: "testImageName")
+        sut.addDrinkTapped(beverage: Beverage(name: "test",
+                                              imageName: "testImageName",
+                                              coefficient: 1),
+                           volume: 250)
 
         // then
         XCTAssertEqual(sut.cellForDate(date: Date()), 250/2000)
@@ -201,9 +216,18 @@ class HistoryPresenterTestCase: XCTestCase {
     func test_given3ItemsInCoreData_numberOfRowsInSectionReturnsCorrectValue() {
         // given
         sut.selectedDate = Date()
-        sut.addDrinkTapped(drinkName: "test", volume: 250, imageName: "testImageName")
-        sut.addDrinkTapped(drinkName: "test", volume: 250, imageName: "testImageName")
-        sut.addDrinkTapped(drinkName: "test", volume: 250, imageName: "testImageName")
+        sut.addDrinkTapped(beverage: Beverage(name: "test",
+                                              imageName: "testImageName",
+                                              coefficient: 1),
+                           volume: 250)
+        sut.addDrinkTapped(beverage: Beverage(name: "test",
+                                              imageName: "testImageName",
+                                              coefficient: 1),
+                           volume: 250)
+        sut.addDrinkTapped(beverage: Beverage(name: "test",
+                                              imageName: "testImageName",
+                                              coefficient: 1),
+                           volume: 250)
 
         // then
         XCTAssertEqual(sut.numberOfRowsInSection(), 3)
@@ -217,7 +241,10 @@ class HistoryPresenterTestCase: XCTestCase {
         dateComponents.hour = 20
         dateComponents.minute = 15
         sut.selectedDate = Calendar.current.date(from: dateComponents)!
-        sut.addDrinkTapped(drinkName: "test", volume: 250, imageName: "testImageName")
+        sut.addDrinkTapped(beverage: Beverage(name: "test",
+                                              imageName: "testImageName",
+                                              coefficient: 1),
+                           volume: 250)
 
         // when
         let testCell = sut.cellForRowAt(row: 0)

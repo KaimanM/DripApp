@@ -331,8 +331,8 @@ extension SettingsDetailView: UICollectionViewDataSource, UICollectionViewDelega
 }
 
 extension SettingsDetailView: DrinksLauncherDelegate {
-    func didAddDrink(name: String, imageName: String, volume: Double) {
-        presenter.addFavourite(name: name, volume: volume, imageName: imageName)
+    func didAddDrink(beverage: Beverage, volume: Double) {
+        presenter.addFavourite(beverage: beverage, volume: volume)
     }
 }
 

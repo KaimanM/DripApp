@@ -152,8 +152,8 @@ extension OnboardingPagesView: OnboardingPage4CellDelegate {
 }
 
 extension OnboardingPagesView: DrinksLauncherDelegate {
-    func didAddDrink(name: String, imageName: String, volume: Double) {
-        presenter.addFavourite(name: name, volume: volume, imageName: imageName)
+    func didAddDrink(beverage: Beverage, volume: Double) {
+        presenter.addFavourite(beverage: beverage, volume: volume)
         if let cell = collectionView.cellForItem(at: IndexPath(item: 3, section: 0)) as? OnboardingPage4Cell {
             cell.collectionView.reloadData()
         }
