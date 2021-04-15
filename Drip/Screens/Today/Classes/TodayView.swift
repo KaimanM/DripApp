@@ -34,7 +34,6 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
         ringView.backgroundColor = .clear
         presenter.onViewDidLoad()
         setupInfoViews()
-        setNavigationTitle()
         progressLabel.font = UIFont.SFProRounded(ofSize: 32, fontWeight: .regular)
         drinksLauncher.delegate = self
 
@@ -49,6 +48,7 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        setNavigationTitle()
         presenter.onViewWillAppear()
     }
 
