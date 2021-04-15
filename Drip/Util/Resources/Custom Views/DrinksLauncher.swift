@@ -91,14 +91,15 @@ class DrinksLauncher: NSObject {
     var currentDrinkName = "Water"
     var currentDrinkImageName = "waterbottle.svg"
 
-    let drinkNames = ["Water", "Coffee", "Tea", "Milk", "Orange Juice", "Juicebox",
-                      "Cola", "Cocktail", "Punch", "Milkshake", "Energy Drink", "Beer",
-                      "Ice Tea", "Coconut Juice", "Ice Coffee", "Smoothie", "Bubble Tea", "Soda"]
+    let beverages = Beverages().drinks
+//    let drinkNames = ["Water", "Coffee", "Tea", "Milk", "Orange Juice", "Juicebox",
+//                      "Cola", "Cocktail", "Punch", "Milkshake", "Energy Drink", "Beer",
+//                      "Ice Tea", "Coconut Juice", "Ice Coffee", "Smoothie", "Bubble Tea", "Soda"]
 
-    let drinkImageNames = ["waterbottle.svg", "coffee.svg", "tea.svg", "milk.svg", "orangejuice.svg",
-                            "juicebox.svg", "cola.svg", "cocktail.svg", "punch.svg", "milkshake.svg",
-                            "energydrink.svg", "beer.svg", "icetea.svg", "coconutjuice.svg", "icecoffee.svg",
-                            "smoothie.svg", "bubbletea.svg", "soda.svg"]
+//    let drinkImageNames = ["waterbottle.svg", "coffee.svg", "tea.svg", "milk.svg", "orangejuice.svg",
+//                            "juicebox.svg", "cola.svg", "cocktail.svg", "punch.svg", "milkshake.svg",
+//                            "energydrink.svg", "beer.svg", "icetea.svg", "coconutjuice.svg", "icecoffee.svg",
+//                            "smoothie.svg", "bubbletea.svg", "soda.svg"]
 
     var isFirstOpen = true
 
@@ -519,7 +520,7 @@ class DrinksLauncher: NSObject {
 extension DrinksLauncher: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let count = drinkNames.count
+        let count = beverages.count
         pageControl.numberOfPages = isOnboarding ? Int(ceil(Double(count)/9)) : Int(ceil(Double(count)/6))
         return count
     }
@@ -533,8 +534,8 @@ extension DrinksLauncher: UICollectionViewDataSource, UICollectionViewDelegate, 
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        setImageAndTitleForDetailView(name: drinkNames[indexPath.item],
-                                      imageName: drinkImageNames[indexPath.item])
+        setImageAndTitleForDetailView(name: beverages[indexPath.item].name,
+                                      imageName: beverages[indexPath.item].imageName)
 
         if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
             scrollView.setContentOffset(CGPoint(x: window.frame.width, y: 0), animated: true)
@@ -548,8 +549,8 @@ extension DrinksLauncher: UICollectionViewDataSource, UICollectionViewDelegate, 
 
         if let drinkCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId,
                                                               for: indexPath) as? DrinksCell {
-           drinkCell.nameLabel.text = drinkNames[indexPath.item]
-            drinkCell.imageView.image = UIImage(named: drinkImageNames[indexPath.item])
+            drinkCell.nameLabel.text = beverages[indexPath.item].name
+            drinkCell.imageView.image = UIImage(named: beverages[indexPath.item].imageName)
 
            cell = drinkCell
         }

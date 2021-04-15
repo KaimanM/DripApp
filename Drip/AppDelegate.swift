@@ -33,4 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        // Saves Data on exit.
+        CoreDataController.shared.saveContext()
+    }
+
 }

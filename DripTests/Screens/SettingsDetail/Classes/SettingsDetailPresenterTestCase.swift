@@ -374,7 +374,7 @@ class SettingsDetailPresenterTestCase: XCTestCase {
         mockedView.settingsType = .coefficient
 
         // when & then
-        XCTAssertEqual(sut.numberOfRowsInSection(), DrinksList().drinks.count)
+        XCTAssertEqual(sut.numberOfRowsInSection(), Beverages().drinks.count)
     }
 
     func test_givenAttributionSettingsType_whenNumberOfRowsInSectionCalled_thenReturnsCorrectValue() {

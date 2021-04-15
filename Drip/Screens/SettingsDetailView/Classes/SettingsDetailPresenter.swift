@@ -211,7 +211,7 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
     func numberOfRowsInSection() -> Int {
         switch view?.settingsType {
         case .coefficient:
-            return DrinksList().drinks.count
+            return Beverages().drinks.count
         case .attribution:
             return attributeCells.count
         default:
@@ -220,7 +220,7 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
     }
 
     func coefficientCellDataForRow(row: Int) -> Beverage {
-        return DrinksList().drinks[row]
+        return Beverages().drinks[row]
     }
 
     func attributionTitleForRow(row: Int) -> String {
