@@ -106,7 +106,7 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
                                             secondColour: UIColor.dripSecondary,
                                             shadowColour: UIColor.dripShadow,
                                             lineWidth: ringWidth,
-                                            ringImage: UIImage(named: "dripIcon"))
+                                            ringImage: UIImage(named: "dripIconBold"))
     }
 
     func setupGradientBars(dailyGoal: Int, morningGoal: Int, afternoonGoal: Int, eveningGoal: Int) {

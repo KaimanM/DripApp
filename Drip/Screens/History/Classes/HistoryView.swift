@@ -83,7 +83,7 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
                                        secondColour: .dripSecondary,
                                        shadowColour: .dripShadow,
                                        lineWidth: 20,
-                                       ringImage: UIImage(named: "dripIcon"))
+                                       ringImage: UIImage(named: "dripIconBold"))
         ringView.backgroundColor = .clear
         dayLabel.font = UIFont.SFProRounded(ofSize: 24, fontWeight: .regular)
         dayLabel.textColor = .white
