@@ -90,7 +90,6 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
-                                                        <color key="backgroundColor" name="infoPanelBG"/>
                                                         <gestureRecognizers/>
                                                         <constraints>
                                                             <constraint firstAttribute="bottom" secondItem="yrP-dl-dtv" secondAttribute="bottom" constant="5" id="5fY-O4-giD"/>
@@ -130,7 +129,6 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
-                                                        <color key="backgroundColor" name="infoPanelBG"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="65" id="HvH-Jq-bOc"/>
                                                             <constraint firstAttribute="trailing" secondItem="a8y-gw-Ujd" secondAttribute="trailing" constant="10" id="a0k-aR-yAz"/>
@@ -419,11 +417,9 @@
                         <outlet property="addDrinkBtn" destination="ft3-oc-huV" id="bCH-BB-b5n"/>
                         <outlet property="dottedView" destination="nnb-ws-WvY" id="jQA-20-52F"/>
                         <outlet property="goalLabel" destination="WRX-pf-LcR" id="kdZ-wi-WY3"/>
-                        <outlet property="goalView" destination="tOk-T8-diP" id="YPz-cs-MLk"/>
                         <outlet property="greetingLabel" destination="FDf-EB-Ry4" id="7MQ-Nb-qRi"/>
                         <outlet property="progressLabel" destination="4VK-Xr-AMZ" id="5EZ-z3-3BO"/>
                         <outlet property="remainingLabel" destination="yrP-dl-dtv" id="kAF-Re-V13"/>
-                        <outlet property="remainingView" destination="RKl-WN-aQo" id="Y3Y-p0-BCg"/>
                         <outlet property="ringView" destination="N32-hy-VA6" id="Bjo-80-NJF"/>
                         <outlet property="thisAfternoonGradientBarView" destination="VGZ-zP-gwU" id="vfT-3R-IGQ"/>
                         <outlet property="thisAfternoonVolumeLabel" destination="7gw-Si-JtC" id="1pN-lt-SCG"/>
@@ -443,9 +439,6 @@
     <resources>
         <namedColor name="dripMerged">
             <color red="0.2196078431372549" green="0.8901960784313725" blue="0.77254901960784317" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="infoPanelBG">
-            <color red="0.098039215686274508" green="0.10196078431372549" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="separatorColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

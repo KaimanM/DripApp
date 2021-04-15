@@ -14,8 +14,6 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
     @IBOutlet weak var thisAfternoonGradientBarView: GradientBarView!
     @IBOutlet weak var thisEveningVolumeLabel: UILabel!
     @IBOutlet weak var thisEveningGradientBarView: GradientBarView!
-    @IBOutlet weak var remainingView: UIView!
-    @IBOutlet weak var goalView: UIView!
     @IBOutlet weak var remainingLabel: UILabel!
     @IBOutlet weak var goalLabel: UILabel!
     @IBOutlet weak var addDrinkBtn: UIButton!
@@ -85,10 +83,6 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
     }
 
     func setupInfoViews() {
-        remainingView.layer.cornerRadius = 10
-        remainingView.backgroundColor = .clear
-        goalView.layer.cornerRadius = 10
-        goalView.backgroundColor = .clear
         addDrinkBtn.layer.cornerRadius = 10
         addDrinkBtn.backgroundColor = .infoPanelBG
 
@@ -104,10 +98,6 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
 
         dottedView.addVerticalDottedLine()
         dottedView.backgroundColor = .clear
-
-        let goalTap = UITapGestureRecognizer(target: self, action: #selector(self.goalViewTapped(_:)))
-        goalView.addGestureRecognizer(goalTap)
-
     }
 
     func setupRingView(startColor: UIColor, endColor: UIColor, ringWidth: CGFloat) {
@@ -192,34 +182,6 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
     @IBAction func addDrinkBtnTapped(_ sender: Any) {
         drinksLauncher.showDrinks()
     }
-
-    @objc func goalViewTapped(_ sender: UITapGestureRecognizer? = nil) {
-        // handling code
-        print("did tap")
-        let alertContoller = UIAlertController(title: "Amend Goal",
-                                    message: "Enter a new goal volume in ml.", preferredStyle: .alert)
-        alertContoller.addTextField()
-        alertContoller.textFields![0].keyboardType = UIKeyboardType.numberPad
-
-        let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertContoller] _ in
-            if let answer: String = alertContoller.textFields![0].text,
-               let answerAsDouble = Double(answer) {
-                guard answerAsDouble != 0 else {
-                    print("can not be 0")
-                    return
-                }
-                self.presenter.updateGoal(goal: answerAsDouble)
-            } else {
-                print("invalid")
-            }
-
-        }
-
-        alertContoller.addAction(submitAction)
-
-        present(alertContoller, animated: true)
-    }
-
 }
 
 extension TodayView: DrinksLauncherDelegate {

@@ -94,14 +94,6 @@ final class TodayPresenter: TodayPresenterProtocol {
 
     }
 
-    func updateGoal(goal: Double) {
-        view?.userDefaultsController.drinkGoal = goal
-        print(goal)
-        updateProgressRing()
-        updateGradientBars()
-        updateOverviewTitles()
-    }
-
     func addDrinkTapped(beverage: Beverage, volume: Double) {
         view?.coreDataController.addDrinkForDay(beverage: beverage,
                                                 volume: volume,
