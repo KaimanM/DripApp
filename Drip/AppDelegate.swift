@@ -28,8 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         self.window?.makeKeyAndVisible()
 
-        UIApplication.shared.isIdleTimerDisabled = true
-
         return true
     }
 
