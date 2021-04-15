@@ -102,10 +102,9 @@ final class TodayPresenter: TodayPresenterProtocol {
         updateOverviewTitles()
     }
 
-    func addDrinkTapped(drinkName: String, volume: Double, imageName: String) {
-        view?.coreDataController.addDrinkForDay(name: drinkName,
+    func addDrinkTapped(beverage: Beverage, volume: Double) {
+        view?.coreDataController.addDrinkForDay(beverage: beverage,
                                                 volume: volume,
-                                                imageName: imageName,
                                                 timeStamp: Date())
 
         if today == nil {

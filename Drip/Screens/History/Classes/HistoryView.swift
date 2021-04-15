@@ -275,7 +275,7 @@ extension HistoryView: UITableViewDelegate, UITableViewDataSource, DrinkTableVie
 }
 
 extension HistoryView: DrinksLauncherDelegate {
-    func didAddDrink(name: String, imageName: String, volume: Double) {
-        presenter.addDrinkTapped(drinkName: name, volume: volume, imageName: imageName)
+    func didAddDrink(beverage: Beverage, volume: Double) {
+        presenter.addDrinkTapped(beverage: beverage, volume: volume)
     }
 }

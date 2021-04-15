@@ -5,7 +5,7 @@ protocol CoreDataControllerProtocol: class {
     func saveContext()
     func deleteEntry(entry: Drink)
 
-    func addDrinkForDay(name: String, volume: Double, imageName: String, timeStamp: Date)
+    func addDrinkForDay(beverage: Beverage, volume: Double, timeStamp: Date)
     func getDayForDate(date: Date) -> Day?
     func getDrinksForDate(date: Date) -> [Drink]
     func fetchDays(from date: Date?) -> [Day]

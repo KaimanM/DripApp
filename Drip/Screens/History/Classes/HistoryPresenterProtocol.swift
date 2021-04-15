@@ -18,5 +18,5 @@ protocol HistoryPresenterProtocol: class {
     func cellForDate(date: Date) -> Double
     func didTapDeleteButton(row: Int)
 
-    func addDrinkTapped(drinkName: String, volume: Double, imageName: String)
+    func addDrinkTapped(beverage: Beverage, volume: Double)
 }

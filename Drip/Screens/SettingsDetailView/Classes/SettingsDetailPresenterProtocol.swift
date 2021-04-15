@@ -9,7 +9,7 @@ protocol SettingsDetailPresenterProtocol: class {
 
     func drinkForCellAt(index: Int) -> (imageName: String, volume: Double)
     func setSelectedFavourite(selected: Int)
-    func addFavourite(name: String, volume: Double, imageName: String)
+    func addFavourite(beverage: Beverage, volume: Double)
 
     func numberOfRowsInSection() -> Int
     func coefficientCellDataForRow(row: Int) -> Beverage

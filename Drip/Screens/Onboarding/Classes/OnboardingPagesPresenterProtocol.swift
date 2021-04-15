@@ -6,7 +6,7 @@ protocol OnboardingPagesPresenterProtocol: class {
     func onViewWillAppear()
     func onViewWillDisappear()
     func drinkForCellAt(index: Int) -> (imageName: String, volume: Double)
-    func addFavourite(name: String, volume: Double, imageName: String)
+    func addFavourite(beverage: Beverage, volume: Double)
     func setSelectedFavourite(selected: Int)
     func setNameAndGoal(name: String, goal: Double)
     func didCompleteOnboarding()

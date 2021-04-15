@@ -157,19 +157,19 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
         switch index {
         case 0:
             volume = userDefaults.favDrink1Volume
-            imageName = userDefaults.favDrink1ImageName
+            imageName = userDefaults.favBeverage1.imageName
         case 1:
             volume = userDefaults.favDrink2Volume
-            imageName = userDefaults.favDrink2ImageName
+            imageName = userDefaults.favBeverage2.imageName
         case 2:
             volume = userDefaults.favDrink3Volume
-            imageName = userDefaults.favDrink3ImageName
+            imageName = userDefaults.favBeverage3.imageName
         case 3:
             volume = userDefaults.favDrink4Volume
-            imageName = userDefaults.favDrink4ImageName
+            imageName = userDefaults.favBeverage4.imageName
         default:
             volume = userDefaults.favDrink1Volume
-            imageName = userDefaults.favDrink1ImageName
+            imageName = userDefaults.favBeverage1.imageName
         }
 
         return (imageName, volume)
@@ -180,26 +180,22 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
         selectedFavourite = selected
     }
 
-    func addFavourite(name: String, volume: Double, imageName: String) {
+    func addFavourite(beverage: Beverage, volume: Double) {
         guard let userDefaults = view?.userDefaultsController else { return }
 
         switch selectedFavourite {
         case 0:
-            userDefaults.favDrink1Name = name
+            userDefaults.favBeverage1 = beverage
             userDefaults.favDrink1Volume = volume
-            userDefaults.favDrink1ImageName = imageName
         case 1:
-            userDefaults.favDrink2Name = name
+            userDefaults.favBeverage2 = beverage
             userDefaults.favDrink2Volume = volume
-            userDefaults.favDrink2ImageName = imageName
         case 2:
-            userDefaults.favDrink3Name = name
+            userDefaults.favBeverage3 = beverage
             userDefaults.favDrink3Volume = volume
-            userDefaults.favDrink3ImageName = imageName
         case 3:
-            userDefaults.favDrink4Name = name
+            userDefaults.favBeverage4 = beverage
             userDefaults.favDrink4Volume = volume
-            userDefaults.favDrink4ImageName = imageName
         default:
             break
         }

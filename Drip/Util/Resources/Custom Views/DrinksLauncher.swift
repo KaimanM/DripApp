@@ -1,7 +1,7 @@
 import UIKit
 
 protocol DrinksLauncherDelegate: class {
-    func didAddDrink(name: String, imageName: String, volume: Double)
+    func didAddDrink(beverage: Beverage, volume: Double)
 }
 
 // swiftlint:disable:next type_body_length
@@ -88,10 +88,12 @@ class DrinksLauncher: NSObject {
                             "850ml", "900ml", "1000ml"]
 
     var currentVolume: Double = 300
-    var currentDrinkName = "Water"
-    var currentDrinkImageName = "waterbottle.svg"
+//    var currentDrinkName = "Water"
+//    var currentDrinkImageName = "waterbottle.svg"
 
     let beverages = Beverages().drinks
+    var currentBeverage = Beverage(name: "Water", imageName: "waterbottle.svg", coefficient: 1)
+
 //    let drinkNames = ["Water", "Coffee", "Tea", "Milk", "Orange Juice", "Juicebox",
 //                      "Cola", "Cocktail", "Punch", "Milkshake", "Energy Drink", "Beer",
 //                      "Ice Tea", "Coconut Juice", "Ice Coffee", "Smoothie", "Bubble Tea", "Soda"]
@@ -408,26 +410,25 @@ class DrinksLauncher: NSObject {
     }
 
     // MARK: - Other UI Methods -
-    func setImageAndTitleForDetailView(name: String, imageName: String) {
-        currentDrinkName = name
-        currentDrinkImageName = imageName
-        drinkNameLabel.text = currentDrinkName
-        detailImageView.image = UIImage(named: currentDrinkImageName)
+    func setBeverageForDetailView(beverage: Beverage) {
+        currentBeverage = beverage
+        drinkNameLabel.text = beverage.name
+        detailImageView.image = UIImage(named: beverage.imageName)
 
     }
 
     func reloadQuickDrinks() {
         contentView1.titleLabel.text = "\(Int(userDefaults.favDrink1Volume))ml"
-        contentView1.imageView.image = UIImage(named: userDefaults.favDrink1ImageName)
+        contentView1.imageView.image = UIImage(named: userDefaults.favBeverage1.imageName)
 
         contentView2.titleLabel.text = "\(Int(userDefaults.favDrink2Volume))ml"
-        contentView2.imageView.image = UIImage(named: userDefaults.favDrink2ImageName)
+        contentView2.imageView.image = UIImage(named: userDefaults.favBeverage2.imageName)
 
         contentView3.titleLabel.text = "\(Int(userDefaults.favDrink3Volume))ml"
-        contentView3.imageView.image = UIImage(named: userDefaults.favDrink3ImageName)
+        contentView3.imageView.image = UIImage(named: userDefaults.favBeverage3.imageName)
 
         contentView4.titleLabel.text = "\(Int(userDefaults.favDrink4Volume))ml"
-        contentView4.imageView.image = UIImage(named: userDefaults.favDrink4ImageName)
+        contentView4.imageView.image = UIImage(named: userDefaults.favBeverage4.imageName)
     }
 
     @objc func handleDismiss() {
@@ -457,8 +458,7 @@ class DrinksLauncher: NSObject {
 
     @objc func addDrinkAction(sender: UIButton!) {
         handleDismiss()
-        delegate?.didAddDrink(name: currentDrinkName,
-                              imageName: currentDrinkImageName,
+        delegate?.didAddDrink(beverage: currentBeverage,
                               volume: currentVolume)
     }
 
@@ -488,29 +488,25 @@ class DrinksLauncher: NSObject {
     }
 
     @objc func quickDrink1Tap(_ sender: UITapGestureRecognizer? = nil) {
-        delegate?.didAddDrink(name: userDefaults.favDrink1Name,
-                              imageName: userDefaults.favDrink1ImageName,
+        delegate?.didAddDrink(beverage: userDefaults.favBeverage1,
                               volume: userDefaults.favDrink1Volume)
         handleDismiss()
     }
 
     @objc func quickDrink2Tap(_ sender: UITapGestureRecognizer? = nil) {
-        delegate?.didAddDrink(name: userDefaults.favDrink2Name,
-                              imageName: userDefaults.favDrink2ImageName,
+        delegate?.didAddDrink(beverage: userDefaults.favBeverage2,
                               volume: userDefaults.favDrink2Volume)
         handleDismiss()
     }
 
     @objc func quickDrink3Tap(_ sender: UITapGestureRecognizer? = nil) {
-        delegate?.didAddDrink(name: userDefaults.favDrink3Name,
-                              imageName: userDefaults.favDrink3ImageName,
+        delegate?.didAddDrink(beverage: userDefaults.favBeverage3,
                               volume: userDefaults.favDrink3Volume)
         handleDismiss()
     }
 
     @objc func quickDrink4Tap(_ sender: UITapGestureRecognizer? = nil) {
-        delegate?.didAddDrink(name: userDefaults.favDrink4Name,
-                              imageName: userDefaults.favDrink4ImageName,
+        delegate?.didAddDrink(beverage: userDefaults.favBeverage4,
                               volume: userDefaults.favDrink4Volume)
         handleDismiss()
     }
@@ -534,8 +530,7 @@ extension DrinksLauncher: UICollectionViewDataSource, UICollectionViewDelegate, 
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        setImageAndTitleForDetailView(name: beverages[indexPath.item].name,
-                                      imageName: beverages[indexPath.item].imageName)
+        setBeverageForDetailView(beverage: beverages[indexPath.item])
 
         if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
             scrollView.setContentOffset(CGPoint(x: window.frame.width, y: 0), animated: true)

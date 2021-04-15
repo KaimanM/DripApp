@@ -1,3 +1,5 @@
+import Foundation
+
 class Beverages {
 
     let drinks: [Beverage] = [
@@ -21,7 +23,7 @@ class Beverages {
         Beverage(name: "Soda", imageName: "soda.svg", coefficient: 0.90)]
 }
 
-struct Beverage {
+struct Beverage: Codable {
     let name: String
     let imageName: String
     let coefficient: Double

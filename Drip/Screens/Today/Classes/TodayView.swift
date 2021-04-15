@@ -39,6 +39,11 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
         setNavigationTitle()
         progressLabel.font = UIFont.SFProRounded(ofSize: 32, fontWeight: .regular)
         drinksLauncher.delegate = self
+
+        print(userDefaultsController.favBeverage1)
+        print(userDefaultsController.favBeverage2)
+        print(userDefaultsController.favBeverage3)
+        print(userDefaultsController.favBeverage4)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -218,8 +223,7 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
 }
 
 extension TodayView: DrinksLauncherDelegate {
-
-    func didAddDrink(name: String, imageName: String, volume: Double) {
-        presenter.addDrinkTapped(drinkName: name, volume: volume, imageName: imageName)
+    func didAddDrink(beverage: Beverage, volume: Double) {
+        presenter.addDrinkTapped(beverage: beverage, volume: volume)
     }
 }
