@@ -166,13 +166,6 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
         drinksLauncher.showDrinks()
     }
 
-    let drinkNames = ["Water", "Coffee", "Tea", "Milk", "Orange Juice", "Juicebox",
-                      "Cola", "Cocktail", "Punch", "Milkshake", "Energy Drink", "Beer"] // icetea
-
-    let drinkImageNames = ["waterbottle.svg", "coffee.svg", "tea.svg", "milk.svg", "orangejuice.svg",
-                            "juicebox.svg", "cola.svg", "cocktail.svg", "punch.svg", "milkshake.svg",
-                            "energydrink.svg", "beer.svg"]
-
 }
 
 extension HistoryView: UIGestureRecognizerDelegate {
