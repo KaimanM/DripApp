@@ -213,13 +213,50 @@ class TodayPresenterTestCase: XCTestCase {
         XCTAssertEqual(mockedView.didSetOverviewTitles?.remainingText, "2000ml")
     }
 
-    // MARK: - onViewWillAppear -
+    // MARK: - updateGreetingLabel -
 
-    func test_whenOnViewWillAppearCalled_thenUpdatesTitle() {
-        // given & when
-        sut.onViewWillAppear()
+    func test_givenMorningTime_whenUpdateGreetingLabelCalled_thenUpdatesGreetingLabelCorrectly() {
+        // given
+        var dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second],
+                                                             from: Date())
+
+        dateComponents.hour = 9
+        let timeStamp = Calendar.current.date(from: dateComponents)!
+
+        // when
+        sut.updateGreetingLabel(date: timeStamp)
 
         // then
-        XCTAssertEqual(mockedView.didUpdateGreetingLabel!, "Good morning, Tony Stark")
+        XCTAssertEqual(mockedView.didUpdateGreetingLabel!, "Good Morning, Tony Stark")
+    }
+
+    func test_givenAfternoonTime_whenUpdateGreetingLabelCalled_thenUpdatesGreetingLabelCorrectly() {
+        // given
+        var dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second],
+                                                             from: Date())
+
+        dateComponents.hour = 12
+        let timeStamp = Calendar.current.date(from: dateComponents)!
+
+        // when
+        sut.updateGreetingLabel(date: timeStamp)
+
+        // then
+        XCTAssertEqual(mockedView.didUpdateGreetingLabel!, "Good Afternoon, Tony Stark")
+    }
+
+    func test_givenEveningTime_whenUpdateGreetingLabelCalled_thenUpdatesGreetingLabelCorrectly() {
+        // given
+        var dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second],
+                                                             from: Date())
+
+        dateComponents.hour = 18
+        let timeStamp = Calendar.current.date(from: dateComponents)!
+
+        // when
+        sut.updateGreetingLabel(date: timeStamp)
+
+        // then
+        XCTAssertEqual(mockedView.didUpdateGreetingLabel!, "Good Evening, Tony Stark")
     }
 }
