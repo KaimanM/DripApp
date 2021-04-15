@@ -84,7 +84,9 @@ final class SettingsView: UIViewController, SettingsViewProtocol, PersistentData
     }
 
     func showSafariWith(url: URL) {
-        let safariVC = SFSafariViewController(url: url)
+        let config = SFSafariViewController.Configuration()
+        config.entersReaderIfAvailable = true
+        let safariVC = SFSafariViewController(url: url, configuration: config)
         safariVC.preferredBarTintColor = .black
         safariVC.preferredControlTintColor = .whiteText
         safariVC.modalPresentationStyle = .popover
