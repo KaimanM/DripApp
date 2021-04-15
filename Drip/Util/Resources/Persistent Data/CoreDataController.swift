@@ -65,7 +65,7 @@ class CoreDataController: CoreDataControllerProtocol {
             day.goal = isRunningTests ? 2000 : UserDefaultsController.shared.drinkGoal
             day.timeStamp = timeStamp
             day.didReachGoal = false
-            day.total = volume
+            day.total = volume*beverage.coefficient
             if day.total >= day.goal { day.didReachGoal = true }
 
             let drink = Drink(context: context)
@@ -84,7 +84,7 @@ class CoreDataController: CoreDataControllerProtocol {
             drink.imageName = beverage.imageName
             drink.timeStamp = timeStamp
 
-            day.total += volume
+            day.total += volume*beverage.coefficient
             if day.total >= day.goal { day.didReachGoal = true}
 
             day.addToDrinks(drink)
