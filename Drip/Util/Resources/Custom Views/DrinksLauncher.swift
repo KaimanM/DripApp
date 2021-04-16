@@ -227,7 +227,7 @@ class DrinksLauncher: NSObject {
 
         let buttonsContainer: UIView = {
             let view = UIView()
-            view.backgroundColor = UIColor(named: "infoPanelDark")
+            view.backgroundColor = .infoPanelLight
             view.layer.cornerRadius = 5
             return view
         }()
@@ -312,7 +312,7 @@ class DrinksLauncher: NSObject {
 
         let imageContainerView: UIImageView = {
             let imageView = UIImageView()
-            imageView.backgroundColor = UIColor(named: "infoPanelDark")
+            imageView.backgroundColor = .infoPanelLight
             imageView.layer.cornerRadius = 10
             return imageView
         }()
@@ -320,7 +320,7 @@ class DrinksLauncher: NSObject {
         let addDrinkButton: UIButton = {
             let button = UIButton()
             button.setTitle("Add drink", for: .normal)
-            button.backgroundColor = UIColor(named: "infoPanelDark")
+            button.backgroundColor = .infoPanelLight
             button.layer.cornerRadius = 10
             button.addTarget(self, action: #selector(addDrinkAction), for: .touchUpInside)
             return button

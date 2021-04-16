@@ -20,7 +20,7 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var addDrinkButton: UIButton!
     @IBOutlet weak var coefficientBtnContainer: UIView!
-    
+
     fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
         [unowned self] in
         let panGesture = UIPanGestureRecognizer(target: self.calendar,
@@ -95,12 +95,12 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
     }
 
     func setupCalendar() {
-        calendar.appearance.todayColor = UIColor(named: "todaysDate")
+        calendar.appearance.todayColor = .todaysDate
         calendar.firstWeekday = 2
-        calendar.appearance.weekdayTextColor = UIColor(named: "whiteText")
-        calendar.appearance.headerTitleColor = UIColor(named: "whiteText")
+        calendar.appearance.weekdayTextColor = .whiteText
+        calendar.appearance.headerTitleColor = .whiteText
         calendar.appearance.selectionColor = UIColor.gray
-        calendar.appearance.titleDefaultColor = UIColor(named: "whiteText")
+        calendar.appearance.titleDefaultColor = .whiteText
         calendar.appearance.titleFont = UIFont.systemFont(ofSize: 12)
         calendar.backgroundColor = .clear
         calendar.scope = .week

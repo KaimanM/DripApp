@@ -30,7 +30,7 @@ class DrinksCell: UICollectionViewCell {
                          trailing: contentView.trailingAnchor,
                          padding: .zero, size: .init(width: 0, height: 20))
 
-        imageContainerView.backgroundColor = UIColor(named: "infoPanelDark")
+        imageContainerView.backgroundColor = .infoPanelLight
         imageContainerView.anchor(top: contentView.topAnchor,
                                   leading: contentView.leadingAnchor,
                                   bottom: nameLabel.topAnchor,

@@ -27,5 +27,9 @@ extension UIColor {
     static var dripMerged: UIColor = UIColor(named: "dripMerged") ?? .blue
     static var dripShadow: UIColor = UIColor(named: "dripShadow") ?? .darkGray
     static var infoPanelBG: UIColor = UIColor(named: "infoPanelBG") ?? .gray
-    static let whiteText: UIColor = UIColor(named: "whiteText") ?? .white
+    static var infoPanelDark: UIColor = UIColor(named: "infoPanelDark") ?? .darkGray
+    static var infoPanelLight: UIColor = UIColor(named: "infoPanelLight") ?? .lightGray
+    static var whiteText: UIColor = UIColor(named: "whiteText") ?? .white
+    static var darkGrayText: UIColor = UIColor(named: "lightGrayText") ?? .lightGray
+    static var todaysDate: UIColor = UIColor(named: "todaysDate") ?? .red
 }

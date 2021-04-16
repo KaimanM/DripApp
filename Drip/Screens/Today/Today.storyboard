@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4nv-fS-xIt">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="895.99999999999989"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="H11-zG-XUr">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1056.3333333333333"/>
@@ -393,9 +393,9 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="khJ-Fa-iQr">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <color key="tintColor" name="infoPanelDark"/>
+                                                        <color key="tintColor" name="darkGrayText"/>
                                                         <state key="normal" title=" Why is my total incorrect?" image="info.circle" catalog="system">
-                                                            <color key="titleColor" name="infoPanelDark"/>
+                                                            <color key="titleColor" name="darkGrayText"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="drinkCoefficientBtnTapped:" destination="OlH-Y5-r6o" eventType="touchUpInside" id="x4m-NX-kGY"/>
@@ -462,11 +462,11 @@
     </scenes>
     <resources>
         <image name="info.circle" catalog="system" width="128" height="121"/>
+        <namedColor name="darkGrayText">
+            <color red="0.23529411764705882" green="0.23921568627450981" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="dripMerged">
             <color red="0.2196078431372549" green="0.8901960784313725" blue="0.77254901960784317" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="infoPanelDark">
-            <color red="0.23529411764705882" green="0.23921568627450981" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="separatorColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
