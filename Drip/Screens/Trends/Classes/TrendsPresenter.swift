@@ -253,10 +253,10 @@ final class TrendsPresenter: TrendsPresenterProtocol {
         }
     }
 
-    let section0ImageNames = ["shuffle.circle", "repeat.circle", "hand.thumbsup", "hand.thumbsdown",
-    "staroflife.circle", "star.circle", "heart.circle", "calendar.circle"]
+    let section0ImageNames = ["drop.fill", "01.square.fill", "hand.thumbsup.fill", "hand.thumbsdown.fill",
+    "star.leadinghalf.fill", "star.fill", "heart.circle.fill", "calendar"]
 
-    let sectionXImageNames = ["shuffle.circle", "repeat.circle", "heart.circle", "calendar.circle"]
+    let sectionXImageNames = ["drop.fill", "01.square.fill", "heart.circle.fill", "calendar"]
 
     func getImageNameForCell(indexPath: IndexPath) -> String {
         switch indexPath.section {

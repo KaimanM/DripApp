@@ -22,30 +22,10 @@ class TrendsCollectionViewCell: UICollectionViewCell {
         containerView.layer.cornerRadius = 10
         containerView.backgroundColor = .infoPanelBG
 
-        imageViewContainer.backgroundColor = .clear
+        imageViewContainer.backgroundColor = .infoPanelLight
         imageView.contentMode = .scaleAspectFit
 
-        // Create Gradient Layer
-        let gradientLayer:CAGradientLayer = CAGradientLayer()
-        gradientLayer.frame = imageViewContainer.bounds
-        gradientLayer.colors = [UIColor.hexStringToUIColor(hex: "004997").cgColor,
-                                UIColor.black.cgColor]
-
-        gradientLayer.startPoint = CGPoint(x: 1, y: 0)
-        gradientLayer.endPoint = CGPoint(x: 0, y: 1)
-        imageViewContainer.layer.insertSublayer(gradientLayer, at: 0)
-
-        // Create Mask for Gradient Layer
-        let maskPath = UIBezierPath(roundedRect: imageViewContainer.bounds,
-                                    byRoundingCorners: .allCorners,
-                                    cornerRadii: CGSize(width: imageViewContainer.frame.height/2,
-                                                        height: imageViewContainer.frame.height/2))
-
-        let maskLayer = CAShapeLayer()
-        maskLayer.frame = imageViewContainer.bounds
-        maskLayer.path = maskPath.cgPath
-
-        gradientLayer.mask = maskLayer
+        imageViewContainer.layer.cornerRadius = imageViewContainer.frame.height / 2
 
         trendLabel.textColor = UIColor.init(named: "whiteText")
 
