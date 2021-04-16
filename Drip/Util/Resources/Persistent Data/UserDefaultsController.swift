@@ -30,6 +30,8 @@ class UserDefaultsController: UserDefaultsControllerProtocol {
 
     let completedOnboardingKey = "completedOnboarding"
 
+    let useDrinkCoefficientsKey = "useDrinkCoefficients"
+
     init() {
         defaults.register(defaults: [favDrink1VolumeKey : 500,
                                      favDrink2VolumeKey : 250,
@@ -38,6 +40,7 @@ class UserDefaultsController: UserDefaultsControllerProtocol {
                                      drinkGoalKey : 2000,
                                      nameKey : "Buddy",
                                      completedOnboardingKey : false,
+                                     useDrinkCoefficientsKey : true,
                                      favBeverage1Key : encodeBeverage(beverages[0]),
                                      favBeverage2Key : encodeBeverage(beverages[1]),
                                      favBeverage3Key : encodeBeverage(beverages[2]),
@@ -135,6 +138,14 @@ class UserDefaultsController: UserDefaultsControllerProtocol {
     }() {
         didSet {
             defaults.set(completedOnboarding, forKey: completedOnboardingKey)
+        }
+    }
+
+    lazy var useDrinkCoefficients: Bool = {
+        return defaults.bool(forKey: useDrinkCoefficientsKey)
+    }() {
+        didSet {
+            defaults.set(useDrinkCoefficients, forKey: useDrinkCoefficientsKey)
         }
     }
 

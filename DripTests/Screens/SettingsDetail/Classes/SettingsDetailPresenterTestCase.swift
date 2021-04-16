@@ -174,10 +174,15 @@ class SettingsDetailPresenterTestCase: XCTestCase {
         //then
         XCTAssertEqual(mockedView.didSetupCoefficientView?.headingText, "Drink Coefficients?")
         XCTAssertEqual(mockedView.didSetupCoefficientView?.bodyText,
-                                """
-                                Drink Coefficients are a representation of how much water is in each ml of a drink.
-                                A drink with a coefficient of 0.87 will have 87ml of water in it for each 100ml.
-                                """)
+                            """
+                           Drink Coefficients are a representation of the percentage of water in a drink.
+
+                           Milk for example has a coefficient of 0.88 so will have 88ml of water in it for each 100ml.
+
+                           Note:
+                           \u{2022} The below coefficients are estimates.
+                           \u{2022} Changing the toggle below does not affect previous drinks.
+                           """)
     }
 
     func test_givenAttributionSettingsType_whenSetupViewCalled_thenCallsSetupAboutView() {
@@ -387,5 +392,23 @@ class SettingsDetailPresenterTestCase: XCTestCase {
 
         // when & then
         XCTAssertEqual(sut.numberOfRowsInSection(), sut.attributeCells.count)
+    }
+
+    // MARK: - setCoefficientBool -
+
+    func test_whenSetCoefficientBoolCalledToTrue_thenUpdatesUserDefaults() {
+        //when
+        sut.setCoefficientBool(isEnabled: true)
+
+        //then
+        XCTAssertTrue(mockedUserDefaultsController.useDrinkCoefficients)
+    }
+
+    func test_whenSetCoefficientBoolCalledToFalse_thenUpdatesUserDefaults() {
+        //when
+        sut.setCoefficientBool(isEnabled: false)
+
+        //then
+        XCTAssertFalse(mockedUserDefaultsController.useDrinkCoefficients)
     }
 }

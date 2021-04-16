@@ -88,8 +88,13 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
         view?.updateTitle(title: "Drink Coefficients")
         let headingText = "Drink Coefficients?"
         let bodyText = """
-            Drink Coefficients are a representation of how much water is in each ml of a drink.
-            A drink with a coefficient of 0.87 will have 87ml of water in it for each 100ml.
+            Drink Coefficients are a representation of the percentage of water in a drink.
+
+            Milk for example has a coefficient of 0.88 so will have 88ml of water in it for each 100ml.
+
+            Note:
+            \u{2022} The below coefficients are estimates.
+            \u{2022} Changing the toggle below does not affect previous drinks.
             """
 
         view?.setupCoefficientView(headingText: headingText, bodyText: bodyText)
@@ -145,6 +150,10 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
         }
 
         view?.popView()
+    }
+
+    func setCoefficientBool(isEnabled: Bool) {
+        view?.userDefaultsController.useDrinkCoefficients = isEnabled
     }
 
     // MARK: - Favourites -

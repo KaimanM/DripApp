@@ -16,4 +16,5 @@ protocol UserDefaultsControllerProtocol: class {
     var name: String { get set }
 
     var completedOnboarding: Bool { get set }
+    var useDrinkCoefficients: Bool { get set }
 }
