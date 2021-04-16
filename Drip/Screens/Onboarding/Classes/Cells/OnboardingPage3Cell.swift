@@ -2,6 +2,7 @@ import UIKit
 
 protocol OnboardingPage3CellDelegate: class {
     func didTapPage3Button(name: String, goal: Double)
+    func invalidName()
 }
 
 class OnboardingPage3Cell: UICollectionViewCell {
@@ -242,18 +243,23 @@ class OnboardingPage3Cell: UICollectionViewCell {
 
 extension OnboardingPage3Cell: UITextFieldDelegate {
         func textFieldDidEndEditing(_ textField: UITextField) {
-            if let name = textField.text, !name.isEmpty {
-                print("entered name is \(name)")
-                self.name = name
+            if let name = textField.text {
+                if name.isEmpty {
+                    self.name = "Buddy"
+                } else if !(name.count > 15) {
+                    self.name = name
+                } else {
+                    delegate?.invalidName()
+                    textField.text = ""
+                    self.name = "Buddy"
+                }
             } else {
-                print("name empty, setting name to buddy")
                 self.name = "Buddy"
             }
         }
 
         func textFieldShouldReturn(_ textField: UITextField) -> Bool {
             // called when 'return' key pressed. return NO to ignore.
-            print("TextField should return method called")
             textField.resignFirstResponder()
             return true
         }
