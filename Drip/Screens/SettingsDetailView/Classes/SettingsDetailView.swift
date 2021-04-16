@@ -61,6 +61,12 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
         return tableView
     }()
 
+    let toggle: UISwitch = {
+        let toggle = UISwitch()
+        toggle.onTintColor = .dripMerged
+        return toggle
+    }()
+
     let cellId = "cellId"
 
     lazy var drinksLauncher = DrinksLauncher(userDefaults: userDefaultsController, isOnboarding: true)
@@ -74,6 +80,16 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
     override func viewWillDisappear(_ animated: Bool) {
         drinksLauncher.removeFromWindow()
         super.viewWillDisappear(animated)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        switch settingsType {
+        case .coefficient:
+            toggle.isOn = userDefaultsController.useDrinkCoefficients
+        default:
+            break
+        }
     }
 
     func updateTitle(title: String) {
@@ -188,12 +204,6 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
             return stackView
         }()
 
-        let toggle: UISwitch = {
-            let toggle = UISwitch()
-            toggle.onTintColor = .dripMerged
-            toggle.isOn = userDefaultsController.useDrinkCoefficients
-            return toggle
-        }()
         toggle.addTarget(self, action: #selector(switchValueDidChange(_:)), for: .valueChanged)
 
         let toggleLabel: UILabel = {

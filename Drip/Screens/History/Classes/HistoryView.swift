@@ -19,7 +19,8 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var addDrinkButton: UIButton!
-
+    @IBOutlet weak var coefficientBtnContainer: UIView!
+    
     fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
         [unowned self] in
         let panGesture = UIPanGestureRecognizer(target: self.calendar,
@@ -55,9 +56,9 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
         self.scrollView.panGestureRecognizer.require(toFail: self.scopeGesture)
     }
 
-    // Usually I would do data loading here, but this is calling before the viewwilldisappear of other views.
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        coefficientBtnContainer.isHidden = userDefaultsController.useDrinkCoefficients ? false : true
     }
 
     // load data here
@@ -164,6 +165,11 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
 
     @IBAction func addMissingDrinkBtnTapped(_ sender: Any) {
         drinksLauncher.showDrinks()
+    }
+
+    @IBAction func drinkCoefficientBtnTapped(_ sender: Any) {
+        showView(SettingsDetailScreenBuilder(type: .coefficient,
+                                             userDefaultsController: userDefaultsController).build())
     }
 
 }

@@ -23,6 +23,7 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
     private var animationStartDate: Date?
     private var startValue: Double = 0
     private var endValue: Double = 0
+    @IBOutlet weak var coefficientBtnContainer: UIView!
 
     lazy var drinksLauncher = DrinksLauncher(userDefaults: userDefaultsController, isOnboarding: false)
 
@@ -45,6 +46,7 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
     override func viewWillAppear(_ animated: Bool) {
         setNavigationTitle()
         presenter.onViewWillAppear()
+        coefficientBtnContainer.isHidden = userDefaultsController.useDrinkCoefficients ? false : true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -172,6 +174,11 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
             let value = startValue + percentage * (endValue - startValue)
             self.progressLabel.text = "\(Int(value))%"
         }
+    }
+
+    @IBAction func drinkCoefficientBtnTapped(_ sender: Any) {
+        showView(SettingsDetailScreenBuilder(type: .coefficient,
+                                             userDefaultsController: userDefaultsController).build())
     }
 
     @IBAction func addDrinkBtnTapped(_ sender: Any) {
