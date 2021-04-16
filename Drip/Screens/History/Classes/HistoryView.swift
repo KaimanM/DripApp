@@ -253,10 +253,10 @@ extension HistoryView: UITableViewDelegate, UITableViewDataSource, DrinkTableVie
         cell.volumeLabel.text = cellData.volume
         cell.drinkImageView?.image = UIImage(named: cellData.imageName)?
 //            .withTintColor(UIColor.white.withAlphaComponent(0.5))
-            .withAlignmentRectInsets(UIEdgeInsets(top: -15,
-                                                  left: -15,
-                                                  bottom: -15,
-                                                  right: -15))
+            .withAlignmentRectInsets(UIEdgeInsets(top: -10,
+                                                  left: -10,
+                                                  bottom: -10,
+                                                  right: -10))
         cell.deleteButton.tag = indexPath.row
         cell.timeStampLabel.text = cellData.timeStampTitle
 

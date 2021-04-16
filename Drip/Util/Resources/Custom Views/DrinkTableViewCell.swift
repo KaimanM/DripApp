@@ -41,7 +41,7 @@ class DrinkTableViewCell: UITableViewCell {
         let gradientLayer:CAGradientLayer = CAGradientLayer()
         gradientLayer.frame = imageViewContainer.bounds
         gradientLayer.colors = [UIColor.hexStringToUIColor(hex: "004997").cgColor,
-                                UIColor.black.cgColor]
+                                UIColor.dripSecondary.cgColor]
 
         gradientLayer.startPoint = CGPoint(x: 1, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0, y: 1)
