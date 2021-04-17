@@ -19,7 +19,8 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var addDrinkButton: UIButton!
-    @IBOutlet weak var coefficientBtnContainer: UIView!
+    @IBOutlet weak var coefficientButton: UIButton!
+
 
     fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
         [unowned self] in
@@ -44,6 +45,7 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
         calendar.register(CustomFSCell.self, forCellReuseIdentifier: "cell")
 
         setupAddDrinkBtn()
+        setupCoefficientBtn()
         drinksLauncher.delegate = self
 
         tableView.delegate = self
@@ -58,7 +60,7 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        coefficientBtnContainer.isHidden = userDefaultsController.useDrinkCoefficients ? false : true
+        coefficientButton.isHidden = userDefaultsController.useDrinkCoefficients ? false : true
     }
 
     // load data here
@@ -109,6 +111,12 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
     func setupAddDrinkBtn() {
         addDrinkButton.backgroundColor = .infoPanelBG
         addDrinkButton.layer.cornerRadius = 10
+    }
+
+    func setupCoefficientBtn() {
+        coefficientButton.imageView?.contentMode = .scaleAspectFit
+        coefficientButton.contentHorizontalAlignment = .fill
+        coefficientButton.contentVerticalAlignment =  .fill
     }
 
     func presentView(_ view: UIViewController) {
