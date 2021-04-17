@@ -28,16 +28,10 @@ final class TodayPresenter: TodayPresenterProtocol {
         updateProgressRing()
         updateGradientBars()
         updateOverviewTitles()
-
-        // delete this soon
-//        let drinks = view?.coreDataController.getDrinksForDate(date: Date())
-//        for drink in drinks! {
-//            print(drink.name)
-//        }
     }
 
     func onViewWillAppear() {
-        updateGreetingLabel()
+        updateGreetingLabel(date: Date())
     }
 
     func onViewWillDisappear() {
@@ -56,9 +50,22 @@ final class TodayPresenter: TodayPresenterProtocol {
 
     }
 
-    func updateGreetingLabel() {
-        let name = (view?.userDefaultsController.name)!
-        view?.updateGreetingLabel(text: "Good morning, \(name)")
+    func updateGreetingLabel(date: Date) {
+        guard let name = view?.userDefaultsController.name else { return }
+
+        var greeting: String
+        switch Calendar.current.component(.hour, from: date) {
+        case 0...11:
+            greeting = "Good Morning, \(name)"
+        case 12...17:
+            greeting = "Good Afternoon, \(name)"
+        case 18...24:
+            greeting = "Good Evening, \(name)"
+        default:
+            greeting = "Hello, \(name)"
+        }
+
+        view?.updateGreetingLabel(text: greeting)
     }
 
     func updateProgressRing() {
@@ -75,14 +82,14 @@ final class TodayPresenter: TodayPresenterProtocol {
         if let drinks = today?.drinks?.allObjects as? [Drink] {
             for drink in drinks {
                 switch Calendar.current.component(.hour, from: drink.timeStamp) {
-                case 0...12:
+                case 0...11:
                     morningTotal += drink.volume
-                case 12...18:
+                case 12...17:
                     afternoonTotal += drink.volume
                 case 18...24:
                     eveningTotal += drink.volume
                 default:
-                    fatalError("time out of bounds")
+                    break
                 }
             }
         }
@@ -92,14 +99,6 @@ final class TodayPresenter: TodayPresenterProtocol {
         view?.setAfternoonGradientBarProgress(total: afternoonTotal, goal: drinkGoal/3)
         view?.setEveningGradientBarProgress(total: eveningTotal, goal: drinkGoal/3)
 
-    }
-
-    func updateGoal(goal: Double) {
-        view?.userDefaultsController.drinkGoal = goal
-        print(goal)
-        updateProgressRing()
-        updateGradientBars()
-        updateOverviewTitles()
     }
 
     func addDrinkTapped(beverage: Beverage, volume: Double) {

@@ -19,6 +19,7 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var addDrinkButton: UIButton!
+    @IBOutlet weak var coefficientBtnContainer: UIView!
 
     fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
         [unowned self] in
@@ -55,9 +56,9 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
         self.scrollView.panGestureRecognizer.require(toFail: self.scopeGesture)
     }
 
-    // Usually I would do data loading here, but this is calling before the viewwilldisappear of other views.
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        coefficientBtnContainer.isHidden = userDefaultsController.useDrinkCoefficients ? false : true
     }
 
     // load data here
@@ -83,7 +84,7 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
                                        secondColour: .dripSecondary,
                                        shadowColour: .dripShadow,
                                        lineWidth: 20,
-                                       ringImage: UIImage(named: "dripIcon"))
+                                       ringImage: UIImage(named: "dripIconBold"))
         ringView.backgroundColor = .clear
         dayLabel.font = UIFont.SFProRounded(ofSize: 24, fontWeight: .regular)
         dayLabel.textColor = .white
@@ -94,12 +95,12 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
     }
 
     func setupCalendar() {
-        calendar.appearance.todayColor = UIColor(named: "todaysDate")
+        calendar.appearance.todayColor = .todaysDate
         calendar.firstWeekday = 2
-        calendar.appearance.weekdayTextColor = UIColor(named: "whiteText")
-        calendar.appearance.headerTitleColor = UIColor(named: "whiteText")
+        calendar.appearance.weekdayTextColor = .whiteText
+        calendar.appearance.headerTitleColor = .whiteText
         calendar.appearance.selectionColor = UIColor.gray
-        calendar.appearance.titleDefaultColor = UIColor(named: "whiteText")
+        calendar.appearance.titleDefaultColor = .whiteText
         calendar.appearance.titleFont = UIFont.systemFont(ofSize: 12)
         calendar.backgroundColor = .clear
         calendar.scope = .week
@@ -166,12 +167,10 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
         drinksLauncher.showDrinks()
     }
 
-    let drinkNames = ["Water", "Coffee", "Tea", "Milk", "Orange Juice", "Juicebox",
-                      "Cola", "Cocktail", "Punch", "Milkshake", "Energy Drink", "Beer"] // icetea
-
-    let drinkImageNames = ["waterbottle.svg", "coffee.svg", "tea.svg", "milk.svg", "orangejuice.svg",
-                            "juicebox.svg", "cola.svg", "cocktail.svg", "punch.svg", "milkshake.svg",
-                            "energydrink.svg", "beer.svg"]
+    @IBAction func drinkCoefficientBtnTapped(_ sender: Any) {
+        showView(SettingsDetailScreenBuilder(type: .coefficient,
+                                             userDefaultsController: userDefaultsController).build())
+    }
 
 }
 
@@ -254,10 +253,10 @@ extension HistoryView: UITableViewDelegate, UITableViewDataSource, DrinkTableVie
         cell.volumeLabel.text = cellData.volume
         cell.drinkImageView?.image = UIImage(named: cellData.imageName)?
 //            .withTintColor(UIColor.white.withAlphaComponent(0.5))
-            .withAlignmentRectInsets(UIEdgeInsets(top: -15,
-                                                  left: -15,
-                                                  bottom: -15,
-                                                  right: -15))
+            .withAlignmentRectInsets(UIEdgeInsets(top: -10,
+                                                  left: -10,
+                                                  bottom: -10,
+                                                  right: -10))
         cell.deleteButton.tag = indexPath.row
         cell.timeStampLabel.text = cellData.timeStampTitle
 

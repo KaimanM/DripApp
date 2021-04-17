@@ -61,6 +61,12 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
         return tableView
     }()
 
+    let toggle: UISwitch = {
+        let toggle = UISwitch()
+        toggle.onTintColor = .dripMerged
+        return toggle
+    }()
+
     let cellId = "cellId"
 
     lazy var drinksLauncher = DrinksLauncher(userDefaults: userDefaultsController, isOnboarding: true)
@@ -74,6 +80,16 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
     override func viewWillDisappear(_ animated: Bool) {
         drinksLauncher.removeFromWindow()
         super.viewWillDisappear(animated)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        switch settingsType {
+        case .coefficient:
+            toggle.isOn = userDefaultsController.useDrinkCoefficients
+        default:
+            break
+        }
     }
 
     func updateTitle(title: String) {
@@ -167,31 +183,93 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
 
     }
 
+    // swiftlint:disable:next function_body_length
     func setupCoefficientView(headingText: String, bodyText: String) {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CoefficientTableViewCell.self, forCellReuseIdentifier: cellId)
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        tableView.isScrollEnabled = false
 
-        let subViews = [headingLabel, bodyLabel, tableView]
-        subViews.forEach({view.addSubview($0)})
+        let scrollView: UIScrollView = {
+            let scrollView = UIScrollView()
+            return scrollView
+        }()
+
+        let childStackView: UIStackView = {
+            let stackView = UIStackView()
+            stackView.axis = .vertical
+            stackView.alignment = .fill
+            stackView.distribution = .fill
+            return stackView
+        }()
+
+        toggle.addTarget(self, action: #selector(switchValueDidChange(_:)), for: .valueChanged)
+
+        let toggleLabel: UILabel = {
+            let label = UILabel()
+            label.textColor = .whiteText
+            label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+            label.text = "Enable Drink Coefficients"
+            return label
+        }()
+
+        let topContainerView = UIView(), lineView1 = UIView(), lineView2 = UIView()
+
+        view.addSubview(scrollView)
+        scrollView.addSubview(childStackView)
+
+        lineView1.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+        lineView2.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+
+        let subViews = [headingLabel, bodyLabel, lineView1, toggleLabel, toggle, lineView2]
+        subViews.forEach({topContainerView.addSubview($0)})
+
+        let arrangedSubviews = [topContainerView, tableView]
+        arrangedSubviews.forEach({childStackView.addArrangedSubview($0)})
+
+        scrollView.fillSuperView()
+        childStackView.fillSuperView()
+        childStackView.setEqualWidthTo(scrollView)
 
         headingLabel.text = headingText
         bodyLabel.text = bodyText
 
-        headingLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor,
-                            leading: view.leadingAnchor,
-                            trailing: view.trailingAnchor,
+        let tableViewHeight = (presenter.numberOfRowsInSection()*90)+10
+
+        tableView.anchor(size: .init(width: 0,
+                                     height: tableViewHeight))
+        headingLabel.anchor(top: topContainerView.topAnchor,
+                            leading: topContainerView.leadingAnchor,
+                            trailing: topContainerView.trailingAnchor,
                             padding: .init(top: 10, left: 20, bottom: 0, right: 20))
         bodyLabel.anchor(top: headingLabel.bottomAnchor,
-                            leading: view.leadingAnchor,
-                            trailing: view.trailingAnchor,
+                            leading: topContainerView.leadingAnchor,
+                            trailing: topContainerView.trailingAnchor,
                             padding: .init(top: 5, left: 20, bottom: 0, right: 20))
-        tableView.anchor(top: bodyLabel.bottomAnchor,
-                         leading: view.leadingAnchor,
-                         bottom: view.bottomAnchor,
-                         trailing: view.trailingAnchor,
-                         padding: .init(top: 5, left: 0, bottom: 0, right: 0))
+        lineView1.anchor(top: bodyLabel.bottomAnchor,
+                         leading: topContainerView.leadingAnchor,
+                         trailing: topContainerView.trailingAnchor,
+                         padding: .init(top: 10, left: 20, bottom: 0, right: 20),
+                         size: .init(width: 0, height: 1))
+        toggle.anchor(top: lineView1.bottomAnchor,
+                      trailing: topContainerView.trailingAnchor,
+                      padding: .init(top: 5, left: 0, bottom: 0, right: 20))
+        toggleLabel.anchor(top: lineView1.bottomAnchor,
+                           leading: topContainerView.leadingAnchor,
+                           bottom: lineView2.topAnchor,
+                           trailing: toggle.leadingAnchor,
+                           padding: .init(top: 0, left: 20, bottom: 0, right: 20))
+        lineView2.anchor(top: toggle.bottomAnchor,
+                         leading: topContainerView.leadingAnchor,
+                         bottom: topContainerView.bottomAnchor,
+                         trailing: topContainerView.trailingAnchor,
+                         padding: .init(top: 5, left: 20, bottom: 0, right: 20),
+                         size: .init(width: 0, height: 1))
+    }
+
+    @objc func switchValueDidChange(_ sender: UISwitch!) {
+            presenter.setCoefficientBool(isEnabled: sender.isOn)
     }
 
     func setupAttributionView(headingText: String, bodyText: String) {

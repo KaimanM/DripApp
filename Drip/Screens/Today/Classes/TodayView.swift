@@ -14,8 +14,6 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
     @IBOutlet weak var thisAfternoonGradientBarView: GradientBarView!
     @IBOutlet weak var thisEveningVolumeLabel: UILabel!
     @IBOutlet weak var thisEveningGradientBarView: GradientBarView!
-    @IBOutlet weak var remainingView: UIView!
-    @IBOutlet weak var goalView: UIView!
     @IBOutlet weak var remainingLabel: UILabel!
     @IBOutlet weak var goalLabel: UILabel!
     @IBOutlet weak var addDrinkBtn: UIButton!
@@ -25,6 +23,7 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
     private var animationStartDate: Date?
     private var startValue: Double = 0
     private var endValue: Double = 0
+    @IBOutlet weak var coefficientBtnContainer: UIView!
 
     lazy var drinksLauncher = DrinksLauncher(userDefaults: userDefaultsController, isOnboarding: false)
 
@@ -36,14 +35,8 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
         ringView.backgroundColor = .clear
         presenter.onViewDidLoad()
         setupInfoViews()
-        setNavigationTitle()
         progressLabel.font = UIFont.SFProRounded(ofSize: 32, fontWeight: .regular)
         drinksLauncher.delegate = self
-
-        print(userDefaultsController.favBeverage1)
-        print(userDefaultsController.favBeverage2)
-        print(userDefaultsController.favBeverage3)
-        print(userDefaultsController.favBeverage4)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -51,7 +44,9 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        setNavigationTitle()
         presenter.onViewWillAppear()
+        coefficientBtnContainer.isHidden = userDefaultsController.useDrinkCoefficients ? false : true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -85,10 +80,6 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
     }
 
     func setupInfoViews() {
-        remainingView.layer.cornerRadius = 10
-        remainingView.backgroundColor = .clear
-        goalView.layer.cornerRadius = 10
-        goalView.backgroundColor = .clear
         addDrinkBtn.layer.cornerRadius = 10
         addDrinkBtn.backgroundColor = .infoPanelBG
 
@@ -104,10 +95,6 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
 
         dottedView.addVerticalDottedLine()
         dottedView.backgroundColor = .clear
-
-        let goalTap = UITapGestureRecognizer(target: self, action: #selector(self.goalViewTapped(_:)))
-        goalView.addGestureRecognizer(goalTap)
-
     }
 
     func setupRingView(startColor: UIColor, endColor: UIColor, ringWidth: CGFloat) {
@@ -116,7 +103,7 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
                                             secondColour: UIColor.dripSecondary,
                                             shadowColour: UIColor.dripShadow,
                                             lineWidth: ringWidth,
-                                            ringImage: UIImage(named: "dripIcon"))
+                                            ringImage: UIImage(named: "dripIconBold"))
     }
 
     func setupGradientBars(dailyGoal: Int, morningGoal: Int, afternoonGoal: Int, eveningGoal: Int) {
@@ -189,37 +176,14 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
         }
     }
 
+    @IBAction func drinkCoefficientBtnTapped(_ sender: Any) {
+        showView(SettingsDetailScreenBuilder(type: .coefficient,
+                                             userDefaultsController: userDefaultsController).build())
+    }
+
     @IBAction func addDrinkBtnTapped(_ sender: Any) {
         drinksLauncher.showDrinks()
     }
-
-    @objc func goalViewTapped(_ sender: UITapGestureRecognizer? = nil) {
-        // handling code
-        print("did tap")
-        let alertContoller = UIAlertController(title: "Amend Goal",
-                                    message: "Enter a new goal volume in ml.", preferredStyle: .alert)
-        alertContoller.addTextField()
-        alertContoller.textFields![0].keyboardType = UIKeyboardType.numberPad
-
-        let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertContoller] _ in
-            if let answer: String = alertContoller.textFields![0].text,
-               let answerAsDouble = Double(answer) {
-                guard answerAsDouble != 0 else {
-                    print("can not be 0")
-                    return
-                }
-                self.presenter.updateGoal(goal: answerAsDouble)
-            } else {
-                print("invalid")
-            }
-
-        }
-
-        alertContoller.addAction(submitAction)
-
-        present(alertContoller, animated: true)
-    }
-
 }
 
 extension TodayView: DrinksLauncherDelegate {

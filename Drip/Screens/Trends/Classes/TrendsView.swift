@@ -58,12 +58,12 @@ extension TrendsView: UICollectionViewDelegate, UICollectionViewDataSource, UICo
 
         if let trendCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell",
                                                               for: indexPath) as? TrendsCollectionViewCell {
-            trendCell.imageView?.image = UIImage(named: "waterbottle.svg")?
-//                .withTintColor(UIColor.white.withAlphaComponent(0.5))
-                .withAlignmentRectInsets(UIEdgeInsets(top: -7,
-                                                      left: -7,
-                                                      bottom: -7,
-                                                      right: -7))
+            trendCell.imageView?.image = UIImage(systemName: presenter.getImageNameForCell(indexPath: indexPath))?
+                .withAlignmentRectInsets(UIEdgeInsets(top: -8,
+                                                      left: -8,
+                                                      bottom: -8,
+                                                      right: -8))
+            trendCell.imageView.tintColor = UIColor.dripMerged.withAlphaComponent(0.8)
             trendCell.trendLabel.text = presenter.getTitleForCell(section: indexPath.section, row: indexPath.row)
             trendCell.trendValueLabel.text = presenter.getDataForCell(section: indexPath.section, row: indexPath.row)
             cell = trendCell

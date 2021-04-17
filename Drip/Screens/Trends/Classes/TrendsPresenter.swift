@@ -253,6 +253,20 @@ final class TrendsPresenter: TrendsPresenterProtocol {
         }
     }
 
+    let section0ImageNames = ["drop.fill", "01.square.fill", "hand.thumbsup.fill", "hand.thumbsdown.fill",
+    "star.leadinghalf.fill", "star.fill", "heart.circle.fill", "calendar"]
+
+    let sectionXImageNames = ["drop.fill", "01.square.fill", "heart.circle.fill", "calendar"]
+
+    func getImageNameForCell(indexPath: IndexPath) -> String {
+        switch indexPath.section {
+        case 0:
+            return section0ImageNames[indexPath.row]
+        default:
+            return sectionXImageNames[indexPath.row]
+        }
+    }
+
     enum TimeScale {
         case allTime, last7Days, last30Days
     }

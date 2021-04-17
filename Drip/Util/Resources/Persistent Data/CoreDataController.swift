@@ -60,12 +60,14 @@ class CoreDataController: CoreDataControllerProtocol {
             fatalError("Error has occured")
         }
 
+        let drinkCoefficient = UserDefaultsController.shared.useDrinkCoefficients ? beverage.coefficient : 1.0
+
         if day.isEmpty {
             let day = Day(context: context)
             day.goal = isRunningTests ? 2000 : UserDefaultsController.shared.drinkGoal
             day.timeStamp = timeStamp
             day.didReachGoal = false
-            day.total = volume*beverage.coefficient
+            day.total = volume*drinkCoefficient
             if day.total >= day.goal { day.didReachGoal = true }
 
             let drink = Drink(context: context)
@@ -84,7 +86,7 @@ class CoreDataController: CoreDataControllerProtocol {
             drink.imageName = beverage.imageName
             drink.timeStamp = timeStamp
 
-            day.total += volume*beverage.coefficient
+            day.total += volume*drinkCoefficient
             if day.total >= day.goal { day.didReachGoal = true}
 
             day.addToDrinks(drink)

@@ -1,3 +1,5 @@
+import Foundation
+
 protocol TrendsPresenterProtocol: class {
     var view: TrendsViewProtocol? { get }
 
@@ -10,4 +12,5 @@ protocol TrendsPresenterProtocol: class {
     func getNumberOfItemsInSection(for section: Int) -> Int
     func getTitleForCell(section: Int, row: Int) -> String
     func getDataForCell(section: Int, row: Int) -> String
+    func getImageNameForCell(indexPath: IndexPath) -> String
 }

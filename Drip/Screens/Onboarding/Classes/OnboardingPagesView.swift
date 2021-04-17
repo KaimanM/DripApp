@@ -125,6 +125,15 @@ extension OnboardingPagesView: OnboardingPage2CellDelegate {
 }
 
 extension OnboardingPagesView: OnboardingPage3CellDelegate {
+    func invalidName() {
+        let message = "Names must be less than 15 characters in length."
+        let alertController = UIAlertController(title: "Invalid Name",
+                                                message: message, preferredStyle: .alert)
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .default)
+        alertController.addAction(dismissAction)
+        present(alertController, animated: true)
+    }
+
     func didTapPage3Button(name: String, goal: Double) {
         presenter.setNameAndGoal(name: name, goal: goal)
         let indexPath = IndexPath(item: 3, section: 0)

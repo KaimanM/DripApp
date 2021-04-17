@@ -30,4 +30,6 @@ final class MockUserDefaultsController: UserDefaultsControllerProtocol {
     var name: String = "Tony Stark"
 
     var completedOnboarding: Bool = false
+
+    var useDrinkCoefficients: Bool = false
 }
