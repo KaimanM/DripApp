@@ -31,5 +31,6 @@ class TrendsCollectionViewCell: UICollectionViewCell {
 
         trendValueLabel.font = UIFont.SFProRounded(ofSize: 18, fontWeight: .semibold)
         trendValueLabel.textColor = .dripMerged
+        trendValueLabel.adjustsFontSizeToFitWidth = true
     }
 }

@@ -77,6 +77,7 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
 
     func updateGreetingLabel(text: String) {
         greetingLabel.text = text
+        greetingLabel.adjustsFontSizeToFitWidth = true
     }
 
     func setupInfoViews() {

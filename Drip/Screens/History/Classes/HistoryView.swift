@@ -21,7 +21,6 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
     @IBOutlet weak var addDrinkButton: UIButton!
     @IBOutlet weak var coefficientButton: UIButton!
 
-
     fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
         [unowned self] in
         let panGesture = UIPanGestureRecognizer(target: self.calendar,
@@ -143,9 +142,11 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE, MMM d"
         dayLabel.text = formatter.string(from: date)
+        dayLabel.adjustsFontSizeToFitWidth = true
 
         ringView.setProgress(progress, duration: 2)
         volumeLabel.text = "\(Int(total))/\(Int(goal))ml"
+        volumeLabel.adjustsFontSizeToFitWidth = true
     }
 
     override func viewWillLayoutSubviews() {
