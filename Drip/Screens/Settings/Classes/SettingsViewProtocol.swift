@@ -8,6 +8,7 @@ protocol SettingsViewProtocol: class {
     func showView(_ view: UIViewController)
     func updateTitle(title: String)
     func pushView(_ view: UIViewController)
+    func showReviewPrompt()
 
     func changeNameTapped()
     func invalidName()
