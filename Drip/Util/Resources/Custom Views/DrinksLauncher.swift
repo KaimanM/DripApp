@@ -155,7 +155,7 @@ class DrinksLauncher: NSObject {
     func addToSuperView(window: UIWindow) {
         window.addSubview(blackView)
         window.addSubview(containerView)
-        print(window.subviews.count)
+//        print(window.subviews.count)
     }
 
     func removeFromWindow() {

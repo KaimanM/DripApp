@@ -286,7 +286,7 @@ class ProgressRingView: UIView {
                 timings.time3 = (oldProgress-1)/delta
             }
         default:
-          print("Other")
+          break
         }
 
         timings.time1 *= timings.totalDuration

@@ -296,7 +296,7 @@ class CoreDataController: CoreDataControllerProtocol {
         }
 
         if unlockedAwards.isEmpty {
-            print("no awards unlocked")
+//            print("no awards unlocked")
             return []
         } else {
             return unlockedAwards
