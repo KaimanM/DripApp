@@ -28,7 +28,7 @@
                                 <rect key="frame" x="0.0" y="344" width="414" height="518"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="SoR-1b-96c">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="705"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="655"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Izy-3U-DPK" userLabel="Top Info Container">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
@@ -79,30 +79,44 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="000/000ml" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2wO-LR-R45">
-                                                                <rect key="frame" x="130" y="84.5" width="244" height="20.5"/>
+                                                                <rect key="frame" x="130" y="84.5" width="259" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daily Total" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QN0-lv-hnr">
-                                                                <rect key="frame" x="130" y="64" width="244" height="20.5"/>
+                                                                <rect key="frame" x="130" y="64" width="79" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9UW-LW-MjJ" userLabel="Coeffient">
+                                                                <rect key="frame" x="214" y="64.5" width="20" height="20"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="20" id="laM-th-2d6"/>
+                                                                    <constraint firstAttribute="height" constant="20" id="tLD-8u-waC"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                                <color key="tintColor" name="infoPanelLight"/>
+                                                                <state key="normal" image="info.circle" catalog="system"/>
+                                                                <connections>
+                                                                    <action selector="drinkCoefficientBtnTapped:" destination="FL6-uU-jDV" eventType="touchUpInside" id="jFO-ko-BT5"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="QN0-lv-hnr" secondAttribute="trailing" constant="20" id="1D0-KY-Yab"/>
                                                             <constraint firstItem="56A-9y-HKe" firstAttribute="leading" secondItem="sz7-DT-nSs" secondAttribute="leading" constant="15" id="3BX-uw-o0g"/>
                                                             <constraint firstItem="XVh-lE-bdG" firstAttribute="leading" secondItem="56A-9y-HKe" secondAttribute="trailing" constant="20" id="61e-W1-HjA"/>
                                                             <constraint firstItem="56A-9y-HKe" firstAttribute="top" secondItem="sz7-DT-nSs" secondAttribute="top" constant="10" id="9ke-Iv-VUC"/>
+                                                            <constraint firstItem="9UW-LW-MjJ" firstAttribute="leading" secondItem="QN0-lv-hnr" secondAttribute="trailing" constant="5" id="CO0-TL-fGT"/>
                                                             <constraint firstItem="2wO-LR-R45" firstAttribute="top" secondItem="QN0-lv-hnr" secondAttribute="bottom" id="Cgz-rj-3rS"/>
                                                             <constraint firstItem="2wO-LR-R45" firstAttribute="leading" secondItem="56A-9y-HKe" secondAttribute="trailing" constant="20" id="TWW-22-omp"/>
-                                                            <constraint firstAttribute="trailing" secondItem="2wO-LR-R45" secondAttribute="trailing" constant="20" id="Ulh-fW-icl"/>
                                                             <constraint firstAttribute="bottom" secondItem="56A-9y-HKe" secondAttribute="bottom" constant="10" id="ZQf-gk-CdV"/>
+                                                            <constraint firstAttribute="trailing" secondItem="2wO-LR-R45" secondAttribute="trailing" constant="5" id="b36-u5-scW"/>
                                                             <constraint firstItem="QN0-lv-hnr" firstAttribute="leading" secondItem="56A-9y-HKe" secondAttribute="trailing" constant="20" id="hji-gp-TDX"/>
                                                             <constraint firstItem="XVh-lE-bdG" firstAttribute="top" secondItem="sz7-DT-nSs" secondAttribute="top" constant="10" id="pU5-uH-ghG"/>
+                                                            <constraint firstItem="9UW-LW-MjJ" firstAttribute="centerY" secondItem="QN0-lv-hnr" secondAttribute="centerY" id="szf-77-vgn"/>
                                                             <constraint firstItem="2wO-LR-R45" firstAttribute="bottom" secondItem="56A-9y-HKe" secondAttribute="bottom" id="tnc-Lo-54A"/>
                                                             <constraint firstAttribute="trailing" secondItem="XVh-lE-bdG" secondAttribute="trailing" constant="20" id="uc6-RF-jhu"/>
                                                         </constraints>
@@ -277,31 +291,6 @@
                                                     <constraint firstItem="skx-yg-W9O" firstAttribute="leading" secondItem="pt8-Jh-hyM" secondAttribute="leading" constant="10" id="b08-8V-brZ"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dVc-Qj-LJw" userLabel="Button Container View">
-                                                <rect key="frame" x="0.0" y="655" width="414" height="50"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bsi-2A-PQg">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="40" id="GOg-PA-XuU"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <color key="tintColor" name="darkGrayText"/>
-                                                        <state key="normal" title=" Why is my total incorrect?" image="info.circle" catalog="system">
-                                                            <color key="titleColor" name="darkGrayText"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="drinkCoefficientBtnTapped:" destination="FL6-uU-jDV" eventType="touchUpInside" id="ILp-Ab-4IN"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <constraints>
-                                                    <constraint firstItem="Bsi-2A-PQg" firstAttribute="leading" secondItem="dVc-Qj-LJw" secondAttribute="leading" id="4Li-vP-LqC"/>
-                                                    <constraint firstItem="Bsi-2A-PQg" firstAttribute="top" secondItem="dVc-Qj-LJw" secondAttribute="top" id="Mqy-PK-4nr"/>
-                                                    <constraint firstAttribute="bottom" secondItem="Bsi-2A-PQg" secondAttribute="bottom" constant="10" id="cYq-zY-n9g"/>
-                                                    <constraint firstAttribute="trailing" secondItem="Bsi-2A-PQg" secondAttribute="trailing" id="n5t-uT-vbI"/>
-                                                </constraints>
-                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </stackView>
@@ -331,7 +320,7 @@
                         <outlet property="addDrinkButton" destination="skx-yg-W9O" id="AQa-ch-1zq"/>
                         <outlet property="calendar" destination="1YI-MF-4uq" id="O1R-tO-C7M"/>
                         <outlet property="calendarHeightConstraint" destination="mH1-Ka-Gyf" id="zSC-UW-nXS"/>
-                        <outlet property="coefficientBtnContainer" destination="dVc-Qj-LJw" id="l37-AO-dPw"/>
+                        <outlet property="coefficientButton" destination="9UW-LW-MjJ" id="KcV-CC-v9c"/>
                         <outlet property="dayLabel" destination="XVh-lE-bdG" id="q7R-1K-6FC"/>
                         <outlet property="editButton" destination="fBw-3u-jWk" id="BCQ-rQ-dta"/>
                         <outlet property="infoPanelView" destination="sz7-DT-nSs" id="yrj-mG-xIl"/>
@@ -351,11 +340,11 @@
     <resources>
         <image name="info.circle" catalog="system" width="128" height="121"/>
         <image name="trash" catalog="system" width="121" height="128"/>
-        <namedColor name="darkGrayText">
-            <color red="0.23499999940395355" green="0.23899999260902405" blue="0.23899999260902405" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="dripMerged">
             <color red="0.2196078431372549" green="0.8901960784313725" blue="0.77254901960784317" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="infoPanelLight">
+            <color red="0.23529411764705882" green="0.23921568627450981" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="whiteText">
             <color red="1" green="1" blue="1" alpha="0.87000000476837158" colorSpace="custom" customColorSpace="sRGB"/>

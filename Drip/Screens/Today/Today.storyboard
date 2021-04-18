@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4nv-fS-xIt">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="895.99999999999989"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="H11-zG-XUr">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1066.3333333333333"/>
@@ -55,7 +55,7 @@
                                                 <rect key="frame" x="0.0" y="358.33333333333331" width="414" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FDf-EB-Ry4">
-                                                        <rect key="frame" x="15" y="30" width="0.0" height="0.0"/>
+                                                        <rect key="frame" x="15" y="30" width="384" height="0.0"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                         <color key="textColor" name="whiteText"/>
                                                         <nil key="highlightedColor"/>
@@ -66,6 +66,7 @@
                                                     <constraint firstItem="FDf-EB-Ry4" firstAttribute="leading" secondItem="Zul-bw-tQX" secondAttribute="leading" constant="15" id="6dx-gu-Dvj"/>
                                                     <constraint firstAttribute="height" constant="30" id="BLL-e1-Ggu"/>
                                                     <constraint firstAttribute="bottom" secondItem="FDf-EB-Ry4" secondAttribute="bottom" id="GT9-Pw-WGl"/>
+                                                    <constraint firstAttribute="trailing" secondItem="FDf-EB-Ry4" secondAttribute="trailing" constant="15" id="N9H-z7-1Fi"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kLa-jP-wNQ" userLabel="Info Container">

@@ -1,5 +1,6 @@
 import UIKit
 import SafariServices
+import StoreKit
 
 final class SettingsView: UIViewController, SettingsViewProtocol, PersistentDataViewProtocol {
 
@@ -28,41 +29,6 @@ final class SettingsView: UIViewController, SettingsViewProtocol, PersistentData
 
     }
 
-    @objc func addFakeData() {
-        var date = Date()
-        for _ in 0...365 {
-//            coreDataController.addDrinkForDay(name: "Water",
-//                                                    volume: 500,
-//                                                    imageName: "waterbottle.svg",
-//                                                    timeStamp: date)
-//            coreDataController.addDrinkForDay(name: "Coffee",
-//                                              volume: 50,
-//                                              imageName: "coffee.svg",
-//                                              timeStamp: date)
-//            coreDataController.addDrinkForDay(name: "Milk",
-//                                              volume: 300,
-//                                              imageName: "milk.svg",
-//                                              timeStamp: date)
-//            coreDataController.addDrinkForDay(name: "Tea",
-//                                              volume: 1000,
-//                                              imageName: "tea.svg",
-//                                              timeStamp: date)
-//            coreDataController.addDrinkForDay(name: "Beer",
-//                                              volume: 300,
-//                                              imageName: "beer.svg",
-//                                              timeStamp: date)
-//            coreDataController.addDrinkForDay(name: "smoothie",
-//                                              volume: 450,
-//                                              imageName: "smoothie.svg",
-//                                              timeStamp: date)
-//            coreDataController.addDrinkForDay(name: "soda",
-//                                                    volume: 150,
-//                                                    imageName: "soda.svg",
-//                                                    timeStamp: date)
-            date = date.dayBefore
-        }
-    }
-
     override func viewDidAppear(_ animated: Bool) {
         presenter.onViewDidAppear()
     }
@@ -81,6 +47,13 @@ final class SettingsView: UIViewController, SettingsViewProtocol, PersistentData
 
     func updateTitle(title: String) {
         self.title = title
+    }
+
+    func showReviewPrompt() {
+        if let scene = UIApplication.shared.connectedScenes
+            .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+            SKStoreReviewController.requestReview(in: scene)
+        }
     }
 
     func showSafariWith(url: URL) {

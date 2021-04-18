@@ -229,7 +229,7 @@ final class TrendsPresenter: TrendsPresenterProtocol {
 
         var mostCommonAmount = 0
         var mostCommonName = "--"
-        for key in drinkDictionary.keys where drinkDictionary[key]! > mostCommonAmount {
+        for key in drinkDictionary.keys.sorted().reversed() where drinkDictionary[key]! > mostCommonAmount {
                 mostCommonAmount = drinkDictionary[key]!
                 mostCommonName = key
         }

@@ -49,7 +49,7 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
         case .about:
             initialiseAboutView()
         case .none:
-            print("do something")
+            break
         }
     }
 
@@ -146,7 +146,7 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
         case .goal:
             view?.userDefaultsController.drinkGoal = goalValue
         default:
-            print("do nothing")
+            break
         }
 
         view?.popView()

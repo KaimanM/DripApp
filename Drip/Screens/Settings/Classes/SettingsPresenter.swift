@@ -74,7 +74,7 @@ final class SettingsPresenter: SettingsPresenterProtocol {
             let privacyPolicyURL = URL(string: "https://dripmobile.app/privacy.html")!
             view?.showSafariWith(url: privacyPolicyURL)
         case (1, 3):
-            print("rate app")
+            view?.showReviewPrompt()
         default:
             break
         }

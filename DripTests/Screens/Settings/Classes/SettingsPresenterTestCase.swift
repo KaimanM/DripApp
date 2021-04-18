@@ -41,6 +41,11 @@ final class MockSettingsView: SettingsViewProtocol {
     func showSafariWith(url: URL) {
         didShowSafariWithUrl = url
     }
+
+    private(set) var didShowReviewPrompt: Bool = false
+    func showReviewPrompt() {
+        didShowReviewPrompt = true
+    }
 }
 
 class SettingsPresenterTestCase: XCTestCase {
@@ -291,17 +296,16 @@ class SettingsPresenterTestCase: XCTestCase {
                        "https://dripmobile.app/privacy.html")
     }
 
-//    func test_givenIndexPathSection1Row3_whenDidSelectRowAtCalled_thenPushesCorrectView() {
-//        // given
-//        let indexPath = IndexPath(row: 3, section: 1)
-//
-//        // when
-//        sut.didSelectRowAt(indexPath: indexPath)
-//
-//        // then
-//
-//        // some ratings api view
-//    }
+    func test_givenIndexPathSection1Row3_whenDidSelectRowAtCalled_thenPushesCorrectView() {
+        // given
+        let indexPath = IndexPath(row: 3, section: 1)
+
+        // when
+        sut.didSelectRowAt(indexPath: indexPath)
+
+        // then
+        XCTAssertTrue(mockedView.didShowReviewPrompt)
+    }
 
     // MARK: - fetchName -
 

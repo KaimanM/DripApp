@@ -162,8 +162,6 @@ class TrendsPresenterTestCase: XCTestCase {
         mockedView.coreDataController.saveContext()
         sut.didLoadData = true
 
-        print(mockedView.coreDataController.averageDrink(from: nil))
-
         // then average is 300ml
         XCTAssertEqual(sut.getDataForCell(section: 0, row: 0), "300ml")
     }

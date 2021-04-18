@@ -19,7 +19,7 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var addDrinkButton: UIButton!
-    @IBOutlet weak var coefficientBtnContainer: UIView!
+    @IBOutlet weak var coefficientButton: UIButton!
 
     fileprivate lazy var scopeGesture: UIPanGestureRecognizer = {
         [unowned self] in
@@ -44,6 +44,7 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
         calendar.register(CustomFSCell.self, forCellReuseIdentifier: "cell")
 
         setupAddDrinkBtn()
+        setupCoefficientBtn()
         drinksLauncher.delegate = self
 
         tableView.delegate = self
@@ -58,7 +59,7 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        coefficientBtnContainer.isHidden = userDefaultsController.useDrinkCoefficients ? false : true
+        coefficientButton.isHidden = userDefaultsController.useDrinkCoefficients ? false : true
     }
 
     // load data here
@@ -111,6 +112,12 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
         addDrinkButton.layer.cornerRadius = 10
     }
 
+    func setupCoefficientBtn() {
+        coefficientButton.imageView?.contentMode = .scaleAspectFit
+        coefficientButton.contentHorizontalAlignment = .fill
+        coefficientButton.contentVerticalAlignment =  .fill
+    }
+
     func presentView(_ view: UIViewController) {
         present(view, animated: true)
     }
@@ -135,9 +142,11 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE, MMM d"
         dayLabel.text = formatter.string(from: date)
+        dayLabel.adjustsFontSizeToFitWidth = true
 
         ringView.setProgress(progress, duration: 2)
         volumeLabel.text = "\(Int(total))/\(Int(goal))ml"
+        volumeLabel.adjustsFontSizeToFitWidth = true
     }
 
     override func viewWillLayoutSubviews() {
@@ -213,9 +222,9 @@ extension HistoryView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDeleg
 
     // Selected Calendar Cell
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        print("did select date \(self.dateFormatter.string(from: date))")
-        let selectedDates = calendar.selectedDates.map({self.dateFormatter.string(from: $0)})
-        print("selected dates is \(selectedDates)")
+//        print("did select date \(self.dateFormatter.string(from: date))")
+//        let selectedDates = calendar.selectedDates.map({self.dateFormatter.string(from: $0)})
+//        print("selected dates is \(selectedDates)")
         if monthPosition == .next || monthPosition == .previous {
             calendar.setCurrentPage(date, animated: true)
         }
@@ -225,7 +234,7 @@ extension HistoryView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDeleg
     }
 
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        print("\(self.dateFormatter.string(from: calendar.currentPage))")
+//        print("\(self.dateFormatter.string(from: calendar.currentPage))")
     }
 
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
