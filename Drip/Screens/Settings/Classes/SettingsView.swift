@@ -50,10 +50,8 @@ final class SettingsView: UIViewController, SettingsViewProtocol, PersistentData
     }
 
     func showReviewPrompt() {
-        if let scene = UIApplication.shared.connectedScenes
-            .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
-            SKStoreReviewController.requestReview(in: scene)
-        }
+        guard let reviewUrl = URL(string: "https://apps.apple.com/app/id1563574862?action=write-review") else { return }
+        UIApplication.shared.open(reviewUrl, options: [:], completionHandler: nil)
     }
 
     func showSafariWith(url: URL) {
