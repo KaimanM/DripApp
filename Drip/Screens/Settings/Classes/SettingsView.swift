@@ -31,6 +31,27 @@ final class SettingsView: UIViewController, SettingsViewProtocol, PersistentData
 
     override func viewDidAppear(_ animated: Bool) {
         presenter.onViewDidAppear()
+        setupNotifs()
+    }
+
+
+    func setupNotifs() {
+        let notificationController = LocalNotificationController()
+        notificationController.notifications = [
+            Notification(id: "1", title: "Let's stay hydrated!",
+                         body: "This is your daily reminder to keep at it!",
+                         timeStamp: DateComponents(calendar: Calendar.current,
+                                                   year: 2021, month: 5, day: 5, hour: 19, minute: 2, second: 5)),
+            Notification(id: "2", title: "Let's stay hydrated!",
+                         body: "This is your daily reminder to keep at it!",
+                         timeStamp: DateComponents(calendar: Calendar.current,
+                                                   year: 2021, month: 5, day: 5, hour: 19, minute: 2, second: 15)),
+            Notification(id: "3", title: "Let's stay hydrated!",
+                         body: "This is your daily reminder to keep at it!",
+                         timeStamp: DateComponents(calendar: Calendar.current,
+                                                   year: 2021, month: 5, day: 5, hour: 19, minute: 2, second: 25))
+        ]
+        notificationController.schedule()
     }
 
     func presentView(_ view: UIViewController) {

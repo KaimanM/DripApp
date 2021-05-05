@@ -134,6 +134,7 @@
 		36B6F46825DD78FA004A7EA5 /* DrinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B6F46725DD78FA004A7EA5 /* DrinkTableViewCell.swift */; };
 		36C1F6EA261E005300224846 /* AwardsDetailScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1F6E9261E005300224846 /* AwardsDetailScreenBuilderTestCase.swift */; };
 		36C1F6EF261E007A00224846 /* AwardsDetailPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1F6EE261E007A00224846 /* AwardsDetailPresenterTestCase.swift */; };
+		36C7A3E7264309FA00F69FA9 /* LocalNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C7A3E6264309FA00F69FA9 /* LocalNotificationController.swift */; };
 		36F284E7262741ED00FBC0F1 /* SettingsDetailScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F284E6262741ED00FBC0F1 /* SettingsDetailScreenBuilderTestCase.swift */; };
 		36F284EC2627424200FBC0F1 /* SettingsDetailPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F284EB2627424200FBC0F1 /* SettingsDetailPresenterTestCase.swift */; };
 /* End PBXBuildFile section */
@@ -291,6 +292,7 @@
 		36B6F46725DD78FA004A7EA5 /* DrinkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkTableViewCell.swift; sourceTree = "<group>"; };
 		36C1F6E9261E005300224846 /* AwardsDetailScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsDetailScreenBuilderTestCase.swift; sourceTree = "<group>"; };
 		36C1F6EE261E007A00224846 /* AwardsDetailPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsDetailPresenterTestCase.swift; sourceTree = "<group>"; };
+		36C7A3E6264309FA00F69FA9 /* LocalNotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationController.swift; sourceTree = "<group>"; };
 		36F284E6262741ED00FBC0F1 /* SettingsDetailScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailScreenBuilderTestCase.swift; sourceTree = "<group>"; };
 		36F284EB2627424200FBC0F1 /* SettingsDetailPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailPresenterTestCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -435,6 +437,7 @@
 				360CA9EF25F65C8000C7676A /* Extensions */,
 				360CA9F125F65CB600C7676A /* Custom Views */,
 				360CA9EB25F65C1000C7676A /* Persistent Data */,
+				36C7A3E6264309FA00F69FA9 /* LocalNotificationController.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1015,6 +1018,7 @@
 				3665E6B8261DF92C00DB6971 /* AwardsDetailPresenterProtocol.swift in Sources */,
 				0A4B4E092464505B00C2350B /* PlaceholderView.swift in Sources */,
 				36A0A93A261B5A3000F1BE8B /* YearStreakAwardDataSource.swift in Sources */,
+				36C7A3E7264309FA00F69FA9 /* LocalNotificationController.swift in Sources */,
 				36877C1F25F9068B00918E04 /* TrendsCollectionViewCell.swift in Sources */,
 				3644EA39261BB85E00E257CC /* Day+CoreDataProperties.swift in Sources */,
 				362A52E125EFACFB00B6AA8D /* PersistentDataViewProtocol.swift in Sources */,
