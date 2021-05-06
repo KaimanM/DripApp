@@ -125,6 +125,7 @@
 		36A0A937261B59B900F1BE8B /* NinetyDayStreakAwardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A0A936261B59B900F1BE8B /* NinetyDayStreakAwardDataSource.swift */; };
 		36A0A93A261B5A3000F1BE8B /* YearStreakAwardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A0A939261B5A3000F1BE8B /* YearStreakAwardDataSource.swift */; };
 		36A0A945261B6C3E00F1BE8B /* SwiftConfettiView in Frameworks */ = {isa = PBXBuildFile; productRef = 36A0A944261B6C3E00F1BE8B /* SwiftConfettiView */; };
+		36A1FE2426441AF20048FB72 /* NotificationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A1FE2326441AF20048FB72 /* NotificationsTableViewCell.swift */; };
 		36A37EEF261CC98100BB7C15 /* ThreeUniqueDrinksAwardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A37EEE261CC98100BB7C15 /* ThreeUniqueDrinksAwardDataSource.swift */; };
 		36A37EF2261CCA0F00BB7C15 /* FiveUniqueDrinksAwardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A37EF1261CCA0F00BB7C15 /* FiveUniqueDrinksAwardDataSource.swift */; };
 		36A37EF5261CCA8600BB7C15 /* SevenUniqueDrinksAwardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A37EF4261CCA8600BB7C15 /* SevenUniqueDrinksAwardDataSource.swift */; };
@@ -283,6 +284,7 @@
 		36A0A933261B592B00F1BE8B /* TwentyEightStreakAwardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwentyEightStreakAwardDataSource.swift; sourceTree = "<group>"; };
 		36A0A936261B59B900F1BE8B /* NinetyDayStreakAwardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NinetyDayStreakAwardDataSource.swift; sourceTree = "<group>"; };
 		36A0A939261B5A3000F1BE8B /* YearStreakAwardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearStreakAwardDataSource.swift; sourceTree = "<group>"; };
+		36A1FE2326441AF20048FB72 /* NotificationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewCell.swift; sourceTree = "<group>"; };
 		36A37EEE261CC98100BB7C15 /* ThreeUniqueDrinksAwardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeUniqueDrinksAwardDataSource.swift; sourceTree = "<group>"; };
 		36A37EF1261CCA0F00BB7C15 /* FiveUniqueDrinksAwardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveUniqueDrinksAwardDataSource.swift; sourceTree = "<group>"; };
 		36A37EF4261CCA8600BB7C15 /* SevenUniqueDrinksAwardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SevenUniqueDrinksAwardDataSource.swift; sourceTree = "<group>"; };
@@ -570,6 +572,7 @@
 				368BAE2925DC7A4F00D799F2 /* CustomFSCell.swift */,
 				36B6F46725DD78FA004A7EA5 /* DrinkTableViewCell.swift */,
 				364E80B82623331700954E8B /* CoefficientTableViewCell.swift */,
+				36A1FE2326441AF20048FB72 /* NotificationsTableViewCell.swift */,
 				36877C1E25F9068B00918E04 /* TrendsCollectionViewCell.swift */,
 				365F642E262079BD00A9B4C0 /* SettingsCell.swift */,
 				3680E0CE24B3C8CC009E9DB8 /* GradientBarView.swift */,
@@ -991,6 +994,7 @@
 				36A0A912261B46CE00F1BE8B /* AwardsDetailView.swift in Sources */,
 				3680E0CF24B3C8CC009E9DB8 /* GradientBarView.swift in Sources */,
 				3677D436260630B20086E89A /* DrinksLauncher.swift in Sources */,
+				36A1FE2426441AF20048FB72 /* NotificationsTableViewCell.swift in Sources */,
 				0A8BEA912455D45A00AA9880 /* SettingsPresenter.swift in Sources */,
 				0ACB984E24546887007BF01D /* HistoryScreenBuilder.swift in Sources */,
 				0ACB986924549DF5007BF01D /* TabBarView.swift in Sources */,

@@ -31,7 +31,7 @@ final class SettingsView: UIViewController, SettingsViewProtocol, PersistentData
 
     override func viewDidAppear(_ animated: Bool) {
         presenter.onViewDidAppear()
-        setupNotifs()
+//        setupNotifs()
     }
 
 

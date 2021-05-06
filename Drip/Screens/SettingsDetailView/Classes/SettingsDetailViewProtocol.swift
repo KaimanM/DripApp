@@ -11,6 +11,7 @@ protocol SettingsDetailViewProtocol: class {
     func setupCoefficientView(headingText: String, bodyText: String)
     func setupAttributionView(headingText: String, bodyText: String)
     func setupAboutView(headingText: String, bodyText: String)
+    func setupNotificationsView(headingText: String, bodyText: String)
     func showAlertController(title: String, message: String)
     func popView()
     func reloadCollectionView()

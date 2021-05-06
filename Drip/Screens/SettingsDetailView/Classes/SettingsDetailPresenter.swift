@@ -48,6 +48,8 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
             initialiseAttributionView()
         case .about:
             initialiseAboutView()
+        case .notifications:
+            initialiseNotificationsView()
         case .none:
             break
         }
@@ -122,6 +124,17 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
             your experiences are similar and you have as much fun using this app as I had making it.
             """
         view?.setupAboutView(headingText: headingText, bodyText: bodyText)
+    }
+
+    func initialiseNotificationsView() {
+        view?.updateTitle(title: "Notifications")
+        let headingText = "Daily Reminders"
+        let bodyText = """
+            Use this settings page to configure setting up daily reminder notifications.
+
+            We've set you up with three notifications but feel free to customise them to your needs!
+            """
+        view?.setupNotificationsView(headingText: headingText, bodyText: bodyText)
     }
 
     func creditAlertControllerForRow(row: Int) {
@@ -219,6 +232,8 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
             return Beverages().drinks.count
         case .attribution:
             return attributeCells.count
+        case .notifications:
+            return 5
         default:
             return 0
         }

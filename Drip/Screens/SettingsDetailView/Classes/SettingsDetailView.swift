@@ -331,6 +331,113 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
 
     }
 
+    // swiftlint:disable:next function_body_length
+    func setupNotificationsView(headingText: String, bodyText: String) {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(NotificationsTableViewCell.self, forCellReuseIdentifier: cellId)
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        tableView.isScrollEnabled = false
+
+        let scrollView: UIScrollView = {
+            let scrollView = UIScrollView()
+            return scrollView
+        }()
+
+        let childStackView: UIStackView = {
+            let stackView = UIStackView()
+            stackView.axis = .vertical
+            stackView.alignment = .fill
+            stackView.distribution = .fill
+            return stackView
+        }()
+
+        toggle.addTarget(self, action: #selector(switchValueDidChange(_:)), for: .valueChanged)
+
+        let toggleLabel: UILabel = {
+            let label = UILabel()
+            label.textColor = .whiteText
+            label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+            label.text = "Enable Reminders"
+            return label
+        }()
+
+        let topContainerView = UIView(), lineView1 = UIView(), lineView2 = UIView(), lineView3 = UIView()
+
+        let textField: UITextField = {
+            let textField = UITextField()
+            textField.text = "8 Daily Reminders"
+            textField.textColor = .whiteText
+//            textField.backgroundColor = .purple
+            textField.layer.borderColor = UIColor.white.withAlphaComponent(0.2).cgColor
+            textField.layer.borderWidth = 1
+            textField.layer.cornerRadius = 5
+            textField.textAlignment = .center
+            return textField
+        }()
+
+        view.addSubview(scrollView)
+        scrollView.addSubview(childStackView)
+
+        lineView1.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+        lineView2.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+        lineView3.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+
+        let subViews = [headingLabel, bodyLabel, lineView1, toggleLabel, toggle, lineView2, textField, lineView3]
+        subViews.forEach({topContainerView.addSubview($0)})
+
+        let arrangedSubviews = [topContainerView, tableView]
+        arrangedSubviews.forEach({childStackView.addArrangedSubview($0)})
+
+        scrollView.fillSuperView()
+        childStackView.fillSuperView()
+        childStackView.setEqualWidthTo(scrollView)
+
+        headingLabel.text = headingText
+        bodyLabel.text = bodyText
+
+        let tableViewHeight = (presenter.numberOfRowsInSection()*60)+10
+
+        tableView.anchor(size: .init(width: 0,
+                                     height: tableViewHeight))
+        headingLabel.anchor(top: topContainerView.topAnchor,
+                            leading: topContainerView.leadingAnchor,
+                            trailing: topContainerView.trailingAnchor,
+                            padding: .init(top: 10, left: 20, bottom: 0, right: 20))
+        bodyLabel.anchor(top: headingLabel.bottomAnchor,
+                            leading: topContainerView.leadingAnchor,
+                            trailing: topContainerView.trailingAnchor,
+                            padding: .init(top: 5, left: 20, bottom: 0, right: 20))
+        lineView1.anchor(top: bodyLabel.bottomAnchor,
+                         leading: topContainerView.leadingAnchor,
+                         trailing: topContainerView.trailingAnchor,
+                         padding: .init(top: 10, left: 20, bottom: 0, right: 20),
+                         size: .init(width: 0, height: 1))
+        toggle.anchor(top: lineView1.bottomAnchor,
+                      trailing: topContainerView.trailingAnchor,
+                      padding: .init(top: 5, left: 0, bottom: 0, right: 20))
+        toggleLabel.anchor(top: lineView1.bottomAnchor,
+                           leading: topContainerView.leadingAnchor,
+                           bottom: lineView2.topAnchor,
+                           trailing: toggle.leadingAnchor,
+                           padding: .init(top: 0, left: 20, bottom: 0, right: 20))
+        lineView2.anchor(top: toggle.bottomAnchor,
+                         leading: topContainerView.leadingAnchor,
+                         trailing: topContainerView.trailingAnchor,
+                         padding: .init(top: 5, left: 20, bottom: 0, right: 20),
+                         size: .init(width: 0, height: 1))
+        textField.anchor(top: lineView2.bottomAnchor,
+                         padding: .init(top: 10, left: 0, bottom: 0, right: 0),
+                         size: .init(width: 200, height: 30))
+        textField.centerHorizontallyInSuperview()
+        lineView3.anchor(top: textField.bottomAnchor,
+                         leading: topContainerView.leadingAnchor,
+                         bottom: topContainerView.bottomAnchor,
+                         trailing: topContainerView.trailingAnchor,
+                         padding: .init(top: 10, left: 20, bottom: 0, right: 20),
+                         size: .init(width: 0, height: 1))
+    }
+
     @objc func sliderValueDidChange(_ sender: UISlider!) {
         let step: Float = 50
         let roundedStepValue = round(sender.value / step) * step
@@ -441,6 +548,12 @@ extension SettingsDetailView: UITableViewDataSource, UITableViewDelegate {
             cell.accessoryView = chevronImageView
             cell.tintColor = UIColor.white.withAlphaComponent(0.2)
             cell.textLabel?.text = presenter.attributionTitleForRow(row: indexPath.row)
+            return cell
+        case .notifications:
+            guard let cell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as?
+                    NotificationsTableViewCell else {
+                return UITableViewCell()
+            }
             return cell
         default:
             return UITableViewCell()
