@@ -9,6 +9,24 @@ class NotificationsTableViewCell: UITableViewCell {
         return view
     }()
 
+    let reminderLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.SFProRounded(ofSize: 18, fontWeight: .semibold)
+        label.textColor = .dripMerged
+        label.adjustsFontSizeToFitWidth = true
+        label.text = "Reminder at"
+        return label
+    }()
+
+    let timeStampLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.SFProRounded(ofSize: 18, fontWeight: .semibold)
+        label.textColor = .whiteText
+        label.text = "16:34 PM"
+        label.textAlignment = .right
+        return label
+    }()
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .clear
@@ -21,6 +39,22 @@ class NotificationsTableViewCell: UITableViewCell {
                              trailing: contentView.trailingAnchor,
                              padding: .init(top: 5, left: 15, bottom: 5, right: 15),
                              size: .init(width: 0, height: 50))
+
+        containerView.addSubview(reminderLabel)
+        containerView.addSubview(timeStampLabel)
+
+        reminderLabel.anchor(top: nil,
+                             leading: containerView.leadingAnchor,
+                             bottom: nil,
+                             trailing: nil,
+                             padding: .init(top: 0, left: 20, bottom: 0, right: 0))
+        reminderLabel.centerVerticallyInSuperview()
+        timeStampLabel.anchor(top: nil,
+                              leading: reminderLabel.trailingAnchor,
+                              bottom: nil,
+                              trailing: containerView.trailingAnchor,
+                              padding: .init(top: 0, left: 0, bottom: 0, right: 20))
+        timeStampLabel.centerVerticallyInSuperview()
 
     }
 

@@ -53,6 +53,11 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
         return collectionView
     }()
 
+    let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        return scrollView
+    }()
+
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.backgroundColor = .black
@@ -67,9 +72,27 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
         return toggle
     }()
 
+    let picker = UIPickerView()
+
+    let textField: UITextField = {
+        let textField = UITextField()
+        textField.text = "8 Daily Reminders"
+        textField.textColor = .whiteText
+        textField.layer.borderColor = UIColor.white.withAlphaComponent(0.2).cgColor
+        textField.layer.borderWidth = 1
+        textField.layer.cornerRadius = 5
+        textField.textAlignment = .center
+        textField.tintColor = .clear
+        return textField
+    }()
+
     let cellId = "cellId"
 
     lazy var drinksLauncher = DrinksLauncher(userDefaults: userDefaultsController, isOnboarding: true)
+
+    var reminderCount = 8
+
+    var tableViewHeight: NSLayoutConstraint?
 
     override func viewDidLoad() {
         self.navigationItem.largeTitleDisplayMode = .never
@@ -235,10 +258,14 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
         headingLabel.text = headingText
         bodyLabel.text = bodyText
 
-        let tableViewHeight = (presenter.numberOfRowsInSection()*90)+10
+        tableViewHeight = NSLayoutConstraint(item: tableView,
+                                             attribute: .height,
+                                             relatedBy: .equal,
+                                             toItem: nil, attribute: .notAnAttribute,
+                                             multiplier: 1,
+                                             constant: CGFloat((presenter.numberOfRowsInSection()*90))+10)
+        tableView.addConstraint(tableViewHeight!)
 
-        tableView.anchor(size: .init(width: 0,
-                                     height: tableViewHeight))
         headingLabel.anchor(top: topContainerView.topAnchor,
                             leading: topContainerView.leadingAnchor,
                             trailing: topContainerView.trailingAnchor,
@@ -339,11 +366,6 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.isScrollEnabled = false
 
-        let scrollView: UIScrollView = {
-            let scrollView = UIScrollView()
-            return scrollView
-        }()
-
         let childStackView: UIStackView = {
             let stackView = UIStackView()
             stackView.axis = .vertical
@@ -364,17 +386,22 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
 
         let topContainerView = UIView(), lineView1 = UIView(), lineView2 = UIView(), lineView3 = UIView()
 
-        let textField: UITextField = {
-            let textField = UITextField()
-            textField.text = "8 Daily Reminders"
-            textField.textColor = .whiteText
-//            textField.backgroundColor = .purple
-            textField.layer.borderColor = UIColor.white.withAlphaComponent(0.2).cgColor
-            textField.layer.borderWidth = 1
-            textField.layer.cornerRadius = 5
-            textField.textAlignment = .center
-            return textField
-        }()
+        picker.delegate = self
+        picker.dataSource = self
+
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 35))
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = .black
+        toolBar.sizeToFit()
+
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done,
+                                         target: self, action: #selector(doneTapped))
+        toolBar.setItems([doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+
+        textField.inputView = picker
+        textField.inputAccessoryView = toolBar
 
         view.addSubview(scrollView)
         scrollView.addSubview(childStackView)
@@ -396,10 +423,14 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
         headingLabel.text = headingText
         bodyLabel.text = bodyText
 
-        let tableViewHeight = (presenter.numberOfRowsInSection()*60)+10
+        tableViewHeight = NSLayoutConstraint(item: tableView,
+                                             attribute: .height,
+                                             relatedBy: .equal,
+                                             toItem: nil, attribute: .notAnAttribute,
+                                             multiplier: 1,
+                                             constant: CGFloat(reminderCount*60)+10)
+        tableView.addConstraint(tableViewHeight!)
 
-        tableView.anchor(size: .init(width: 0,
-                                     height: tableViewHeight))
         headingLabel.anchor(top: topContainerView.topAnchor,
                             leading: topContainerView.leadingAnchor,
                             trailing: topContainerView.trailingAnchor,
@@ -436,6 +467,33 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
                          trailing: topContainerView.trailingAnchor,
                          padding: .init(top: 10, left: 20, bottom: 0, right: 20),
                          size: .init(width: 0, height: 1))
+    }
+
+    @objc func doneTapped() {
+        self.textField.resignFirstResponder()
+        let row = self.picker.selectedRow(inComponent: 0)
+        let isGoingDown = row+1 < reminderCount ? true : false
+        let title = row == 0 ? "Daily Reminder" : "Daily Reminders"
+        textField.text = "\(row+1) \(title)"
+        reminderCount = row+1
+        scrollView.setContentOffset(CGPoint(x: -scrollView.adjustedContentInset.left,   // Scroll to top of page
+                                            y: -scrollView.adjustedContentInset.top),
+                                    animated: true)
+        switch isGoingDown { // if true, removes excess height after animation. Otherwise before. Needed for smoothness.
+        case true:
+            UIView.transition(with: tableView, duration: 1.0, options: .transitionCrossDissolve, animations: {
+                self.tableView.reloadData()
+
+            }, completion: {_ in
+                self.tableViewHeight?.constant = CGFloat(self.reminderCount*60)+10
+            })
+        case false:
+            self.tableViewHeight?.constant = CGFloat(self.reminderCount*60)+10
+            UIView.transition(with: tableView, duration: 1.0, options: .transitionCrossDissolve, animations: {
+                self.tableView.reloadData()
+
+            })
+        }
     }
 
     @objc func sliderValueDidChange(_ sender: UISlider!) {
@@ -524,7 +582,12 @@ extension SettingsDetailView: DrinksLauncherDelegate {
 // MARK: - Table View Deleagate & DataSource -
 extension SettingsDetailView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.numberOfRowsInSection()
+        switch settingsType {
+        case .notifications:
+            return reminderCount
+        default:
+            return presenter.numberOfRowsInSection()
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -577,4 +640,20 @@ extension SettingsDetailView: UITableViewDataSource, UITableViewDelegate {
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
+}
+
+extension SettingsDetailView: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        25
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        let title = row == 0 ? "Daily Reminder" : "Daily Reminders"
+        return "\(row+1) \(title)"
+    }
+    // swiftlint:disable:next file_length
 }

@@ -34,7 +34,6 @@ final class SettingsView: UIViewController, SettingsViewProtocol, PersistentData
 //        setupNotifs()
     }
 
-
     func setupNotifs() {
         let notificationController = LocalNotificationController()
         notificationController.notifications = [
