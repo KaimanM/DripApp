@@ -31,11 +31,12 @@ final class SettingsView: UIViewController, SettingsViewProtocol, PersistentData
 
     override func viewDidAppear(_ animated: Bool) {
         presenter.onViewDidAppear()
-        setupNotifs()
+//        setupNotifs()
     }
 
     func setupNotifs() {
         let notificationController = LocalNotificationController()
+        notificationController.removeAllPendingNotifications()
         notificationController.notifications = [
             Notification(id: "1", title: "Let's stay hydrated!",
                          body: "This is your daily reminder to keep at it!",

@@ -45,8 +45,8 @@ class LocalNotificationController {
             content.body = notification.body
             content.sound = .default
 
-            let trigger = UNCalendarNotificationTrigger(dateMatching: notification.timeStamp, repeats: true)
-//            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+//            let trigger = UNCalendarNotificationTrigger(dateMatching: notification.timeStamp, repeats: true)
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 30, repeats: false)
 
             let request = UNNotificationRequest(identifier: notification.id,
                                                 content: content,
@@ -56,6 +56,15 @@ class LocalNotificationController {
                 print("Notification scheduled! ID = \(notification.id)")
             })
         }
+        print("finito")
+    }
+
+    func removeAllPendingNotifications() {
+        center.removeAllPendingNotificationRequests()
+    }
+
+    func removePendingNotificationWithId(id: Int) {
+        center.removePendingNotificationRequests(withIdentifiers: ["\(id)"])
     }
 
 }

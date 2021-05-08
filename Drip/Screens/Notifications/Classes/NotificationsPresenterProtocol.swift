@@ -8,4 +8,5 @@ protocol NotificationsPresenterProtocol: class {
     func numberOfRowsInSection() -> Int
     func notificationTimeStampForRow(row: Int, completion: @escaping (String) -> Void)
     func scheduledNotificationsCount(completion: @escaping () -> Void)
+    func setReminderCount(to reminderCount: Int)
 }

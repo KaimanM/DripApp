@@ -82,16 +82,7 @@ class NotificationsView: UIViewController, NotificationsViewProtocol {
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.isScrollEnabled = false
 
-        setupNotificationsView(headingText: "dsfsdf", bodyText: "dfsdf")
-
-//        view?.updateTitle(title: "Notifications")
-//        let headingText = "Daily Reminders"
-//        let bodyText = """
-//            Use this settings page to configure setting up daily reminder notifications.
-//
-//            We've set you up with three notifications but feel free to customise them to your needs!
-//            """
-//        view?.setupNotificationsView(headingText: headingText, bodyText: bodyText)
+        presenter.onViewDidLoad()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -100,6 +91,7 @@ class NotificationsView: UIViewController, NotificationsViewProtocol {
     }
 
     func updateTitle(title: String) {
+        self.title = title
     }
 
     func setupNotificationsView(headingText: String, bodyText: String) {
@@ -151,7 +143,7 @@ class NotificationsView: UIViewController, NotificationsViewProtocol {
                                              relatedBy: .equal,
                                              toItem: nil, attribute: .notAnAttribute,
                                              multiplier: 1,
-                                             constant: CGFloat(reminderCount*60)+10)
+                                             constant: CGFloat(presenter.numberOfRowsInSection()*60)+10)
         tableView.addConstraint(tableViewHeight!)
 
         headingLabel.anchor(top: topContainerView.topAnchor,
@@ -193,7 +185,7 @@ class NotificationsView: UIViewController, NotificationsViewProtocol {
     }
 
     func reloadTableView() {
-        self.tableViewHeight?.constant = CGFloat(self.reminderCount*60)+10
+        self.tableViewHeight?.constant = CGFloat(self.presenter.numberOfRowsInSection()*60)+10
         UIView.transition(with: tableView, duration: 0.5, options: .transitionCrossDissolve, animations: {
             self.tableView.reloadData()
 
@@ -205,26 +197,30 @@ class NotificationsView: UIViewController, NotificationsViewProtocol {
         let row = self.picker.selectedRow(inComponent: 0)
         let isGoingDown = row+1 < reminderCount ? true : false
         let title = row == 0 ? "Daily Reminder" : "Daily Reminders"
+        presenter.setReminderCount(to: row+1)
+
         textField.text = "\(row+1) \(title)"
         reminderCount = row+1
-        scrollView.setContentOffset(CGPoint(x: -scrollView.adjustedContentInset.left,   // Scroll to top of page
-                                            y: -scrollView.adjustedContentInset.top),
-                                    animated: true)
-        switch isGoingDown { // if true, removes excess height after animation. Otherwise before. Needed for smoothness.
-        case true:
-            UIView.transition(with: tableView, duration: 1.0, options: .transitionCrossDissolve, animations: {
-                self.tableView.reloadData()
-
-            }, completion: {_ in
-                self.tableViewHeight?.constant = CGFloat(self.reminderCount*60)+10
-            })
-        case false:
-            self.tableViewHeight?.constant = CGFloat(self.reminderCount*60)+10
-            UIView.transition(with: tableView, duration: 1.0, options: .transitionCrossDissolve, animations: {
-                self.tableView.reloadData()
-
-            })
-        }
+//        scrollView.setContentOffset(CGPoint(x: -scrollView.adjustedContentInset.left,   // Scroll to top of page
+//                                            y: -scrollView.adjustedContentInset.top),
+//                                    animated: true)
+//        switch isGoingDown { // if true, removes excess height after animation. Otherwise before. Needed for smoothness.
+//        case true:
+//            UIView.transition(with: tableView, duration: 1.0, options: .transitionCrossDissolve, animations: {
+//                self.tableView.reloadData()
+//
+//            }, completion: {_ in
+////                self.tableViewHeight?.constant = CGFloat(self.reminderCount*60)+10
+//                self.tableViewHeight?.constant = CGFloat(self.presenter.numberOfRowsInSection()*60)+10
+//            })
+//        case false:
+////            self.tableViewHeight?.constant = CGFloat(self.reminderCount*60)+10
+//            self.tableViewHeight?.constant = CGFloat(self.presenter.numberOfRowsInSection()*60)+10
+//            UIView.transition(with: tableView, duration: 1.0, options: .transitionCrossDissolve, animations: {
+//                self.tableView.reloadData()
+//
+//            })
+//        }
     }
 
     @objc func switchValueDidChange(_ sender: UISwitch!) {
@@ -234,8 +230,8 @@ class NotificationsView: UIViewController, NotificationsViewProtocol {
 
 extension NotificationsView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return presenter.numberOfRowsInSection()
-        return reminderCount
+        return presenter.numberOfRowsInSection()
+//        return reminderCount
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -243,11 +239,11 @@ extension NotificationsView: UITableViewDelegate, UITableViewDataSource {
                 NotificationsTableViewCell else {
             return UITableViewCell()
         }
-//        presenter.notificationTimeStampForRow(row: indexPath.row, completion: { timeStamp in
-//            DispatchQueue.main.async {
-//                cell.timeStampLabel.text = timeStamp
-//            }
-//        })
+        presenter.notificationTimeStampForRow(row: indexPath.row, completion: { timeStamp in
+            DispatchQueue.main.async {
+                cell.timeStampLabel.text = timeStamp
+            }
+        })
         return cell
     }
 }
