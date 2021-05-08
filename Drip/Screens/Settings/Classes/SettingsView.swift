@@ -51,7 +51,7 @@ final class SettingsView: UIViewController, SettingsViewProtocol, PersistentData
                          timeStamp: DateComponents(calendar: Calendar.current,
                                                    hour: 20, minute: 12))
         ]
-        notificationController.schedule()
+//        notificationController.schedule()
     }
 
     func presentView(_ view: UIViewController) {

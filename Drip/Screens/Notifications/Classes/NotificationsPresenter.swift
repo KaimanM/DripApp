@@ -54,29 +54,25 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
     }
 
     func setReminderCount(to reminderCount: Int) {
-        notificationController.notifications.removeAll()
+//        notificationController.notifications.removeAll()
         if pendingNotifCount > reminderCount {
             for idToRemove in reminderCount+1...pendingNotifCount {
                 print("removing id \(idToRemove)")
                 notificationController.removePendingNotificationWithId(id: idToRemove)
             }
-//            pendingNotifCount = reminderCount
+            fetchNotifsAndReload()
         } else if reminderCount > pendingNotifCount {
             for idToAdd in pendingNotifCount+1...reminderCount {
-                notificationController.notifications.append(Notification(id: "\(idToAdd)", title: "Let's stay hydrated!",
-                                                                         body: "This is your daily reminder to keep at it!",
-                                                                         timeStamp: DateComponents(calendar: Calendar.current,
-                                                                                                   hour: 00, minute: 01)))
+                notificationController.notifications.append(
+                    Notification(id: "\(idToAdd)", title: "Let's stay hydrated!",
+                                 body: "This is your daily reminder to keep at it!",
+                                 timeStamp: DateComponents(calendar: Calendar.current,
+                                                           hour: 00, minute: 01)))
             }
-            notificationController.schedule()
+            notificationController.schedule(completion: {
+                self.fetchNotifsAndReload()
+            })
         }
-//        pendingNotifCount = reminderCount
-        scheduledNotificationsCount(completion: {
-            DispatchQueue.main.async {
-                self.view?.reloadTableView()
-            }
-        })
-
     }
 
     func numberOfRowsInSection() -> Int {
