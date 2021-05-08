@@ -4,9 +4,11 @@ protocol NotificationsPresenterProtocol: class {
     var view: NotificationsViewProtocol? { get }
     func onViewDidLoad()
     func onViewDidAppear()
+    func onViewWillDisappear()
 
     func numberOfRowsInSection() -> Int
-    func notificationTimeStampForRow(row: Int, completion: @escaping (String) -> Void)
+    func notificationTimeStampForRow(row: Int, completion: @escaping (Date) -> Void)
     func scheduledNotificationsCount(completion: @escaping () -> Void)
     func setReminderCount(to reminderCount: Int)
+    func amendReminder(id: Int, timeStamp: Date)
 }

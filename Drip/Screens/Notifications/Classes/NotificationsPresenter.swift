@@ -26,6 +26,12 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
         fetchNotifsAndReload()
     }
 
+    func onViewWillDisappear() {
+        notificationController.schedule(completion: {
+//            self.fetchNotifsAndReload()
+        })
+    }
+
     // MARK: - Notifications -
 
     func fetchNotifsAndReload() {
@@ -36,13 +42,17 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
         })
     }
 
-    func notificationTimeStampForRow(row: Int, completion: @escaping (String) -> Void) {
+    func notificationTimeStampForRow(row: Int, completion: @escaping (Date) -> Void) {
         notificationController.listScheduledNotifications(completionHandler: { notifications in
-            guard let trigger = notifications[row].trigger as? UNCalendarNotificationTrigger,
+            guard let request = notifications.filter({$0.identifier == "\(row+1)"}).first,
+                  let trigger = request.trigger as? UNCalendarNotificationTrigger,
                   let date = trigger.dateComponents.date else { return }
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "HH:mm a"
-            completion(dateFormatter.string(from: date))
+//            let dateFormatter = DateFormatter()
+//            dateFormatter.dateFormat = "HH:mm a"
+            completion(date)
+
+//            let correctedObject = notifications.map({ $0.identifier })
+//            let request = notifications.filter({$0.identifier == "\(row+1)"})
         })
     }
 
@@ -73,6 +83,20 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
                 self.fetchNotifsAndReload()
             })
         }
+    }
+
+    func amendReminder(id: Int, timeStamp: Date) {
+        notificationController.removePendingNotificationWithId(id: id)
+        notificationController.notifications.removeAll(where: { notification in
+            notification.id == "\(id)"
+        })
+        let hour = Calendar.current.component(.hour, from: timeStamp)
+        let minute = Calendar.current.component(.minute, from: timeStamp)
+        notificationController.notifications.append(
+            Notification(id: "\(id)", title: "Let's stay hydrated!",
+                         body: "This is your daily reminder to keep at it!",
+                         timeStamp: DateComponents(calendar: Calendar.current,
+                                                   hour: hour, minute: minute)))
     }
 
     func numberOfRowsInSection() -> Int {

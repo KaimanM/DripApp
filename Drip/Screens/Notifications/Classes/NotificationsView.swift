@@ -90,6 +90,11 @@ class NotificationsView: UIViewController, NotificationsViewProtocol {
         presenter.onViewDidAppear()
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        presenter.onViewWillDisappear()
+        super.viewWillDisappear(animated)
+    }
+
     func updateTitle(title: String) {
         self.title = title
     }
@@ -241,10 +246,18 @@ extension NotificationsView: UITableViewDelegate, UITableViewDataSource {
         }
         presenter.notificationTimeStampForRow(row: indexPath.row, completion: { timeStamp in
             DispatchQueue.main.async {
-                cell.timeStampLabel.text = timeStamp
+//                cell.timeStampLabel.text = timeStamp
+                cell.datePicker.date = timeStamp
             }
         })
+
+        cell.delegate = self
+        cell.tag = indexPath.row
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
 }
 
@@ -260,5 +273,12 @@ extension NotificationsView: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         let title = row == 0 ? "Daily Reminder" : "Daily Reminders"
         return "\(row+1) \(title)"
+    }
+}
+
+extension NotificationsView: NotificationsTableViewCellDelegate {
+    func didChangeDate(date: Date, tag: Int) {
+        print("Date picked is: \(date), row sending this is \(tag)")
+        presenter.amendReminder(id: tag+1, timeStamp: date)
     }
 }
