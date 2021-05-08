@@ -3,7 +3,7 @@ import Foundation
 protocol NotificationsPresenterProtocol: class {
     var view: NotificationsViewProtocol? { get }
     func onViewDidLoad()
-    func onViewDidAppear()
+    func onViewWillAppear()
     func onViewWillDisappear()
 
     func numberOfRowsInSection() -> Int
@@ -11,4 +11,6 @@ protocol NotificationsPresenterProtocol: class {
     func scheduledNotificationsCount(completion: @escaping () -> Void)
     func setReminderCount(to reminderCount: Int)
     func amendReminder(id: Int, timeStamp: Date)
+    func disableNotifications()
+    func enableNotifications()
 }

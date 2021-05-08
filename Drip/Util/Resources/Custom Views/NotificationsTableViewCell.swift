@@ -28,6 +28,7 @@ class NotificationsTableViewCell: UITableViewCell {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .time
         datePicker.preferredDatePickerStyle = .inline
+        datePicker.overrideUserInterfaceStyle = .dark
         return datePicker
     }()
 

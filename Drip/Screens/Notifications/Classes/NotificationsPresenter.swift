@@ -22,9 +22,13 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
         view?.setupNotificationsView(headingText: headingText, bodyText: bodyText)
     }
 
-    func onViewDidAppear() {
+    func onViewWillAppear() {
         fetchNotifsAndReload()
     }
+
+//    func onViewWillAppear() {
+//
+//    }
 
     func onViewWillDisappear() {
         notificationController.schedule(completion: {
@@ -37,7 +41,10 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
     func fetchNotifsAndReload() {
         scheduledNotificationsCount(completion: {
             DispatchQueue.main.async {
+                self.view?.updateReminderCountTitle(count: self.pendingNotifCount)
                 self.view?.reloadTableView()
+                let pickerRow = self.pendingNotifCount == 0 ? 0 : self.pendingNotifCount-1
+                self.view?.setPickerRow(row: pickerRow)
             }
         })
     }
@@ -97,6 +104,31 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
                          body: "This is your daily reminder to keep at it!",
                          timeStamp: DateComponents(calendar: Calendar.current,
                                                    hour: hour, minute: minute)))
+    }
+
+    func disableNotifications() {
+        notificationController.notifications.removeAll()
+        notificationController.removeAllPendingNotifications()
+        fetchNotifsAndReload()
+    }
+
+    func enableNotifications() {
+        notificationController.notifications = [
+            Notification(id: "\(1)", title: "Let's stay hydrated!",
+                         body: "This is your daily reminder to keep at it!",
+                         timeStamp: DateComponents(calendar: Calendar.current,
+                                                   hour: 09, minute: 00)),
+            Notification(id: "\(2)", title: "Let's stay hydrated!",
+                         body: "This is your daily reminder to keep at it!",
+                         timeStamp: DateComponents(calendar: Calendar.current,
+                                                   hour: 15, minute: 00)),
+            Notification(id: "\(3)", title: "Let's stay hydrated!",
+                         body: "This is your daily reminder to keep at it!",
+                         timeStamp: DateComponents(calendar: Calendar.current,
+                                                   hour: 21, minute: 00))]
+        notificationController.schedule(completion: {
+            self.fetchNotifsAndReload()
+        })
     }
 
     func numberOfRowsInSection() -> Int {

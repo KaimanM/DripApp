@@ -14,12 +14,12 @@ class NotificationsView: UIViewController, NotificationsViewProtocol {
     let toggle: UISwitch = {
         let toggle = UISwitch()
         toggle.onTintColor = .dripMerged
+        toggle.isOn = true
         return toggle
     }()
 
     let textField: UITextField = {
         let textField = UITextField()
-        textField.text = "8 Daily Reminders"
         textField.textColor = .whiteText
         textField.layer.borderColor = UIColor.white.withAlphaComponent(0.2).cgColor
         textField.layer.borderWidth = 1
@@ -85,9 +85,14 @@ class NotificationsView: UIViewController, NotificationsViewProtocol {
         presenter.onViewDidLoad()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        presenter.onViewDidAppear()
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        presenter.onViewDidAppear()
+//    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.onViewWillAppear()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -105,10 +110,12 @@ class NotificationsView: UIViewController, NotificationsViewProtocol {
         picker.delegate = self
         picker.dataSource = self
 
+        picker.backgroundColor = .infoPanelBG
+
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 35))
-        toolBar.barStyle = UIBarStyle.default
+        toolBar.barStyle = UIBarStyle.black
         toolBar.isTranslucent = true
-        toolBar.tintColor = .black
+        toolBar.tintColor = .gray
         toolBar.sizeToFit()
 
         let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done,
@@ -197,6 +204,15 @@ class NotificationsView: UIViewController, NotificationsViewProtocol {
         })
     }
 
+    func updateReminderCountTitle(count: Int) {
+        let title = count == 1 ? "\(count) Daily Reminder" : "\(count) Daily Reminders"
+        textField.text = title
+    }
+
+    func setPickerRow(row: Int) {
+        picker.selectRow(row, inComponent: 0, animated: false)
+    }
+
     @objc func doneTapped() {
         self.textField.resignFirstResponder()
         let row = self.picker.selectedRow(inComponent: 0)
@@ -230,11 +246,23 @@ class NotificationsView: UIViewController, NotificationsViewProtocol {
 
     @objc func switchValueDidChange(_ sender: UISwitch!) {
         print("switch \(sender.isOn)")
+        switch sender.isOn {
+        case false:
+            presenter.disableNotifications()
+            tableView.isHidden = true
+            textField.isEnabled = false
+
+        case true:
+            tableView.isHidden = false
+            textField.isEnabled = true
+            presenter.enableNotifications()
+        }
     }
 }
 
 extension NotificationsView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("is being called")
         return presenter.numberOfRowsInSection()
 //        return reminderCount
     }
@@ -270,9 +298,14 @@ extension NotificationsView: UIPickerViewDelegate, UIPickerViewDataSource {
         25
     }
 
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let title = row == 0 ? "Daily Reminder" : "Daily Reminders"
-        return "\(row+1) \(title)"
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        let title = row == 0 ? "\(row+1) Daily Reminder" : "\(row+1) Daily Reminders"
+//        return "\(row+1) \(title)"
+//    }
+
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        let title = row == 0 ? "\(row+1) Daily Reminder" : "\(row+1) Daily Reminders"
+        return NSAttributedString(string: title, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
     }
 }
 
