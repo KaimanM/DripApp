@@ -1,14 +1,10 @@
 import Foundation
-import UserNotifications
 
 class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
     var view: SettingsDetailViewProtocol?
 
     var goalValue: Double = 2000
     var selectedFavourite = 0
-
-    let notificationController = LocalNotificationController()
-    var pendingNotifCount = 0
 
     struct AttributionCellData {
         let title: String
@@ -41,11 +37,6 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
     }
 
     func onViewDidAppear() {
-        scheduledNotificationsCount(completion: {
-            DispatchQueue.main.async {
-                self.view!.reloadTableView()
-            }
-        })
     }
 
     func setupView() {
@@ -60,8 +51,6 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
             initialiseAttributionView()
         case .about:
             initialiseAboutView()
-        case .notifications:
-            initialiseNotificationsView()
         case .none:
             break
         }
@@ -136,17 +125,6 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
             your experiences are similar and you have as much fun using this app as I had making it.
             """
         view?.setupAboutView(headingText: headingText, bodyText: bodyText)
-    }
-
-    func initialiseNotificationsView() {
-        view?.updateTitle(title: "Notifications")
-        let headingText = "Daily Reminders"
-        let bodyText = """
-            Use this settings page to configure setting up daily reminder notifications.
-
-            We've set you up with three notifications but feel free to customise them to your needs!
-            """
-        view?.setupNotificationsView(headingText: headingText, bodyText: bodyText)
     }
 
     func creditAlertControllerForRow(row: Int) {
@@ -237,25 +215,6 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
         view?.reloadCollectionView()
     }
 
-    // MARK: - Notifications -
-
-    func notificationTimeStampForRow(row: Int, completion: @escaping (String) -> Void) {
-        notificationController.listScheduledNotifications(completionHandler: { notifications in
-            guard let trigger = notifications[row].trigger as? UNCalendarNotificationTrigger,
-                  let date = trigger.dateComponents.date else { return }
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "HH:mm a"
-            completion(dateFormatter.string(from: date))
-        })
-    }
-
-    func scheduledNotificationsCount(completion: @escaping () -> Void) {
-        notificationController.listScheduledNotifications(completionHandler: { notifications in
-            self.pendingNotifCount = notifications.count
-            completion()
-        })
-    }
-
     // MARK: - Table view -
     func numberOfRowsInSection() -> Int {
         switch view?.settingsType {
@@ -263,8 +222,6 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
             return Beverages().drinks.count
         case .attribution:
             return attributeCells.count
-        case .notifications:
-            return pendingNotifCount
         default:
             return 0
         }

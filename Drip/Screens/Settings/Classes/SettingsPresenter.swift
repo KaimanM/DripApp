@@ -66,8 +66,7 @@ final class SettingsPresenter: SettingsPresenterProtocol {
             view?.pushView(SettingsDetailScreenBuilder(type: .coefficient,
                                                  userDefaultsController: userDefaultsController).build())
         case (0, 4):
-            view?.pushView(SettingsDetailScreenBuilder(type: .notifications,
-                                                 userDefaultsController: userDefaultsController).build())
+            view?.pushView(NotificationsScreenBuilder().build())
         case (1, 0):
             view?.pushView(SettingsDetailScreenBuilder(type: .about,
                                                  userDefaultsController: userDefaultsController).build())

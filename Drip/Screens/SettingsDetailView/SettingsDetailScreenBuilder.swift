@@ -26,5 +26,4 @@ enum SettingsType {
     case coefficient
     case attribution
     case about
-    case notifications
 }
