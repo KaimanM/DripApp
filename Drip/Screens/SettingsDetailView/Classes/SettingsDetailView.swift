@@ -53,10 +53,7 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
         return collectionView
     }()
 
-    let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        return scrollView
-    }()
+    let scrollView = UIScrollView()
 
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -113,6 +110,11 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
         default:
             break
         }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        presenter.onViewDidAppear()
     }
 
     func updateTitle(title: String) {
@@ -213,11 +215,6 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
         tableView.register(CoefficientTableViewCell.self, forCellReuseIdentifier: cellId)
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.isScrollEnabled = false
-
-        let scrollView: UIScrollView = {
-            let scrollView = UIScrollView()
-            return scrollView
-        }()
 
         let childStackView: UIStackView = {
             let stackView = UIStackView()
@@ -519,6 +516,14 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
         collectionView.reloadData()
     }
 
+    func reloadTableView() {
+        self.tableViewHeight?.constant = CGFloat(self.reminderCount*60)+10
+        UIView.transition(with: tableView, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            self.tableView.reloadData()
+
+        })
+    }
+
     func showAlertController(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let dismissAction = UIAlertAction(title: "Dismiss", style: .default)
@@ -582,12 +587,7 @@ extension SettingsDetailView: DrinksLauncherDelegate {
 // MARK: - Table View Deleagate & DataSource -
 extension SettingsDetailView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch settingsType {
-        case .notifications:
-            return reminderCount
-        default:
-            return presenter.numberOfRowsInSection()
-        }
+        return presenter.numberOfRowsInSection()
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -617,6 +617,11 @@ extension SettingsDetailView: UITableViewDataSource, UITableViewDelegate {
                     NotificationsTableViewCell else {
                 return UITableViewCell()
             }
+            presenter.notificationTimeStampForRow(row: indexPath.row, completion: { timeStamp in
+                DispatchQueue.main.async {
+                    cell.timeStampLabel.text = timeStamp
+                }
+            })
             return cell
         default:
             return UITableViewCell()

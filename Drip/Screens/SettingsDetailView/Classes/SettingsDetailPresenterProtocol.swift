@@ -3,6 +3,7 @@ import Foundation
 protocol SettingsDetailPresenterProtocol: class {
     var view: SettingsDetailViewProtocol? { get }
     func onViewDidLoad()
+    func onViewDidAppear()
 
     func updateGoalValue(newGoal: Double)
     func saveButtonTapped()
@@ -13,6 +14,7 @@ protocol SettingsDetailPresenterProtocol: class {
 
     func numberOfRowsInSection() -> Int
     func coefficientCellDataForRow(row: Int) -> Beverage
+    func notificationTimeStampForRow(row: Int, completion: @escaping (String) -> Void)
     func setCoefficientBool(isEnabled: Bool)
     func attributionTitleForRow(row: Int) -> String
     func getAttributionURLforRow(row: Int) -> URL?

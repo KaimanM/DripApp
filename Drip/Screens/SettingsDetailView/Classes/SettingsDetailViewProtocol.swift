@@ -15,4 +15,5 @@ protocol SettingsDetailViewProtocol: class {
     func showAlertController(title: String, message: String)
     func popView()
     func reloadCollectionView()
+    func reloadTableView()
 }

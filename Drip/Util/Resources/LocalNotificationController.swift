@@ -7,11 +7,12 @@ class LocalNotificationController {
 
     let center = UNUserNotificationCenter.current()
 
-    func listScheduledNotifications() {
+    func listScheduledNotifications(completionHandler: @escaping ([UNNotificationRequest]) -> Void) {
         center.getPendingNotificationRequests(completionHandler: { notifications in
-            for notification in notifications {
-                print(notification)
-            }
+//            for notification in notifications {
+//                print(notification)
+//            }
+            completionHandler(notifications)
         })
     }
 

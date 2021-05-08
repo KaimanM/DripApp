@@ -1,10 +1,14 @@
 import Foundation
+import UserNotifications
 
 class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
     var view: SettingsDetailViewProtocol?
 
     var goalValue: Double = 2000
     var selectedFavourite = 0
+
+    let notificationController = LocalNotificationController()
+    var pendingNotifCount = 0
 
     struct AttributionCellData {
         let title: String
@@ -34,6 +38,14 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
 
     func onViewDidLoad() {
         setupView()
+    }
+
+    func onViewDidAppear() {
+        scheduledNotificationsCount(completion: {
+            DispatchQueue.main.async {
+                self.view!.reloadTableView()
+            }
+        })
     }
 
     func setupView() {
@@ -225,6 +237,25 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
         view?.reloadCollectionView()
     }
 
+    // MARK: - Notifications -
+
+    func notificationTimeStampForRow(row: Int, completion: @escaping (String) -> Void) {
+        notificationController.listScheduledNotifications(completionHandler: { notifications in
+            guard let trigger = notifications[row].trigger as? UNCalendarNotificationTrigger,
+                  let date = trigger.dateComponents.date else { return }
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH:mm a"
+            completion(dateFormatter.string(from: date))
+        })
+    }
+
+    func scheduledNotificationsCount(completion: @escaping () -> Void) {
+        notificationController.listScheduledNotifications(completionHandler: { notifications in
+            self.pendingNotifCount = notifications.count
+            completion()
+        })
+    }
+
     // MARK: - Table view -
     func numberOfRowsInSection() -> Int {
         switch view?.settingsType {
@@ -233,7 +264,7 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
         case .attribution:
             return attributeCells.count
         case .notifications:
-            return 5
+            return pendingNotifCount
         default:
             return 0
         }
