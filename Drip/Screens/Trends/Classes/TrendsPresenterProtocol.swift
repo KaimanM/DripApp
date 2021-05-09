@@ -1,6 +1,6 @@
 import Foundation
 
-protocol TrendsPresenterProtocol: class {
+protocol TrendsPresenterProtocol: AnyObject {
     var view: TrendsViewProtocol? { get }
 
     func onViewDidAppear()

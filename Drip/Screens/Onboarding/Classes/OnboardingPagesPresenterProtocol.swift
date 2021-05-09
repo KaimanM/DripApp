@@ -1,4 +1,4 @@
-protocol OnboardingPagesPresenterProtocol: class {
+protocol OnboardingPagesPresenterProtocol: AnyObject {
     var view: OnboardingPagesViewProtocol? { get }
 
     func onViewDidAppear()

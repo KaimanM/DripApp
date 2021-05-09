@@ -82,10 +82,12 @@ class LocalNotificationController {
     }
 
     func removeAllPendingNotifications() {
+        notifications.removeAll()
         center.removeAllPendingNotificationRequests()
     }
 
     func removePendingNotificationWithId(id: Int) {
+        notifications.removeAll(where: { $0.id == "\(id)" })
         center.removePendingNotificationRequests(withIdentifiers: ["\(id)"])
     }
 

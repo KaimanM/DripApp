@@ -51,6 +51,7 @@ final class SettingsPresenter: SettingsPresenterProtocol {
         }
     }
 
+    // swiftlint:disable:next cyclomatic_complexity
     func didSelectRowAt(indexPath: IndexPath) {
         guard let userDefaultsController = view?.userDefaultsController else { return }
         switch (indexPath.section, indexPath.row) {

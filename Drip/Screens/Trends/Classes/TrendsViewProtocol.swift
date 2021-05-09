@@ -1,6 +1,6 @@
 import UIKit
 
-protocol TrendsViewProtocol: class {
+protocol TrendsViewProtocol: AnyObject {
     var presenter: TrendsPresenterProtocol! { get set }
     var coreDataController: CoreDataControllerProtocol! { get set }
     var userDefaultsController: UserDefaultsControllerProtocol! { get set }

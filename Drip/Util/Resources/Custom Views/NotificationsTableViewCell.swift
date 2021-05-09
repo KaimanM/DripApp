@@ -1,12 +1,6 @@
 import UIKit
 
-protocol NotificationsTableViewCellDelegate: class {
-    func didChangeDate(date: Date, tag: Int)
-}
-
 class NotificationsTableViewCell: UITableViewCell {
-
-    weak var delegate: NotificationsTableViewCellDelegate?
 
     let containerView: UIView = {
         let view = UIView()
@@ -22,14 +16,6 @@ class NotificationsTableViewCell: UITableViewCell {
         label.adjustsFontSizeToFitWidth = true
         label.text = "Reminder at"
         return label
-    }()
-
-    let datePicker: UIDatePicker = {
-        let datePicker = UIDatePicker()
-        datePicker.datePickerMode = .time
-        datePicker.preferredDatePickerStyle = .inline
-        datePicker.overrideUserInterfaceStyle = .dark
-        return datePicker
     }()
 
     let timeStampLabel: UILabel = {
@@ -55,29 +41,20 @@ class NotificationsTableViewCell: UITableViewCell {
                              size: .init(width: 0, height: 50))
 
         containerView.addSubview(reminderLabel)
-//        containerView.addSubview(timeStampLabel)
-        containerView.addSubview(datePicker)
+        containerView.addSubview(timeStampLabel)
 
-        datePicker.anchor(top: containerView.topAnchor,
+        timeStampLabel.anchor(top: containerView.topAnchor,
                               leading: nil,
                               bottom: containerView.bottomAnchor,
                               trailing: containerView.trailingAnchor,
-                              padding: .init(top: 0, left: 0, bottom: 0, right: 0))
-        datePicker.centerVerticallyInSuperview()
-//        datePicker.fillSuperViewSafely()
-        datePicker.addTarget(self, action: #selector(datePickerChanged(sender:)), for: .valueChanged)
+                              padding: .init(top: 0, left: 0, bottom: 0, right: 20))
 
         reminderLabel.anchor(top: nil,
                              leading: containerView.leadingAnchor,
                              bottom: nil,
-                             trailing: datePicker.leadingAnchor,
+                             trailing: timeStampLabel.leadingAnchor,
                              padding: .init(top: 0, left: 20, bottom: 0, right: 0))
         reminderLabel.centerVerticallyInSuperview()
-    }
-
-    @objc func datePickerChanged(sender: UIDatePicker) {
-        
-        delegate?.didChangeDate(date: sender.date, tag: tag)
     }
 
     required init?(coder: NSCoder) {

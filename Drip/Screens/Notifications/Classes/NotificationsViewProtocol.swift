@@ -1,6 +1,6 @@
 import UIKit
 
-protocol NotificationsViewProtocol: class {
+protocol NotificationsViewProtocol: AnyObject {
     var presenter: NotificationsPresenterProtocol! { get set }
     func updateTitle(title: String)
 

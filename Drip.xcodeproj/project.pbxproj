@@ -94,6 +94,7 @@
 		36538D1C260CDBE200CFB656 /* OnboardingPagesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36538D1B260CDBE200CFB656 /* OnboardingPagesPresenter.swift */; };
 		3655D96B2610B6AB002B95EE /* OnboardingPage3Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3655D96A2610B6AB002B95EE /* OnboardingPage3Cell.swift */; };
 		3655D96E2610DCF7002B95EE /* OnboardingPage4Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3655D96D2610DCF7002B95EE /* OnboardingPage4Cell.swift */; };
+		36570F1026487A1600BA1283 /* NotifDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36570F0F26487A1600BA1283 /* NotifDetailVC.swift */; };
 		3657BFD32625C49500C9B7AA /* SettingsScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3657BFD22625C49500C9B7AA /* SettingsScreenBuilderTestCase.swift */; };
 		3657BFD82625C4EE00C9B7AA /* SettingsPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3657BFD72625C4EE00C9B7AA /* SettingsPresenterTestCase.swift */; };
 		365F642F262079BD00A9B4C0 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365F642E262079BD00A9B4C0 /* SettingsCell.swift */; };
@@ -259,6 +260,7 @@
 		36538D1B260CDBE200CFB656 /* OnboardingPagesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPagesPresenter.swift; sourceTree = "<group>"; };
 		3655D96A2610B6AB002B95EE /* OnboardingPage3Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage3Cell.swift; sourceTree = "<group>"; };
 		3655D96D2610DCF7002B95EE /* OnboardingPage4Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage4Cell.swift; sourceTree = "<group>"; };
+		36570F0F26487A1600BA1283 /* NotifDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifDetailVC.swift; sourceTree = "<group>"; };
 		3657BFD22625C49500C9B7AA /* SettingsScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenBuilderTestCase.swift; sourceTree = "<group>"; };
 		3657BFD72625C4EE00C9B7AA /* SettingsPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenterTestCase.swift; sourceTree = "<group>"; };
 		365F642E262079BD00A9B4C0 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
@@ -708,6 +710,7 @@
 				364D7DC826468AD20052C499 /* NotificationsPresenter.swift */,
 				364D7DCB26468AD90052C499 /* NotificationsViewProtocol.swift */,
 				364D7DCE26468AE00052C499 /* NotificationsPresenterProtocol.swift */,
+				36570F0F26487A1600BA1283 /* NotifDetailVC.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1035,6 +1038,7 @@
 				36A37EFE261CCCC600BB7C15 /* MissingDrinkAwardDataSource.swift in Sources */,
 				365F6432262098E700A9B4C0 /* Bundle+Extensions.swift in Sources */,
 				36538D16260CDBD400CFB656 /* OnboardingPagesPresenterProtocol.swift in Sources */,
+				36570F1026487A1600BA1283 /* NotifDetailVC.swift in Sources */,
 				3644EA34261BB85E00E257CC /* Award+CoreDataClass.swift in Sources */,
 				0A8BEA852455D24A00AA9880 /* AwardsViewProtocol.swift in Sources */,
 				368BAE2A25DC7A4F00D799F2 /* CustomFSCell.swift in Sources */,

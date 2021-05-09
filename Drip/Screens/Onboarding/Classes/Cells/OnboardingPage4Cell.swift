@@ -1,6 +1,6 @@
 import UIKit
 
-protocol OnboardingPage4CellDelegate: class {
+protocol OnboardingPage4CellDelegate: AnyObject {
     func didTapPage4Button()
     func drinkForCellAt(index: Int) -> (imageName: String, volume: Double)
     func showDrinksForIndex(index: Int)

@@ -1,6 +1,6 @@
 import UIKit
 
-protocol SettingsDetailViewProtocol: class {
+protocol SettingsDetailViewProtocol: AnyObject {
     var presenter: SettingsDetailPresenterProtocol! { get set }
     var userDefaultsController: UserDefaultsControllerProtocol! { get set }
     var settingsType: SettingsType! { get set }

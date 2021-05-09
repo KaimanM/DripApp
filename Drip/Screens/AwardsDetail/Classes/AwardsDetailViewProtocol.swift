@@ -1,6 +1,6 @@
 import UIKit
 
-protocol AwardsDetailViewProtocol: class {
+protocol AwardsDetailViewProtocol: AnyObject {
     var presenter: AwardsDetailPresenterProtocol! { get set }
     var dataSource: AwardsDetailDataSourceProtocol? { get }
     var timeStamp: Date? { get }

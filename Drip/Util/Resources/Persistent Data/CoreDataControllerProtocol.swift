@@ -1,6 +1,6 @@
 import Foundation
 
-protocol CoreDataControllerProtocol: class {
+protocol CoreDataControllerProtocol: AnyObject {
 
     func saveContext()
     func deleteEntry(entry: Drink)

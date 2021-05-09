@@ -49,14 +49,14 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
         })
     }
 
-    func notificationTimeStampForRow(row: Int, completion: @escaping (Date) -> Void) {
+    func notificationTimeStampForRow(row: Int, completion: @escaping (String) -> Void) {
         notificationController.listScheduledNotifications(completionHandler: { notifications in
             guard let request = notifications.filter({$0.identifier == "\(row+1)"}).first,
                   let trigger = request.trigger as? UNCalendarNotificationTrigger,
                   let date = trigger.dateComponents.date else { return }
-//            let dateFormatter = DateFormatter()
-//            dateFormatter.dateFormat = "HH:mm a"
-            completion(date)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH:mm a"
+            completion(dateFormatter.string(from: date))
 
 //            let correctedObject = notifications.map({ $0.identifier })
 //            let request = notifications.filter({$0.identifier == "\(row+1)"})
@@ -107,7 +107,6 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
     }
 
     func disableNotifications() {
-        notificationController.notifications.removeAll()
         notificationController.removeAllPendingNotifications()
         fetchNotifsAndReload()
     }

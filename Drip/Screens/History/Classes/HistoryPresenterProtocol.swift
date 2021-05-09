@@ -1,6 +1,6 @@
 import Foundation
 
-protocol HistoryPresenterProtocol: class {
+protocol HistoryPresenterProtocol: AnyObject {
     var view: HistoryViewProtocol? { get }
 
     func onViewDidLoad()

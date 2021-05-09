@@ -83,12 +83,8 @@ class NotificationsView: UIViewController, NotificationsViewProtocol {
         tableView.isScrollEnabled = false
 
         presenter.onViewDidLoad()
-    }
 
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        presenter.onViewDidAppear()
-//    }
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -216,32 +212,12 @@ class NotificationsView: UIViewController, NotificationsViewProtocol {
     @objc func doneTapped() {
         self.textField.resignFirstResponder()
         let row = self.picker.selectedRow(inComponent: 0)
-        let isGoingDown = row+1 < reminderCount ? true : false
+//        let isGoingDown = row+1 < reminderCount ? true : false
         let title = row == 0 ? "Daily Reminder" : "Daily Reminders"
         presenter.setReminderCount(to: row+1)
 
         textField.text = "\(row+1) \(title)"
         reminderCount = row+1
-//        scrollView.setContentOffset(CGPoint(x: -scrollView.adjustedContentInset.left,   // Scroll to top of page
-//                                            y: -scrollView.adjustedContentInset.top),
-//                                    animated: true)
-//        switch isGoingDown { // if true, removes excess height after animation. Otherwise before. Needed for smoothness.
-//        case true:
-//            UIView.transition(with: tableView, duration: 1.0, options: .transitionCrossDissolve, animations: {
-//                self.tableView.reloadData()
-//
-//            }, completion: {_ in
-////                self.tableViewHeight?.constant = CGFloat(self.reminderCount*60)+10
-//                self.tableViewHeight?.constant = CGFloat(self.presenter.numberOfRowsInSection()*60)+10
-//            })
-//        case false:
-////            self.tableViewHeight?.constant = CGFloat(self.reminderCount*60)+10
-//            self.tableViewHeight?.constant = CGFloat(self.presenter.numberOfRowsInSection()*60)+10
-//            UIView.transition(with: tableView, duration: 1.0, options: .transitionCrossDissolve, animations: {
-//                self.tableView.reloadData()
-//
-//            })
-//        }
     }
 
     @objc func switchValueDidChange(_ sender: UISwitch!) {
@@ -274,18 +250,20 @@ extension NotificationsView: UITableViewDelegate, UITableViewDataSource {
         }
         presenter.notificationTimeStampForRow(row: indexPath.row, completion: { timeStamp in
             DispatchQueue.main.async {
-//                cell.timeStampLabel.text = timeStamp
-                cell.datePicker.date = timeStamp
+                cell.timeStampLabel.text = timeStamp
+//                cell.datePicker.date = timeStamp
             }
         })
 
-        cell.delegate = self
-        cell.tag = indexPath.row
+//        cell.tag = indexPath.row // might still be needed?
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let rootVC = NotifDetailVC()
+        rootVC.delegate = self
+        let embeddedVC = DarkNavController(rootViewController: rootVC)
+        present(embeddedVC, animated: true, completion: nil)
     }
 }
 
@@ -303,15 +281,22 @@ extension NotificationsView: UIPickerViewDelegate, UIPickerViewDataSource {
 //        return "\(row+1) \(title)"
 //    }
 
-    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int,
+                    forComponent component: Int) -> NSAttributedString? {
         let title = row == 0 ? "\(row+1) Daily Reminder" : "\(row+1) Daily Reminders"
         return NSAttributedString(string: title, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
     }
 }
 
-extension NotificationsView: NotificationsTableViewCellDelegate {
-    func didChangeDate(date: Date, tag: Int) {
-        print("Date picked is: \(date), row sending this is \(tag)")
-        presenter.amendReminder(id: tag+1, timeStamp: date)
+extension NotificationsView: NotifDetailDelegate {
+    func updateReminder(timeStamp: Date, repeating: Bool, message: String, sound: Bool) {
+        print(timeStamp)
+        print(repeating)
+        print(message)
+        print(sound)
+    }
+
+    func changeTitle(title: String) {
+        self.title = title
     }
 }

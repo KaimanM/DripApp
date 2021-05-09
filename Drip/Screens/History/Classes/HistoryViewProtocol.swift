@@ -1,6 +1,6 @@
 import UIKit
 
-protocol HistoryViewProtocol: class {
+protocol HistoryViewProtocol: AnyObject {
     var presenter: HistoryPresenterProtocol! { get set }
     var coreDataController: CoreDataControllerProtocol! { get set }
     var userDefaultsController: UserDefaultsControllerProtocol! { get set }

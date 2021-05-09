@@ -1,13 +1,13 @@
 import Foundation
 
-protocol NotificationsPresenterProtocol: class {
+protocol NotificationsPresenterProtocol: AnyObject {
     var view: NotificationsViewProtocol? { get }
     func onViewDidLoad()
     func onViewWillAppear()
     func onViewWillDisappear()
 
     func numberOfRowsInSection() -> Int
-    func notificationTimeStampForRow(row: Int, completion: @escaping (Date) -> Void)
+    func notificationTimeStampForRow(row: Int, completion: @escaping (String) -> Void)
     func scheduledNotificationsCount(completion: @escaping () -> Void)
     func setReminderCount(to reminderCount: Int)
     func amendReminder(id: Int, timeStamp: Date)
