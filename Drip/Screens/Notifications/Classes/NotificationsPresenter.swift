@@ -23,73 +23,51 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
     }
 
     func onViewWillAppear() {
-        fetchNotifsAndReload()
+        fetchNotifications()
     }
 
-//    func onViewWillAppear() {
-//
-//    }
-
     func onViewWillDisappear() {
-        notificationController.schedule(completion: {
-//            self.fetchNotifsAndReload()
-        })
+        notificationController.schedule()
     }
 
     // MARK: - Notifications -
 
-    func fetchNotifsAndReload() {
-        scheduledNotificationsCount(completion: {
+    func fetchNotifications() {
+        notificationController.fetchPendingNotifications {
             DispatchQueue.main.async {
-                self.view?.updateReminderCountTitle(count: self.pendingNotifCount)
+                let notifCount = self.notificationController.notifications.count
+                self.view?.updateReminderCountTitle(count: notifCount)
                 self.view?.reloadTableView()
-                let pickerRow = self.pendingNotifCount == 0 ? 0 : self.pendingNotifCount-1
+                let pickerRow = notifCount == 0 ? 0 : notifCount-1
                 self.view?.setPickerRow(row: pickerRow)
             }
-        })
+        }
     }
 
-    func notificationTimeStampForRow(row: Int, completion: @escaping (String) -> Void) {
-        notificationController.listScheduledNotifications(completionHandler: { notifications in
-            guard let request = notifications.filter({$0.identifier == "\(row+1)"}).first,
-                  let trigger = request.trigger as? UNCalendarNotificationTrigger,
-                  let date = trigger.dateComponents.date else { return }
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "HH:mm a"
-            completion(dateFormatter.string(from: date))
-
-//            let correctedObject = notifications.map({ $0.identifier })
-//            let request = notifications.filter({$0.identifier == "\(row+1)"})
-        })
-    }
-
-    func scheduledNotificationsCount(completion: @escaping () -> Void) {
-        notificationController.listScheduledNotifications(completionHandler: { notifications in
-            self.pendingNotifCount = notifications.count
-            completion()
-        })
+    func timeStampForRow(row: Int) -> String {
+        guard let timeStamp = notificationController.notifications[row].timeStamp.date else { return "" }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm a"
+        return dateFormatter.string(from: timeStamp)
     }
 
     func setReminderCount(to reminderCount: Int) {
-//        notificationController.notifications.removeAll()
-        if pendingNotifCount > reminderCount {
-            for idToRemove in reminderCount+1...pendingNotifCount {
+        let pending = notificationController.notifications.count
+        if pending > reminderCount {
+            for idToRemove in reminderCount+1...pending {
                 print("removing id \(idToRemove)")
                 notificationController.removePendingNotificationWithId(id: idToRemove)
             }
-            fetchNotifsAndReload()
-        } else if reminderCount > pendingNotifCount {
-            for idToAdd in pendingNotifCount+1...reminderCount {
+        } else if reminderCount > pending {
+            for idToAdd in pending+1...reminderCount {
                 notificationController.notifications.append(
                     Notification(id: "\(idToAdd)", title: "Let's stay hydrated!",
                                  body: "This is your daily reminder to keep at it!",
                                  timeStamp: DateComponents(calendar: Calendar.current,
                                                            hour: 00, minute: 01)))
             }
-            notificationController.schedule(completion: {
-                self.fetchNotifsAndReload()
-            })
         }
+        view?.reloadTableView()
     }
 
     func amendReminder(id: Int, timeStamp: Date) {
@@ -108,7 +86,7 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
 
     func disableNotifications() {
         notificationController.removeAllPendingNotifications()
-        fetchNotifsAndReload()
+        view?.reloadTableView()
     }
 
     func enableNotifications() {
@@ -125,12 +103,10 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
                          body: "This is your daily reminder to keep at it!",
                          timeStamp: DateComponents(calendar: Calendar.current,
                                                    hour: 21, minute: 00))]
-        notificationController.schedule(completion: {
-            self.fetchNotifsAndReload()
-        })
+        view?.reloadTableView()
     }
 
     func numberOfRowsInSection() -> Int {
-        return pendingNotifCount
+        return notificationController.notifications.count
     }
 }

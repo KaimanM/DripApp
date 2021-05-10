@@ -16,16 +16,30 @@ class LocalNotificationController {
         })
     }
 
+    func fetchPendingNotifications(completion: @escaping () -> Void) {
+        center.getPendingNotificationRequests(completionHandler: { notifications in
+            for notification in notifications {
+                if let trigger = notification.trigger as? UNCalendarNotificationTrigger {
+                    self.notifications.append(Notification(id: notification.identifier,
+                                                           title: notification.content.title,
+                                                           body: notification.content.body,
+                                                           timeStamp: trigger.dateComponents))
+                }
+            }
+            completion()
+        })
+    }
+
     private func requestAuthorisation() {
         center.requestAuthorization(options: [.alert, .badge],
                                                                 completionHandler: { granted, error in
             if granted && error == nil {
-                self.scheduleNotifications(completion: {})
+                self.scheduleNotifications()
             }
         })
     }
 
-    func schedule(completion: @escaping () -> Void) {
+    func schedule(completion: (() -> Void)? = nil) {
         center.getNotificationSettings(completionHandler: { settings in
             switch settings.authorizationStatus {
             case .notDetermined:
@@ -38,7 +52,7 @@ class LocalNotificationController {
         })
     }
 
-    func scheduleNotifications(completion: @escaping () -> Void) {
+    func scheduleNotifications(completion: (() -> Void)? = nil) {
 
         let operationQueue = OperationQueue()
 
@@ -71,7 +85,7 @@ class LocalNotificationController {
 
         let operation2 = BlockOperation {
             print("finito")
-            completion()
+            if let completion = completion { completion() }
         }
 
         operation2.addDependency(operation1)

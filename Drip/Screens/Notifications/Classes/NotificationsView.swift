@@ -248,12 +248,7 @@ extension NotificationsView: UITableViewDelegate, UITableViewDataSource {
                 NotificationsTableViewCell else {
             return UITableViewCell()
         }
-        presenter.notificationTimeStampForRow(row: indexPath.row, completion: { timeStamp in
-            DispatchQueue.main.async {
-                cell.timeStampLabel.text = timeStamp
-//                cell.datePicker.date = timeStamp
-            }
-        })
+        cell.timeStampLabel.text = presenter.timeStampForRow(row: indexPath.row)
 
 //        cell.tag = indexPath.row // might still be needed?
         return cell
