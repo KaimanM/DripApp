@@ -1,26 +1,14 @@
-//
-//  NotifDetailVC.swift
-//  Drip
-//
-//  Created by Kaiman Mehmet on 09/05/2021.
-//  Copyright © 2021 Kaiman Mehmet. All rights reserved.
-//
-
 import UIKit
 
-protocol NotifDetailDelegate: AnyObject {
-    func changeTitle(title: String)
-    func updateReminder(timeStamp: Date, repeating: Bool, message: String, sound: Bool)
+protocol NotificationDetailDelegate: AnyObject {
+    func updateReminder(notification: Notification)
 }
 
-class NotifDetailVC: UIViewController, UINavigationBarDelegate {
+class NotificationDetailView: UIViewController, NotificationDetailViewProtocol {
+    var presenter: NotificationDetailPresenterProtocol!
+    var notification: Notification!
 
-    weak var delegate: NotifDetailDelegate?
-
-    var timeStamp: Date = Date()
-    var repeating = true
-    var message = "Let's have a drink!"
-    var sound = true
+    weak var delegate: NotificationDetailDelegate?
 
     let containerView = UIView()
 
@@ -40,14 +28,10 @@ class NotifDetailVC: UIViewController, UINavigationBarDelegate {
         return tableView
     }()
 
-    let options = ["Repeat", "Message", "Sound"]
+    let options = ["Message", "Sound"]
 
-    convenience init(timeStamp: Date, repeating: Bool, message: String, sound: Bool) {
-        self.init()
-        self.timeStamp = timeStamp
-        self.repeating = repeating
-        self.message = message
-        self.sound = sound
+    func updateTitle(title: String) {
+        self.title = title
     }
 
     override func viewDidLoad() {
@@ -64,6 +48,10 @@ class NotifDetailVC: UIViewController, UINavigationBarDelegate {
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
         setupSubviews()
+
+        datePicker.date = notification.timeStamp.date!
+        datePicker.addTarget(self, action: #selector(datePickerChanged), for: .valueChanged)
+
     }
 
     func setupSubviews() {
@@ -92,31 +80,42 @@ class NotifDetailVC: UIViewController, UINavigationBarDelegate {
         tableView.anchor(top: containerView.bottomAnchor,
                          leading: view.leadingAnchor,
                          trailing: view.trailingAnchor,
-                         size: .init(width: 0, height: 132)) // no of rows in section x44
+                         size: .init(width: 0, height: 88)) // no of rows in section x44
     }
 
     @objc func cancelTapped() {
-        delegate?.changeTitle(title: "hehe xd")
         dismiss(animated: true, completion: nil)
     }
 
     @objc func saveTapped() {
-        delegate?.updateReminder(timeStamp: timeStamp,
-                                 repeating: repeating,
-                                 message: message,
-                                 sound: sound)
+        delegate?.updateReminder(notification: notification)
+        dismiss(animated: true, completion: nil)
     }
 
     @objc func toggleDidChange(_ sender: UISwitch) {
-        print(sender.isOn)
+        switch sender.isOn {
+        case true:
+            notification.sound = true
+        case false:
+            notification.sound = false
+        }
     }
 
     @objc func textFieldDidFinishEditing(_ sender: UITextField) {
-        print(sender.text)
+        if let text = sender.text, !text.isEmpty {
+            notification.body = text
+        }
+    }
+
+    @objc func datePickerChanged(_ sender: UIDatePicker) {
+        let hour = Calendar.current.component(.hour, from: sender.date)
+        let minute = Calendar.current.component(.minute, from: sender.date)
+        notification.timeStamp = DateComponents(calendar: Calendar.current,
+                                                hour: hour, minute: minute)
     }
 }
 
-extension NotifDetailVC: UITableViewDelegate, UITableViewDataSource {
+extension NotificationDetailView: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return options.count
@@ -128,35 +127,41 @@ extension NotifDetailVC: UITableViewDelegate, UITableViewDataSource {
         cell.backgroundColor = .infoPanelBG
         cell.textLabel?.textColor = .whiteText
         switch indexPath.row {
-        case 0, 2:
+        case 0:
+            let textField = UITextField(frame: .zero)
+            textField.addTarget(self, action: #selector(textFieldDidFinishEditing), for: .editingDidEnd)
+            textField.attributedPlaceholder = NSAttributedString(string: notification.body,
+                                                                 attributes: [NSAttributedString.Key.foregroundColor:
+                                                                                UIColor.white.withAlphaComponent(0.3)])
+            textField.textColor = .whiteText
+            textField.returnKeyType = UIReturnKeyType.done
+            textField.textAlignment = .right
+            textField.clearButtonMode = .whileEditing
+            textField.delegate = self
+            if let button = textField.value(forKey: "clearButton") as? UIButton {
+              button.tintColor = .darkGray
+              button.setImage(UIImage(systemName: "xmark.circle.fill")?.withRenderingMode(.alwaysTemplate),
+                              for: .normal)
+            }
+            cell.contentView.addSubview(textField)
+            textField.anchor(trailing: cell.contentView.trailingAnchor,
+                             padding: .init(top: 0, left: 0, bottom: 0, right: 20),
+                             size: .init(width: 200, height: 0))
+            textField.centerVerticallyInSuperview()
+        case 1:
             let toggle = UISwitch(frame: .zero)
             toggle.isOn = true
             toggle.tag = indexPath.row
             toggle.addTarget(self, action: #selector(toggleDidChange), for: .valueChanged)
             toggle.onTintColor = .dripMerged
             cell.accessoryView = toggle
-        case 1:
-            let textField = UITextField(frame: .zero)
-            textField.addTarget(self, action: #selector(textFieldDidFinishEditing), for: .editingDidEnd)
-            textField.placeholder = "Let's have a drink!"
-            textField.returnKeyType = UIReturnKeyType.done
-            textField.textAlignment = .right
-            textField.clearButtonMode = .whileEditing
-            textField.delegate = self
-            cell.contentView.addSubview(textField)
-            textField.anchor(top: nil,
-                             leading: nil,
-                             bottom: nil,
-                             trailing: cell.contentView.trailingAnchor,
-                             padding: .init(top: 0, left: 0, bottom: 0, right: 20),
-                             size: .init(width: 200, height: 0))
-            textField.centerVerticallyInSuperview()
         default:
             let chevronImageView = UIImageView(image: UIImage(systemName: "chevron.right"))
             cell.accessoryView = chevronImageView
         }
         cell.tintColor = UIColor.white.withAlphaComponent(0.2)
         cell.textLabel?.text = options[indexPath.row]
+        cell.selectionStyle = .none
         return cell
     }
 
@@ -165,7 +170,7 @@ extension NotifDetailVC: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension NotifDetailVC: UITextFieldDelegate {
+extension NotificationDetailView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

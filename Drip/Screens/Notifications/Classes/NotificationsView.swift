@@ -100,6 +100,10 @@ class NotificationsView: UIViewController, NotificationsViewProtocol {
         self.title = title
     }
 
+    func presentView(_ view: UIViewController) {
+        present(view, animated: true, completion: nil)
+    }
+
     func setupNotificationsView(headingText: String, bodyText: String) {
         toggle.addTarget(self, action: #selector(switchValueDidChange(_:)), for: .valueChanged)
 
@@ -255,9 +259,10 @@ extension NotificationsView: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let rootVC = NotifDetailVC()
-        rootVC.delegate = self
-        let embeddedVC = DarkNavController(rootViewController: rootVC)
+        let notificationData = presenter.getNotificationInfoForRow(row: indexPath.row)
+        let detailView = NotificationDetailScreenBuilder(notification: notificationData).build()
+        detailView.delegate = self
+        let embeddedVC = DarkNavController(rootViewController: detailView)
         present(embeddedVC, animated: true, completion: nil)
     }
 }
@@ -271,11 +276,6 @@ extension NotificationsView: UIPickerViewDelegate, UIPickerViewDataSource {
         25
     }
 
-//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        let title = row == 0 ? "\(row+1) Daily Reminder" : "\(row+1) Daily Reminders"
-//        return "\(row+1) \(title)"
-//    }
-
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int,
                     forComponent component: Int) -> NSAttributedString? {
         let title = row == 0 ? "\(row+1) Daily Reminder" : "\(row+1) Daily Reminders"
@@ -283,15 +283,8 @@ extension NotificationsView: UIPickerViewDelegate, UIPickerViewDataSource {
     }
 }
 
-extension NotificationsView: NotifDetailDelegate {
-    func updateReminder(timeStamp: Date, repeating: Bool, message: String, sound: Bool) {
-        print(timeStamp)
-        print(repeating)
-        print(message)
-        print(sound)
-    }
-
-    func changeTitle(title: String) {
-        self.title = title
+extension NotificationsView: NotificationDetailDelegate {
+    func updateReminder(notification: Notification) {
+        presenter.amendReminder(notification: notification)
     }
 }

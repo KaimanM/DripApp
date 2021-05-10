@@ -38,18 +38,21 @@ final class SettingsView: UIViewController, SettingsViewProtocol, PersistentData
         let notificationController = LocalNotificationController()
         notificationController.removeAllPendingNotifications()
         notificationController.notifications = [
-            Notification(id: "1", title: "Let's stay hydrated!",
-                         body: "This is your daily reminder to keep at it!",
-                         timeStamp: DateComponents(calendar: Calendar.current,
-                                                   hour: 20, minute: 10)),
-            Notification(id: "2", title: "Let's stay hydrated!",
-                         body: "This is your daily reminder to keep at it!",
-                         timeStamp: DateComponents(calendar: Calendar.current,
-                                                   hour: 20, minute: 11)),
             Notification(id: "3", title: "Let's stay hydrated!",
                          body: "This is your daily reminder to keep at it!",
                          timeStamp: DateComponents(calendar: Calendar.current,
-                                                   hour: 20, minute: 12))
+                                                   hour: 20, minute: 12),
+                         sound: true),
+            Notification(id: "3", title: "Let's stay hydrated!",
+                         body: "This is your daily reminder to keep at it!",
+                         timeStamp: DateComponents(calendar: Calendar.current,
+                                                   hour: 20, minute: 12),
+                         sound: true),
+            Notification(id: "3", title: "Let's stay hydrated!",
+                         body: "This is your daily reminder to keep at it!",
+                         timeStamp: DateComponents(calendar: Calendar.current,
+                                                   hour: 20, minute: 12),
+                         sound: true)
         ]
         notificationController.schedule()
     }

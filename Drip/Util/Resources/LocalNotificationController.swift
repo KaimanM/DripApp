@@ -7,23 +7,16 @@ class LocalNotificationController {
 
     let center = UNUserNotificationCenter.current()
 
-    func listScheduledNotifications(completionHandler: @escaping ([UNNotificationRequest]) -> Void) {
-        center.getPendingNotificationRequests(completionHandler: { notifications in
-//            for notification in notifications {
-//                print(notification)
-//            }
-            completionHandler(notifications)
-        })
-    }
-
     func fetchPendingNotifications(completion: @escaping () -> Void) {
         center.getPendingNotificationRequests(completionHandler: { notifications in
             for notification in notifications {
-                if let trigger = notification.trigger as? UNCalendarNotificationTrigger {
+                if let trigger = notification.trigger as? UNCalendarNotificationTrigger,
+                   let sound = notification.content.sound == nil ? false : true {
                     self.notifications.append(Notification(id: notification.identifier,
                                                            title: notification.content.title,
                                                            body: notification.content.body,
-                                                           timeStamp: trigger.dateComponents))
+                                                           timeStamp: trigger.dateComponents,
+                                                           sound: sound))
                 }
             }
             completion()
@@ -31,7 +24,7 @@ class LocalNotificationController {
     }
 
     private func requestAuthorisation() {
-        center.requestAuthorization(options: [.alert, .badge],
+        center.requestAuthorization(options: [.alert, .badge, .sound],
                                                                 completionHandler: { granted, error in
             if granted && error == nil {
                 self.scheduleNotifications()
@@ -56,7 +49,7 @@ class LocalNotificationController {
 
         let operationQueue = OperationQueue()
 
-        let operation1 = BlockOperation {
+        let scheduleOperation = BlockOperation {
 
             let group = DispatchGroup()
 
@@ -65,7 +58,9 @@ class LocalNotificationController {
                 let content = UNMutableNotificationContent()
                 content.title = notification.title
                 content.body = notification.body
-                content.sound = .default
+
+                let sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "droplet.mp3"))
+                content.sound = notification.sound ? sound : .none
 
                 let trigger = UNCalendarNotificationTrigger(dateMatching: notification.timeStamp, repeats: true)
 //                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
@@ -83,15 +78,15 @@ class LocalNotificationController {
             group.wait()
         }
 
-        let operation2 = BlockOperation {
+        let completionOperation = BlockOperation {
             print("finito")
             if let completion = completion { completion() }
         }
 
-        operation2.addDependency(operation1)
+        completionOperation.addDependency(scheduleOperation)
 
-        operationQueue.addOperation(operation1)
-        operationQueue.addOperation(operation2)
+        operationQueue.addOperation(scheduleOperation)
+        operationQueue.addOperation(completionOperation)
 
     }
 
@@ -112,4 +107,5 @@ struct Notification {
     var title: String
     var body: String
     var timeStamp: DateComponents
+    var sound: Bool
 }

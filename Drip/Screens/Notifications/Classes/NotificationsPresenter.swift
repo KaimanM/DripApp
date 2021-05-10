@@ -62,26 +62,24 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
             for idToAdd in pending+1...reminderCount {
                 notificationController.notifications.append(
                     Notification(id: "\(idToAdd)", title: "Let's stay hydrated!",
-                                 body: "This is your daily reminder to keep at it!",
+                                 body: "Let's have a drink!",
                                  timeStamp: DateComponents(calendar: Calendar.current,
-                                                           hour: 00, minute: 01)))
+                                                           hour: 00, minute: 01),
+                                 sound: true))
             }
         }
         view?.reloadTableView()
     }
 
-    func amendReminder(id: Int, timeStamp: Date) {
-        notificationController.removePendingNotificationWithId(id: id)
-        notificationController.notifications.removeAll(where: { notification in
-            notification.id == "\(id)"
-        })
-        let hour = Calendar.current.component(.hour, from: timeStamp)
-        let minute = Calendar.current.component(.minute, from: timeStamp)
-        notificationController.notifications.append(
-            Notification(id: "\(id)", title: "Let's stay hydrated!",
-                         body: "This is your daily reminder to keep at it!",
-                         timeStamp: DateComponents(calendar: Calendar.current,
-                                                   hour: hour, minute: minute)))
+    func amendReminder(notification: Notification) {
+        if let id = Int(notification.id) {
+            notificationController.removePendingNotificationWithId(id: id)
+            notificationController.notifications.removeAll(where: { notification in
+                notification.id == "\(id)"
+            })
+            notificationController.notifications.append(notification)
+        }
+        view?.reloadTableView()
     }
 
     func disableNotifications() {
@@ -92,21 +90,28 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
     func enableNotifications() {
         notificationController.notifications = [
             Notification(id: "\(1)", title: "Let's stay hydrated!",
-                         body: "This is your daily reminder to keep at it!",
+                         body: "Let's have a drink!",
                          timeStamp: DateComponents(calendar: Calendar.current,
-                                                   hour: 09, minute: 00)),
+                                                   hour: 09, minute: 00),
+                         sound: true),
             Notification(id: "\(2)", title: "Let's stay hydrated!",
-                         body: "This is your daily reminder to keep at it!",
+                         body: "Let's have a drink!",
                          timeStamp: DateComponents(calendar: Calendar.current,
-                                                   hour: 15, minute: 00)),
+                                                   hour: 15, minute: 00),
+                         sound: true),
             Notification(id: "\(3)", title: "Let's stay hydrated!",
-                         body: "This is your daily reminder to keep at it!",
+                         body: "Let's have a drink!",
                          timeStamp: DateComponents(calendar: Calendar.current,
-                                                   hour: 21, minute: 00))]
+                                                   hour: 21, minute: 00),
+                         sound: true)]
         view?.reloadTableView()
     }
 
     func numberOfRowsInSection() -> Int {
         return notificationController.notifications.count
+    }
+
+    func getNotificationInfoForRow(row: Int) -> Notification {
+        return notificationController.notifications[row]
     }
 }
