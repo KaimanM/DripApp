@@ -9,16 +9,18 @@ class LocalNotificationController {
 
     func fetchPendingNotifications(completion: @escaping () -> Void) {
         center.getPendingNotificationRequests(completionHandler: { notifications in
-            for notification in notifications {
-                if let trigger = notification.trigger as? UNCalendarNotificationTrigger,
-                   let sound = notification.content.sound == nil ? false : true {
-                    self.notifications.append(Notification(id: notification.identifier,
-                                                           title: notification.content.title,
-                                                           body: notification.content.body,
-                                                           timeStamp: trigger.dateComponents,
-                                                           sound: sound))
+            self.notifications = notifications.compactMap({
+                if let trigger = $0.trigger as? UNCalendarNotificationTrigger,
+                   let sound = $0.content.sound == nil ? false : true {
+                    return Notification(id: $0.identifier,
+                                        title: $0.content.title,
+                                        body: $0.content.body,
+                                        timeStamp: trigger.dateComponents,
+                                        sound: sound)
+                } else {
+                    return nil
                 }
-            }
+            })
             completion()
         })
     }

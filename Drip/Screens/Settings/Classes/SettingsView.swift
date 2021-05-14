@@ -27,6 +27,9 @@ final class SettingsView: UIViewController, SettingsViewProtocol, PersistentData
 
         tableView.separatorColor = UIColor.white.withAlphaComponent(0.2)
 
+//        navigationItem.backBarButtonItem = UIBarButtonItem(
+//            title: "SaveXD", style: .plain, target: nil, action: nil)
+
     }
 
     override func viewDidAppear(_ animated: Bool) {

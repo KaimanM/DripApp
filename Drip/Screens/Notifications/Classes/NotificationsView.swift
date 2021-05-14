@@ -2,6 +2,7 @@ import UIKit
 
 class NotificationsView: UIViewController, NotificationsViewProtocol {
     var presenter: NotificationsPresenterProtocol!
+    var userDefaultsController: UserDefaultsControllerProtocol!
 
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -68,8 +69,6 @@ class NotificationsView: UIViewController, NotificationsViewProtocol {
 
     let cellId = "cellId"
 
-    var reminderCount = 3
-
     var tableViewHeight: NSLayoutConstraint?
 
     override func viewDidLoad() {
@@ -83,6 +82,10 @@ class NotificationsView: UIViewController, NotificationsViewProtocol {
         tableView.isScrollEnabled = false
 
         presenter.onViewDidLoad()
+
+        let backButton = UIBarButtonItem()
+        backButton.title = "Save"
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
 
     }
 
@@ -145,6 +148,11 @@ class NotificationsView: UIViewController, NotificationsViewProtocol {
 
         headingLabel.text = headingText
         bodyLabel.text = bodyText
+
+        // TODO: This code needs to be looked at, not confident in it.
+        toggle.isOn = userDefaultsController.enabledNotifications
+        setNotificationStatus(enabled: userDefaultsController.enabledNotifications)
+
         setupConstraints()
     }
 
@@ -216,26 +224,34 @@ class NotificationsView: UIViewController, NotificationsViewProtocol {
     @objc func doneTapped() {
         self.textField.resignFirstResponder()
         let row = self.picker.selectedRow(inComponent: 0)
-//        let isGoingDown = row+1 < reminderCount ? true : false
         let title = row == 0 ? "Daily Reminder" : "Daily Reminders"
         presenter.setReminderCount(to: row+1)
 
         textField.text = "\(row+1) \(title)"
-        reminderCount = row+1
     }
 
     @objc func switchValueDidChange(_ sender: UISwitch!) {
         print("switch \(sender.isOn)")
-        switch sender.isOn {
+        setNotificationStatus(enabled: sender.isOn)
+        userDefaultsController.enabledNotifications = sender.isOn
+    }
+
+    func setNotificationStatus(enabled: Bool) {
+        switch enabled {
         case false:
             presenter.disableNotifications()
             tableView.isHidden = true
             textField.isEnabled = false
-
+            textField.isHidden = true
+            lineView3.isHidden = true
         case true:
             tableView.isHidden = false
             textField.isEnabled = true
             presenter.enableNotifications()
+            textField.isHidden = false
+            lineView3.isHidden = false
+            textField.text = "3 Daily Reminders"
+            setPickerRow(row: 2)
         }
     }
 }
@@ -244,7 +260,6 @@ extension NotificationsView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("is being called")
         return presenter.numberOfRowsInSection()
-//        return reminderCount
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

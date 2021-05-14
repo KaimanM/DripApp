@@ -17,4 +17,5 @@ protocol UserDefaultsControllerProtocol: AnyObject {
 
     var completedOnboarding: Bool { get set }
     var useDrinkCoefficients: Bool { get set }
+    var enabledNotifications: Bool { get set }
 }
