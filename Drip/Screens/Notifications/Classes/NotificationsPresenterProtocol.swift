@@ -17,4 +17,5 @@ protocol NotificationsPresenterProtocol: AnyObject {
     func amendReminder(notification: Notification)
     func disableNotifications()
     func enableNotifications()
+    func onSwitchToggle(isOn: Bool)
 }

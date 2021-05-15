@@ -34,10 +34,10 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
     // MARK: - Notifications -
 
     func checkNotificationStatus() {
-        notificationController.checkAuthStatus(completion: { granted in
+        notificationController.checkAuthStatus(completion: { status in
             DispatchQueue.main.async {
-                switch granted {
-                case true:
+                switch status {
+                case .authorized, .provisional:
                     switch self.view?.userDefaultsController.enabledNotifications {
                     case true:
                         self.fetchNotifications()
@@ -47,12 +47,49 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
                     default:
                         self.view?.setToggleStatus(isOn: false)
                     }
-                case false:
+                default:
                     self.view?.setToggleStatus(isOn: false)
                     self.view?.userDefaultsController.enabledNotifications = false
                 }
             }
         })
+    }
+
+    func onSwitchToggle(isOn: Bool) {
+        switch isOn {
+        case true:
+            notificationController.checkAuthStatus(completion: { status in
+                    switch status {
+                    case .authorized, .provisional:
+                        self.enableNotifications()
+                        self.view?.setToggleStatus(isOn: true)
+                        self.view?.resetPicker()
+                        self.view?.userDefaultsController.enabledNotifications = true
+                    case .notDetermined:
+                        self.notificationController.requestAuth(completion: { granted in
+                            switch granted {
+                            case true:
+                                self.enableNotifications()
+                                self.view?.setToggleStatus(isOn: true)
+                                self.view?.resetPicker()
+                                self.view?.userDefaultsController.enabledNotifications = true
+                            case false:
+                                self.view?.showSettingsNotificationDialogue()
+                                self.view?.setToggleStatus(isOn: false)
+                                self.view?.userDefaultsController.enabledNotifications = false
+                            }
+                        })
+                    default:
+                        self.view?.showSettingsNotificationDialogue()
+                        self.view?.setToggleStatus(isOn: false)
+                        self.view?.userDefaultsController.enabledNotifications = false
+                    }
+            })
+        case false:
+            disableNotifications()
+            view?.setToggleStatus(isOn: false)
+            self.view?.userDefaultsController.enabledNotifications = false
+        }
     }
 
     func fetchNotifications() {

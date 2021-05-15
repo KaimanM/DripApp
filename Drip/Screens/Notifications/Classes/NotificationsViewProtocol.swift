@@ -12,4 +12,6 @@ protocol NotificationsViewProtocol: AnyObject {
     func setPickerRow(row: Int)
     func reloadTableView()
     func setToggleStatus(isOn: Bool)
+    func showSettingsNotificationDialogue()
+    func resetPicker()
 }

@@ -149,10 +149,6 @@ class NotificationsView: UIViewController, NotificationsViewProtocol {
         headingLabel.text = headingText
         bodyLabel.text = bodyText
 
-        // TODO: This code needs to be looked at, not confident in it.
-        toggle.isOn = userDefaultsController.enabledNotifications
-        setNotificationStatus(enabled: userDefaultsController.enabledNotifications)
-
         setupConstraints()
     }
 
@@ -205,11 +201,13 @@ class NotificationsView: UIViewController, NotificationsViewProtocol {
     }
 
     func reloadTableView() {
-        self.tableViewHeight?.constant = CGFloat(self.presenter.numberOfRowsInSection()*60)+10
-        UIView.transition(with: tableView, duration: 0.5, options: .transitionCrossDissolve, animations: {
-            self.tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableViewHeight?.constant = CGFloat(self.presenter.numberOfRowsInSection()*60)+10
+            UIView.transition(with: self.tableView, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                self.tableView.reloadData()
 
-        })
+            })
+        }
     }
 
     func updateReminderCountTitle(count: Int) {
@@ -231,36 +229,49 @@ class NotificationsView: UIViewController, NotificationsViewProtocol {
     }
 
     @objc func switchValueDidChange(_ sender: UISwitch!) {
-        print("switch \(sender.isOn)")
-        setNotificationStatus(enabled: sender.isOn)
-        userDefaultsController.enabledNotifications = sender.isOn
+        presenter.onSwitchToggle(isOn: sender.isOn)
     }
 
-    func setNotificationStatus(enabled: Bool) {
-        switch enabled {
-        case false:
-            presenter.disableNotifications()
-            tableView.isHidden = true
-            textField.isEnabled = false
-            textField.isHidden = true
-            lineView3.isHidden = true
-        case true:
-            tableView.isHidden = false
-            textField.isEnabled = true
-            presenter.enableNotifications()
-            textField.isHidden = false
-            lineView3.isHidden = false
-            textField.text = "3 Daily Reminders"
-            setPickerRow(row: 2)
+    func resetPicker() {
+        DispatchQueue.main.async {
+            self.textField.text = "3 Daily Reminders"
+            self.setPickerRow(row: 2)
         }
     }
 
     func setToggleStatus(isOn: Bool) {
-        toggle.isOn = isOn
-        tableView.isHidden = !isOn
-        textField.isEnabled = isOn
-        textField.isHidden = !isOn
-        lineView3.isHidden = !isOn
+        DispatchQueue.main.async {
+            self.toggle.isOn = isOn
+            self.tableView.isHidden = !isOn
+            self.textField.isEnabled = isOn
+            self.textField.isHidden = !isOn
+            self.lineView3.isHidden = !isOn
+        }
+    }
+
+    func showSettingsNotificationDialogue() {
+        DispatchQueue.main.async {
+            let message = "Please enable notifications in System Settings if you want to receive reminders."
+            let alertContoller = UIAlertController(title: "Enable Notifications",
+                                                   message: message,
+                                                   preferredStyle: .alert)
+
+            let settingsAction = UIAlertAction(title: "Open Settings", style: .default) { _ in
+                if let bundleIdentifier = Bundle.main.bundleIdentifier, let appSettings =
+                    URL(string: UIApplication.openSettingsURLString + bundleIdentifier) {
+                    if UIApplication.shared.canOpenURL(appSettings) {
+                        UIApplication.shared.open(appSettings)
+                    }
+                }
+            }
+
+            let cancelAction = UIAlertAction(title: "Close", style: .cancel, handler: nil)
+
+            alertContoller.addAction(cancelAction)
+            alertContoller.addAction(settingsAction)
+
+            self.present(alertContoller, animated: true)
+        }
     }
 }
 

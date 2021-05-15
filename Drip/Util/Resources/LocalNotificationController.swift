@@ -25,10 +25,16 @@ class LocalNotificationController {
         })
     }
 
-    func checkAuthStatus(completion: @escaping (_ :Bool) -> Void) {
+    func requestAuth(completion: @escaping (_ :Bool) -> Void) {
         center.requestAuthorization(options: [.alert, .badge, .sound],
                                                                 completionHandler: { granted, _ in
             completion(granted)
+        })
+    }
+
+    func checkAuthStatus(completion: @escaping (UNAuthorizationStatus) -> Void) {
+        center.getNotificationSettings(completionHandler: { settings in
+            completion(settings.authorizationStatus)
         })
     }
 
