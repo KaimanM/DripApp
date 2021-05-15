@@ -23,7 +23,8 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
     }
 
     func onViewWillAppear() {
-        fetchNotifications()
+//        fetchNotifications()
+        checkNotificationStatus()
     }
 
     func onViewWillDisappear() {
@@ -31,6 +32,28 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
     }
 
     // MARK: - Notifications -
+
+    func checkNotificationStatus() {
+        notificationController.checkAuthStatus(completion: { granted in
+            DispatchQueue.main.async {
+                switch granted {
+                case true:
+                    switch self.view?.userDefaultsController.enabledNotifications {
+                    case true:
+                        self.fetchNotifications()
+                        self.view?.setToggleStatus(isOn: true)
+                    case false:
+                        self.view?.setToggleStatus(isOn: false)
+                    default:
+                        self.view?.setToggleStatus(isOn: false)
+                    }
+                case false:
+                    self.view?.setToggleStatus(isOn: false)
+                    self.view?.userDefaultsController.enabledNotifications = false
+                }
+            }
+        })
+    }
 
     func fetchNotifications() {
         notificationController.fetchPendingNotifications {
@@ -106,6 +129,8 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
                          sound: true)]
         view?.reloadTableView()
     }
+
+    // MARK: - Table View -
 
     func numberOfRowsInSection() -> Int {
         return notificationController.notifications.count

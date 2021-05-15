@@ -254,6 +254,14 @@ class NotificationsView: UIViewController, NotificationsViewProtocol {
             setPickerRow(row: 2)
         }
     }
+
+    func setToggleStatus(isOn: Bool) {
+        toggle.isOn = isOn
+        tableView.isHidden = !isOn
+        textField.isEnabled = isOn
+        textField.isHidden = !isOn
+        lineView3.isHidden = !isOn
+    }
 }
 
 extension NotificationsView: UITableViewDelegate, UITableViewDataSource {
