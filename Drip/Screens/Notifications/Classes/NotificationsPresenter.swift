@@ -28,7 +28,11 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
     }
 
     func onViewWillDisappear() {
-        notificationController.schedule()
+        notificationController.checkAuthStatus(completion: { status in
+            if status == .authorized || status == .provisional {
+                self.notificationController.schedule()
+            }
+        })
     }
 
     // MARK: - Notifications -
