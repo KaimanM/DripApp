@@ -28,14 +28,12 @@ class NotificationDetailView: UIViewController, NotificationDetailViewProtocol {
         return tableView
     }()
 
-    let options = ["Message", "Sound"]
-
     func updateTitle(title: String) {
         self.title = title
     }
 
     override func viewDidLoad() {
-        title = "Edit Reminder"
+        presenter.onViewDidLoad()
         view.backgroundColor = .infoPanelDark
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel",
@@ -49,9 +47,7 @@ class NotificationDetailView: UIViewController, NotificationDetailViewProtocol {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
         setupSubviews()
 
-        datePicker.date = notification.timeStamp.date!
         datePicker.addTarget(self, action: #selector(datePickerChanged), for: .valueChanged)
-
     }
 
     func setupSubviews() {
@@ -61,7 +57,6 @@ class NotificationDetailView: UIViewController, NotificationDetailViewProtocol {
                              leading: view.leadingAnchor,
                              trailing: view.trailingAnchor,
                              size: .init(width: 0, height: 120))
-//        containerView.backgroundColor = .red
 
         let timeLabel = UILabel()
         timeLabel.text = "Time"
@@ -83,6 +78,10 @@ class NotificationDetailView: UIViewController, NotificationDetailViewProtocol {
                          size: .init(width: 0, height: 88)) // no of rows in section x44
     }
 
+    func updatePickerDate(date: Date) {
+        datePicker.date = date
+    }
+
     @objc func cancelTapped() {
         dismiss(animated: true, completion: nil)
     }
@@ -93,32 +92,24 @@ class NotificationDetailView: UIViewController, NotificationDetailViewProtocol {
     }
 
     @objc func toggleDidChange(_ sender: UISwitch) {
-        switch sender.isOn {
-        case true:
-            notification.sound = true
-        case false:
-            notification.sound = false
-        }
+        presenter.enableSound(enabled: sender.isOn)
     }
 
     @objc func textFieldDidFinishEditing(_ sender: UITextField) {
         if let text = sender.text, !text.isEmpty {
-            notification.body = text
+            presenter.updateBody(body: text)
         }
     }
 
     @objc func datePickerChanged(_ sender: UIDatePicker) {
-        let hour = Calendar.current.component(.hour, from: sender.date)
-        let minute = Calendar.current.component(.minute, from: sender.date)
-        notification.timeStamp = DateComponents(calendar: Calendar.current,
-                                                hour: hour, minute: minute)
+        presenter.updateTimeStamp(date: sender.date)
     }
 }
 
 extension NotificationDetailView: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return options.count
+        return presenter.numberOfRowsInSection()
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -151,16 +142,16 @@ extension NotificationDetailView: UITableViewDelegate, UITableViewDataSource {
         case 1:
             let toggle = UISwitch(frame: .zero)
             toggle.isOn = true
-            toggle.tag = indexPath.row
             toggle.addTarget(self, action: #selector(toggleDidChange), for: .valueChanged)
             toggle.onTintColor = .dripMerged
+            toggle.isOn = presenter.isSoundEnabled()
             cell.accessoryView = toggle
         default:
             let chevronImageView = UIImageView(image: UIImage(systemName: "chevron.right"))
             cell.accessoryView = chevronImageView
         }
         cell.tintColor = UIColor.white.withAlphaComponent(0.2)
-        cell.textLabel?.text = options[indexPath.row]
+        cell.textLabel?.text = presenter.titleForRowAt(row: indexPath.row)
         cell.selectionStyle = .none
         return cell
     }

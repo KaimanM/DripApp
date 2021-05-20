@@ -136,12 +136,9 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
     }
 
     func amendReminder(notification: Notification) {
-        if let id = Int(notification.id) {
-            notificationController.removePendingNotificationWithId(id: id)
-            notificationController.notifications.removeAll(where: { notification in
-                notification.id == "\(id)"
-            })
-            notificationController.notifications.append(notification)
+        if let id = Int(notification.id),
+           let notifIndex = notificationController.notifications.firstIndex(where: {$0.id == "\(id)"}) {
+            notificationController.notifications[notifIndex] = notification
         }
         view?.reloadTableView()
     }

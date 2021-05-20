@@ -287,8 +287,6 @@ extension NotificationsView: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         cell.timeStampLabel.text = presenter.timeStampForRow(row: indexPath.row)
-
-//        cell.tag = indexPath.row // might still be needed?
         return cell
     }
 
