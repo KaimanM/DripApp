@@ -115,6 +115,25 @@ class LocalNotificationController: LocalNotificationControllerProtocol {
         center.removePendingNotificationRequests(withIdentifiers: ["\(id)"])
     }
 
+    func setupDefaultNotifications() {
+        notifications = [
+            Notification(id: "1", title: "Let's stay hydrated!",
+                         body: "Let's have a drink!",
+                         timeStamp: DateComponents(calendar: Calendar.current,
+                                                   hour: 09, minute: 00),
+                         sound: true),
+            Notification(id: "2", title: "Let's stay hydrated!",
+                         body: "Let's have a drink!",
+                         timeStamp: DateComponents(calendar: Calendar.current,
+                                                   hour: 15, minute: 00),
+                         sound: true),
+            Notification(id: "3", title: "Let's stay hydrated!",
+                         body: "Let's have a drink!",
+                         timeStamp: DateComponents(calendar: Calendar.current,
+                                                   hour: 21, minute: 00),
+                         sound: true)]
+    }
+
 }
 
 struct Notification {

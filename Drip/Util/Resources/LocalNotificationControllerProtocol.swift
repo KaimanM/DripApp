@@ -9,4 +9,5 @@ protocol LocalNotificationControllerProtocol: AnyObject {
     func schedule(completion: (() -> Void)?)
     func removeAllPendingNotifications()
     func removePendingNotificationWithId(id: Int)
+    func setupDefaultNotifications()
 }

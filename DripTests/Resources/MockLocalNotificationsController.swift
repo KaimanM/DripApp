@@ -46,4 +46,9 @@ final class MockLocalNotificationController: LocalNotificationControllerProtocol
         didRemovePendingNotificationWithId = true
     }
 
+    private(set) var didSetupDefaultNotifications: Bool = false
+    func setupDefaultNotifications() {
+        didSetupDefaultNotifications = true
+    }
+
 }

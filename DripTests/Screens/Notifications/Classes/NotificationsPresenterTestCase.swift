@@ -325,13 +325,192 @@ class NotificationsPresenterTestCase: XCTestCase {
 
     // MARK: - setReminderCount -
 
+    func test_given0Reminders_whenSetReminderCountTo3_thenAdds3RemindersAndReloadTableView() {
+        // given
+        mockedNotificationController.notifications = []
+
+        // when
+        sut.setReminderCount(to: 3)
+
+        // then
+        XCTAssertEqual(mockedNotificationController.notifications.count, 3)
+        XCTAssertEqual(mockedNotificationController.notifications[0].id, "1")
+        XCTAssertEqual(mockedNotificationController.notifications[1].id, "2")
+        XCTAssertEqual(mockedNotificationController.notifications[2].id, "3")
+        XCTAssertTrue(mockedView.didReloadTableView)
+    }
+
+    func test_given1Reminders_whenSetReminderCountTo0_thenCallsDidRemovePendingNotificationsWithIdAndReloadTableView() {
+        // given
+        mockedNotificationController.notifications =
+            [Drip.Notification(id: "1", title: "Let's stay hydrated!",
+                               body: "Let's have a drink!",
+                               timeStamp: DateComponents(calendar: Calendar.current,
+                                                         hour: 00, minute: 01),
+                               sound: true)]
+
+        // when
+        sut.setReminderCount(to: 0)
+
+        // then
+        XCTAssertTrue(mockedNotificationController.didRemovePendingNotificationWithId)
+        XCTAssertTrue(mockedView.didReloadTableView)
+    }
+
     // MARK: - amendReminder -
+
+    func test_givenAReminderWithId1_whenAmendReminderCalled_thenOverwritesOldReminder() {
+        // given
+        mockedNotificationController.notifications =
+            [Drip.Notification(id: "1", title: "Let's stay hydrated!",
+                               body: "Let's have a drink!",
+                               timeStamp: DateComponents(calendar: Calendar.current,
+                                                         hour: 00, minute: 01),
+                               sound: true)]
+
+        // when
+        sut.amendReminder(notification: Drip.Notification(id: "1",
+                                                          title: "Let's stay hydrated!",
+                                                          body: "Test Replacement",
+                                                          timeStamp: DateComponents(calendar: Calendar.current,
+                                                                                    hour: 12, minute: 30),
+                                                          sound: false))
+
+        // then
+        XCTAssertEqual(mockedNotificationController.notifications[0].title, "Let's stay hydrated!")
+        XCTAssertEqual(mockedNotificationController.notifications[0].body, "Test Replacement")
+        XCTAssertEqual(mockedNotificationController.notifications[0].timeStamp,
+                       DateComponents(calendar: Calendar.current,
+                                      hour: 12, minute: 30))
+        XCTAssertEqual(mockedNotificationController.notifications[0].sound, false)
+    }
+
+    func test_givenAReminderWithId1_whenAmendReminderCalledWithId2_thenDoesNotOverwriteOldReminder() {
+        // given
+        mockedNotificationController.notifications =
+            [Drip.Notification(id: "1", title: "Let's stay hydrated!",
+                               body: "Let's have a drink!",
+                               timeStamp: DateComponents(calendar: Calendar.current,
+                                                         hour: 00, minute: 01),
+                               sound: true)]
+
+        // when
+        sut.amendReminder(notification: Drip.Notification(id: "2",
+                                                          title: "Let's stay hydrated!",
+                                                          body: "Test Replacement",
+                                                          timeStamp: DateComponents(calendar: Calendar.current,
+                                                                                    hour: 12, minute: 30),
+                                                          sound: false))
+
+        // then
+        XCTAssertEqual(mockedNotificationController.notifications[0].title, "Let's stay hydrated!")
+        XCTAssertEqual(mockedNotificationController.notifications[0].body, "Let's have a drink!")
+        XCTAssertEqual(mockedNotificationController.notifications[0].timeStamp,
+                       DateComponents(calendar: Calendar.current,
+                                                 hour: 00, minute: 01))
+        XCTAssertEqual(mockedNotificationController.notifications[0].sound, true)
+    }
 
     // MARK: - disableNotifications -
 
+    func test_whenDisableNotificationCalled_thenCallsCorrectFunctions() {
+        // when
+        sut.disableNotifications()
+
+        // then
+        XCTAssertTrue(mockedNotificationController.didRemoveAllPendingNotifications)
+        XCTAssertTrue(mockedView.didReloadTableView)
+    }
+
     // MARK: - enableNotifications -
+
+    func test_whenEnableNotificationCalled_thenCallsCorrectFunctions() {
+        // when
+        sut.enableNotifications()
+
+        // then
+        XCTAssertTrue(mockedNotificationController.didSetupDefaultNotifications)
+        XCTAssertTrue(mockedView.didReloadTableView)
+    }
 
     // MARK: - numberOfRowsInSection -
 
+    func test_given0Notifications_whenNumberOfRowsInSectionCalled_thenReturnsCorrectInt() {
+        // given
+        mockedNotificationController.notifications = []
+
+        // when
+        let rows = sut.numberOfRowsInSection()
+
+        // then
+        XCTAssertEqual(rows, 0)
+    }
+
+    func test_given3Notifications_whenNumberOfRowsInSectionCalled_thenReturnsCorrectInt() {
+        // given
+        mockedNotificationController.notifications =
+            [Drip.Notification(id: "1", title: "Let's stay hydrated!",
+                               body: "Let's have a drink!",
+                               timeStamp: DateComponents(calendar: Calendar.current,
+                                                         hour: 00, minute: 01),
+                               sound: true),
+             Drip.Notification(id: "2", title: "Let's stay hydrated!",
+                                body: "Let's have a drink!",
+                                timeStamp: DateComponents(calendar: Calendar.current,
+                                                          hour: 00, minute: 01),
+                                sound: true),
+             Drip.Notification(id: "3", title: "Let's stay hydrated!",
+                                body: "Let's have a drink!",
+                                timeStamp: DateComponents(calendar: Calendar.current,
+                                                          hour: 00, minute: 01),
+                                sound: true)
+            ]
+
+        // when
+        let rows = sut.numberOfRowsInSection()
+
+        // then
+        XCTAssertEqual(rows, 3)
+    }
+
     // MARK: - getNotificationInfoForRow -
+
+    func test_givenANotification_whenGetNotificationInfoForRowCalled_thenReturnsCorrectNotificationObject() {
+        // given
+        let notification = Drip.Notification(id: "1",
+                                             title: "test",
+                                             body: "test",
+                                             timeStamp: DateComponents(calendar: Calendar.current,
+                                                                       hour: 00, minute: 01),
+                                             sound: true)
+        mockedNotificationController.notifications.append(notification)
+
+        // when
+        let notif = sut.getNotificationInfoForRow(row: 0)
+
+        //then
+        XCTAssertEqual(notif.id, "1")
+        XCTAssertEqual(notif.title, "test")
+        XCTAssertEqual(notif.body, "test")
+        XCTAssertEqual(notif.timeStamp, DateComponents(calendar: Calendar.current,
+                                                       hour: 00, minute: 01))
+        XCTAssertEqual(notif.sound, true)
+    }
+
+    func test_givenNoNotifications_whenGetNotificationInfoForRowCalled_thenReturnsErrorNotificationObject() {
+        // given
+        mockedNotificationController.notifications = []
+
+        // when
+        let notif = sut.getNotificationInfoForRow(row: 0)
+
+        //then
+        XCTAssertEqual(notif.id, "-1")
+        XCTAssertEqual(notif.title, "Error")
+        XCTAssertEqual(notif.body, "Error")
+        XCTAssertEqual(notif.timeStamp, DateComponents(calendar: Calendar.current,
+                                                       hour: 00, minute: 00))
+        XCTAssertEqual(notif.sound, false)
+    }
+    // swiftlint:disable:next file_length
 }

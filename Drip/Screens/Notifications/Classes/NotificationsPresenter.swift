@@ -147,22 +147,7 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
     }
 
     func enableNotifications() {
-        view?.notificationController.notifications = [
-            Notification(id: "\(1)", title: "Let's stay hydrated!",
-                         body: "Let's have a drink!",
-                         timeStamp: DateComponents(calendar: Calendar.current,
-                                                   hour: 09, minute: 00),
-                         sound: true),
-            Notification(id: "\(2)", title: "Let's stay hydrated!",
-                         body: "Let's have a drink!",
-                         timeStamp: DateComponents(calendar: Calendar.current,
-                                                   hour: 15, minute: 00),
-                         sound: true),
-            Notification(id: "\(3)", title: "Let's stay hydrated!",
-                         body: "Let's have a drink!",
-                         timeStamp: DateComponents(calendar: Calendar.current,
-                                                   hour: 21, minute: 00),
-                         sound: true)]
+        view?.notificationController.setupDefaultNotifications()
         view?.reloadTableView()
     }
 
@@ -173,12 +158,16 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
     }
 
     func getNotificationInfoForRow(row: Int) -> Notification {
-        return view?.notificationController.notifications[row] ??
-            Notification(id: "-1",
-                         title: "Error",
-                         body: "Error",
-                         timeStamp: DateComponents(calendar: Calendar.current,
-                                                   hour: 00, minute: 00),
-                         sound: false)
+        guard let notifications = view?.notificationController.notifications,
+              row >= 0 && row < notifications.count
+        else {
+            return Notification(id: "-1",
+                                title: "Error",
+                                body: "Error",
+                                timeStamp: DateComponents(calendar: Calendar.current,
+                                                          hour: 00, minute: 00),
+                                sound: false)
+        }
+        return notifications[row]
     }
 }

@@ -150,6 +150,7 @@
 		36D28D2726497DB3008D68CA /* NotificationDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D28D2626497DB3008D68CA /* NotificationDetailPresenter.swift */; };
 		36D28D2926497DBB008D68CA /* NotificationDetailViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D28D2826497DBB008D68CA /* NotificationDetailViewProtocol.swift */; };
 		36D28D2B26497DC6008D68CA /* NotificationDetailPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D28D2A26497DC6008D68CA /* NotificationDetailPresenterProtocol.swift */; };
+		36E3F1EF2659BDB00051072C /* NotificationsScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E3F1EE2659BDB00051072C /* NotificationsScreenBuilderTestCase.swift */; };
 		36F284E7262741ED00FBC0F1 /* SettingsDetailScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F284E6262741ED00FBC0F1 /* SettingsDetailScreenBuilderTestCase.swift */; };
 		36F284EC2627424200FBC0F1 /* SettingsDetailPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F284EB2627424200FBC0F1 /* SettingsDetailPresenterTestCase.swift */; };
 /* End PBXBuildFile section */
@@ -323,6 +324,7 @@
 		36D28D2626497DB3008D68CA /* NotificationDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDetailPresenter.swift; sourceTree = "<group>"; };
 		36D28D2826497DBB008D68CA /* NotificationDetailViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDetailViewProtocol.swift; sourceTree = "<group>"; };
 		36D28D2A26497DC6008D68CA /* NotificationDetailPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDetailPresenterProtocol.swift; sourceTree = "<group>"; };
+		36E3F1EE2659BDB00051072C /* NotificationsScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsScreenBuilderTestCase.swift; sourceTree = "<group>"; };
 		36F284E6262741ED00FBC0F1 /* SettingsDetailScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailScreenBuilderTestCase.swift; sourceTree = "<group>"; };
 		36F284EB2627424200FBC0F1 /* SettingsDetailPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailPresenterTestCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -665,6 +667,7 @@
 			isa = PBXGroup;
 			children = (
 				363064802659674900989A4F /* Classes */,
+				36E3F1EE2659BDB00051072C /* NotificationsScreenBuilderTestCase.swift */,
 			);
 			path = Notifications;
 			sourceTree = "<group>";
@@ -1207,6 +1210,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36E3F1EF2659BDB00051072C /* NotificationsScreenBuilderTestCase.swift in Sources */,
 				36830E6E2612005900E55C7A /* OnboardingPagesPresenterTestCase.swift in Sources */,
 				363064822659675600989A4F /* NotificationsPresenterTestCase.swift in Sources */,
 				3657BFD82625C4EE00C9B7AA /* SettingsPresenterTestCase.swift in Sources */,
