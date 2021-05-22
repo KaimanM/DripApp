@@ -23,7 +23,6 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
     }
 
     func onViewWillAppear() {
-//        fetchNotifications()
         checkNotificationStatus()
     }
 
@@ -39,7 +38,6 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
 
     func checkNotificationStatus() {
         view?.notificationController.checkAuthStatus(completion: { status in
-//            DispatchQueue.main.async {
                 switch status {
                 case .authorized, .provisional:
                     switch self.view?.userDefaultsController.enabledNotifications {
@@ -55,7 +53,6 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
                     self.view?.setToggleStatus(isOn: false)
                     self.view?.userDefaultsController.enabledNotifications = false
                 }
-//            }
         })
     }
 
@@ -98,14 +95,12 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
 
     func fetchNotifications() {
         view?.notificationController.fetchPendingNotifications {
-//            DispatchQueue.main.async {
                 if let notifCount = self.view?.notificationController.notifications.count {
                     self.view?.updateReminderCountTitle(count: notifCount)
                     self.view?.reloadTableView()
                     let pickerRow = notifCount == 0 ? 0 : notifCount-1
                     self.view?.setPickerRow(row: pickerRow)
                 }
-//            }
         }
     }
 

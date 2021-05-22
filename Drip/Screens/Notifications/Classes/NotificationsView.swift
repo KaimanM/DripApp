@@ -212,12 +212,16 @@ class NotificationsView: UIViewController, NotificationsViewProtocol {
     }
 
     func updateReminderCountTitle(count: Int) {
-        let title = count == 1 ? "\(count) Daily Reminder" : "\(count) Daily Reminders"
-        textField.text = title
+        DispatchQueue.main.async {
+            let title = count == 1 ? "\(count) Daily Reminder" : "\(count) Daily Reminders"
+            self.textField.text = title
+        }
     }
 
     func setPickerRow(row: Int) {
-        picker.selectRow(row, inComponent: 0, animated: false)
+        DispatchQueue.main.async {
+            self.picker.selectRow(row, inComponent: 0, animated: false)
+        }
     }
 
     @objc func doneTapped() {
