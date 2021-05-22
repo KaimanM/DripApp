@@ -251,7 +251,25 @@ class NotificationsPresenterTestCase: XCTestCase {
 
     // MARK: - fetchNotifications -
 
-    func test_givenNoPendingNotifications_whenFetchNotificationsCalled_thenDoesNotCallUIMethods() {
+    func test_givenNoPendingNotifications_whenFetchNotificationsCalled_thenCallsUIWithCorrectValues() {
+        // given
+        mockedNotificationController.mockedNotifications = []
+        let expectation = self.expectation(description: "Fetch Notifications Test")
+
+        DispatchQueue.main.async {
+            // when
+            self.sut.fetchNotifications()
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 5, handler: nil)
+        // then
+        XCTAssertEqual(self.mockedView.didUpdateReminderCountTitle, 0)
+        XCTAssertTrue(self.mockedView.didReloadTableView)
+        XCTAssertEqual(self.mockedView.didSetPickerRow, 0)
+    }
+
+    func test_givenOnePendingNotifications_whenFetchNotificationsCalled_thenCallsUIMethods() {
         // given
         mockedNotificationController.mockedNotifications =
             [Drip.Notification(id: "1",
@@ -274,4 +292,46 @@ class NotificationsPresenterTestCase: XCTestCase {
         XCTAssertTrue(self.mockedView.didReloadTableView)
         XCTAssertEqual(self.mockedView.didSetPickerRow, 0)
     }
+
+    // MARK: - timeStampForRow -
+
+    func test_givenNoNotifications_whenTimeStampForRowCalled_ThenReturnsEmptyString() {
+        // given
+        mockedNotificationController.notifications = []
+
+        // when
+        let timeStampString = sut.timeStampForRow(row: 0)
+
+        // then
+        XCTAssertEqual(timeStampString, "")
+    }
+
+    func test_given1Notification_whenTimeStampForRow0Called_ThenCorrectTimeStamp() {
+        // given
+        mockedNotificationController.notifications =
+            [Drip.Notification(id: "1",
+                               title: "test",
+                               body: "test",
+                               timeStamp: DateComponents(calendar: Calendar.current,
+                                                         hour: 13, minute: 10),
+                               sound: true)]
+
+        // when
+        let timeStampString = sut.timeStampForRow(row: 0)
+
+        // then
+        XCTAssertEqual(timeStampString, "13:10 PM")
+    }
+
+    // MARK: - setReminderCount -
+
+    // MARK: - amendReminder -
+
+    // MARK: - disableNotifications -
+
+    // MARK: - enableNotifications -
+
+    // MARK: - numberOfRowsInSection -
+
+    // MARK: - getNotificationInfoForRow -
 }

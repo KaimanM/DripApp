@@ -105,7 +105,9 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
     }
 
     func timeStampForRow(row: Int) -> String {
-        guard let timeStamp = view?.notificationController.notifications[row].timeStamp.date else { return "" }
+        guard let notifications = view?.notificationController.notifications,
+              row >= 0 && row < notifications.count,
+              let timeStamp = notifications[row].timeStamp.date else { return "" }
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm a"
         return dateFormatter.string(from: timeStamp)
