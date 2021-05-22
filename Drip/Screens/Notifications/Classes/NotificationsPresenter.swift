@@ -4,7 +4,7 @@ import UserNotifications
 class NotificationsPresenter: NotificationsPresenterProtocol {
     var view: NotificationsViewProtocol?
 
-    let notificationController = LocalNotificationController()
+//    let notificationController = LocalNotificationController()
     var pendingNotifCount = 0
 
     init(view: NotificationsViewProtocol) {
@@ -28,9 +28,9 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
     }
 
     func onViewWillDisappear() {
-        notificationController.checkAuthStatus(completion: { status in
+        view?.notificationController.checkAuthStatus(completion: { status in
             if status == .authorized || status == .provisional {
-                self.notificationController.schedule()
+                self.view?.notificationController.schedule(completion: nil)
             }
         })
     }
@@ -38,8 +38,8 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
     // MARK: - Notifications -
 
     func checkNotificationStatus() {
-        notificationController.checkAuthStatus(completion: { status in
-            DispatchQueue.main.async {
+        view?.notificationController.checkAuthStatus(completion: { status in
+//            DispatchQueue.main.async {
                 switch status {
                 case .authorized, .provisional:
                     switch self.view?.userDefaultsController.enabledNotifications {
@@ -55,14 +55,14 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
                     self.view?.setToggleStatus(isOn: false)
                     self.view?.userDefaultsController.enabledNotifications = false
                 }
-            }
+//            }
         })
     }
 
     func onSwitchToggle(isOn: Bool) {
         switch isOn {
         case true:
-            notificationController.checkAuthStatus(completion: { status in
+            view?.notificationController.checkAuthStatus(completion: { status in
                     switch status {
                     case .authorized, .provisional:
                         self.enableNotifications()
@@ -70,7 +70,7 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
                         self.view?.resetPicker()
                         self.view?.userDefaultsController.enabledNotifications = true
                     case .notDetermined:
-                        self.notificationController.requestAuth(completion: { granted in
+                        self.view?.notificationController.requestAuth(completion: { granted in
                             switch granted {
                             case true:
                                 self.enableNotifications()
@@ -97,34 +97,35 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
     }
 
     func fetchNotifications() {
-        notificationController.fetchPendingNotifications {
-            DispatchQueue.main.async {
-                let notifCount = self.notificationController.notifications.count
-                self.view?.updateReminderCountTitle(count: notifCount)
-                self.view?.reloadTableView()
-                let pickerRow = notifCount == 0 ? 0 : notifCount-1
-                self.view?.setPickerRow(row: pickerRow)
-            }
+        view?.notificationController.fetchPendingNotifications {
+//            DispatchQueue.main.async {
+                if let notifCount = self.view?.notificationController.notifications.count {
+                    self.view?.updateReminderCountTitle(count: notifCount)
+                    self.view?.reloadTableView()
+                    let pickerRow = notifCount == 0 ? 0 : notifCount-1
+                    self.view?.setPickerRow(row: pickerRow)
+                }
+//            }
         }
     }
 
     func timeStampForRow(row: Int) -> String {
-        guard let timeStamp = notificationController.notifications[row].timeStamp.date else { return "" }
+        guard let timeStamp = view?.notificationController.notifications[row].timeStamp.date else { return "" }
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm a"
         return dateFormatter.string(from: timeStamp)
     }
 
     func setReminderCount(to reminderCount: Int) {
-        let pending = notificationController.notifications.count
+        guard let pending = view?.notificationController.notifications.count else { return }
         if pending > reminderCount {
             for idToRemove in reminderCount+1...pending {
                 print("removing id \(idToRemove)")
-                notificationController.removePendingNotificationWithId(id: idToRemove)
+                view?.notificationController.removePendingNotificationWithId(id: idToRemove)
             }
         } else if reminderCount > pending {
             for idToAdd in pending+1...reminderCount {
-                notificationController.notifications.append(
+                view?.notificationController.notifications.append(
                     Notification(id: "\(idToAdd)", title: "Let's stay hydrated!",
                                  body: "Let's have a drink!",
                                  timeStamp: DateComponents(calendar: Calendar.current,
@@ -137,19 +138,19 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
 
     func amendReminder(notification: Notification) {
         if let id = Int(notification.id),
-           let notifIndex = notificationController.notifications.firstIndex(where: {$0.id == "\(id)"}) {
-            notificationController.notifications[notifIndex] = notification
+           let notifIndex = view?.notificationController.notifications.firstIndex(where: {$0.id == "\(id)"}) {
+            view?.notificationController.notifications[notifIndex] = notification
         }
         view?.reloadTableView()
     }
 
     func disableNotifications() {
-        notificationController.removeAllPendingNotifications()
+        view?.notificationController.removeAllPendingNotifications()
         view?.reloadTableView()
     }
 
     func enableNotifications() {
-        notificationController.notifications = [
+        view?.notificationController.notifications = [
             Notification(id: "\(1)", title: "Let's stay hydrated!",
                          body: "Let's have a drink!",
                          timeStamp: DateComponents(calendar: Calendar.current,
@@ -171,10 +172,16 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
     // MARK: - Table View -
 
     func numberOfRowsInSection() -> Int {
-        return notificationController.notifications.count
+        return view?.notificationController.notifications.count ?? 0
     }
 
     func getNotificationInfoForRow(row: Int) -> Notification {
-        return notificationController.notifications[row]
+        return view?.notificationController.notifications[row] ??
+            Notification(id: "-1",
+                         title: "Error",
+                         body: "Error",
+                         timeStamp: DateComponents(calendar: Calendar.current,
+                                                   hour: 00, minute: 00),
+                         sound: false)
     }
 }

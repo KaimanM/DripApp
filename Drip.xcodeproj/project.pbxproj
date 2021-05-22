@@ -62,6 +62,9 @@
 		362A52DE25EFAA2600B6AA8D /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362A52DD25EFAA2600B6AA8D /* CoreDataController.swift */; };
 		362A52E125EFACFB00B6AA8D /* PersistentDataViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362A52E025EFACFB00B6AA8D /* PersistentDataViewProtocol.swift */; };
 		362BF72C260DF1D40065183D /* OnboardingPage2Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362BF72B260DF1D40065183D /* OnboardingPage2Cell.swift */; };
+		362C356A265965910062C775 /* LocalNotificationControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362C3569265965910062C775 /* LocalNotificationControllerProtocol.swift */; };
+		363064822659675600989A4F /* NotificationsPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363064812659675600989A4F /* NotificationsPresenterTestCase.swift */; };
+		36306484265968D200989A4F /* MockLocalNotificationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36306483265968D200989A4F /* MockLocalNotificationsController.swift */; };
 		36406025261208D000C00117 /* MockUserDefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36406024261208D000C00117 /* MockUserDefaultsController.swift */; };
 		3644493F25FFC54D006E1B0F /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3644493E25FFC54D006E1B0F /* Date+Extensions.swift */; };
 		3644EA34261BB85E00E257CC /* Award+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3644EA2E261BB85E00E257CC /* Award+CoreDataClass.swift */; };
@@ -234,6 +237,9 @@
 		362A52DD25EFAA2600B6AA8D /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
 		362A52E025EFACFB00B6AA8D /* PersistentDataViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentDataViewProtocol.swift; sourceTree = "<group>"; };
 		362BF72B260DF1D40065183D /* OnboardingPage2Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage2Cell.swift; sourceTree = "<group>"; };
+		362C3569265965910062C775 /* LocalNotificationControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationControllerProtocol.swift; sourceTree = "<group>"; };
+		363064812659675600989A4F /* NotificationsPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPresenterTestCase.swift; sourceTree = "<group>"; };
+		36306483265968D200989A4F /* MockLocalNotificationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLocalNotificationsController.swift; sourceTree = "<group>"; };
 		36406024261208D000C00117 /* MockUserDefaultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserDefaultsController.swift; sourceTree = "<group>"; };
 		3644493E25FFC54D006E1B0F /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		3644EA2E261BB85E00E257CC /* Award+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Award+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -463,6 +469,7 @@
 				360CA9F125F65CB600C7676A /* Custom Views */,
 				360CA9EB25F65C1000C7676A /* Persistent Data */,
 				36C7A3E6264309FA00F69FA9 /* LocalNotificationController.swift */,
+				362C3569265965910062C775 /* LocalNotificationControllerProtocol.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -654,6 +661,22 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		3630647F2659673D00989A4F /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				363064802659674900989A4F /* Classes */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		363064802659674900989A4F /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				363064812659675600989A4F /* NotificationsPresenterTestCase.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		364A9279256BE8EA00F84985 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
@@ -665,6 +688,7 @@
 				36C1F6E8261E003700224846 /* AwardsDetail */,
 				3657BFD12625C47000C9B7AA /* Settings */,
 				36F284E5262741DB00FBC0F1 /* SettingsDetail */,
+				3630647F2659673D00989A4F /* Notifications */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -874,6 +898,7 @@
 			isa = PBXGroup;
 			children = (
 				36406024261208D000C00117 /* MockUserDefaultsController.swift */,
+				36306483265968D200989A4F /* MockLocalNotificationsController.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1068,6 +1093,7 @@
 				0A2B8B732454D8C700D9E8E7 /* TodayPresenterProtocol.swift in Sources */,
 				36A0A912261B46CE00F1BE8B /* AwardsDetailView.swift in Sources */,
 				3680E0CF24B3C8CC009E9DB8 /* GradientBarView.swift in Sources */,
+				362C356A265965910062C775 /* LocalNotificationControllerProtocol.swift in Sources */,
 				3677D436260630B20086E89A /* DrinksLauncher.swift in Sources */,
 				36A1FE2426441AF20048FB72 /* NotificationsTableViewCell.swift in Sources */,
 				0A8BEA912455D45A00AA9880 /* SettingsPresenter.swift in Sources */,
@@ -1182,6 +1208,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				36830E6E2612005900E55C7A /* OnboardingPagesPresenterTestCase.swift in Sources */,
+				363064822659675600989A4F /* NotificationsPresenterTestCase.swift in Sources */,
 				3657BFD82625C4EE00C9B7AA /* SettingsPresenterTestCase.swift in Sources */,
 				3605E3F42600E14B00FFE3C2 /* TrendsScreenBuilderTestCase.swift in Sources */,
 				36406025261208D000C00117 /* MockUserDefaultsController.swift in Sources */,
@@ -1194,6 +1221,7 @@
 				36905775261DE267001FE2C6 /* AwardsScreenBuilderTestCase.swift in Sources */,
 				36F284E7262741ED00FBC0F1 /* SettingsDetailScreenBuilderTestCase.swift in Sources */,
 				3605E3F92600E22400FFE3C2 /* TrendsPresenterTestCase.swift in Sources */,
+				36306484265968D200989A4F /* MockLocalNotificationsController.swift in Sources */,
 				3690577A261DE2A8001FE2C6 /* AwardsPresenterTestCase.swift in Sources */,
 				36F284EC2627424200FBC0F1 /* SettingsDetailPresenterTestCase.swift in Sources */,
 				3657BFD32625C49500C9B7AA /* SettingsScreenBuilderTestCase.swift in Sources */,

@@ -1,7 +1,7 @@
 import Foundation
 import UserNotifications
 
-class LocalNotificationController {
+class LocalNotificationController: LocalNotificationControllerProtocol {
 
     var notifications = [Notification]()
 

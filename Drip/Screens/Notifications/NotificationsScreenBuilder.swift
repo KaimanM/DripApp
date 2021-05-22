@@ -12,6 +12,7 @@ final class NotificationsScreenBuilder: ScreenBuilder {
         let view = NotificationsView()
         view.presenter = NotificationsPresenter(view: view)
         view.userDefaultsController = userDefaultsController
+        view.notificationController = LocalNotificationController()
         return view
     }
 }

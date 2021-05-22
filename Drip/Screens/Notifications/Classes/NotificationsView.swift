@@ -3,6 +3,7 @@ import UIKit
 class NotificationsView: UIViewController, NotificationsViewProtocol {
     var presenter: NotificationsPresenterProtocol!
     var userDefaultsController: UserDefaultsControllerProtocol!
+    var notificationController: LocalNotificationControllerProtocol!
 
     let tableView: UITableView = {
         let tableView = UITableView()
