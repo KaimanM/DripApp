@@ -28,7 +28,7 @@ class NotificationDetailPresenter: NotificationDetailPresenterProtocol {
         }
     }
 
-    // MARK: -  Updating Notification
+    // MARK: - Updating Notification -
     func updateBody(body: String) {
         view?.notification.body = body
     }
@@ -45,7 +45,7 @@ class NotificationDetailPresenter: NotificationDetailPresenterProtocol {
         print("sound enabled \(enabled)")
     }
     
-    // MARK: - Table View
+    // MARK: - Table View -
     func numberOfRowsInSection() -> Int {
         return options.count
     }
