@@ -238,6 +238,7 @@ class NotificationsPresenterTestCase: XCTestCase {
         // then
         XCTAssertFalse(self.mockedView.didSetToggleStatus)
         XCTAssertFalse(self.mockedUserDefaultsController.enabledNotifications)
+        XCTAssertTrue(self.mockedView.didShowSettingsNotificationDialogue)
     }
 
     func test_whenOnSwitchToggleCalledWithFalse_thenCallsCorrectFunctions() {

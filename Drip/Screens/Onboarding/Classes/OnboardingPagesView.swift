@@ -3,6 +3,7 @@ import UIKit
 final class OnboardingPagesView: UIViewController, OnboardingPagesViewProtocol {
     var presenter: OnboardingPagesPresenterProtocol!
     var userDefaultsController: UserDefaultsControllerProtocol!
+    var notificationController: LocalNotificationControllerProtocol!
 
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -42,6 +43,41 @@ final class OnboardingPagesView: UIViewController, OnboardingPagesViewProtocol {
     func setupSubviews() {
         view.addSubview(collectionView)
         collectionView.fillSuperViewSafely()
+    }
+
+    func setToggleStatus(isOn: Bool) {
+        let indexPath = IndexPath(item: 3, section: 0)
+        DispatchQueue.main.async {
+            if let cell = self.collectionView.cellForItem(at: indexPath) as? OnboardingPage4Cell {
+                cell.toggle.isOn = isOn
+                print("setting toggle \(isOn)")
+            }
+        }
+    }
+
+    func showSettingsNotificationDialogue() {
+        DispatchQueue.main.async {
+            let message = "Please enable notifications in System Settings if you want to receive reminders."
+            let alertContoller = UIAlertController(title: "Enable Notifications",
+                                                   message: message,
+                                                   preferredStyle: .alert)
+
+            let settingsAction = UIAlertAction(title: "Open Settings", style: .default) { _ in
+                if let bundleIdentifier = Bundle.main.bundleIdentifier, let appSettings =
+                    URL(string: UIApplication.openSettingsURLString + bundleIdentifier) {
+                    if UIApplication.shared.canOpenURL(appSettings) {
+                        UIApplication.shared.open(appSettings)
+                    }
+                }
+            }
+
+            let cancelAction = UIAlertAction(title: "Close", style: .cancel, handler: nil)
+
+            alertContoller.addAction(cancelAction)
+            alertContoller.addAction(settingsAction)
+
+            self.present(alertContoller, animated: true)
+        }
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -157,6 +193,10 @@ extension OnboardingPagesView: OnboardingPage4CellDelegate {
         tabBarViewController.modalPresentationStyle = .fullScreen
         presenter.didCompleteOnboarding()
         present(tabBarViewController, animated: true, completion: nil)
+    }
+
+    func toggleDidChange(enabled: Bool) {
+        presenter.onSwitchToggle(isOn: enabled)
     }
 }
 

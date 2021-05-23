@@ -44,7 +44,7 @@ class NotificationDetailPresenter: NotificationDetailPresenterProtocol {
         view?.notification.sound = enabled
         print("sound enabled \(enabled)")
     }
-    
+
     // MARK: - Table View -
     func numberOfRowsInSection() -> Int {
         return options.count

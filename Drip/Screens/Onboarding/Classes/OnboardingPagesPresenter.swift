@@ -83,5 +83,45 @@ final class OnboardingPagesPresenter: OnboardingPagesPresenterProtocol {
     func didCompleteOnboarding() {
         guard let userDefaults = view?.userDefaultsController else { return }
         userDefaults.completedOnboarding = true
+        view?.notificationController.checkAuthStatus(completion: { status in
+            if status == .authorized || status == .provisional {
+                self.view?.notificationController.schedule(completion: nil)
+            }
+        })
+    }
+
+    func onSwitchToggle(isOn: Bool) {
+        switch isOn {
+        case true:
+            view?.notificationController.checkAuthStatus(completion: { status in
+                    switch status {
+                    case .authorized, .provisional:
+                        self.view?.notificationController.setupDefaultNotifications()
+                        self.view?.setToggleStatus(isOn: true)
+                        self.view?.userDefaultsController.enabledNotifications = true
+                    case .notDetermined:
+                        self.view?.notificationController.requestAuth(completion: { granted in
+                            switch granted {
+                            case true:
+                                self.view?.notificationController.setupDefaultNotifications()
+                                self.view?.setToggleStatus(isOn: true)
+                                self.view?.userDefaultsController.enabledNotifications = true
+                            case false:
+                                self.view?.showSettingsNotificationDialogue()
+                                self.view?.setToggleStatus(isOn: false)
+                                self.view?.userDefaultsController.enabledNotifications = false
+                            }
+                        })
+                    default:
+                        self.view?.showSettingsNotificationDialogue()
+                        self.view?.setToggleStatus(isOn: false)
+                        self.view?.userDefaultsController.enabledNotifications = false
+                    }
+            })
+        case false:
+            view?.notificationController.removeAllPendingNotifications()
+            view?.setToggleStatus(isOn: false)
+            self.view?.userDefaultsController.enabledNotifications = false
+        }
     }
 }
