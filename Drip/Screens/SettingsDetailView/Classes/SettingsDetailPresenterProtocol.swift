@@ -3,7 +3,6 @@ import Foundation
 protocol SettingsDetailPresenterProtocol: AnyObject {
     var view: SettingsDetailViewProtocol? { get }
     func onViewDidLoad()
-    func onViewDidAppear()
 
     func updateGoalValue(newGoal: Double)
     func saveButtonTapped()

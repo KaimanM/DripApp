@@ -37,8 +37,6 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
         setupInfoViews()
         progressLabel.font = UIFont.SFProRounded(ofSize: 32, fontWeight: .regular)
         drinksLauncher.delegate = self
-//        let notificationController = LocalNotificationController()
-//        notificationController.removeAllPendingNotifications()
     }
 
     override func viewDidAppear(_ animated: Bool) {

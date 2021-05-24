@@ -4,7 +4,6 @@ import UserNotifications
 class NotificationsPresenter: NotificationsPresenterProtocol {
     var view: NotificationsViewProtocol?
 
-//    let notificationController = LocalNotificationController()
     var pendingNotifCount = 0
 
     init(view: NotificationsViewProtocol) {

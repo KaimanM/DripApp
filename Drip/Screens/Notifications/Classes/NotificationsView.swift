@@ -8,7 +8,6 @@ class NotificationsView: UIViewController, NotificationsViewProtocol {
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .black
-//        tableView.contentInset.bottom = 5
         tableView.contentInset.top = 5 // Removes padding caused by grouped style
         return tableView
     }()

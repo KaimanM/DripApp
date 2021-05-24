@@ -96,11 +96,6 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
         }
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        presenter.onViewDidAppear()
-    }
-
     func updateTitle(title: String) {
         self.title = title
     }

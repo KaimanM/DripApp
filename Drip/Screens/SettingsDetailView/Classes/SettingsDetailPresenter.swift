@@ -36,9 +36,6 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
         setupView()
     }
 
-    func onViewDidAppear() {
-    }
-
     func setupView() {
         switch view?.settingsType {
         case .goal:

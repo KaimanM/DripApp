@@ -42,7 +42,6 @@ class NotificationDetailPresenter: NotificationDetailPresenterProtocol {
 
     func enableSound(enabled: Bool) {
         view?.notification.sound = enabled
-        print("sound enabled \(enabled)")
     }
 
     // MARK: - Table View -

@@ -26,38 +26,10 @@ final class SettingsView: UIViewController, SettingsViewProtocol, PersistentData
         tableView.fillSuperView()
 
         tableView.separatorColor = UIColor.white.withAlphaComponent(0.2)
-
-//        navigationItem.backBarButtonItem = UIBarButtonItem(
-//            title: "SaveXD", style: .plain, target: nil, action: nil)
-
     }
 
     override func viewDidAppear(_ animated: Bool) {
         presenter.onViewDidAppear()
-//        setupNotifs()
-    }
-
-    func setupNotifs() {
-        let notificationController = LocalNotificationController()
-        notificationController.removeAllPendingNotifications()
-        notificationController.notifications = [
-            Notification(id: "3", title: "Let's stay hydrated!",
-                         body: "This is your daily reminder to keep at it!",
-                         timeStamp: DateComponents(calendar: Calendar.current,
-                                                   hour: 20, minute: 12),
-                         sound: true),
-            Notification(id: "3", title: "Let's stay hydrated!",
-                         body: "This is your daily reminder to keep at it!",
-                         timeStamp: DateComponents(calendar: Calendar.current,
-                                                   hour: 20, minute: 12),
-                         sound: true),
-            Notification(id: "3", title: "Let's stay hydrated!",
-                         body: "This is your daily reminder to keep at it!",
-                         timeStamp: DateComponents(calendar: Calendar.current,
-                                                   hour: 20, minute: 12),
-                         sound: true)
-        ]
-        notificationController.schedule()
     }
 
     func presentView(_ view: UIViewController) {
