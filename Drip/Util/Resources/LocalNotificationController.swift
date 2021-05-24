@@ -86,7 +86,7 @@ class LocalNotificationController: LocalNotificationControllerProtocol {
                 self.center.add(request, withCompletionHandler: { error in
                     group.leave()
                     guard error == nil else { return }
-                    print("Notification scheduled! ID = \(notification.id)")
+//                    print("Notification scheduled! ID = \(notification.id)")
                 })
             }
 
@@ -94,7 +94,6 @@ class LocalNotificationController: LocalNotificationControllerProtocol {
         }
 
         let completionOperation = BlockOperation {
-            print("finito")
             if let completion = completion { completion() }
         }
 

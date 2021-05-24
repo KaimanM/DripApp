@@ -282,7 +282,6 @@ class NotificationsView: UIViewController, NotificationsViewProtocol {
 
 extension NotificationsView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("is being called")
         return presenter.numberOfRowsInSection()
     }
 
@@ -310,7 +309,7 @@ extension NotificationsView: UIPickerViewDelegate, UIPickerViewDataSource {
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        25
+        10 // this is the number of allowed max reminders
     }
 
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int,

@@ -50,7 +50,6 @@ final class OnboardingPagesView: UIViewController, OnboardingPagesViewProtocol {
         DispatchQueue.main.async {
             if let cell = self.collectionView.cellForItem(at: indexPath) as? OnboardingPage4Cell {
                 cell.toggle.isOn = isOn
-                print("setting toggle \(isOn)")
             }
         }
     }
