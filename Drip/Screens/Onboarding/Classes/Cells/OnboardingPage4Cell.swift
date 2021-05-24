@@ -1,9 +1,10 @@
 import UIKit
 
-protocol OnboardingPage4CellDelegate: class {
+protocol OnboardingPage4CellDelegate: AnyObject {
     func didTapPage4Button()
     func drinkForCellAt(index: Int) -> (imageName: String, volume: Double)
     func showDrinksForIndex(index: Int)
+    func toggleDidChange(enabled: Bool)
 }
 
 class OnboardingPage4Cell: UICollectionViewCell {
@@ -39,11 +40,31 @@ class OnboardingPage4Cell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         label.textColor = .whiteText
-        label.text = "Finally, pick your favourites!"
+        label.text = "Reminder Notifications?"
         return label
     }()
 
     let body1Label: UILabel = {
+        let label = UILabel()
+        label.textColor = .lightGray
+        label.font = UIFont.systemFont(ofSize: 15, weight: .light)
+        label.text = """
+                    Enabling this allows us to pop \
+                    you a reminder every now and then!
+                    """
+        label.numberOfLines = 0
+        return label
+    }()
+
+    let heading2Label: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        label.textColor = .whiteText
+        label.text = "Finally, pick your favourites!"
+        return label
+    }()
+
+    let body2Label: UILabel = {
         let label = UILabel()
         label.textColor = .lightGray
         label.font = UIFont.systemFont(ofSize: 15, weight: .light)
@@ -60,6 +81,21 @@ class OnboardingPage4Cell: UICollectionViewCell {
         layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return collectionView
+    }()
+
+    let toggle: UISwitch = {
+        let toggle = UISwitch()
+        toggle.onTintColor = .dripMerged
+        toggle.isOn = false
+        return toggle
+    }()
+
+    let toggleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .whiteText
+        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.text = "Enable Reminders"
+        return label
     }()
 
     let cellId = "cellId"
@@ -83,6 +119,7 @@ class OnboardingPage4Cell: UICollectionViewCell {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(DrinksCell.self, forCellWithReuseIdentifier: cellId)
+        toggle.addTarget(self, action: #selector(toggleDidChange), for: .valueChanged)
         populateStackView()
     }
 
@@ -112,16 +149,20 @@ class OnboardingPage4Cell: UICollectionViewCell {
         spacer2.equalHeightTo(spacer1, multiplier: 0.5)
         spacer1.equalHeightTo(spacer3, multiplier: 0.6)
 
-        contentStackView.anchor(size: .init(width: contentView.frame.width, height: 370))
+        contentStackView.anchor(size: .init(width: contentView.frame.width, height: 420))
         populateContentStackView()
     }
 
+    // swiftlint:disable:next function_body_length
     func populateContentStackView() {
-        let spacer1 = UIView(), spacer2 = UIView(), spacer3 = UIView(),
-            topContainerView = UIView(), collectionViewContainer = UIView()
+        let spacer1 = UIView(), spacer2 = UIView(), spacer3 = UIView(), spacer4 = UIView(),
+            topContainerView = UIView(), bottomContainerView = UIView(), collectionViewContainer = UIView()
 
-        let topSubviews = [heading1Label, body1Label]
+        let topSubviews = [heading1Label, body1Label, toggle, toggleLabel]
         topSubviews.forEach({topContainerView.addSubview($0)})
+
+        let bottomSubviews = [heading2Label, body2Label]
+        bottomSubviews.forEach({bottomContainerView.addSubview($0)})
 
         heading1Label.anchor(top: topContainerView.topAnchor,
                              leading: topContainerView.leadingAnchor,
@@ -129,25 +170,45 @@ class OnboardingPage4Cell: UICollectionViewCell {
                              padding: .init(top: 0, left: 35, bottom: 0, right: 35))
         body1Label.anchor(top: heading1Label.bottomAnchor,
                              leading: topContainerView.leadingAnchor,
-                             bottom: topContainerView.bottomAnchor,
                              trailing: topContainerView.trailingAnchor,
+                             padding: .init(top: 5, left: 35, bottom: 0, right: 35))
+
+        toggle.anchor(top: body1Label.bottomAnchor,
+                      bottom: topContainerView.bottomAnchor,
+                      trailing: topContainerView.trailingAnchor,
+                      padding: .init(top: 5, left: 0, bottom: 0, right: 45))
+
+        toggleLabel.anchor(leading: topContainerView.leadingAnchor,
+                           trailing: toggle.leadingAnchor,
+                           padding: .init(top: 0, left: 35, bottom: 0, right: 0))
+        toggleLabel.centerYAnchor.constraint(equalTo: toggle.centerYAnchor).isActive = true
+
+        heading2Label.anchor(top: bottomContainerView.topAnchor,
+                             leading: bottomContainerView.leadingAnchor,
+                             trailing: bottomContainerView.trailingAnchor,
+                             padding: .init(top: 10, left: 35, bottom: 0, right: 35))
+        body2Label.anchor(top: heading2Label.bottomAnchor,
+                             leading: bottomContainerView.leadingAnchor,
+                             bottom: bottomContainerView.bottomAnchor,
+                             trailing: bottomContainerView.trailingAnchor,
                              padding: .init(top: 5, left: 35, bottom: 0, right: 35))
 
         collectionViewContainer.addSubview(collectionView)
 
         collectionView.anchor(top: collectionViewContainer.topAnchor,
-                              leading: nil,
                               bottom: collectionViewContainer.bottomAnchor,
                               padding: .init(top: 0, left: 0, bottom: 0, right: 0),
-                              size: .init(width: 250, height: 250))
+                              size: .init(width: 225, height: 225))
         collectionView.centerHorizontallyInSuperview()
 
-        let arrangedSubviews = [spacer1, topContainerView, spacer2, collectionViewContainer, spacer3]
+        let arrangedSubviews = [spacer1, topContainerView, spacer2, bottomContainerView, spacer3,
+                                collectionViewContainer, spacer4]
         arrangedSubviews.forEach({contentStackView.addArrangedSubview($0)})
 
         // constraints so content is just above offcenter in screen
         spacer1.equalHeightTo(spacer2, multiplier: 0.45)
-        spacer3.equalHeightTo(spacer2, multiplier: 0.45)
+        spacer4.equalHeightTo(spacer2, multiplier: 0.45)
+        spacer3.equalHeightTo(spacer2)
     }
 
     required init?(coder: NSCoder) {
@@ -156,6 +217,10 @@ class OnboardingPage4Cell: UICollectionViewCell {
 
     @objc func continueButtonAction(sender: UIButton!) {
         delegate?.didTapPage4Button()
+    }
+
+    @objc func toggleDidChange(_ sender: UISwitch) {
+        delegate?.toggleDidChange(enabled: sender.isOn)
     }
 
 }

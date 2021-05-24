@@ -1,6 +1,6 @@
 import UIKit
 
-protocol DrinksLauncherDelegate: class {
+protocol DrinksLauncherDelegate: AnyObject {
     func didAddDrink(beverage: Beverage, volume: Double)
 }
 

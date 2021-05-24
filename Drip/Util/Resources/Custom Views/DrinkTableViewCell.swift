@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol DrinkTableViewCellDelegate: class {
+protocol DrinkTableViewCellDelegate: AnyObject {
     func didTapButton(_ sender: UIButton)
 }
 

@@ -4,19 +4,32 @@ import CoreData
 @testable import Drip
 
 final class MockOnboardingPagesView: OnboardingPagesViewProtocol {
-    var presenter: OnboardingPagesPresenterProtocol!
 
+    var notificationController: LocalNotificationControllerProtocol!
+    var presenter: OnboardingPagesPresenterProtocol!
     var userDefaultsController: UserDefaultsControllerProtocol!
+
+    private(set) var didSetToggleStatus: Bool = false
+    func setToggleStatus(isOn: Bool) {
+        didSetToggleStatus = isOn
+    }
+
+    private(set) var didShowSettingsNotificationDialogue: Bool = false
+    func showSettingsNotificationDialogue() {
+        didShowSettingsNotificationDialogue = true
+    }
 }
 
 class OnboardingPagesPresenterTestCase: XCTestCase {
     private var sut: OnboardingPagesPresenter!
     private var mockedView = MockOnboardingPagesView()
     private var mockedUserDefaultsController = MockUserDefaultsController()
+    private var mockedNotificationController = MockLocalNotificationController()
 
     override func setUp() {
         super.setUp()
         mockedView.userDefaultsController = mockedUserDefaultsController
+        mockedView.notificationController = mockedNotificationController
         sut = OnboardingPagesPresenter(view: mockedView)
     }
 
@@ -196,6 +209,89 @@ class OnboardingPagesPresenterTestCase: XCTestCase {
 
         // then
         XCTAssertEqual(mockedUserDefaultsController.completedOnboarding, true)
+    }
+
+    // MARK: - onSwitchToggle -
+
+    func test_givenAuthorisedAuthStatus_whenOnSwitchToggleCalledWithTrue_thenCallsCorrectFunctions() {
+        // given
+        mockedNotificationController.authStatus = .authorized
+        let expectation = self.expectation(description: "switch toggle test")
+
+        DispatchQueue.main.async {
+            // when
+            self.sut.onSwitchToggle(isOn: true)
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 5, handler: nil)
+        // then
+        XCTAssertTrue(self.mockedView.didSetToggleStatus)
+        XCTAssertTrue(self.mockedUserDefaultsController.enabledNotifications)
+    }
+
+    func test_givenProvisionalAuthStatus_whenOnSwitchToggleCalledWithTrue_thenCallsCorrectFunctions() {
+        // given
+        mockedNotificationController.authStatus = .provisional
+        let expectation = self.expectation(description: "switch toggle test")
+
+        DispatchQueue.main.async {
+            // when
+            self.sut.onSwitchToggle(isOn: true)
+            expectation.fulfill()
+
+        }
+
+        waitForExpectations(timeout: 5, handler: nil)
+        // then
+        XCTAssertTrue(self.mockedView.didSetToggleStatus)
+        XCTAssertTrue(self.mockedUserDefaultsController.enabledNotifications)
+    }
+
+    func test_givenNotDeterminedAuthStatusAndGrantedTrue_whenOnSwitchToggleCalledWithTrue_thenCallsCorrectFunctions() {
+        // given
+        mockedNotificationController.authStatus = .notDetermined
+        mockedNotificationController.grantedAuth = true
+        let expectation = self.expectation(description: "switch toggle test")
+
+        DispatchQueue.main.async {
+            // when
+            self.sut.onSwitchToggle(isOn: true)
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 5, handler: nil)
+        // then
+        XCTAssertTrue(self.mockedView.didSetToggleStatus)
+        XCTAssertTrue(self.mockedUserDefaultsController.enabledNotifications)
+    }
+
+    func test_givenNotDeterminedAuthStatusAndGrantedFalse_whenOnSwitchToggleCalledWithTrue_thenCallsCorrectFunctions() {
+        // given
+        mockedNotificationController.authStatus = .notDetermined
+        mockedNotificationController.grantedAuth = false
+        let expectation = self.expectation(description: "switch toggle test")
+
+        DispatchQueue.main.async {
+            // when
+            self.sut.onSwitchToggle(isOn: true)
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 5, handler: nil)
+        // then
+        XCTAssertFalse(self.mockedView.didSetToggleStatus)
+        XCTAssertFalse(self.mockedUserDefaultsController.enabledNotifications)
+        XCTAssertTrue(self.mockedView.didShowSettingsNotificationDialogue)
+    }
+
+    func test_whenOnSwitchToggleCalledWithFalse_thenCallsCorrectFunctions() {
+        // when
+        sut.onSwitchToggle(isOn: false)
+
+        // then
+        XCTAssertFalse(mockedView.didSetToggleStatus)
+        XCTAssertFalse(mockedUserDefaultsController.enabledNotifications)
     }
 
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-protocol UserDefaultsControllerProtocol: class {
+protocol UserDefaultsControllerProtocol: AnyObject {
     var favBeverage1: Beverage { get set }
     var favBeverage2: Beverage { get set }
     var favBeverage3: Beverage { get set }
@@ -17,4 +17,5 @@ protocol UserDefaultsControllerProtocol: class {
 
     var completedOnboarding: Bool { get set }
     var useDrinkCoefficients: Bool { get set }
+    var enabledNotifications: Bool { get set }
 }

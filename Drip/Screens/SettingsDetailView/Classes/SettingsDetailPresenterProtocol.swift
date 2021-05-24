@@ -1,6 +1,6 @@
 import Foundation
 
-protocol SettingsDetailPresenterProtocol: class {
+protocol SettingsDetailPresenterProtocol: AnyObject {
     var view: SettingsDetailViewProtocol? { get }
     func onViewDidLoad()
 

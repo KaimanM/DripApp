@@ -26,7 +26,6 @@ final class SettingsView: UIViewController, SettingsViewProtocol, PersistentData
         tableView.fillSuperView()
 
         tableView.separatorColor = UIColor.white.withAlphaComponent(0.2)
-
     }
 
     override func viewDidAppear(_ animated: Bool) {

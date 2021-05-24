@@ -1,6 +1,6 @@
 import UIKit
 
-protocol AwardsViewProtocol: class {
+protocol AwardsViewProtocol: AnyObject {
     var presenter: AwardsPresenterProtocol! { get set }
     var coreDataController: CoreDataControllerProtocol! { get set }
 

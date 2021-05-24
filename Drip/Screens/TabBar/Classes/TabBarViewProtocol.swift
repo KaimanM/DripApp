@@ -1,6 +1,6 @@
 import UIKit
 
-protocol TabBarViewProtocol: class {
+protocol TabBarViewProtocol: AnyObject {
     var presenter: TabBarPresenterProtocol! { get set }
     var vcs: [UIViewController] { get set }
 

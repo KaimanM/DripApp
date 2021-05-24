@@ -1,4 +1,4 @@
-protocol TodayPresenterProtocol: class {
+protocol TodayPresenterProtocol: AnyObject {
     var view: TodayViewProtocol? { get }
 
     func onViewDidAppear()

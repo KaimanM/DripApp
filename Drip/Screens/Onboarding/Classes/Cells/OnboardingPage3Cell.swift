@@ -1,6 +1,6 @@
 import UIKit
 
-protocol OnboardingPage3CellDelegate: class {
+protocol OnboardingPage3CellDelegate: AnyObject {
     func didTapPage3Button(name: String, goal: Double)
     func invalidName()
 }

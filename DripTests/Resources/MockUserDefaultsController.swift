@@ -1,6 +1,7 @@
 @testable import Drip
 
 final class MockUserDefaultsController: UserDefaultsControllerProtocol {
+
     var favBeverage1: Beverage = Beverage(name: "MockDrink1",
                                           imageName: "MD1.pdf",
                                           coefficient: 1.0)
@@ -32,4 +33,6 @@ final class MockUserDefaultsController: UserDefaultsControllerProtocol {
     var completedOnboarding: Bool = false
 
     var useDrinkCoefficients: Bool = false
+
+    var enabledNotifications: Bool = true
 }

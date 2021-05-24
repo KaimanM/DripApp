@@ -32,6 +32,8 @@ class UserDefaultsController: UserDefaultsControllerProtocol {
 
     let useDrinkCoefficientsKey = "useDrinkCoefficients"
 
+    let enabledNotificationsKey = "enabledNotifications"
+
     init() {
         defaults.register(defaults: [favDrink1VolumeKey : 500,
                                      favDrink2VolumeKey : 250,
@@ -41,6 +43,7 @@ class UserDefaultsController: UserDefaultsControllerProtocol {
                                      nameKey : "Buddy",
                                      completedOnboardingKey : false,
                                      useDrinkCoefficientsKey : true,
+                                     enabledNotificationsKey : false,
                                      favBeverage1Key : encodeBeverage(beverages[0]),
                                      favBeverage2Key : encodeBeverage(beverages[1]),
                                      favBeverage3Key : encodeBeverage(beverages[2]),
@@ -146,6 +149,14 @@ class UserDefaultsController: UserDefaultsControllerProtocol {
     }() {
         didSet {
             defaults.set(useDrinkCoefficients, forKey: useDrinkCoefficientsKey)
+        }
+    }
+
+    lazy var enabledNotifications: Bool = {
+        return defaults.bool(forKey: enabledNotificationsKey)
+    }() {
+        didSet {
+            defaults.set(enabledNotifications, forKey: enabledNotificationsKey)
         }
     }
 

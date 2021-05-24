@@ -53,6 +53,8 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
         return collectionView
     }()
 
+    let scrollView = UIScrollView()
+
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.backgroundColor = .black
@@ -70,6 +72,8 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
     let cellId = "cellId"
 
     lazy var drinksLauncher = DrinksLauncher(userDefaults: userDefaultsController, isOnboarding: true)
+
+    var tableViewHeight: NSLayoutConstraint?
 
     override func viewDidLoad() {
         self.navigationItem.largeTitleDisplayMode = .never
@@ -191,11 +195,6 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.isScrollEnabled = false
 
-        let scrollView: UIScrollView = {
-            let scrollView = UIScrollView()
-            return scrollView
-        }()
-
         let childStackView: UIStackView = {
             let stackView = UIStackView()
             stackView.axis = .vertical
@@ -235,10 +234,14 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
         headingLabel.text = headingText
         bodyLabel.text = bodyText
 
-        let tableViewHeight = (presenter.numberOfRowsInSection()*90)+10
+        tableViewHeight = NSLayoutConstraint(item: tableView,
+                                             attribute: .height,
+                                             relatedBy: .equal,
+                                             toItem: nil, attribute: .notAnAttribute,
+                                             multiplier: 1,
+                                             constant: CGFloat((presenter.numberOfRowsInSection()*90))+10)
+        tableView.addConstraint(tableViewHeight!)
 
-        tableView.anchor(size: .init(width: 0,
-                                     height: tableViewHeight))
         headingLabel.anchor(top: topContainerView.topAnchor,
                             leading: topContainerView.leadingAnchor,
                             trailing: topContainerView.trailingAnchor,

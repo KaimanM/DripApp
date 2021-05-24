@@ -1,6 +1,6 @@
 import UIKit
 
-protocol OnboardingPage2CellDelegate: class {
+protocol OnboardingPage2CellDelegate: AnyObject {
     func didTapPage2Button()
 }
 

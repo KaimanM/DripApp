@@ -1,4 +1,4 @@
-protocol AwardsPresenterProtocol: class {
+protocol AwardsPresenterProtocol: AnyObject {
     var view: AwardsViewProtocol? { get }
 
     func onViewDidAppear()

@@ -1,6 +1,6 @@
 import UIKit
 
-protocol TodayViewProtocol: class {
+protocol TodayViewProtocol: AnyObject {
     var presenter: TodayPresenterProtocol! { get set }
     var coreDataController: CoreDataControllerProtocol! { get set }
     var userDefaultsController: UserDefaultsControllerProtocol! { get set }
