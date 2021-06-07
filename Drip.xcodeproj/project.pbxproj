@@ -121,6 +121,7 @@
 		368BAE2A25DC7A4F00D799F2 /* CustomFSCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368BAE2925DC7A4F00D799F2 /* CustomFSCell.swift */; };
 		36905775261DE267001FE2C6 /* AwardsScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36905774261DE267001FE2C6 /* AwardsScreenBuilderTestCase.swift */; };
 		3690577A261DE2A8001FE2C6 /* AwardsPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36905779261DE2A8001FE2C6 /* AwardsPresenterTestCase.swift */; };
+		369D0E1726668D560020B204 /* WhatsNewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369D0E1626668D560020B204 /* WhatsNewView.swift */; };
 		36A0A912261B46CE00F1BE8B /* AwardsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A0A911261B46CE00F1BE8B /* AwardsDetailView.swift */; };
 		36A0A916261B4E7400F1BE8B /* LockedAwardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A0A915261B4E7400F1BE8B /* LockedAwardDataSource.swift */; };
 		36A0A91D261B557F00F1BE8B /* TenDrinksAwardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A0A91C261B557F00F1BE8B /* TenDrinksAwardDataSource.swift */; };
@@ -298,6 +299,7 @@
 		368BAE2925DC7A4F00D799F2 /* CustomFSCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFSCell.swift; sourceTree = "<group>"; };
 		36905774261DE267001FE2C6 /* AwardsScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsScreenBuilderTestCase.swift; sourceTree = "<group>"; };
 		36905779261DE2A8001FE2C6 /* AwardsPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsPresenterTestCase.swift; sourceTree = "<group>"; };
+		369D0E1626668D560020B204 /* WhatsNewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewView.swift; sourceTree = "<group>"; };
 		36A0A911261B46CE00F1BE8B /* AwardsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsDetailView.swift; sourceTree = "<group>"; };
 		36A0A915261B4E7400F1BE8B /* LockedAwardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockedAwardDataSource.swift; sourceTree = "<group>"; };
 		36A0A91C261B557F00F1BE8B /* TenDrinksAwardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenDrinksAwardDataSource.swift; sourceTree = "<group>"; };
@@ -494,6 +496,7 @@
 				36D28D2026497D38008D68CA /* NotificationDetailView */,
 				0A8BEA982455D53A00AA9880 /* Settings */,
 				364BB7FE2621CE8E009CAEE6 /* SettingsDetailView */,
+				369D0E1626668D560020B204 /* WhatsNewView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -1195,6 +1198,7 @@
 				36A0A937261B59B900F1BE8B /* NinetyDayStreakAwardDataSource.swift in Sources */,
 				0AD151152454EFDC00F45042 /* TrendsViewProtocol.swift in Sources */,
 				366DFC30260B8945009BEAC5 /* UserDefaultsController.swift in Sources */,
+				369D0E1726668D560020B204 /* WhatsNewView.swift in Sources */,
 				0ACB9853245468DC007BF01D /* HistoryPresenterProtocol.swift in Sources */,
 				362BF72C260DF1D40065183D /* OnboardingPage2Cell.swift in Sources */,
 				36877C2225F917E300918E04 /* TrendsHeaderView.swift in Sources */,

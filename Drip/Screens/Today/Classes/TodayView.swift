@@ -41,6 +41,27 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
 
     override func viewDidAppear(_ animated: Bool) {
         presenter.onViewDidAppear()
+
+        let whatsNewVC = WhatsNewController()
+
+        whatsNewVC.featureItems = [
+            WhatsNewItem(title: "What's New!",
+                        subtitle: "This menu you can see right now, to help you let you know what's new!",
+                        image: UIImage(systemName: "star")!
+            ),
+            WhatsNewItem(
+                title: "Reminder Notifications",
+                subtitle: "Drip now has the ability to send you helpful reminders throughout the day!",
+                image: UIImage(systemName: "bubble.left")!
+            ),
+            WhatsNewItem(
+                title: "Awards Update",
+                subtitle: "Drip now shows the name of all awards and sorts the awards based on what you've unlocked!",
+                image: UIImage(systemName: "crown")!
+            )
+        ]
+
+        present(whatsNewVC, animated: true)
     }
 
     override func viewWillAppear(_ animated: Bool) {
