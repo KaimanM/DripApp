@@ -51,6 +51,11 @@ class WhatsNewItemCell: UITableViewCell {
 
     }
 
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        selectionStyle = .none
+    }
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -5,9 +5,15 @@ class WhatsNewView: UIViewController, WhatsNewViewProtocol {
 
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "What's New?"
-        label.font = UIFont.systemFont(ofSize: 35, weight: .bold)
         label.textColor = .white
+
+        let attributedText = NSMutableAttributedString.init(string: "What's New?")
+        attributedText.addAttribute(NSAttributedString.Key.foregroundColor,
+                                    value: UIColor.dripMerged,
+                                    range: NSRange(0...5))
+        label.attributedText = attributedText
+
+        label.font = UIFont.systemFont(ofSize: 35, weight: .bold)
         return label
     }()
 
@@ -39,9 +45,8 @@ class WhatsNewView: UIViewController, WhatsNewViewProtocol {
     }
 
     func setupSubViews() {
-        view.addSubview(titleLabel)
-        view.addSubview(dismissButton)
-        view.addSubview(tableView)
+        [titleLabel, dismissButton, tableView].forEach({ view.addSubview($0) })
+
         titleLabel.anchor(top: view.topAnchor,
                           padding: .init(top: 80, left: 0, bottom: 0, right: 0))
         titleLabel.centerHorizontallyInSuperview()
