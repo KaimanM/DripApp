@@ -13,6 +13,7 @@ final class OnboardingPagesPresenter: OnboardingPagesPresenterProtocol {
     }
 
     func onViewDidLoad() {
+        setCurrentVersion()
     }
 
     func onViewWillAppear() {
@@ -78,6 +79,12 @@ final class OnboardingPagesPresenter: OnboardingPagesPresenterProtocol {
         guard let userDefaults = view?.userDefaultsController else { return }
         userDefaults.name = name
         userDefaults.drinkGoal = goal
+    }
+
+    func setCurrentVersion() {
+        guard let userDefaults = view?.userDefaultsController else { return }
+        userDefaults.currentVersion = Bundle.main.appVersion
+        print("setting current app verision")
     }
 
     func didCompleteOnboarding() {
