@@ -42,9 +42,7 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
     override func viewDidAppear(_ animated: Bool) {
         presenter.onViewDidAppear()
 
-        let whatsNewVC = WhatsNewController()
-
-        whatsNewVC.featureItems = [
+        let featureItems = [
             WhatsNewItem(title: "What's New!",
                         subtitle: "This menu you can see right now, to help you let you know what's new!",
                         image: UIImage(systemName: "star")!
@@ -60,6 +58,8 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
                 image: UIImage(systemName: "crown")!
             )
         ]
+
+        let whatsNewVC = WhatsNewScreenBuilder.init(featureItems: featureItems).build()
 
         present(whatsNewVC, animated: true)
     }
