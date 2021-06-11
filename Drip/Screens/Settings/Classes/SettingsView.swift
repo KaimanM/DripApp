@@ -53,6 +53,10 @@ final class SettingsView: UIViewController, SettingsViewProtocol, PersistentData
         UIApplication.shared.open(reviewUrl, options: [:], completionHandler: nil)
     }
 
+    func showWhatsNew() {
+        WhatsNewController().showWhatsNew(view: self)
+    }
+
     func showSafariWith(url: URL) {
         let config = SFSafariViewController.Configuration()
         config.entersReaderIfAvailable = true

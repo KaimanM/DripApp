@@ -13,6 +13,7 @@ final class SettingsPresenter: SettingsPresenterProtocol {
 
     let cellDataSection2: [SettingsCellData] = [
         SettingsCellData(title: "About", imageName: "at", backgroundColour: .systemBlue),
+        SettingsCellData(title: "What's New", imageName: "wand.and.stars", backgroundColour: .magenta),
         SettingsCellData(title: "Thanks to", imageName: "gift", backgroundColour: .systemIndigo),
         SettingsCellData(title: "Privacy Policy", imageName: "hand.raised", backgroundColour: .systemGreen),
         SettingsCellData(title: "Rate Drip", imageName: "heart.fill", backgroundColour: .systemRed)
@@ -72,12 +73,14 @@ final class SettingsPresenter: SettingsPresenterProtocol {
             view?.pushView(SettingsDetailScreenBuilder(type: .about,
                                                  userDefaultsController: userDefaultsController).build())
         case (1, 1):
+            view?.showWhatsNew()
+        case (1, 2):
             view?.pushView(SettingsDetailScreenBuilder(type: .attribution,
                                                  userDefaultsController: userDefaultsController).build())
-        case (1, 2):
+        case (1, 3):
             let privacyPolicyURL = URL(string: "https://dripmobile.app/privacy.html")!
             view?.showSafariWith(url: privacyPolicyURL)
-        case (1, 3):
+        case (1, 4):
             view?.showReviewPrompt()
         default:
             break

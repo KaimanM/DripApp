@@ -9,6 +9,7 @@ protocol SettingsViewProtocol: AnyObject {
     func updateTitle(title: String)
     func pushView(_ view: UIViewController)
     func showReviewPrompt()
+    func showWhatsNew()
 
     func changeNameTapped()
     func invalidName()
