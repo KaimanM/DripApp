@@ -84,7 +84,6 @@ final class OnboardingPagesPresenter: OnboardingPagesPresenterProtocol {
     func setCurrentVersion() {
         guard let userDefaults = view?.userDefaultsController else { return }
         userDefaults.currentVersion = Bundle.main.appVersion
-        print("setting current app verision")
     }
 
     func didCompleteOnboarding() {

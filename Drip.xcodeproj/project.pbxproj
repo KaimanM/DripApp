@@ -160,6 +160,8 @@
 		36E3F1EF2659BDB00051072C /* NotificationsScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E3F1EE2659BDB00051072C /* NotificationsScreenBuilderTestCase.swift */; };
 		36E3F1F22659C0600051072C /* NotificationDetailScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E3F1F12659C0600051072C /* NotificationDetailScreenBuilderTestCase.swift */; };
 		36E3F1F52659C1060051072C /* NotificationDetailPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E3F1F42659C1060051072C /* NotificationDetailPresenterTestCase.swift */; };
+		36E7412A2673B77300493F52 /* WhatsNewScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E741292673B77300493F52 /* WhatsNewScreenBuilderTestCase.swift */; };
+		36E7412D2673B7EA00493F52 /* WhatsNewPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E7412C2673B7EA00493F52 /* WhatsNewPresenterTestCase.swift */; };
 		36F284E7262741ED00FBC0F1 /* SettingsDetailScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F284E6262741ED00FBC0F1 /* SettingsDetailScreenBuilderTestCase.swift */; };
 		36F284EC2627424200FBC0F1 /* SettingsDetailPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F284EB2627424200FBC0F1 /* SettingsDetailPresenterTestCase.swift */; };
 /* End PBXBuildFile section */
@@ -343,6 +345,8 @@
 		36E3F1EE2659BDB00051072C /* NotificationsScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsScreenBuilderTestCase.swift; sourceTree = "<group>"; };
 		36E3F1F12659C0600051072C /* NotificationDetailScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDetailScreenBuilderTestCase.swift; sourceTree = "<group>"; };
 		36E3F1F42659C1060051072C /* NotificationDetailPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDetailPresenterTestCase.swift; sourceTree = "<group>"; };
+		36E741292673B77300493F52 /* WhatsNewScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewScreenBuilderTestCase.swift; sourceTree = "<group>"; };
+		36E7412C2673B7EA00493F52 /* WhatsNewPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewPresenterTestCase.swift; sourceTree = "<group>"; };
 		36F284E6262741ED00FBC0F1 /* SettingsDetailScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailScreenBuilderTestCase.swift; sourceTree = "<group>"; };
 		36F284EB2627424200FBC0F1 /* SettingsDetailPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailPresenterTestCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -734,6 +738,7 @@
 				36F284E5262741DB00FBC0F1 /* SettingsDetail */,
 				3630647F2659673D00989A4F /* Notifications */,
 				36E3F1F02659C0450051072C /* NotificationDetail */,
+				36E741282673B75E00493F52 /* WhatsNew */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -989,6 +994,23 @@
 			isa = PBXGroup;
 			children = (
 				36E3F1F42659C1060051072C /* NotificationDetailPresenterTestCase.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		36E741282673B75E00493F52 /* WhatsNew */ = {
+			isa = PBXGroup;
+			children = (
+				36E741292673B77300493F52 /* WhatsNewScreenBuilderTestCase.swift */,
+				36E7412B2673B7DC00493F52 /* Classes */,
+			);
+			path = WhatsNew;
+			sourceTree = "<group>";
+		};
+		36E7412B2673B7DC00493F52 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				36E7412C2673B7EA00493F52 /* WhatsNewPresenterTestCase.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1283,6 +1305,7 @@
 				3605E3F42600E14B00FFE3C2 /* TrendsScreenBuilderTestCase.swift in Sources */,
 				36406025261208D000C00117 /* MockUserDefaultsController.swift in Sources */,
 				364A927C256BE91400F84985 /* TodayScreenBuilderTestCase.swift in Sources */,
+				36E7412D2673B7EA00493F52 /* WhatsNewPresenterTestCase.swift in Sources */,
 				360CAA0225F69F9900C7676A /* HistoryScreenBuilderTestCase.swift in Sources */,
 				36830E692611FFF600E55C7A /* OnboardingScreenBuilderTestCase.swift in Sources */,
 				36C1F6EF261E007A00224846 /* AwardsDetailPresenterTestCase.swift in Sources */,
@@ -1291,6 +1314,7 @@
 				36E3F1F52659C1060051072C /* NotificationDetailPresenterTestCase.swift in Sources */,
 				36905775261DE267001FE2C6 /* AwardsScreenBuilderTestCase.swift in Sources */,
 				36F284E7262741ED00FBC0F1 /* SettingsDetailScreenBuilderTestCase.swift in Sources */,
+				36E7412A2673B77300493F52 /* WhatsNewScreenBuilderTestCase.swift in Sources */,
 				3605E3F92600E22400FFE3C2 /* TrendsPresenterTestCase.swift in Sources */,
 				36306484265968D200989A4F /* MockLocalNotificationsController.swift in Sources */,
 				3690577A261DE2A8001FE2C6 /* AwardsPresenterTestCase.swift in Sources */,

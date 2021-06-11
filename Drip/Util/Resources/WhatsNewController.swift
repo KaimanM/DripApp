@@ -3,7 +3,7 @@ import UIKit
 class WhatsNewController {
 
     private let featureItems = [
-        WhatsNewItem(title: "What's New!",
+        WhatsNewItem(title: "What's New?",
                     subtitle: "This menu you can see right now, to help you let you know what's new!",
                     image: UIImage(systemName: "star")!
         ),
@@ -22,11 +22,11 @@ class WhatsNewController {
     func showWhatsNewIfNeeded(view: UIViewController,
                               userDefaultsController: UserDefaultsControllerProtocol) {
 
-        let lastCurrentAppVersion = userDefaultsController.currentVersion
+        let lastSavedAppVersion = userDefaultsController.currentVersion
         let liveAppVersion = Bundle.main.appVersion
 
         // returns if live app version is the same or newer than lastCurrentAppVersion
-        guard liveAppVersion.compare(lastCurrentAppVersion, options: .numeric) == .orderedDescending else {
+        guard liveAppVersion.compare(lastSavedAppVersion, options: .numeric) == .orderedDescending else {
             return
         }
 

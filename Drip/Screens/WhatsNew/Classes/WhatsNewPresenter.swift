@@ -14,10 +14,10 @@ class WhatsNewPresenter: WhatsNewPresenterProtocol {
     }
 
     func cellForRowAt(row: Int) -> WhatsNewItem? {
-        if let view = view {
-            return view.featureItems[row]
-        } else {
+        guard let view = view,
+              !view.featureItems.isEmpty else {
             return nil
         }
+        return view.featureItems[row]
     }
 }
