@@ -360,7 +360,7 @@ class AwardsPresenterTestCase: XCTestCase {
         let data = sut.cellForRowAt(index: 0)
 
         // then
-        XCTAssertEqual(data.title, "???")
+        XCTAssertEqual(data.title, "A tenner!")
         XCTAssertEqual(data.imageName, "isLocked.pdf")
 
     }

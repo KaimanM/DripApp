@@ -4,7 +4,7 @@ class WhatsNewItemCell: UITableViewCell {
 
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Test"
+        label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         label.textColor = .whiteText
         return label
