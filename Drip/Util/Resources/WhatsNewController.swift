@@ -4,17 +4,21 @@ class WhatsNewController {
 
     private let featureItems = [
         WhatsNewItem(title: "What's New?",
-                    subtitle: "This menu you can see right now, to help you let you know what's new!",
-                    image: UIImage(systemName: "star")!
+                    subtitle: """
+                            On every update Drip will now show you What's New using this menu you're seeing right now!
+                            """,
+                    image: UIImage(systemName: "wand.and.stars")!
         ),
         WhatsNewItem(
             title: "Reminder Notifications",
             subtitle: "Drip now has the ability to send you helpful reminders throughout the day!",
-            image: UIImage(systemName: "bubble.left")!
+            image: UIImage(systemName: "clock.arrow.circlepath")!
         ),
         WhatsNewItem(
             title: "Awards Update",
-            subtitle: "Drip now shows the name of all awards and sorts the awards based on what you've unlocked!",
+            subtitle: """
+                Based on user feedback, Drip now shows the name of all awards to give you a hint on how to unlock them!
+                """,
             image: UIImage(systemName: "crown")!
         )
     ]
