@@ -35,4 +35,6 @@ final class MockUserDefaultsController: UserDefaultsControllerProtocol {
     var useDrinkCoefficients: Bool = false
 
     var enabledNotifications: Bool = true
+
+    var currentVersion: String = "1.0.0"
 }

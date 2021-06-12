@@ -33,6 +33,7 @@ final class OnboardingPagesView: UIViewController, OnboardingPagesViewProtocol {
         collectionView.register(OnboardingPage2Cell.self, forCellWithReuseIdentifier: page2CellId)
         collectionView.register(OnboardingPage3Cell.self, forCellWithReuseIdentifier: page3CellId)
         collectionView.register(OnboardingPage4Cell.self, forCellWithReuseIdentifier: page4CellId)
+        presenter.onViewDidLoad()
     }
 
     override func viewWillDisappear(_ animated: Bool) {

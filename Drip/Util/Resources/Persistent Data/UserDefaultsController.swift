@@ -34,6 +34,8 @@ class UserDefaultsController: UserDefaultsControllerProtocol {
 
     let enabledNotificationsKey = "enabledNotifications"
 
+    let currentVersionKey = "currentVersion"
+
     init() {
         defaults.register(defaults: [favDrink1VolumeKey : 500,
                                      favDrink2VolumeKey : 250,
@@ -47,7 +49,8 @@ class UserDefaultsController: UserDefaultsControllerProtocol {
                                      favBeverage1Key : encodeBeverage(beverages[0]),
                                      favBeverage2Key : encodeBeverage(beverages[1]),
                                      favBeverage3Key : encodeBeverage(beverages[2]),
-                                     favBeverage4Key : encodeBeverage(beverages[3])
+                                     favBeverage4Key : encodeBeverage(beverages[3]),
+                                     currentVersionKey : "1.0.0"
         ])
     }
 
@@ -92,49 +95,49 @@ class UserDefaultsController: UserDefaultsControllerProtocol {
     }
 
     lazy var favDrink1Volume: Double = {
-            return defaults.double(forKey: favDrink1VolumeKey)
-        }() {
-            didSet {
-                defaults.set(favDrink1Volume, forKey: favDrink1VolumeKey)
-            }
+        return defaults.double(forKey: favDrink1VolumeKey)
+    }() {
+        didSet {
+            defaults.set(favDrink1Volume, forKey: favDrink1VolumeKey)
         }
+    }
     lazy var favDrink2Volume: Double = {
-            return defaults.double(forKey: favDrink2VolumeKey)
-        }() {
-            didSet {
-                defaults.set(favDrink2Volume, forKey: favDrink2VolumeKey)
-            }
+        return defaults.double(forKey: favDrink2VolumeKey)
+    }() {
+        didSet {
+            defaults.set(favDrink2Volume, forKey: favDrink2VolumeKey)
         }
+    }
     lazy var favDrink3Volume: Double = {
-            return defaults.double(forKey: favDrink3VolumeKey)
-        }() {
-            didSet {
-                defaults.set(favDrink3Volume, forKey: favDrink3VolumeKey)
-            }
+        return defaults.double(forKey: favDrink3VolumeKey)
+    }() {
+        didSet {
+            defaults.set(favDrink3Volume, forKey: favDrink3VolumeKey)
         }
+    }
     lazy var favDrink4Volume: Double = {
-            return defaults.double(forKey: favDrink4VolumeKey)
-        }() {
-            didSet {
-                defaults.set(favDrink4Volume, forKey: favDrink4VolumeKey)
-            }
+        return defaults.double(forKey: favDrink4VolumeKey)
+    }() {
+        didSet {
+            defaults.set(favDrink4Volume, forKey: favDrink4VolumeKey)
         }
+    }
 
     lazy var drinkGoal: Double = {
-            return defaults.double(forKey: drinkGoalKey)
-        }() {
-            didSet {
-                defaults.set(drinkGoal, forKey: drinkGoalKey)
-            }
+        return defaults.double(forKey: drinkGoalKey)
+    }() {
+        didSet {
+            defaults.set(drinkGoal, forKey: drinkGoalKey)
         }
+    }
 
     lazy var name: String = {
-            return defaults.string(forKey: nameKey)!
-        }() {
-            didSet {
-                defaults.set(name, forKey: nameKey)
-            }
+        return defaults.string(forKey: nameKey)!
+    }() {
+        didSet {
+            defaults.set(name, forKey: nameKey)
         }
+    }
 
     lazy var completedOnboarding: Bool = {
         return defaults.bool(forKey: completedOnboardingKey)
@@ -157,6 +160,14 @@ class UserDefaultsController: UserDefaultsControllerProtocol {
     }() {
         didSet {
             defaults.set(enabledNotifications, forKey: enabledNotificationsKey)
+        }
+    }
+
+    lazy var currentVersion: String = {
+        return defaults.string(forKey: currentVersionKey)!
+    }() {
+        didSet {
+            defaults.set(currentVersion, forKey: currentVersionKey)
         }
     }
 

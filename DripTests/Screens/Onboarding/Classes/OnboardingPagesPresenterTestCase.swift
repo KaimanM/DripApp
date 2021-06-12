@@ -37,6 +37,16 @@ class OnboardingPagesPresenterTestCase: XCTestCase {
         super.tearDown()
     }
 
+    // MARK: - onViewDidLoad -
+
+    func test_whenOnViewDidLoadCalled_thenUpdatesCurrentVersionInUserDefaults() {
+        // given & when
+        sut.onViewDidLoad()
+
+        // then
+        XCTAssertEqual(mockedUserDefaultsController.currentVersion, Bundle.main.appVersion)
+    }
+
     // MARK: - SetSelectedFavourite -
 
     func test_whenSetSelectedFavouriteCalled_thenUpdatesSelectedFavourite() {

@@ -66,6 +66,12 @@
 		363064822659675600989A4F /* NotificationsPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363064812659675600989A4F /* NotificationsPresenterTestCase.swift */; };
 		36306484265968D200989A4F /* MockLocalNotificationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36306483265968D200989A4F /* MockLocalNotificationsController.swift */; };
 		36406025261208D000C00117 /* MockUserDefaultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36406024261208D000C00117 /* MockUserDefaultsController.swift */; };
+		36412E722672AED3003C668E /* WhatsNewScreenBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36412E712672AED3003C668E /* WhatsNewScreenBuilder.swift */; };
+		36412E752672AEE6003C668E /* WhatsNewViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36412E742672AEE6003C668E /* WhatsNewViewProtocol.swift */; };
+		36412E772672AEEC003C668E /* WhatsNewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36412E762672AEEC003C668E /* WhatsNewPresenter.swift */; };
+		36412E792672AEF3003C668E /* WhatsNewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36412E782672AEF3003C668E /* WhatsNewPresenterProtocol.swift */; };
+		36412E7B2672B3A7003C668E /* WhatsNewItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36412E7A2672B3A7003C668E /* WhatsNewItemCell.swift */; };
+		36412E7D2672B3FA003C668E /* WhatsNewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36412E7C2672B3FA003C668E /* WhatsNewController.swift */; };
 		3644493F25FFC54D006E1B0F /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3644493E25FFC54D006E1B0F /* Date+Extensions.swift */; };
 		3644EA34261BB85E00E257CC /* Award+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3644EA2E261BB85E00E257CC /* Award+CoreDataClass.swift */; };
 		3644EA35261BB85E00E257CC /* Award+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3644EA2F261BB85E00E257CC /* Award+CoreDataProperties.swift */; };
@@ -121,6 +127,7 @@
 		368BAE2A25DC7A4F00D799F2 /* CustomFSCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368BAE2925DC7A4F00D799F2 /* CustomFSCell.swift */; };
 		36905775261DE267001FE2C6 /* AwardsScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36905774261DE267001FE2C6 /* AwardsScreenBuilderTestCase.swift */; };
 		3690577A261DE2A8001FE2C6 /* AwardsPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36905779261DE2A8001FE2C6 /* AwardsPresenterTestCase.swift */; };
+		369D0E1726668D560020B204 /* WhatsNewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369D0E1626668D560020B204 /* WhatsNewView.swift */; };
 		36A0A912261B46CE00F1BE8B /* AwardsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A0A911261B46CE00F1BE8B /* AwardsDetailView.swift */; };
 		36A0A916261B4E7400F1BE8B /* LockedAwardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A0A915261B4E7400F1BE8B /* LockedAwardDataSource.swift */; };
 		36A0A91D261B557F00F1BE8B /* TenDrinksAwardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A0A91C261B557F00F1BE8B /* TenDrinksAwardDataSource.swift */; };
@@ -153,6 +160,8 @@
 		36E3F1EF2659BDB00051072C /* NotificationsScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E3F1EE2659BDB00051072C /* NotificationsScreenBuilderTestCase.swift */; };
 		36E3F1F22659C0600051072C /* NotificationDetailScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E3F1F12659C0600051072C /* NotificationDetailScreenBuilderTestCase.swift */; };
 		36E3F1F52659C1060051072C /* NotificationDetailPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E3F1F42659C1060051072C /* NotificationDetailPresenterTestCase.swift */; };
+		36E7412A2673B77300493F52 /* WhatsNewScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E741292673B77300493F52 /* WhatsNewScreenBuilderTestCase.swift */; };
+		36E7412D2673B7EA00493F52 /* WhatsNewPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E7412C2673B7EA00493F52 /* WhatsNewPresenterTestCase.swift */; };
 		36F284E7262741ED00FBC0F1 /* SettingsDetailScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F284E6262741ED00FBC0F1 /* SettingsDetailScreenBuilderTestCase.swift */; };
 		36F284EC2627424200FBC0F1 /* SettingsDetailPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F284EB2627424200FBC0F1 /* SettingsDetailPresenterTestCase.swift */; };
 /* End PBXBuildFile section */
@@ -244,6 +253,12 @@
 		363064812659675600989A4F /* NotificationsPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPresenterTestCase.swift; sourceTree = "<group>"; };
 		36306483265968D200989A4F /* MockLocalNotificationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLocalNotificationsController.swift; sourceTree = "<group>"; };
 		36406024261208D000C00117 /* MockUserDefaultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserDefaultsController.swift; sourceTree = "<group>"; };
+		36412E712672AED3003C668E /* WhatsNewScreenBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewScreenBuilder.swift; sourceTree = "<group>"; };
+		36412E742672AEE6003C668E /* WhatsNewViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewViewProtocol.swift; sourceTree = "<group>"; };
+		36412E762672AEEC003C668E /* WhatsNewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewPresenter.swift; sourceTree = "<group>"; };
+		36412E782672AEF3003C668E /* WhatsNewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewPresenterProtocol.swift; sourceTree = "<group>"; };
+		36412E7A2672B3A7003C668E /* WhatsNewItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewItemCell.swift; sourceTree = "<group>"; };
+		36412E7C2672B3FA003C668E /* WhatsNewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewController.swift; sourceTree = "<group>"; };
 		3644493E25FFC54D006E1B0F /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		3644EA2E261BB85E00E257CC /* Award+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Award+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3644EA2F261BB85E00E257CC /* Award+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Award+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -298,6 +313,7 @@
 		368BAE2925DC7A4F00D799F2 /* CustomFSCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFSCell.swift; sourceTree = "<group>"; };
 		36905774261DE267001FE2C6 /* AwardsScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsScreenBuilderTestCase.swift; sourceTree = "<group>"; };
 		36905779261DE2A8001FE2C6 /* AwardsPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsPresenterTestCase.swift; sourceTree = "<group>"; };
+		369D0E1626668D560020B204 /* WhatsNewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewView.swift; sourceTree = "<group>"; };
 		36A0A911261B46CE00F1BE8B /* AwardsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsDetailView.swift; sourceTree = "<group>"; };
 		36A0A915261B4E7400F1BE8B /* LockedAwardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockedAwardDataSource.swift; sourceTree = "<group>"; };
 		36A0A91C261B557F00F1BE8B /* TenDrinksAwardDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenDrinksAwardDataSource.swift; sourceTree = "<group>"; };
@@ -329,6 +345,8 @@
 		36E3F1EE2659BDB00051072C /* NotificationsScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsScreenBuilderTestCase.swift; sourceTree = "<group>"; };
 		36E3F1F12659C0600051072C /* NotificationDetailScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDetailScreenBuilderTestCase.swift; sourceTree = "<group>"; };
 		36E3F1F42659C1060051072C /* NotificationDetailPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDetailPresenterTestCase.swift; sourceTree = "<group>"; };
+		36E741292673B77300493F52 /* WhatsNewScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewScreenBuilderTestCase.swift; sourceTree = "<group>"; };
+		36E7412C2673B7EA00493F52 /* WhatsNewPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewPresenterTestCase.swift; sourceTree = "<group>"; };
 		36F284E6262741ED00FBC0F1 /* SettingsDetailScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailScreenBuilderTestCase.swift; sourceTree = "<group>"; };
 		36F284EB2627424200FBC0F1 /* SettingsDetailPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailPresenterTestCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -476,6 +494,7 @@
 				360CA9EB25F65C1000C7676A /* Persistent Data */,
 				36C7A3E6264309FA00F69FA9 /* LocalNotificationController.swift */,
 				362C3569265965910062C775 /* LocalNotificationControllerProtocol.swift */,
+				36412E7C2672B3FA003C668E /* WhatsNewController.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -494,6 +513,7 @@
 				36D28D2026497D38008D68CA /* NotificationDetailView */,
 				0A8BEA982455D53A00AA9880 /* Settings */,
 				364BB7FE2621CE8E009CAEE6 /* SettingsDetailView */,
+				36412E702672AEBB003C668E /* WhatsNew */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -612,6 +632,7 @@
 				364E80B82623331700954E8B /* CoefficientTableViewCell.swift */,
 				36A1FE2326441AF20048FB72 /* NotificationsTableViewCell.swift */,
 				36877C1E25F9068B00918E04 /* TrendsCollectionViewCell.swift */,
+				36412E7A2672B3A7003C668E /* WhatsNewItemCell.swift */,
 				365F642E262079BD00A9B4C0 /* SettingsCell.swift */,
 				3680E0CE24B3C8CC009E9DB8 /* GradientBarView.swift */,
 				0A44B3952457631C0023433A /* ProgressRingView.swift */,
@@ -684,6 +705,26 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
+		36412E702672AEBB003C668E /* WhatsNew */ = {
+			isa = PBXGroup;
+			children = (
+				36412E712672AED3003C668E /* WhatsNewScreenBuilder.swift */,
+				36412E732672AED9003C668E /* Classes */,
+			);
+			path = WhatsNew;
+			sourceTree = "<group>";
+		};
+		36412E732672AED9003C668E /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				369D0E1626668D560020B204 /* WhatsNewView.swift */,
+				36412E742672AEE6003C668E /* WhatsNewViewProtocol.swift */,
+				36412E762672AEEC003C668E /* WhatsNewPresenter.swift */,
+				36412E782672AEF3003C668E /* WhatsNewPresenterProtocol.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		364A9279256BE8EA00F84985 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
@@ -697,6 +738,7 @@
 				36F284E5262741DB00FBC0F1 /* SettingsDetail */,
 				3630647F2659673D00989A4F /* Notifications */,
 				36E3F1F02659C0450051072C /* NotificationDetail */,
+				36E741282673B75E00493F52 /* WhatsNew */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -956,6 +998,23 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
+		36E741282673B75E00493F52 /* WhatsNew */ = {
+			isa = PBXGroup;
+			children = (
+				36E741292673B77300493F52 /* WhatsNewScreenBuilderTestCase.swift */,
+				36E7412B2673B7DC00493F52 /* Classes */,
+			);
+			path = WhatsNew;
+			sourceTree = "<group>";
+		};
+		36E7412B2673B7DC00493F52 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				36E7412C2673B7EA00493F52 /* WhatsNewPresenterTestCase.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		36F284E5262741DB00FBC0F1 /* SettingsDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -1110,11 +1169,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36412E7B2672B3A7003C668E /* WhatsNewItemCell.swift in Sources */,
 				364E80B92623331700954E8B /* CoefficientTableViewCell.swift in Sources */,
 				364BB80B2621EA59009CAEE6 /* SettingsDetailPresenter.swift in Sources */,
 				364D7DCF26468AE00052C499 /* NotificationsPresenterProtocol.swift in Sources */,
 				0A8BEA902455D45A00AA9880 /* SettingsView.swift in Sources */,
 				0ACB9846245467BC007BF01D /* UIViewController+ViewControllerName.swift in Sources */,
+				36412E772672AEEC003C668E /* WhatsNewPresenter.swift in Sources */,
 				0A2B8B732454D8C700D9E8E7 /* TodayPresenterProtocol.swift in Sources */,
 				36A0A912261B46CE00F1BE8B /* AwardsDetailView.swift in Sources */,
 				3680E0CF24B3C8CC009E9DB8 /* GradientBarView.swift in Sources */,
@@ -1130,6 +1191,7 @@
 				36A37EFE261CCCC600BB7C15 /* MissingDrinkAwardDataSource.swift in Sources */,
 				365F6432262098E700A9B4C0 /* Bundle+Extensions.swift in Sources */,
 				36538D16260CDBD400CFB656 /* OnboardingPagesPresenterProtocol.swift in Sources */,
+				36412E722672AED3003C668E /* WhatsNewScreenBuilder.swift in Sources */,
 				3644EA34261BB85E00E257CC /* Award+CoreDataClass.swift in Sources */,
 				0A8BEA852455D24A00AA9880 /* AwardsViewProtocol.swift in Sources */,
 				368BAE2A25DC7A4F00D799F2 /* CustomFSCell.swift in Sources */,
@@ -1161,6 +1223,7 @@
 				0ACB986524549DE2007BF01D /* TabBarViewProtocol.swift in Sources */,
 				36A37EF8261CCC2300BB7C15 /* LitreDrinkAwardDataSource.swift in Sources */,
 				3644493F25FFC54D006E1B0F /* Date+Extensions.swift in Sources */,
+				36412E792672AEF3003C668E /* WhatsNewPresenterProtocol.swift in Sources */,
 				0AD151172454EFE300F45042 /* TrendsPresenterProtocol.swift in Sources */,
 				0A44B3962457631C0023433A /* ProgressRingView.swift in Sources */,
 				36A0A92A261B578A00F1BE8B /* FiveHundredDrinksAwardDataSource.swift in Sources */,
@@ -1186,6 +1249,7 @@
 				3665E6BE261DF94000DB6971 /* AwardsDetailPresenter.swift in Sources */,
 				0ACB9857245468EC007BF01D /* HistoryPresenter.swift in Sources */,
 				3665E6BB261DF93700DB6971 /* AwardsDetailViewProtocol.swift in Sources */,
+				36412E752672AEE6003C668E /* WhatsNewViewProtocol.swift in Sources */,
 				0AD151192454EFEB00F45042 /* TrendsView.swift in Sources */,
 				362A52A525EFA68100B6AA8D /* Drip.xcdatamodeld in Sources */,
 				36D28D2926497DBB008D68CA /* NotificationDetailViewProtocol.swift in Sources */,
@@ -1195,6 +1259,7 @@
 				36A0A937261B59B900F1BE8B /* NinetyDayStreakAwardDataSource.swift in Sources */,
 				0AD151152454EFDC00F45042 /* TrendsViewProtocol.swift in Sources */,
 				366DFC30260B8945009BEAC5 /* UserDefaultsController.swift in Sources */,
+				369D0E1726668D560020B204 /* WhatsNewView.swift in Sources */,
 				0ACB9853245468DC007BF01D /* HistoryPresenterProtocol.swift in Sources */,
 				362BF72C260DF1D40065183D /* OnboardingPage2Cell.swift in Sources */,
 				36877C2225F917E300918E04 /* TrendsHeaderView.swift in Sources */,
@@ -1216,6 +1281,7 @@
 				3675583A260D15F40099C61A /* OnboardingPage1Cell.swift in Sources */,
 				0A8BEA922455D45A00AA9880 /* SettingsViewProtocol.swift in Sources */,
 				0A8BEA822455D24A00AA9880 /* AwardsPresenterProtocol.swift in Sources */,
+				36412E7D2672B3FA003C668E /* WhatsNewController.swift in Sources */,
 				0A2B8B752454D8E200D9E8E7 /* TodayView.swift in Sources */,
 				36A0A921261B565200F1BE8B /* FiftyDrinksAwardDataSource.swift in Sources */,
 				364BB80E2621EA61009CAEE6 /* SettingsDetailPresenterProtocol.swift in Sources */,
@@ -1239,6 +1305,7 @@
 				3605E3F42600E14B00FFE3C2 /* TrendsScreenBuilderTestCase.swift in Sources */,
 				36406025261208D000C00117 /* MockUserDefaultsController.swift in Sources */,
 				364A927C256BE91400F84985 /* TodayScreenBuilderTestCase.swift in Sources */,
+				36E7412D2673B7EA00493F52 /* WhatsNewPresenterTestCase.swift in Sources */,
 				360CAA0225F69F9900C7676A /* HistoryScreenBuilderTestCase.swift in Sources */,
 				36830E692611FFF600E55C7A /* OnboardingScreenBuilderTestCase.swift in Sources */,
 				36C1F6EF261E007A00224846 /* AwardsDetailPresenterTestCase.swift in Sources */,
@@ -1247,6 +1314,7 @@
 				36E3F1F52659C1060051072C /* NotificationDetailPresenterTestCase.swift in Sources */,
 				36905775261DE267001FE2C6 /* AwardsScreenBuilderTestCase.swift in Sources */,
 				36F284E7262741ED00FBC0F1 /* SettingsDetailScreenBuilderTestCase.swift in Sources */,
+				36E7412A2673B77300493F52 /* WhatsNewScreenBuilderTestCase.swift in Sources */,
 				3605E3F92600E22400FFE3C2 /* TrendsPresenterTestCase.swift in Sources */,
 				36306484265968D200989A4F /* MockLocalNotificationsController.swift in Sources */,
 				3690577A261DE2A8001FE2C6 /* AwardsPresenterTestCase.swift in Sources */,

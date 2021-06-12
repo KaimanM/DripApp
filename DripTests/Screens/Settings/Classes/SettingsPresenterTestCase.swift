@@ -46,6 +46,11 @@ final class MockSettingsView: SettingsViewProtocol {
     func showReviewPrompt() {
         didShowReviewPrompt = true
     }
+
+    private(set) var didShowWhatsNew: Bool = false
+    func showWhatsNew() {
+        didShowWhatsNew = true
+    }
 }
 
 class SettingsPresenterTestCase: XCTestCase {
@@ -84,7 +89,7 @@ class SettingsPresenterTestCase: XCTestCase {
         let section = 1
 
         // when &then
-        XCTAssertEqual(sut.numberOfRowsInSection(section), 4)
+        XCTAssertEqual(sut.numberOfRowsInSection(section), 5)
     }
 
     // MARK: - getCellDataForIndexPath -
@@ -162,9 +167,9 @@ class SettingsPresenterTestCase: XCTestCase {
         let cellData = sut.getCellDataForIndexPath(indexPath: indexPath)
 
         // then
-        XCTAssertEqual(cellData.title, "Thanks to")
-        XCTAssertEqual(cellData.imageName, "gift")
-        XCTAssertEqual(cellData.backgroundColour, .systemIndigo)
+        XCTAssertEqual(cellData.title, "What's New")
+        XCTAssertEqual(cellData.imageName, "wand.and.stars")
+        XCTAssertEqual(cellData.backgroundColour, .magenta)
     }
 
     func test_givenIndexPathSection1Row2_whenGetCellDataForIndexPathCalled_thenReturnsCorrectData() {
@@ -175,14 +180,27 @@ class SettingsPresenterTestCase: XCTestCase {
         let cellData = sut.getCellDataForIndexPath(indexPath: indexPath)
 
         // then
-        XCTAssertEqual(cellData.title, "Privacy Policy")
-        XCTAssertEqual(cellData.imageName, "hand.raised")
-        XCTAssertEqual(cellData.backgroundColour, .systemGreen)
+        XCTAssertEqual(cellData.title, "Thanks to")
+        XCTAssertEqual(cellData.imageName, "gift")
+        XCTAssertEqual(cellData.backgroundColour, .systemIndigo)
     }
 
     func test_givenIndexPathSection1Row3_whenGetCellDataForIndexPathCalled_thenReturnsCorrectData() {
         // given
         let indexPath = IndexPath(row: 3, section: 1)
+
+        // when
+        let cellData = sut.getCellDataForIndexPath(indexPath: indexPath)
+
+        // then
+        XCTAssertEqual(cellData.title, "Privacy Policy")
+        XCTAssertEqual(cellData.imageName, "hand.raised")
+        XCTAssertEqual(cellData.backgroundColour, .systemGreen)
+    }
+
+    func test_givenIndexPathSection1Row4_whenGetCellDataForIndexPathCalled_thenReturnsCorrectData() {
+        // given
+        let indexPath = IndexPath(row: 4, section: 1)
 
         // when
         let cellData = sut.getCellDataForIndexPath(indexPath: indexPath)
@@ -271,7 +289,7 @@ class SettingsPresenterTestCase: XCTestCase {
                        SettingsType.about)
     }
 
-    func test_givenIndexPathSection1Row1_whenDidSelectRowAtCalled_thenPushesCorrectView() {
+    func test_givenIndexPathSection1Row1_whenDidSelectRowAtCalled_thenDidShowWhatsNew() {
         // given
         let indexPath = IndexPath(row: 1, section: 1)
 
@@ -279,9 +297,7 @@ class SettingsPresenterTestCase: XCTestCase {
         sut.didSelectRowAt(indexPath: indexPath)
 
         // then
-        XCTAssertTrue(mockedView.didPushViewController is SettingsDetailView)
-        XCTAssertEqual((mockedView.didPushViewController as? SettingsDetailView)!.settingsType,
-                       SettingsType.attribution)
+        XCTAssertTrue(mockedView.didShowWhatsNew)
     }
 
     func test_givenIndexPathSection1Row2_whenDidSelectRowAtCalled_thenPushesCorrectView() {
@@ -292,13 +308,26 @@ class SettingsPresenterTestCase: XCTestCase {
         sut.didSelectRowAt(indexPath: indexPath)
 
         // then
-        XCTAssertEqual(mockedView.didShowSafariWithUrl?.absoluteString,
-                       "https://dripmobile.app/privacy.html")
+        XCTAssertTrue(mockedView.didPushViewController is SettingsDetailView)
+        XCTAssertEqual((mockedView.didPushViewController as? SettingsDetailView)!.settingsType,
+                       SettingsType.attribution)
     }
 
     func test_givenIndexPathSection1Row3_whenDidSelectRowAtCalled_thenPushesCorrectView() {
         // given
         let indexPath = IndexPath(row: 3, section: 1)
+
+        // when
+        sut.didSelectRowAt(indexPath: indexPath)
+
+        // then
+        XCTAssertEqual(mockedView.didShowSafariWithUrl?.absoluteString,
+                       "https://dripmobile.app/privacy.html")
+    }
+
+    func test_givenIndexPathSection1Row4_whenDidSelectRowAtCalled_thenPushesCorrectView() {
+        // given
+        let indexPath = IndexPath(row: 4, section: 1)
 
         // when
         sut.didSelectRowAt(indexPath: indexPath)
