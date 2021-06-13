@@ -25,7 +25,9 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
         AttributionCellData(title: "Mike Bone",
                        url: URL(string: "https://github.com/mikecbone")!),
         AttributionCellData(title: "Marian Butnaru",
-                       url: nil)
+                       url: nil),
+        AttributionCellData(title: "Water Droplet Sound FX",
+                            url: URL(string: "https://soundbible.com/")!)
         ]
 
     init(view: SettingsDetailViewProtocol) {

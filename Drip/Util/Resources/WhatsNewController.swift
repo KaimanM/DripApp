@@ -25,25 +25,46 @@ class WhatsNewController {
 
     func showWhatsNewIfNeeded(view: UIViewController,
                               userDefaultsController: UserDefaultsControllerProtocol) {
-
         let lastSavedAppVersion = userDefaultsController.currentVersion
         let liveAppVersion = Bundle.main.appVersion
 
-        // returns if live app version is the same or newer than lastCurrentAppVersion
-        guard liveAppVersion.compare(lastSavedAppVersion, options: .numeric) == .orderedDescending else {
+        // Returns when it's not a new Major or Minor release.
+        guard isNewMajorMinor(lastSavedAppVer: lastSavedAppVersion, liveAppVer: liveAppVersion) == .newer else {
             return
         }
 
+        // Updates Saved app version with new version
         userDefaultsController.currentVersion = liveAppVersion
 
-        let whatsNewVC = WhatsNewScreenBuilder.init(featureItems: featureItems).build()
+        showWhatsNew(view: view)
+    }
 
-        view.present(whatsNewVC, animated: true)
+    private func isNewMajorMinor(lastSavedAppVer: String, liveAppVer: String) -> VersionCompareResult {
+        let lastSavedComponents = lastSavedAppVer.components(separatedBy: ".")
+        let liveAppComponents = liveAppVer.components(separatedBy: ".")
+
+        guard lastSavedComponents.count == 3, liveAppComponents.count == 3 else { return .error }
+
+        let lastMinor = "\(lastSavedComponents[0]).\(lastSavedComponents[1])"
+        let liveMinor = "\(liveAppComponents[0]).\(liveAppComponents[1])"
+
+        switch liveMinor.compare(lastMinor, options: .numeric) {
+        case .orderedDescending:
+            return .newer
+        case .orderedAscending:
+            return .older
+        case .orderedSame:
+            return .same
+        }
     }
 
     func showWhatsNew(view: UIViewController) {
-        let whatsNewVC = WhatsNewScreenBuilder.init(featureItems: featureItems).build()
+        let whatsNewVC = WhatsNewScreenBuilder(featureItems: featureItems).build()
         view.present(whatsNewVC, animated: true)
+    }
+
+    private enum VersionCompareResult {
+        case newer, older, same, error
     }
 
 }

@@ -41,7 +41,6 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
 
     override func viewDidAppear(_ animated: Bool) {
         presenter.onViewDidAppear()
-
         WhatsNewController().showWhatsNewIfNeeded(view: self,
                                                   userDefaultsController: userDefaultsController)
     }
