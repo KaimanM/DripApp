@@ -37,12 +37,12 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
         setupInfoViews()
         progressLabel.font = UIFont.SFProRounded(ofSize: 32, fontWeight: .regular)
         drinksLauncher.delegate = self
-        WhatsNewController().showWhatsNewIfNeeded(view: self,
-                                                  userDefaultsController: userDefaultsController)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         presenter.onViewDidAppear()
+        WhatsNewController().showWhatsNewIfNeeded(view: self,
+                                                  userDefaultsController: userDefaultsController)
     }
 
     override func viewWillAppear(_ animated: Bool) {

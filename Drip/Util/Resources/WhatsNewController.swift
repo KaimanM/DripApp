@@ -50,13 +50,10 @@ class WhatsNewController {
 
         switch liveMinor.compare(lastMinor, options: .numeric) {
         case .orderedDescending:
-            print("is Newer")
             return .newer
         case .orderedAscending:
-            print("is Older")
             return .older
         case .orderedSame:
-            print("same")
             return .same
         }
     }
