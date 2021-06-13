@@ -30,6 +30,7 @@ final class SettingsView: UIViewController, SettingsViewProtocol, PersistentData
 
     override func viewDidAppear(_ animated: Bool) {
         presenter.onViewDidAppear()
+        navigationItem.backBarButtonItem = nil
     }
 
     func presentView(_ view: UIViewController) {
@@ -41,7 +42,7 @@ final class SettingsView: UIViewController, SettingsViewProtocol, PersistentData
     }
 
     func pushView(_ view: UIViewController) {
-        self.navigationController!.pushViewController(view, animated: true)
+        self.navigationController?.pushViewController(view, animated: true)
     }
 
     func updateTitle(title: String) {
