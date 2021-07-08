@@ -80,6 +80,8 @@
 		3644EA38261BB85E00E257CC /* Day+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3644EA32261BB85E00E257CC /* Day+CoreDataClass.swift */; };
 		3644EA39261BB85E00E257CC /* Day+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3644EA33261BB85E00E257CC /* Day+CoreDataProperties.swift */; };
 		3644F1E026101FAD0012FF09 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 3644F1DF26101FAD0012FF09 /* FSCalendar */; };
+		3648C7A3269728C600E826BD /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3648C7A2269728C600E826BD /* HealthKit.framework */; };
+		3648C7A526972AA500E826BD /* HealthKitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3648C7A426972AA500E826BD /* HealthKitController.swift */; };
 		364A927C256BE91400F84985 /* TodayScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364A927B256BE91400F84985 /* TodayScreenBuilderTestCase.swift */; };
 		364A9280256BE93500F84985 /* TodayPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364A927F256BE93500F84985 /* TodayPresenterTestCase.swift */; };
 		364BB8002621CEFD009CAEE6 /* SettingsDetailScreenBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364BB7FF2621CEFD009CAEE6 /* SettingsDetailScreenBuilder.swift */; };
@@ -266,6 +268,9 @@
 		3644EA31261BB85E00E257CC /* Drink+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Drink+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3644EA32261BB85E00E257CC /* Day+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Day+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3644EA33261BB85E00E257CC /* Day+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Day+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3648C7A0269728C600E826BD /* Drip.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Drip.entitlements; sourceTree = "<group>"; };
+		3648C7A2269728C600E826BD /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		3648C7A426972AA500E826BD /* HealthKitController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitController.swift; sourceTree = "<group>"; };
 		364A927B256BE91400F84985 /* TodayScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayScreenBuilderTestCase.swift; sourceTree = "<group>"; };
 		364A927F256BE93500F84985 /* TodayPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayPresenterTestCase.swift; sourceTree = "<group>"; };
 		364BB7FF2621CEFD009CAEE6 /* SettingsDetailScreenBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailScreenBuilder.swift; sourceTree = "<group>"; };
@@ -356,6 +361,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3648C7A3269728C600E826BD /* HealthKit.framework in Frameworks */,
 				3644F1E026101FAD0012FF09 /* FSCalendar in Frameworks */,
 				36A0A945261B6C3E00F1BE8B /* SwiftConfettiView in Frameworks */,
 			);
@@ -439,6 +445,7 @@
 				0ACB982024546717007BF01D /* Drip */,
 				0ACB983724546719007BF01D /* DripTests */,
 				0ACB981F24546717007BF01D /* Products */,
+				3648C7A1269728C600E826BD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -454,6 +461,7 @@
 		0ACB982024546717007BF01D /* Drip */ = {
 			isa = PBXGroup;
 			children = (
+				3648C7A0269728C600E826BD /* Drip.entitlements */,
 				0ACB98432454676B007BF01D /* Util */,
 				0ACB984B2454683A007BF01D /* Screens */,
 				0ACB982124546717007BF01D /* AppDelegate.swift */,
@@ -607,6 +615,7 @@
 				362A52A325EFA68100B6AA8D /* Drip.xcdatamodeld */,
 				366DFC2F260B8945009BEAC5 /* UserDefaultsController.swift */,
 				36538D03260CB0D300CFB656 /* UserDefaultsControllerProtocol.swift */,
+				3648C7A426972AA500E826BD /* HealthKitController.swift */,
 			);
 			path = "Persistent Data";
 			sourceTree = "<group>";
@@ -723,6 +732,14 @@
 				36412E782672AEF3003C668E /* WhatsNewPresenterProtocol.swift */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		3648C7A1269728C600E826BD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3648C7A2269728C600E826BD /* HealthKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		364A9279256BE8EA00F84985 /* Screens */ = {
@@ -1273,6 +1290,7 @@
 				0A8BEA842455D24A00AA9880 /* AwardsPresenter.swift in Sources */,
 				3680E0CD24B3BF50009E9DB8 /* UIColor+Extensions.swift in Sources */,
 				364D7DC626468ACA0052C499 /* NotificationsView.swift in Sources */,
+				3648C7A526972AA500E826BD /* HealthKitController.swift in Sources */,
 				3644EA35261BB85E00E257CC /* Award+CoreDataProperties.swift in Sources */,
 				0A8BEA932455D45A00AA9880 /* SettingsPresenterProtocol.swift in Sources */,
 				0A8BEA832455D24A00AA9880 /* AwardsView.swift in Sources */,
@@ -1467,6 +1485,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon.dev;
+				CODE_SIGN_ENTITLEMENTS = Drip/Drip.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BC6TS7F3K4;
 				INFOPLIST_FILE = Drip/Info.plist;
@@ -1487,6 +1506,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Drip/Drip.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BC6TS7F3K4;
 				INFOPLIST_FILE = Drip/Info.plist;

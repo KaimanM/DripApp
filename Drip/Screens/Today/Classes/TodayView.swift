@@ -27,6 +27,10 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
 
     lazy var drinksLauncher = DrinksLauncher(userDefaults: userDefaultsController, isOnboarding: false)
 
+    // TODO: REMOVE
+    let hkcontroller = HealthKitController()
+    let date = Date()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.largeTitleDisplayMode = .automatic
@@ -43,6 +47,10 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
         presenter.onViewDidAppear()
         WhatsNewController().showWhatsNewIfNeeded(view: self,
                                                   userDefaultsController: userDefaultsController)
+
+        // TODO: REMOVE
+        hkcontroller.requestAccess()
+        hkcontroller.addWaterDataToHealthStore(amount: 450, date: date)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -54,6 +62,8 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
     override func viewWillDisappear(_ animated: Bool) {
         drinksLauncher.removeFromWindow()
         presenter.onViewWillDisappear()
+        // TODO: REMOVE
+        hkcontroller.deleteEntryWithDate(date: date)
         super.viewWillDisappear(animated)
     }
 
