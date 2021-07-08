@@ -2,10 +2,13 @@ import UIKit
 import SafariServices
 
 class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
+    var healthKitController: HealthKitController! = HealthKitController()
+
 
     var presenter: SettingsDetailPresenterProtocol!
     var settingsType: SettingsType!
     var userDefaultsController: UserDefaultsControllerProtocol!
+    // TODO: Refactor into dependancy inject later
 
     let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -271,8 +274,80 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
                          size: .init(width: 0, height: 1))
     }
 
+    // swiftlint:disable:next function_body_length
+    func setupHealthKitView(headingText: String, bodyText: String) {
+        toggle.addTarget(self, action: #selector(switchValueDidChange(_:)), for: .valueChanged)
+        toggle.isOn = userDefaultsController.enabledHealthKit
+
+        let toggleLabel: UILabel = {
+            let label = UILabel()
+            label.textColor = .whiteText
+            label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+            label.text = "Enable Health Kit Integration"
+            return label
+        }()
+
+        let topContainerView = UIView(), lineView1 = UIView(), lineView2 = UIView()
+
+        view.addSubview(topContainerView)
+
+        lineView1.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+        lineView2.backgroundColor = UIColor.white.withAlphaComponent(0.2)
+
+        let subViews = [headingLabel, bodyLabel, lineView1, toggleLabel, toggle, lineView2]
+        subViews.forEach({topContainerView.addSubview($0)})
+
+        headingLabel.text = headingText
+        bodyLabel.text = bodyText
+
+        topContainerView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                                leading: view.leadingAnchor,
+                                trailing: view.trailingAnchor)
+
+        headingLabel.anchor(top: topContainerView.topAnchor,
+                            leading: topContainerView.leadingAnchor,
+                            trailing: topContainerView.trailingAnchor,
+                            padding: .init(top: 10, left: 20, bottom: 0, right: 20))
+        bodyLabel.anchor(top: headingLabel.bottomAnchor,
+                            leading: topContainerView.leadingAnchor,
+                            trailing: topContainerView.trailingAnchor,
+                            padding: .init(top: 5, left: 20, bottom: 0, right: 20))
+        lineView1.anchor(top: bodyLabel.bottomAnchor,
+                         leading: topContainerView.leadingAnchor,
+                         trailing: topContainerView.trailingAnchor,
+                         padding: .init(top: 10, left: 20, bottom: 0, right: 20),
+                         size: .init(width: 0, height: 1))
+        toggle.anchor(top: lineView1.bottomAnchor,
+                      trailing: topContainerView.trailingAnchor,
+                      padding: .init(top: 5, left: 0, bottom: 0, right: 20))
+        toggleLabel.anchor(top: lineView1.bottomAnchor,
+                           leading: topContainerView.leadingAnchor,
+                           bottom: lineView2.topAnchor,
+                           trailing: toggle.leadingAnchor,
+                           padding: .init(top: 0, left: 20, bottom: 0, right: 20))
+        lineView2.anchor(top: toggle.bottomAnchor,
+                         leading: topContainerView.leadingAnchor,
+                         bottom: topContainerView.bottomAnchor,
+                         trailing: topContainerView.trailingAnchor,
+                         padding: .init(top: 5, left: 20, bottom: 0, right: 20),
+                         size: .init(width: 0, height: 1))
+    }
+
     @objc func switchValueDidChange(_ sender: UISwitch!) {
+        switch settingsType {
+        case .coefficient:
             presenter.setCoefficientBool(isEnabled: sender.isOn)
+        case .healthKit:
+            presenter.setHealthKitBool(isEnabled: sender.isOn)
+        default:
+            print("do nothing")
+        }
+    }
+
+    func setToggleStatus(isOn: Bool) {
+        DispatchQueue.main.async {
+            self.toggle.isOn = isOn
+        }
     }
 
     func setupAttributionView(headingText: String, bodyText: String) {

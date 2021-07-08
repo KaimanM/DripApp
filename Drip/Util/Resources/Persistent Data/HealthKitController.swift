@@ -16,12 +16,16 @@ class HealthKitController {
         return [waterType]
     }
 
-    func requestAccess() {
-        healthStore?.requestAuthorization(toShare: typesToShare, read: nil) { success, error in
-            if (!success) {
-                print("request denied")
-                return
-            }
+    func checkAuthStatus(completion: @escaping (_ :HKAuthorizationStatus) -> Void) {
+        let status = healthStore?.authorizationStatus(for: HKQuantityType.quantityType(forIdentifier: .dietaryWater)!)
+        if let status = status {
+            completion(status)
+        }
+    }
+
+    func requestAccess(completion: @escaping (_ :Bool) -> Void) {
+        healthStore?.requestAuthorization(toShare: typesToShare, read: nil) { granted, _ in
+            completion(granted)
         }
     }
 

@@ -8,7 +8,9 @@ final class SettingsPresenter: SettingsPresenterProtocol {
         SettingsCellData(title: "Goal", imageName: "slider.horizontal.3", backgroundColour: .systemIndigo),
         SettingsCellData(title: "Favourites", imageName: "star", backgroundColour: .systemRed),
         SettingsCellData(title: "Drink Coefficients", imageName: "info.circle", backgroundColour: .systemTeal),
-        SettingsCellData(title: "Notifications", imageName: "bell", backgroundColour: .systemGreen)
+        SettingsCellData(title: "Notifications", imageName: "bell", backgroundColour: .systemGreen),
+        SettingsCellData(title: "HealthKit", imageName: "heart.circle", backgroundColour: .magenta)
+
     ]
 
     let cellDataSection2: [SettingsCellData] = [
@@ -69,6 +71,9 @@ final class SettingsPresenter: SettingsPresenterProtocol {
                                                  userDefaultsController: userDefaultsController).build())
         case (0, 4):
             view?.pushView(NotificationsScreenBuilder(userDefaultsController: userDefaultsController).build())
+        case (0, 5):
+            view?.pushView(SettingsDetailScreenBuilder(type: .healthKit,
+                                                 userDefaultsController: userDefaultsController).build())
         case (1, 0):
             view?.pushView(SettingsDetailScreenBuilder(type: .about,
                                                  userDefaultsController: userDefaultsController).build())

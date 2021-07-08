@@ -34,6 +34,8 @@ class UserDefaultsController: UserDefaultsControllerProtocol {
 
     let enabledNotificationsKey = "enabledNotifications"
 
+    let enabledHealthKitKey = "enabledHealthKit"
+
     let currentVersionKey = "currentVersion"
 
     init() {
@@ -46,6 +48,7 @@ class UserDefaultsController: UserDefaultsControllerProtocol {
                                      completedOnboardingKey : false,
                                      useDrinkCoefficientsKey : true,
                                      enabledNotificationsKey : false,
+                                     enabledHealthKitKey : false,
                                      favBeverage1Key : encodeBeverage(beverages[0]),
                                      favBeverage2Key : encodeBeverage(beverages[1]),
                                      favBeverage3Key : encodeBeverage(beverages[2]),
@@ -160,6 +163,14 @@ class UserDefaultsController: UserDefaultsControllerProtocol {
     }() {
         didSet {
             defaults.set(enabledNotifications, forKey: enabledNotificationsKey)
+        }
+    }
+
+    lazy var enabledHealthKit: Bool = {
+        return defaults.bool(forKey: enabledHealthKitKey)
+    }() {
+        didSet {
+            defaults.set(enabledHealthKit, forKey: enabledHealthKitKey)
         }
     }
 

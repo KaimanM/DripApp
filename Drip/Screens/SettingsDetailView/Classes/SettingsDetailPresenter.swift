@@ -50,6 +50,8 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
             initialiseAttributionView()
         case .about:
             initialiseAboutView()
+        case .healthKit:
+            initialiseHealthKitView()
         case .none:
             break
         }
@@ -100,6 +102,16 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
             """
 
         view?.setupCoefficientView(headingText: headingText, bodyText: bodyText)
+    }
+
+    func initialiseHealthKitView() {
+        view?.updateTitle(title: "Health Kit")
+        let headingText = "Health Kit Integration"
+        let bodyText = """
+            Enable Healthkit integration
+            """
+
+        view?.setupHealthKitView(headingText: headingText, bodyText: bodyText)
     }
 
     func initialiseAttributionView() {
@@ -156,6 +168,31 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
 
     func setCoefficientBool(isEnabled: Bool) {
         view?.userDefaultsController.useDrinkCoefficients = isEnabled
+    }
+
+    func setHealthKitBool(isEnabled: Bool) {
+
+        view?.healthKitController.checkAuthStatus(completion: { status in
+            switch status {
+            case .notDetermined:
+                self.view?.healthKitController.requestAccess(completion: { granted in
+                    if granted {
+                        self.view?.userDefaultsController.enabledHealthKit = isEnabled
+                    } else {
+                        self.view?.userDefaultsController.enabledHealthKit = false
+                        self.view?.setToggleStatus(isOn: false)
+                    }
+                })
+            case .sharingAuthorized:
+                self.view?.userDefaultsController.enabledHealthKit = isEnabled
+            case .sharingDenied:
+                print("sharing denied lol")
+                self.view?.userDefaultsController.enabledHealthKit = false
+                self.view?.setToggleStatus(isOn: false)
+            @unknown default:
+                print("do nothing")
+            }
+        })
     }
 
     // MARK: - Favourites -
