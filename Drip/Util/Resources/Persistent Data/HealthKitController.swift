@@ -55,18 +55,26 @@ class HealthKitController {
 
     }
 
-    func deleteEntryWithDate(date: Date = Date()) {
+    func deleteEntryWithDate(date: Date = Date(), amount: Double = 0) {
         let startDate = date.addingTimeInterval(0)
         let endDate = date.addingTimeInterval(1)
 
         let waterType = HKQuantityType.quantityType(forIdentifier: .dietaryWater)
 
-        let queryPredicate = HKSampleQuery.predicateForSamples(withStart: startDate,
+        let datePredicate = HKSampleQuery.predicateForSamples(withStart: startDate,
                                                                end: endDate,
                                                                options: [])
 
+        let quantityUnit = HKUnit(from: "l")
+
+        let quantityAmount = HKQuantity(unit: quantityUnit, doubleValue: amount/1000)
+
+        let volumePredicate = HKSampleQuery.predicateForQuantitySamples(with: .equalTo, quantity: quantityAmount)
+
+        let combinedPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [datePredicate, volumePredicate])
+
         let query = HKSampleQuery(sampleType: waterType!,
-                                  predicate: queryPredicate,
+                                  predicate: combinedPredicate,
                                   limit: 100,
                                   sortDescriptors: nil) { query, results, error in
 
