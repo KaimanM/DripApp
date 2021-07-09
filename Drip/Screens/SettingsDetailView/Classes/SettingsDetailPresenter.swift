@@ -175,9 +175,9 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
         view?.healthKitController.checkAuthStatus(completion: { status in
             switch status {
             case .notDetermined:
-                self.view?.healthKitController.requestAccess(completion: { granted in
-                    if granted {
-                        self.view?.userDefaultsController.enabledHealthKit = isEnabled
+                self.view?.healthKitController.requestAccess(completion: { success in
+                    if success {
+                        self.setHealthKitBool(isEnabled: isEnabled)
                     } else {
                         self.view?.userDefaultsController.enabledHealthKit = false
                         self.view?.setToggleStatus(isOn: false)
@@ -187,6 +187,7 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
                 self.view?.userDefaultsController.enabledHealthKit = isEnabled
             case .sharingDenied:
                 print("sharing denied lol")
+                self.view?.showHealthKitDialogue()
                 self.view?.userDefaultsController.enabledHealthKit = false
                 self.view?.setToggleStatus(isOn: false)
             @unknown default:

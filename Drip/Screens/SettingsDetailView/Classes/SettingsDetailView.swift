@@ -2,13 +2,12 @@ import UIKit
 import SafariServices
 
 class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
-    var healthKitController: HealthKitController! = HealthKitController()
-
 
     var presenter: SettingsDetailPresenterProtocol!
     var settingsType: SettingsType!
     var userDefaultsController: UserDefaultsControllerProtocol!
     // TODO: Refactor into dependancy inject later
+    var healthKitController: HealthKitController! = HealthKitController()
 
     let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -331,6 +330,30 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
                          trailing: topContainerView.trailingAnchor,
                          padding: .init(top: 5, left: 20, bottom: 0, right: 20),
                          size: .init(width: 0, height: 1))
+    }
+
+    func showHealthKitDialogue() {
+        DispatchQueue.main.async {
+            let message = "To enable HealthKit integration, please open the Health App and enable Drip as a source."
+            let alertContoller = UIAlertController(title: "Health Kit",
+                                                   message: message,
+                                                   preferredStyle: .alert)
+
+            let healthKitAction = UIAlertAction(title: "Open Health", style: .default) { _ in
+                if let healthAppURL = URL(string: "x-apple-health://") {
+                    if UIApplication.shared.canOpenURL(healthAppURL) {
+                        UIApplication.shared.open(healthAppURL)
+                    }
+                }
+            }
+
+            let cancelAction = UIAlertAction(title: "Close", style: .cancel, handler: nil)
+
+            alertContoller.addAction(cancelAction)
+            alertContoller.addAction(healthKitAction)
+
+            self.present(alertContoller, animated: true)
+        }
     }
 
     @objc func switchValueDidChange(_ sender: UISwitch!) {

@@ -30,8 +30,8 @@ class HealthKitController {
 
     // Requests access in healthkit for dietary water
     func requestAccess(completion: @escaping (_ :Bool) -> Void) {
-        healthStore?.requestAuthorization(toShare: typesToShare, read: nil) { granted, _ in
-            completion(granted)
+        healthStore?.requestAuthorization(toShare: typesToShare, read: nil) { success, _ in
+            completion(success)
         }
     }
 
