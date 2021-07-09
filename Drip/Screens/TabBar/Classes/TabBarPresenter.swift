@@ -16,6 +16,14 @@ final class TabBarPresenter: TabBarPresenterProtocol {
                     view.coreDataController = CoreDataController.shared
                     view.userDefaultsController = UserDefaultsController.shared
                 }
+
+                // TODO: Remove print statements
+                if let view = navController.viewControllers[0] as? HealthKitViewProtocol {
+                    view.healthKitController = HealthKitController.shared
+                    print("added to vc")
+                } else {
+                    print("does not conform to hkview protocol")
+                }
             }
         }
     }

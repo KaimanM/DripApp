@@ -1,8 +1,10 @@
 import HealthKit
 
-class HealthKitController {
+class HealthKitController: HealthKitControllerProtocol {
 
-    var healthStore: HKHealthStore? = {
+    static var shared = HealthKitController()
+
+    private var healthStore: HKHealthStore? = {
         if HKHealthStore.isHealthDataAvailable() {
             print("healthkit available")
             return HKHealthStore()

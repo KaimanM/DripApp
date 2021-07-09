@@ -119,6 +119,8 @@
 		3677D439260630E10086E89A /* DrinksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3677D438260630E10086E89A /* DrinksCell.swift */; };
 		3677D43C260631230086E89A /* QuickDrinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3677D43B260631230086E89A /* QuickDrinkView.swift */; };
 		3677D43F260633C30086E89A /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3677D43E260633C30086E89A /* UIView+Extensions.swift */; };
+		367B7A362698A2E100AEF915 /* HealthKitViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367B7A352698A2E100AEF915 /* HealthKitViewProtocol.swift */; };
+		367B7A382698A30900AEF915 /* HealthKitControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367B7A372698A30900AEF915 /* HealthKitControllerProtocol.swift */; };
 		3680E0CB24B3BC2E009E9DB8 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3680E0CA24B3BC2E009E9DB8 /* UIFont+Extensions.swift */; };
 		3680E0CD24B3BF50009E9DB8 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3680E0CC24B3BF50009E9DB8 /* UIColor+Extensions.swift */; };
 		3680E0CF24B3C8CC009E9DB8 /* GradientBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3680E0CE24B3C8CC009E9DB8 /* GradientBarView.swift */; };
@@ -308,6 +310,8 @@
 		3677D438260630E10086E89A /* DrinksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinksCell.swift; sourceTree = "<group>"; };
 		3677D43B260631230086E89A /* QuickDrinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickDrinkView.swift; sourceTree = "<group>"; };
 		3677D43E260633C30086E89A /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		367B7A352698A2E100AEF915 /* HealthKitViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitViewProtocol.swift; sourceTree = "<group>"; };
+		367B7A372698A30900AEF915 /* HealthKitControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitControllerProtocol.swift; sourceTree = "<group>"; };
 		3680E0CA24B3BC2E009E9DB8 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		3680E0CC24B3BF50009E9DB8 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		3680E0CE24B3C8CC009E9DB8 /* GradientBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBarView.swift; sourceTree = "<group>"; };
@@ -610,12 +614,14 @@
 			isa = PBXGroup;
 			children = (
 				362A52E025EFACFB00B6AA8D /* PersistentDataViewProtocol.swift */,
+				367B7A352698A2E100AEF915 /* HealthKitViewProtocol.swift */,
 				362A52A025EFA59800B6AA8D /* CoreDataControllerProtocol.swift */,
 				362A52DD25EFAA2600B6AA8D /* CoreDataController.swift */,
 				362A52A325EFA68100B6AA8D /* Drip.xcdatamodeld */,
 				366DFC2F260B8945009BEAC5 /* UserDefaultsController.swift */,
 				36538D03260CB0D300CFB656 /* UserDefaultsControllerProtocol.swift */,
 				3648C7A426972AA500E826BD /* HealthKitController.swift */,
+				367B7A372698A30900AEF915 /* HealthKitControllerProtocol.swift */,
 			);
 			path = "Persistent Data";
 			sourceTree = "<group>";
@@ -1215,6 +1221,7 @@
 				36A0A91D261B557F00F1BE8B /* TenDrinksAwardDataSource.swift in Sources */,
 				3644EA37261BB85E00E257CC /* Drink+CoreDataProperties.swift in Sources */,
 				3677D43F260633C30086E89A /* UIView+Extensions.swift in Sources */,
+				367B7A362698A2E100AEF915 /* HealthKitViewProtocol.swift in Sources */,
 				3665E6B4261DF8C600DB6971 /* AwardsDetailScreenBuilder.swift in Sources */,
 				3644EA36261BB85E00E257CC /* Drink+CoreDataClass.swift in Sources */,
 				0ACB982224546717007BF01D /* AppDelegate.swift in Sources */,
@@ -1308,6 +1315,7 @@
 				36D28D2526497D67008D68CA /* NotificationDetailView.swift in Sources */,
 				0A2B8B772454D8F300D9E8E7 /* TodayPresenter.swift in Sources */,
 				0ACB985B24547236007BF01D /* DarkNavController.swift in Sources */,
+				367B7A382698A30900AEF915 /* HealthKitControllerProtocol.swift in Sources */,
 				3677D43C260631230086E89A /* QuickDrinkView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
