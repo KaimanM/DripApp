@@ -191,7 +191,7 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
                 self.view?.userDefaultsController.enabledHealthKit = false
                 self.view?.setToggleStatus(isOn: false)
             @unknown default:
-                print("do nothing")
+                break
             }
         })
     }

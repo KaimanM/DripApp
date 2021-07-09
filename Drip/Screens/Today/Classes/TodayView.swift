@@ -184,7 +184,8 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
 
     @IBAction func drinkCoefficientBtnTapped(_ sender: Any) {
         showView(SettingsDetailScreenBuilder(type: .coefficient,
-                                             userDefaultsController: userDefaultsController).build())
+                                             userDefaultsController: userDefaultsController,
+                                             healthKitController: healthKitController).build())
     }
 
     @IBAction func addDrinkBtnTapped(_ sender: Any) {

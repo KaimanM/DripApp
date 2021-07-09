@@ -56,32 +56,39 @@ final class SettingsPresenter: SettingsPresenterProtocol {
 
     // swiftlint:disable:next cyclomatic_complexity
     func didSelectRowAt(indexPath: IndexPath) {
-        guard let userDefaultsController = view?.userDefaultsController else { return }
+        guard let userDefaultsController = view?.userDefaultsController,
+              let healthKitController = view?.healthKitController else { return }
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
             view?.changeNameTapped()
         case (0, 1):
             view?.pushView(SettingsDetailScreenBuilder(type: .goal,
-                                                       userDefaultsController: userDefaultsController).build())
+                                                       userDefaultsController: userDefaultsController,
+                                                       healthKitController: healthKitController).build())
         case (0, 2):
             view?.pushView(SettingsDetailScreenBuilder(type: .favourite,
-                                                 userDefaultsController: userDefaultsController).build())
+                                                 userDefaultsController: userDefaultsController,
+                                                 healthKitController: healthKitController).build())
         case (0, 3):
             view?.pushView(SettingsDetailScreenBuilder(type: .coefficient,
-                                                 userDefaultsController: userDefaultsController).build())
+                                                 userDefaultsController: userDefaultsController,
+                                                 healthKitController: healthKitController).build())
         case (0, 4):
             view?.pushView(NotificationsScreenBuilder(userDefaultsController: userDefaultsController).build())
         case (0, 5):
             view?.pushView(SettingsDetailScreenBuilder(type: .healthKit,
-                                                 userDefaultsController: userDefaultsController).build())
+                                                 userDefaultsController: userDefaultsController,
+                                                 healthKitController: healthKitController).build())
         case (1, 0):
             view?.pushView(SettingsDetailScreenBuilder(type: .about,
-                                                 userDefaultsController: userDefaultsController).build())
+                                                 userDefaultsController: userDefaultsController,
+                                                 healthKitController: healthKitController).build())
         case (1, 1):
             view?.showWhatsNew()
         case (1, 2):
             view?.pushView(SettingsDetailScreenBuilder(type: .attribution,
-                                                 userDefaultsController: userDefaultsController).build())
+                                                 userDefaultsController: userDefaultsController,
+                                                 healthKitController: healthKitController).build())
         case (1, 3):
             let privacyPolicyURL = URL(string: "https://dripmobile.app/privacy.html")!
             view?.showSafariWith(url: privacyPolicyURL)

@@ -3,6 +3,7 @@ import UIKit
 protocol HistoryViewProtocol: AnyObject {
     var presenter: HistoryPresenterProtocol! { get set }
     var coreDataController: CoreDataControllerProtocol! { get set }
+    var healthKitController: HealthKitControllerProtocol! { get set }
     var userDefaultsController: UserDefaultsControllerProtocol! { get set }
     func updateRingView(progress: CGFloat, date: Date, total: Double, goal: Double)
 

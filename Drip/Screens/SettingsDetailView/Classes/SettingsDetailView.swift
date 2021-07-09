@@ -1,13 +1,12 @@
 import UIKit
 import SafariServices
 
-class SettingsDetailView: UIViewController, SettingsDetailViewProtocol {
+class SettingsDetailView: UIViewController, SettingsDetailViewProtocol, HealthKitViewProtocol {
 
     var presenter: SettingsDetailPresenterProtocol!
     var settingsType: SettingsType!
     var userDefaultsController: UserDefaultsControllerProtocol!
-    // TODO: Refactor into dependancy inject later
-    var healthKitController: HealthKitController! = HealthKitController()
+    var healthKitController: HealthKitControllerProtocol!
 
     let stackView: UIStackView = {
         let stackView = UIStackView()
