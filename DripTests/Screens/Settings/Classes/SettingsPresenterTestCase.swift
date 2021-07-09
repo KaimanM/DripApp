@@ -81,7 +81,7 @@ class SettingsPresenterTestCase: XCTestCase {
         let section = 0
 
         // when &then
-        XCTAssertEqual(sut.numberOfRowsInSection(section), 5)
+        XCTAssertEqual(sut.numberOfRowsInSection(section), 6)
     }
 
     func test_givenSection1_whenOnumberOfRowsInSectionCalled_thenReturnsCorrectValue() {

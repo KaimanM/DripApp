@@ -36,5 +36,7 @@ final class MockUserDefaultsController: UserDefaultsControllerProtocol {
 
     var enabledNotifications: Bool = true
 
+    var enabledHealthKit: Bool = false
+
     var currentVersion: String = "1.0.0"
 }

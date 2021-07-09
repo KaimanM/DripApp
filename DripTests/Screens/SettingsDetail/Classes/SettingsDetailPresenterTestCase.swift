@@ -3,6 +3,21 @@ import XCTest
 @testable import Drip
 
 final class MockSettingsDetailView: SettingsDetailViewProtocol {
+    // TODO: Fix/ Implement missing tests
+    var healthKitController: HealthKitController!
+
+    func setupHealthKitView(headingText: String, bodyText: String) {
+        // do nothing yet
+    }
+
+    func showHealthKitDialogue() {
+        // do nothing yet
+    }
+
+    func setToggleStatus(isOn: Bool) {
+        // do nothing yet
+    }
+
     var presenter: SettingsDetailPresenterProtocol!
 
     var userDefaultsController: UserDefaultsControllerProtocol!
