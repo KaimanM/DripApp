@@ -3,24 +3,11 @@ import XCTest
 @testable import Drip
 
 final class MockSettingsDetailView: SettingsDetailViewProtocol {
-    // TODO: Fix/ Implement missing tests
-    var healthKitController: HealthKitController!
-
-    func setupHealthKitView(headingText: String, bodyText: String) {
-        // do nothing yet
-    }
-
-    func showHealthKitDialogue() {
-        // do nothing yet
-    }
-
-    func setToggleStatus(isOn: Bool) {
-        // do nothing yet
-    }
-
     var presenter: SettingsDetailPresenterProtocol!
 
     var userDefaultsController: UserDefaultsControllerProtocol!
+
+    var healthKitController: HealthKitControllerProtocol!
 
     var settingsType: SettingsType!
 
@@ -69,16 +56,34 @@ final class MockSettingsDetailView: SettingsDetailViewProtocol {
     func reloadCollectionView() {
         didReloadCollectionView = true
     }
+
+    private(set) var didSetupHealthKitView: (headingText: String, bodyText: String)?
+    func setupHealthKitView(headingText: String, bodyText: String) {
+        didSetupHealthKitView = (headingText: headingText, bodyText: bodyText)
+    }
+
+    private(set) var didShowHealthKitDialogue: Bool = false
+    func showHealthKitDialogue() {
+        didShowHealthKitDialogue = true
+    }
+
+    private(set) var didSetToggleStatus: Bool = false
+    func setToggleStatus(isOn: Bool) {
+        didSetToggleStatus = isOn
+    }
+
 }
 
 class SettingsDetailPresenterTestCase: XCTestCase {
     private var sut: SettingsDetailPresenter!
     private var mockedView = MockSettingsDetailView()
     private var mockedUserDefaultsController = MockUserDefaultsController()
+    private var mockedHealthKitController = MockHealthKitController()
 
     override func setUp() {
         super.setUp()
         mockedView.userDefaultsController = mockedUserDefaultsController
+        mockedView.healthKitController = mockedHealthKitController
         sut = SettingsDetailPresenter(view: mockedView)
     }
 
@@ -425,5 +430,68 @@ class SettingsDetailPresenterTestCase: XCTestCase {
 
         //then
         XCTAssertFalse(mockedUserDefaultsController.useDrinkCoefficients)
+    }
+
+    // MARK: - setHealthKitBool -
+
+    func test_givenNotDeterminedAuthStatus_whenSetHealthKitBoolCalledToTrueAndAuthorised_thenUpdatesUserDefaults() {
+        //given
+        mockedHealthKitController.authStatusToReturn = .notDetermined
+        mockedHealthKitController.requestAccessResult = true
+        mockedHealthKitController.requestAccessAuthStatus = .sharingAuthorized
+
+        //when
+        sut.setHealthKitBool(isEnabled: true)
+
+        //then
+        XCTAssertTrue(mockedUserDefaultsController.enabledHealthKit)
+    }
+
+    func test_givenNotDeterminedAuthStatus_whenSetHealthKitBoolCalledToTrueAndSuccessFalse_thenUpdatesUserDefaults() {
+        //given
+        mockedHealthKitController.authStatusToReturn = .notDetermined
+        mockedHealthKitController.requestAccessResult = false
+
+        //when
+        sut.setHealthKitBool(isEnabled: true)
+
+        //then
+        XCTAssertFalse(mockedUserDefaultsController.enabledHealthKit)
+        XCTAssertFalse(mockedView.didSetToggleStatus)
+    }
+
+    func test_givenSharingAuthorisedAuthStatus_whenSetHealthKitBoolCalledToTrue_thenUpdatesUserDefaults() {
+        //given
+        mockedHealthKitController.authStatusToReturn = .sharingAuthorized
+
+        //when
+        sut.setHealthKitBool(isEnabled: true)
+
+        //then
+        XCTAssertTrue(mockedUserDefaultsController.enabledHealthKit)
+    }
+
+    func test_givenSharingDeniedAuthStatus_whenSetHealthKitBoolCalledToTrue_thenUpdatesUserDefaultsAndShowsDialogue() {
+        //given
+        mockedHealthKitController.authStatusToReturn = .sharingDenied
+
+        //when
+        sut.setHealthKitBool(isEnabled: true)
+
+        //then
+        XCTAssertFalse(mockedUserDefaultsController.enabledHealthKit)
+        XCTAssertFalse(mockedView.didSetToggleStatus)
+        XCTAssertTrue(mockedView.didShowHealthKitDialogue)
+    }
+
+    func test_givenSharingAuthorisedAuthStatus_whenSetHealthKitBoolCalledToFalse_thenUpdatesUserDefaults() {
+        //given
+        mockedHealthKitController.authStatusToReturn = .sharingAuthorized
+
+        //when
+        sut.setHealthKitBool(isEnabled: false)
+
+        //then
+        XCTAssertFalse(mockedUserDefaultsController.enabledHealthKit)
     }
 }

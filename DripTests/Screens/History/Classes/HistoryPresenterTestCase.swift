@@ -8,6 +8,7 @@ final class MockHistoryView: HistoryViewProtocol {
 
     var coreDataController: CoreDataControllerProtocol! = CoreDataController.shared
     var userDefaultsController: UserDefaultsControllerProtocol!  = UserDefaultsController.shared
+    var healthKitController: HealthKitControllerProtocol!
 
     //swiftlint:disable:next large_tuple
     private(set) var didUpdateRingView: (progress: CGFloat, date: Date, total: Double, goal: Double)?
@@ -57,11 +58,13 @@ class HistoryPresenterTestCase: XCTestCase {
     private var mockedView = MockHistoryView()
     private var coreDataController = CoreDataController.shared
     private var mockedUserDefaultsController = MockUserDefaultsController()
+    private var mockedHealthKitController = MockHealthKitController()
 
     override func setUp() {
         super.setUp()
         flushCoreData()
         mockedView.userDefaultsController = mockedUserDefaultsController
+        mockedView.healthKitController = mockedHealthKitController
         sut = HistoryPresenter(view: mockedView)
     }
 
@@ -262,5 +265,71 @@ class HistoryPresenterTestCase: XCTestCase {
 
         // then
         XCTAssertTrue(mockedView.didPresentViewController!.isKind(of: UIAlertController.self))
+    }
+
+    // MARK: - addDrinkTapped -
+
+    func test_givenHealthKitEnabled_whenAddDrinkTappedCalled_thenHealthKitRecordsUpdated() {
+        // given
+        mockedUserDefaultsController.enabledHealthKit = true
+        sut.selectedDate = Date()
+        let drink = Beverage(name: "Water",
+                             imageName: "waterbottle.svg",
+                             coefficient: 1.0)
+
+        // when
+        sut.addDrinkTapped(beverage: drink,
+                           volume: 500)
+
+        // then
+        XCTAssertEqual(mockedHealthKitController.waterAddedToHealthStore?.amount, 500)
+        XCTAssertEqual(mockedHealthKitController.waterAddedToHealthStore?.date, sut.selectedDate)
+    }
+
+    func test_givenHealthKitDisabled_whenAddDrinkTappedCalled_thenHealthKitRecordsNotUpdated() {
+        // given
+        mockedUserDefaultsController.enabledHealthKit = false
+        sut.selectedDate = Date()
+        let drink = Beverage(name: "Water",
+                             imageName: "waterbottle.svg",
+                             coefficient: 1.0)
+
+        // when
+        sut.addDrinkTapped(beverage: drink,
+                           volume: 500)
+
+        // then
+        XCTAssertEqual(mockedHealthKitController.waterAddedToHealthStore?.amount, nil)
+        XCTAssertEqual(mockedHealthKitController.waterAddedToHealthStore?.date, nil)
+    }
+
+    // MARK: - deleteHealthKitEntry -
+
+    func test_givenHealthKitEnabledVolumeAndTimeStamp_whenDeleteHealthKitEntryCalled_thenHealthKitRecordsUpdated() {
+        // given
+        mockedUserDefaultsController.enabledHealthKit = true
+        let timeStamp = Date()
+        let volume = 500.0
+
+        // when
+        sut.deleteHealthKitEntry(volume: volume, timeStamp: timeStamp)
+
+        // then
+        XCTAssertEqual(mockedHealthKitController.deletedEntry?.amount, volume)
+        XCTAssertEqual(mockedHealthKitController.deletedEntry?.date, timeStamp)
+    }
+
+    func test_givenHealthKitDisabledVolumeAndTimeStamp_whenDeleteHealthKitEntryCalled_thenHealthKitRecordsUpdated() {
+        // given
+        mockedUserDefaultsController.enabledHealthKit = false
+        let timeStamp = Date()
+        let volume = 500.0
+
+        // when
+        sut.deleteHealthKitEntry(volume: volume, timeStamp: timeStamp)
+
+        // then
+        XCTAssertEqual(mockedHealthKitController.deletedEntry?.amount, nil)
+        XCTAssertEqual(mockedHealthKitController.deletedEntry?.date, nil)
     }
 }

@@ -101,9 +101,7 @@ final class TodayPresenter: TodayPresenterProtocol {
 
     }
 
-    func addDrinkTapped(beverage: Beverage, volume: Double) {
-        let timeStamp = Date()
-
+    func addDrinkTapped(beverage: Beverage, volume: Double, timeStamp: Date) {
         view?.coreDataController.addDrinkForDay(beverage: beverage,
                                                 volume: volume,
                                                 timeStamp: timeStamp)

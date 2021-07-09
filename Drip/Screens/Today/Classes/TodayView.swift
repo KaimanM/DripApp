@@ -195,6 +195,6 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
 
 extension TodayView: DrinksLauncherDelegate {
     func didAddDrink(beverage: Beverage, volume: Double) {
-        presenter.addDrinkTapped(beverage: beverage, volume: volume)
+        presenter.addDrinkTapped(beverage: beverage, volume: volume, timeStamp: Date())
     }
 }

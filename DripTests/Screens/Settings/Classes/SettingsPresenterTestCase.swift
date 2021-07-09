@@ -6,6 +6,7 @@ final class MockSettingsView: SettingsViewProtocol {
     var presenter: SettingsPresenterProtocol!
 
     var userDefaultsController: UserDefaultsControllerProtocol!
+    var healthKitController: HealthKitControllerProtocol!
 
     private(set) var didPresentViewController: UIViewController?
     func presentView(_ view: UIViewController) {
@@ -57,10 +58,12 @@ class SettingsPresenterTestCase: XCTestCase {
     private var sut: SettingsPresenter!
     private var mockedView = MockSettingsView()
     private var mockedUserDefaultsController = MockUserDefaultsController()
+    private var mockedHealthKitController = MockHealthKitController()
 
     override func setUp() {
         super.setUp()
         mockedView.userDefaultsController = mockedUserDefaultsController
+        mockedView.healthKitController = mockedHealthKitController
         sut = SettingsPresenter(view: mockedView)
     }
 

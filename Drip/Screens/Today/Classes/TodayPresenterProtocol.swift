@@ -1,3 +1,5 @@
+import Foundation
+
 protocol TodayPresenterProtocol: AnyObject {
     var view: TodayViewProtocol? { get }
 
@@ -5,5 +7,5 @@ protocol TodayPresenterProtocol: AnyObject {
     func onViewDidLoad()
     func onViewWillAppear()
     func onViewWillDisappear()
-    func addDrinkTapped(beverage: Beverage, volume: Double)
+    func addDrinkTapped(beverage: Beverage, volume: Double, timeStamp: Date)
 }
