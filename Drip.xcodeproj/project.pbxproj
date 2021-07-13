@@ -167,6 +167,7 @@
 		36E3F1F52659C1060051072C /* NotificationDetailPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E3F1F42659C1060051072C /* NotificationDetailPresenterTestCase.swift */; };
 		36E7412A2673B77300493F52 /* WhatsNewScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E741292673B77300493F52 /* WhatsNewScreenBuilderTestCase.swift */; };
 		36E7412D2673B7EA00493F52 /* WhatsNewPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E7412C2673B7EA00493F52 /* WhatsNewPresenterTestCase.swift */; };
+		36E87C12269E34C300EB9E82 /* SettingsDetailView+UISetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E87C11269E34C300EB9E82 /* SettingsDetailView+UISetup.swift */; };
 		36F284E7262741ED00FBC0F1 /* SettingsDetailScreenBuilderTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F284E6262741ED00FBC0F1 /* SettingsDetailScreenBuilderTestCase.swift */; };
 		36F284EC2627424200FBC0F1 /* SettingsDetailPresenterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F284EB2627424200FBC0F1 /* SettingsDetailPresenterTestCase.swift */; };
 /* End PBXBuildFile section */
@@ -358,6 +359,7 @@
 		36E3F1F42659C1060051072C /* NotificationDetailPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDetailPresenterTestCase.swift; sourceTree = "<group>"; };
 		36E741292673B77300493F52 /* WhatsNewScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewScreenBuilderTestCase.swift; sourceTree = "<group>"; };
 		36E7412C2673B7EA00493F52 /* WhatsNewPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewPresenterTestCase.swift; sourceTree = "<group>"; };
+		36E87C11269E34C300EB9E82 /* SettingsDetailView+UISetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsDetailView+UISetup.swift"; sourceTree = "<group>"; };
 		36F284E6262741ED00FBC0F1 /* SettingsDetailScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailScreenBuilderTestCase.swift; sourceTree = "<group>"; };
 		36F284EB2627424200FBC0F1 /* SettingsDetailPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailPresenterTestCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -798,6 +800,7 @@
 			isa = PBXGroup;
 			children = (
 				364BB8042621CF41009CAEE6 /* SettingsDetailView.swift */,
+				36E87C11269E34C300EB9E82 /* SettingsDetailView+UISetup.swift */,
 				364BB8072621EA52009CAEE6 /* SettingsDetailViewProtocol.swift */,
 				364BB80A2621EA59009CAEE6 /* SettingsDetailPresenter.swift */,
 				364BB80D2621EA61009CAEE6 /* SettingsDetailPresenterProtocol.swift */,
@@ -1283,6 +1286,7 @@
 				0A8BEA942455D45A00AA9880 /* SettingsScreenBuilder.swift in Sources */,
 				36538D0C260CDAD300CFB656 /* OnboardingPagesScreenBuilder.swift in Sources */,
 				362A52DE25EFAA2600B6AA8D /* CoreDataController.swift in Sources */,
+				36E87C12269E34C300EB9E82 /* SettingsDetailView+UISetup.swift in Sources */,
 				36A0A937261B59B900F1BE8B /* NinetyDayStreakAwardDataSource.swift in Sources */,
 				0AD151152454EFDC00F45042 /* TrendsViewProtocol.swift in Sources */,
 				366DFC30260B8945009BEAC5 /* UserDefaultsController.swift in Sources */,

@@ -9,7 +9,7 @@ final class MockHealthKitController: HealthKitControllerProtocol {
     }
 
     var requestAccessResult = false
-    
+
     // mock result as if user allowed/disallowed healthkit
     var requestAccessAuthStatus: HKAuthorizationStatus = .sharingAuthorized
 
