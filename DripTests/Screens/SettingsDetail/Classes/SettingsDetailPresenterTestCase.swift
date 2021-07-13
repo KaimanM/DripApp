@@ -242,6 +242,24 @@ class SettingsDetailPresenterTestCase: XCTestCase {
                                 """)
     }
 
+    func test_givenHealthKitSettingsType_whenSetupViewCalled_thenCallsSetupHealthKitView() {
+        // given
+        mockedView.settingsType = .healthKit
+
+        // when
+        sut.setupView()
+
+        //then
+        XCTAssertEqual(mockedView.didSetupHealthKitView?.headingText, "Health Kit Integration")
+        XCTAssertEqual(mockedView.didSetupHealthKitView?.bodyText,
+                       """
+                        Enabling HealthKit integration allows us to save your drink progress in the Apple Health app.
+
+                        Note:
+                        \u{2022} Drink coefficents aren't reflected in Apple Health.
+                        """)
+    }
+
     // MARK: - creditAlertControllerForRow -
 
     func test_givenRow6_whenCreditAlertControllerForRowCalled_thenShowsAlertControllerWithCorrectInfo() {
@@ -494,4 +512,5 @@ class SettingsDetailPresenterTestCase: XCTestCase {
         //then
         XCTAssertFalse(mockedUserDefaultsController.enabledHealthKit)
     }
+    // swiftlint:disable:next file_length
 }

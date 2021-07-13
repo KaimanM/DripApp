@@ -108,7 +108,10 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
         view?.updateTitle(title: "Health Kit")
         let headingText = "Health Kit Integration"
         let bodyText = """
-            Enable Healthkit integration
+            Enabling HealthKit integration allows us to save your drink progress in the Apple Health app.
+
+            Note:
+            \u{2022} Drink coefficents aren't reflected in Apple Health.
             """
 
         view?.setupHealthKitView(headingText: headingText, bodyText: bodyText)

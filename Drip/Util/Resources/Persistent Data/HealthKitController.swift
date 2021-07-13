@@ -6,7 +6,6 @@ class HealthKitController: HealthKitControllerProtocol {
 
     private var healthStore: HKHealthStore? = {
         if HKHealthStore.isHealthDataAvailable() {
-            print("healthkit available")
             return HKHealthStore()
         } else {
             return nil

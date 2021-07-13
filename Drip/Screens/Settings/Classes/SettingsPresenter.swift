@@ -6,17 +6,17 @@ final class SettingsPresenter: SettingsPresenterProtocol {
     let cellDataSection1: [SettingsCellData] = [
         SettingsCellData(title: "Name", imageName: "square.and.pencil", backgroundColour: .systemBlue),
         SettingsCellData(title: "Goal", imageName: "slider.horizontal.3", backgroundColour: .systemIndigo),
-        SettingsCellData(title: "Favourites", imageName: "star", backgroundColour: .systemRed),
+        SettingsCellData(title: "Favourites", imageName: "star", backgroundColour: .systemOrange),
         SettingsCellData(title: "Drink Coefficients", imageName: "info.circle", backgroundColour: .systemTeal),
         SettingsCellData(title: "Notifications", imageName: "bell", backgroundColour: .systemGreen),
-        SettingsCellData(title: "HealthKit", imageName: "heart.circle", backgroundColour: .magenta)
+        SettingsCellData(title: "HealthKit", imageName: "heart.circle", backgroundColour: .systemRed)
 
     ]
 
     let cellDataSection2: [SettingsCellData] = [
         SettingsCellData(title: "About", imageName: "at", backgroundColour: .systemBlue),
-        SettingsCellData(title: "What's New", imageName: "wand.and.stars", backgroundColour: .magenta),
-        SettingsCellData(title: "Thanks to", imageName: "gift", backgroundColour: .systemIndigo),
+        SettingsCellData(title: "What's New", imageName: "wand.and.stars", backgroundColour: .systemIndigo),
+        SettingsCellData(title: "Thanks to", imageName: "gift", backgroundColour: .systemOrange),
         SettingsCellData(title: "Privacy Policy", imageName: "hand.raised", backgroundColour: .systemGreen),
         SettingsCellData(title: "Rate Drip", imageName: "heart.fill", backgroundColour: .systemRed)
     ]

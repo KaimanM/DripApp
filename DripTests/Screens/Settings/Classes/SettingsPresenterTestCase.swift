@@ -133,7 +133,7 @@ class SettingsPresenterTestCase: XCTestCase {
         // then
         XCTAssertEqual(cellData.title, "Favourites")
         XCTAssertEqual(cellData.imageName, "star")
-        XCTAssertEqual(cellData.backgroundColour, .systemRed)
+        XCTAssertEqual(cellData.backgroundColour, .systemOrange)
     }
 
     func test_givenIndexPathSection0Row3_whenGetCellDataForIndexPathCalled_thenReturnsCorrectData() {
@@ -172,7 +172,7 @@ class SettingsPresenterTestCase: XCTestCase {
         // then
         XCTAssertEqual(cellData.title, "What's New")
         XCTAssertEqual(cellData.imageName, "wand.and.stars")
-        XCTAssertEqual(cellData.backgroundColour, .magenta)
+        XCTAssertEqual(cellData.backgroundColour, .systemIndigo)
     }
 
     func test_givenIndexPathSection1Row2_whenGetCellDataForIndexPathCalled_thenReturnsCorrectData() {
@@ -185,7 +185,7 @@ class SettingsPresenterTestCase: XCTestCase {
         // then
         XCTAssertEqual(cellData.title, "Thanks to")
         XCTAssertEqual(cellData.imageName, "gift")
-        XCTAssertEqual(cellData.backgroundColour, .systemIndigo)
+        XCTAssertEqual(cellData.backgroundColour, .systemOrange)
     }
 
     func test_givenIndexPathSection1Row3_whenGetCellDataForIndexPathCalled_thenReturnsCorrectData() {
