@@ -47,14 +47,16 @@ class HealthKitController: HealthKitControllerProtocol {
 
         healthStore?.save(waterCorrelationForWaterAmount, withCompletion: { success, error in
             guard error == nil else {
-                print(error?.localizedDescription ?? "error failed to print")
+//                print(error?.localizedDescription ?? "error failed to print")
                 return
             }
             switch success {
             case true:
-                print("Saved to HealthKit Successfully")
+//                print("Saved to HealthKit Successfully")
+                break
             case false:
-                print("Failed to save to HealthKit")
+//                print("Failed to save to HealthKit")
+                break
             }
 
         })
@@ -81,21 +83,23 @@ class HealthKitController: HealthKitControllerProtocol {
                                   sortDescriptors: nil) { _, results, error in
 
             guard error == nil else {
-                print(error?.localizedDescription ?? "error failed to print")
+//                print(error?.localizedDescription ?? "error failed to print")
                 return
             }
 
             if let healthKitEntry = results?.first {
                 self.healthStore?.delete(healthKitEntry, withCompletion: { success, error in
                     guard error == nil else {
-                        print(error?.localizedDescription ?? "error failed to print")
+//                        print(error?.localizedDescription ?? "error failed to print")
                         return
                     }
                     switch success {
                     case true:
-                        print("Successfully removed entry from HealthKit")
+//                        print("Successfully removed entry from HealthKit")
+                        break
                     case false:
-                        print("Failed to remove entry from HealthKit")
+//                        print("Failed to remove entry from HealthKit")
+                        break
                     }
                 })
             }

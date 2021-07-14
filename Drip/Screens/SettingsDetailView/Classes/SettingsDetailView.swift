@@ -132,7 +132,7 @@ class SettingsDetailView: UIViewController, SettingsDetailViewProtocol, HealthKi
         case .healthKit:
             presenter.setHealthKitBool(isEnabled: sender.isOn)
         default:
-            print("do nothing")
+            break
         }
     }
 

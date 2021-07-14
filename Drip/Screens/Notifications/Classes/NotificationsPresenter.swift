@@ -116,7 +116,7 @@ class NotificationsPresenter: NotificationsPresenterProtocol {
         guard let pending = view?.notificationController.notifications.count else { return }
         if pending > reminderCount {
             for idToRemove in reminderCount+1...pending {
-                print("removing id \(idToRemove)")
+//                print("removing id \(idToRemove)")
                 view?.notificationController.removePendingNotificationWithId(id: idToRemove)
             }
         } else if reminderCount > pending {

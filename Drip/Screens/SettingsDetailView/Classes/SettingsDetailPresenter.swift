@@ -189,7 +189,6 @@ class SettingsDetailPresenter: SettingsDetailPresenterProtocol {
             case .sharingAuthorized:
                 self.view?.userDefaultsController.enabledHealthKit = isEnabled
             case .sharingDenied:
-                print("sharing denied lol")
                 self.view?.showHealthKitDialogue()
                 self.view?.userDefaultsController.enabledHealthKit = false
                 self.view?.setToggleStatus(isOn: false)
