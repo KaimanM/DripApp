@@ -16,6 +16,10 @@ final class TabBarPresenter: TabBarPresenterProtocol {
                     view.coreDataController = CoreDataController.shared
                     view.userDefaultsController = UserDefaultsController.shared
                 }
+
+                if let view = navController.viewControllers[0] as? HealthKitViewProtocol {
+                    view.healthKitController = HealthKitController.shared
+                }
             }
         }
     }

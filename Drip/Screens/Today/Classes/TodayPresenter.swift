@@ -101,13 +101,18 @@ final class TodayPresenter: TodayPresenterProtocol {
 
     }
 
-    func addDrinkTapped(beverage: Beverage, volume: Double) {
+    func addDrinkTapped(beverage: Beverage, volume: Double, timeStamp: Date) {
         view?.coreDataController.addDrinkForDay(beverage: beverage,
                                                 volume: volume,
-                                                timeStamp: Date())
+                                                timeStamp: timeStamp)
 
         if today == nil {
-            today = view?.coreDataController.getDayForDate(date: Date())
+            today = view?.coreDataController.getDayForDate(date: timeStamp)
+        }
+
+        if let userDefaultsController = view?.userDefaultsController,
+           userDefaultsController.enabledHealthKit {
+            view?.healthKitController.addWaterDataToHealthStore(amount: volume, date: timeStamp)
         }
 
         updateProgressRing()

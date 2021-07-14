@@ -6,7 +6,8 @@ class SettingsDetailScreenBuilderTestCase: XCTestCase {
     func test_whenBuildCalled_thenViewPresenterRelationEstablished() {
         // given & when
         let view = SettingsDetailScreenBuilder(type: .about,
-                                               userDefaultsController: MockUserDefaultsController()).build()
+                                               userDefaultsController: MockUserDefaultsController(),
+                                               healthKitController: MockHealthKitController()).build()
 
         // then
         XCTAssertTrue(view.presenter.view! === view)

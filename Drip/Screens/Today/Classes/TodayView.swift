@@ -1,9 +1,12 @@
 import UIKit
 
-final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewProtocol {
+final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewProtocol,
+                       HealthKitViewProtocol {
+
     var presenter: TodayPresenterProtocol!
     var coreDataController: CoreDataControllerProtocol!
     var userDefaultsController: UserDefaultsControllerProtocol!
+    var healthKitController: HealthKitControllerProtocol!
     @IBOutlet weak var ringView: ProgressRingView!
     @IBOutlet weak var progressLabel: UILabel!
     @IBOutlet weak var todayVolumeLabel: UILabel!
@@ -181,7 +184,8 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
 
     @IBAction func drinkCoefficientBtnTapped(_ sender: Any) {
         showView(SettingsDetailScreenBuilder(type: .coefficient,
-                                             userDefaultsController: userDefaultsController).build())
+                                             userDefaultsController: userDefaultsController,
+                                             healthKitController: healthKitController).build())
     }
 
     @IBAction func addDrinkBtnTapped(_ sender: Any) {
@@ -191,6 +195,6 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
 
 extension TodayView: DrinksLauncherDelegate {
     func didAddDrink(beverage: Beverage, volume: Double) {
-        presenter.addDrinkTapped(beverage: beverage, volume: volume)
+        presenter.addDrinkTapped(beverage: beverage, volume: volume, timeStamp: Date())
     }
 }

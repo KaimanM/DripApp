@@ -6,15 +6,17 @@ final class SettingsPresenter: SettingsPresenterProtocol {
     let cellDataSection1: [SettingsCellData] = [
         SettingsCellData(title: "Name", imageName: "square.and.pencil", backgroundColour: .systemBlue),
         SettingsCellData(title: "Goal", imageName: "slider.horizontal.3", backgroundColour: .systemIndigo),
-        SettingsCellData(title: "Favourites", imageName: "star", backgroundColour: .systemRed),
+        SettingsCellData(title: "Favourites", imageName: "star", backgroundColour: .systemOrange),
         SettingsCellData(title: "Drink Coefficients", imageName: "info.circle", backgroundColour: .systemTeal),
-        SettingsCellData(title: "Notifications", imageName: "bell", backgroundColour: .systemGreen)
+        SettingsCellData(title: "Notifications", imageName: "bell", backgroundColour: .systemGreen),
+        SettingsCellData(title: "HealthKit", imageName: "heart.circle", backgroundColour: .systemRed)
+
     ]
 
     let cellDataSection2: [SettingsCellData] = [
         SettingsCellData(title: "About", imageName: "at", backgroundColour: .systemBlue),
-        SettingsCellData(title: "What's New", imageName: "wand.and.stars", backgroundColour: .magenta),
-        SettingsCellData(title: "Thanks to", imageName: "gift", backgroundColour: .systemIndigo),
+        SettingsCellData(title: "What's New", imageName: "wand.and.stars", backgroundColour: .systemIndigo),
+        SettingsCellData(title: "Thanks to", imageName: "gift", backgroundColour: .systemOrange),
         SettingsCellData(title: "Privacy Policy", imageName: "hand.raised", backgroundColour: .systemGreen),
         SettingsCellData(title: "Rate Drip", imageName: "heart.fill", backgroundColour: .systemRed)
     ]
@@ -54,29 +56,39 @@ final class SettingsPresenter: SettingsPresenterProtocol {
 
     // swiftlint:disable:next cyclomatic_complexity
     func didSelectRowAt(indexPath: IndexPath) {
-        guard let userDefaultsController = view?.userDefaultsController else { return }
+        guard let userDefaultsController = view?.userDefaultsController,
+              let healthKitController = view?.healthKitController else { return }
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
             view?.changeNameTapped()
         case (0, 1):
             view?.pushView(SettingsDetailScreenBuilder(type: .goal,
-                                                       userDefaultsController: userDefaultsController).build())
+                                                       userDefaultsController: userDefaultsController,
+                                                       healthKitController: healthKitController).build())
         case (0, 2):
             view?.pushView(SettingsDetailScreenBuilder(type: .favourite,
-                                                 userDefaultsController: userDefaultsController).build())
+                                                 userDefaultsController: userDefaultsController,
+                                                 healthKitController: healthKitController).build())
         case (0, 3):
             view?.pushView(SettingsDetailScreenBuilder(type: .coefficient,
-                                                 userDefaultsController: userDefaultsController).build())
+                                                 userDefaultsController: userDefaultsController,
+                                                 healthKitController: healthKitController).build())
         case (0, 4):
             view?.pushView(NotificationsScreenBuilder(userDefaultsController: userDefaultsController).build())
+        case (0, 5):
+            view?.pushView(SettingsDetailScreenBuilder(type: .healthKit,
+                                                 userDefaultsController: userDefaultsController,
+                                                 healthKitController: healthKitController).build())
         case (1, 0):
             view?.pushView(SettingsDetailScreenBuilder(type: .about,
-                                                 userDefaultsController: userDefaultsController).build())
+                                                 userDefaultsController: userDefaultsController,
+                                                 healthKitController: healthKitController).build())
         case (1, 1):
             view?.showWhatsNew()
         case (1, 2):
             view?.pushView(SettingsDetailScreenBuilder(type: .attribution,
-                                                 userDefaultsController: userDefaultsController).build())
+                                                 userDefaultsController: userDefaultsController,
+                                                 healthKitController: healthKitController).build())
         case (1, 3):
             let privacyPolicyURL = URL(string: "https://dripmobile.app/privacy.html")!
             view?.showSafariWith(url: privacyPolicyURL)

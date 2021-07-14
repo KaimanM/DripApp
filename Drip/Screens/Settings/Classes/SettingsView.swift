@@ -2,11 +2,13 @@ import UIKit
 import SafariServices
 import StoreKit
 
-final class SettingsView: UIViewController, SettingsViewProtocol, PersistentDataViewProtocol {
+final class SettingsView: UIViewController, SettingsViewProtocol, PersistentDataViewProtocol,
+                          HealthKitViewProtocol {
 
     var presenter: SettingsPresenterProtocol!
     var coreDataController: CoreDataControllerProtocol!
     var userDefaultsController: UserDefaultsControllerProtocol!
+    var healthKitController: HealthKitControllerProtocol!
 
     let tableView = UITableView(frame: .zero, style: .grouped)
 

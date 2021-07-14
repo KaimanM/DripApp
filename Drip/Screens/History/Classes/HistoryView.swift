@@ -2,11 +2,13 @@ import UIKit
 import FSCalendar
 // TODO : Update SPM to use scheduled release after next release. 2.6.2 does need include required fix.
 
-final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataViewProtocol {
+final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataViewProtocol,
+                         HealthKitViewProtocol {
 
     var presenter: HistoryPresenterProtocol!
     var coreDataController: CoreDataControllerProtocol!
     var userDefaultsController: UserDefaultsControllerProtocol!
+    var healthKitController: HealthKitControllerProtocol!
     @IBOutlet var calendar: FSCalendar!
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -178,7 +180,8 @@ final class HistoryView: UIViewController, HistoryViewProtocol, PersistentDataVi
 
     @IBAction func drinkCoefficientBtnTapped(_ sender: Any) {
         showView(SettingsDetailScreenBuilder(type: .coefficient,
-                                             userDefaultsController: userDefaultsController).build())
+                                             userDefaultsController: userDefaultsController,
+                                             healthKitController: healthKitController).build())
     }
 
 }

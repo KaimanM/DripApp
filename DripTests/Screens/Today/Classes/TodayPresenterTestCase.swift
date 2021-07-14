@@ -6,6 +6,7 @@ import CoreData
 final class MockTodayView: TodayViewProtocol {
     var coreDataController: CoreDataControllerProtocol! = CoreDataController.shared
     var userDefaultsController: UserDefaultsControllerProtocol!
+    var healthKitController: HealthKitControllerProtocol!
 
     var presenter: TodayPresenterProtocol!
 
@@ -100,11 +101,13 @@ class TodayPresenterTestCase: XCTestCase {
     private var mockedView = MockTodayView()
     private var coreDataController = CoreDataController.shared
     private var mockedUserDefaultsController = MockUserDefaultsController()
+    private var mockedHealthKitController = MockHealthKitController()
 
     override func setUp() {
         super.setUp()
         flushCoreData()
         mockedView.userDefaultsController = mockedUserDefaultsController
+        mockedView.healthKitController = mockedHealthKitController
         sut = TodayPresenter(view: mockedView)
     }
 
@@ -258,5 +261,42 @@ class TodayPresenterTestCase: XCTestCase {
 
         // then
         XCTAssertEqual(mockedView.didUpdateGreetingLabel!, "Good Evening, Tony Stark")
+    }
+
+    // MARK: - addDrinkTapped -
+    func test_givenHealthKitEnabled_whenAddDrinkTappedCalled_thenHealthKitRecordsUpdated() {
+        // given
+        mockedUserDefaultsController.enabledHealthKit = true
+        let drink = Beverage(name: "Water",
+                             imageName: "waterbottle.svg",
+                             coefficient: 1.0)
+        let timeStamp = Date()
+
+        // when
+        sut.addDrinkTapped(beverage: drink,
+                           volume: 500,
+                           timeStamp: timeStamp)
+
+        // then
+        XCTAssertEqual(mockedHealthKitController.waterAddedToHealthStore?.amount, 500)
+        XCTAssertEqual(mockedHealthKitController.waterAddedToHealthStore?.date, timeStamp)
+    }
+
+    func test_givenHealthKitDisabled_whenAddDrinkTappedCalled_thenHealthKitRecordsNotUpdated() {
+        // given
+        mockedUserDefaultsController.enabledHealthKit = false
+        let drink = Beverage(name: "Water",
+                             imageName: "waterbottle.svg",
+                             coefficient: 1.0)
+        let timeStamp = Date()
+
+        // when
+        sut.addDrinkTapped(beverage: drink,
+                           volume: 500,
+                           timeStamp: timeStamp)
+
+        // then
+        XCTAssertEqual(mockedHealthKitController.waterAddedToHealthStore?.amount, nil)
+        XCTAssertEqual(mockedHealthKitController.waterAddedToHealthStore?.date, nil)
     }
 }

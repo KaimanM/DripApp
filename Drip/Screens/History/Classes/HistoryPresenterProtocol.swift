@@ -19,4 +19,5 @@ protocol HistoryPresenterProtocol: AnyObject {
     func didTapDeleteButton(row: Int)
 
     func addDrinkTapped(beverage: Beverage, volume: Double)
+    func deleteHealthKitEntry(volume: Double, timeStamp: Date)
 }

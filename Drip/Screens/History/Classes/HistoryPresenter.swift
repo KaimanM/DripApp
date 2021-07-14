@@ -114,6 +114,8 @@ final class HistoryPresenter: HistoryPresenterProtocol {
                                                    preferredStyle: .alert)
 
         confirmDeleteAlert.addAction(UIAlertAction(title: "Delete", style: .default, handler: {_ in
+            self.deleteHealthKitEntry(volume: self.selectedDayDrinks[row].volume,
+                                      timeStamp: self.selectedDayDrinks[row].timeStamp)
             self.view?.coreDataController.deleteEntry(entry: self.selectedDayDrinks[row])
             self.selectedDay = self.view?.coreDataController.getDayForDate(date: self.selectedDate)
             self.populateDrinks()
@@ -125,6 +127,14 @@ final class HistoryPresenter: HistoryPresenterProtocol {
         view?.presentView(confirmDeleteAlert)
     }
 
+    func deleteHealthKitEntry(volume: Double, timeStamp: Date) {
+        if let userDefaultsController = self.view?.userDefaultsController,
+           userDefaultsController.enabledHealthKit {
+            self.view?.healthKitController.deleteEntryWithAttributes(date: timeStamp,
+                                                                     amount: volume)
+        }
+    }
+
     func addDrinkTapped(beverage: Beverage, volume: Double) {
         view?.coreDataController.addDrinkForDay(beverage: beverage,
                                                 volume: volume,
@@ -132,6 +142,12 @@ final class HistoryPresenter: HistoryPresenterProtocol {
         if selectedDay == nil {
             selectedDay = view?.coreDataController.getDayForDate(date: selectedDate)
         }
+
+        if let userDefaultsController = view?.userDefaultsController,
+           userDefaultsController.enabledHealthKit {
+            view?.healthKitController.addWaterDataToHealthStore(amount: volume, date: selectedDate)
+        }
+
         populateDrinks()
         view?.refreshUI()
         view?.coreDataController.unlockAwardWithId(id: 13)

@@ -6,6 +6,7 @@ final class MockSettingsView: SettingsViewProtocol {
     var presenter: SettingsPresenterProtocol!
 
     var userDefaultsController: UserDefaultsControllerProtocol!
+    var healthKitController: HealthKitControllerProtocol!
 
     private(set) var didPresentViewController: UIViewController?
     func presentView(_ view: UIViewController) {
@@ -57,10 +58,12 @@ class SettingsPresenterTestCase: XCTestCase {
     private var sut: SettingsPresenter!
     private var mockedView = MockSettingsView()
     private var mockedUserDefaultsController = MockUserDefaultsController()
+    private var mockedHealthKitController = MockHealthKitController()
 
     override func setUp() {
         super.setUp()
         mockedView.userDefaultsController = mockedUserDefaultsController
+        mockedView.healthKitController = mockedHealthKitController
         sut = SettingsPresenter(view: mockedView)
     }
 
@@ -81,7 +84,7 @@ class SettingsPresenterTestCase: XCTestCase {
         let section = 0
 
         // when &then
-        XCTAssertEqual(sut.numberOfRowsInSection(section), 5)
+        XCTAssertEqual(sut.numberOfRowsInSection(section), 6)
     }
 
     func test_givenSection1_whenOnumberOfRowsInSectionCalled_thenReturnsCorrectValue() {
@@ -130,7 +133,7 @@ class SettingsPresenterTestCase: XCTestCase {
         // then
         XCTAssertEqual(cellData.title, "Favourites")
         XCTAssertEqual(cellData.imageName, "star")
-        XCTAssertEqual(cellData.backgroundColour, .systemRed)
+        XCTAssertEqual(cellData.backgroundColour, .systemOrange)
     }
 
     func test_givenIndexPathSection0Row3_whenGetCellDataForIndexPathCalled_thenReturnsCorrectData() {
@@ -169,7 +172,7 @@ class SettingsPresenterTestCase: XCTestCase {
         // then
         XCTAssertEqual(cellData.title, "What's New")
         XCTAssertEqual(cellData.imageName, "wand.and.stars")
-        XCTAssertEqual(cellData.backgroundColour, .magenta)
+        XCTAssertEqual(cellData.backgroundColour, .systemIndigo)
     }
 
     func test_givenIndexPathSection1Row2_whenGetCellDataForIndexPathCalled_thenReturnsCorrectData() {
@@ -182,7 +185,7 @@ class SettingsPresenterTestCase: XCTestCase {
         // then
         XCTAssertEqual(cellData.title, "Thanks to")
         XCTAssertEqual(cellData.imageName, "gift")
-        XCTAssertEqual(cellData.backgroundColour, .systemIndigo)
+        XCTAssertEqual(cellData.backgroundColour, .systemOrange)
     }
 
     func test_givenIndexPathSection1Row3_whenGetCellDataForIndexPathCalled_thenReturnsCorrectData() {

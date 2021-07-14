@@ -4,6 +4,7 @@ protocol TodayViewProtocol: AnyObject {
     var presenter: TodayPresenterProtocol! { get set }
     var coreDataController: CoreDataControllerProtocol! { get set }
     var userDefaultsController: UserDefaultsControllerProtocol! { get set }
+    var healthKitController: HealthKitControllerProtocol! { get set }
 
     func presentView(_ view: UIViewController)
     func showView(_ view: UIViewController)

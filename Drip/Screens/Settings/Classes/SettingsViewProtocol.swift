@@ -3,6 +3,7 @@ import UIKit
 protocol SettingsViewProtocol: AnyObject {
     var presenter: SettingsPresenterProtocol! { get set }
     var userDefaultsController: UserDefaultsControllerProtocol! { get set }
+    var healthKitController: HealthKitControllerProtocol! { get set }
 
     func presentView(_ view: UIViewController)
     func showView(_ view: UIViewController)
