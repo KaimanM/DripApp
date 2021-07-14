@@ -5,6 +5,8 @@ Drip is a iOS water tracking app designed to help people take control of their h
 
 Drip is a water tracking app designed to help users take control of their hydration habits. It was designed with a stock iOS feel in mind.
 
+[![Build Status](https://app.bitrise.io/app/aee411b1f9af95d0/status.svg?token=TTnB_VpB20jyNNbXse-lEg&branch=develop)](https://app.bitrise.io/app/aee411b1f9af95d0)
+
 ## Features
 
 - Built in Swift 5
