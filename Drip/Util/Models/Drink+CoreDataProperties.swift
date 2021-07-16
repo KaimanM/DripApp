@@ -11,6 +11,8 @@ extension Drink {
     @NSManaged public var name: String
     @NSManaged public var timeStamp: Date
     @NSManaged public var volume: Double
+    @NSManaged public var coefficientEnabled: Bool
+    @NSManaged public var coefficientVolume: Double
     @NSManaged public var day: Day?
 
 }

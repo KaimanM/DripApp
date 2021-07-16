@@ -114,9 +114,11 @@ final class HistoryPresenter: HistoryPresenterProtocol {
                                                    preferredStyle: .alert)
 
         confirmDeleteAlert.addAction(UIAlertAction(title: "Delete", style: .default, handler: {_ in
-            self.deleteHealthKitEntry(volume: self.selectedDayDrinks[row].volume,
-                                      timeStamp: self.selectedDayDrinks[row].timeStamp)
-            self.view?.coreDataController.deleteEntry(entry: self.selectedDayDrinks[row])
+            let drinkEntry = self.selectedDayDrinks[row]
+            let volumeToDelete = drinkEntry.coefficientEnabled ? drinkEntry.coefficientVolume : drinkEntry.volume
+            self.deleteHealthKitEntry(volume: volumeToDelete,
+                                      timeStamp: drinkEntry.timeStamp)
+            self.view?.coreDataController.deleteEntry(entry: drinkEntry)
             self.selectedDay = self.view?.coreDataController.getDayForDate(date: self.selectedDate)
             self.populateDrinks()
             self.view?.refreshUI()
@@ -145,7 +147,9 @@ final class HistoryPresenter: HistoryPresenterProtocol {
 
         if let userDefaultsController = view?.userDefaultsController,
            userDefaultsController.enabledHealthKit {
-            view?.healthKitController.addWaterDataToHealthStore(amount: volume, date: selectedDate)
+            let volumeToSave = userDefaultsController.useDrinkCoefficients ? volume * beverage.coefficient : volume
+            view?.healthKitController.addWaterDataToHealthStore(amount: volumeToSave,
+                                                                date: selectedDate)
         }
 
         populateDrinks()
