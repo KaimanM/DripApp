@@ -189,7 +189,34 @@ final class TodayView: UIViewController, TodayViewProtocol, PersistentDataViewPr
     }
 
     @IBAction func addDrinkBtnTapped(_ sender: Any) {
-        drinksLauncher.showDrinks()
+//        drinksLauncher.showDrinks()
+
+        for index in 0...10 {
+            let date = Date().addingTimeInterval(-(Double(index*86400)))
+
+            coreDataController.addDrinkForDay(beverage: Beverage(name: "Water",
+                                                        imageName: "waterbottle.svg",
+                                                        coefficient: 1),
+                                     volume: 1000, timeStamp: date)
+
+            coreDataController.addDrinkForDay(beverage: Beverage(name: "Cocktail",
+                                                                 imageName: "cocktail.svg",
+                                                                 coefficient: 0.6),
+                                              volume: 1000,
+                                              timeStamp: date.addingTimeInterval(60))
+            coreDataController.addDrinkForDay(beverage: Beverage(name: "Energy Drink",
+                                                                 imageName: "energydrink.svg",
+                                                                 coefficient: 0.85),
+                                              volume: 1000,
+                                              timeStamp: date.addingTimeInterval(120))
+            coreDataController.addDrinkForDay(beverage: Beverage(name: "Tea",
+                                                                 imageName: "tea.svg",
+                                                                 coefficient: 1),
+                                              volume: 1000,
+                                              timeStamp: date.addingTimeInterval(180))
+        }
+
+        presenter.onViewDidAppear()
     }
 }
 
