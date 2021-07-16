@@ -3,23 +3,29 @@ import UIKit
 class WhatsNewController {
 
     private let featureItems = [
-        WhatsNewItem(title: "What's New?",
+        WhatsNewItem(title: "Health Kit Support!",
                     subtitle: """
-                            On every update Drip will now show you What's New using this menu you're seeing right now!
+                            You can now choose to sync your drink entrys with Apple's Health Kit, navigate to \
+                            settings to enable this feature!
                             """,
-                    image: UIImage(systemName: "wand.and.stars")!
+                    image: UIImage(systemName: "heart.circle")!
         ),
         WhatsNewItem(
-            title: "Reminder Notifications",
-            subtitle: "Drip now has the ability to send you helpful reminders throughout the day!",
-            image: UIImage(systemName: "clock.arrow.circlepath")!
-        ),
-        WhatsNewItem(
-            title: "Awards Update",
+            title: "Improved Volume Selection",
             subtitle: """
-                Based on user feedback, Drip now shows the name of all awards to give you a hint on how to unlock them!
-                """,
-            image: UIImage(systemName: "crown")!
+                    You can now input drink volumes with a precision of 5ml. Tap the \u{00B1} button on the drink \
+                    volume selection to go into precision mode!
+                    """,
+            image: UIImage(systemName: "plusminus")!
+        ),
+        WhatsNewItem(
+            title: "Annoying Bug Fixes",
+            subtitle: """
+                    Drink coefficients were causing some issues for users when deleting old drinks causing daily \
+                    totals to be lower than zero! Coeffiecients have been changed under the hood to fix this issue!
+                    Hooray!
+                    """,
+            image: UIImage(systemName: "ladybug")!
         )
     ]
 

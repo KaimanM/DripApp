@@ -83,9 +83,9 @@ class DrinksLauncher: NSObject {
     var viewTranslation = CGPoint(x: 0, y: 0)
 
     // Data values initilization
-    let drinkVolumeArray = ["50ml", "100ml", "150ml", "200ml", "250ml", "300ml", "350ml", "400ml",
-                            "450ml", "500ml", "550ml", "600ml", "650ml", "700ml", "750ml", "800ml",
-                            "850ml", "900ml", "1000ml"]
+    var drinkVolumeArray = (1...20).map { $0 * 50 }
+
+    var showingFinerDrinks = false
 
     var currentVolume: Double = 300
 
@@ -97,6 +97,8 @@ class DrinksLauncher: NSObject {
     let userDefaults: UserDefaultsControllerProtocol
 
     var isOnboarding = true
+
+    let generator = UISelectionFeedbackGenerator()
 
     init(userDefaults: UserDefaultsControllerProtocol, isOnboarding: Bool) {
         self.isOnboarding = isOnboarding
@@ -310,6 +312,17 @@ class DrinksLauncher: NSObject {
             return button
         }()
 
+        let finerDetailsButton: UIButton = {
+            let button = UIButton()
+            button.setImage(UIImage(systemName: "plusminus"), for: .normal)
+            button.tintColor = .whiteText
+            button.contentVerticalAlignment = .fill
+            button.contentHorizontalAlignment = .fill
+            button.imageView?.contentMode = .scaleAspectFit
+            button.addTarget(self, action: #selector(finerDetailsButtonAction), for: .touchUpInside)
+            return button
+        }()
+
         let imageContainerView: UIImageView = {
             let imageView = UIImageView()
             imageView.backgroundColor = .infoPanelLight
@@ -327,7 +340,7 @@ class DrinksLauncher: NSObject {
         }()
 
         // Add subviews to page 2
-        let subViews = [page2TitleLabel, backButton, imageContainerView, drinkNameLabel, picker,
+        let subViews = [page2TitleLabel, backButton, imageContainerView, finerDetailsButton, drinkNameLabel, picker,
                         addDrinkButton]
         subViews.forEach({page2.addSubview($0)})
         imageContainerView.addSubview(detailImageView)
@@ -341,6 +354,11 @@ class DrinksLauncher: NSObject {
         backButton.anchor(top: page2.topAnchor,
                           leading: page2.leadingAnchor,
                           padding:.init(top: 5, left: 10, bottom: 0, right: 0),
+                          size: .init(width: 25, height: 25))
+
+        finerDetailsButton.anchor(top: page2.topAnchor,
+                          trailing: page2.trailingAnchor,
+                          padding:.init(top: 5, left: 0, bottom: 0, right: 10),
                           size: .init(width: 25, height: 25))
 
         imageContainerView.anchor(top: page2TitleLabel.bottomAnchor,
@@ -403,7 +421,7 @@ class DrinksLauncher: NSObject {
         currentBeverage = beverage
         drinkNameLabel.text = beverage.name
         detailImageView.image = UIImage(named: beverage.imageName)
-
+        generator.prepare()
     }
 
     func reloadQuickDrinks() {
@@ -433,6 +451,9 @@ class DrinksLauncher: NSObject {
                             self.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
                         }
                        }, completion: { _ in
+                        self.showingFinerDrinks = false
+                        self.drinkVolumeArray = (1...20).map { $0 * 50 }
+                        self.picker.reloadComponent(0)
                         self.currentVolume = 300
                         self.picker.selectRow(5, inComponent: 0, animated: false)
                        })
@@ -443,6 +464,22 @@ class DrinksLauncher: NSObject {
 
     @objc func backButtonAction(sender: UIButton!) {
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+    }
+
+    @objc func finerDetailsButtonAction(sender: UIButton!) {
+        let currentSelection = drinkVolumeArray[picker.selectedRow(inComponent: 0)]
+        switch showingFinerDrinks {
+        case true:
+            drinkVolumeArray = (1...20).map { $0 * 50 }
+        case false:
+            drinkVolumeArray = (1...200).map { $0 * 5 }
+        }
+        showingFinerDrinks.toggle()
+        generator.selectionChanged()
+        let newIndex = drinkVolumeArray.firstIndex(where: { $0 >= currentSelection }) ?? 0
+        picker.reloadComponent(0)
+        picker.selectRow(newIndex, inComponent: 0, animated: false)
+        currentVolume = Double(drinkVolumeArray[newIndex])
     }
 
     @objc func addDrinkAction(sender: UIButton!) {
@@ -580,15 +617,12 @@ extension DrinksLauncher: UIPickerViewDelegate, UIPickerViewDataSource {
 
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int,
                     forComponent component: Int) -> NSAttributedString? {
-        return NSAttributedString(string: drinkVolumeArray[row],
+        return NSAttributedString(string: "\(drinkVolumeArray[row])ml",
                                   attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        var volumeString = drinkVolumeArray[row]
-        volumeString.removeLast(2)
-        let volume: Double = (volumeString as NSString).doubleValue
-        currentVolume = volume
+        currentVolume = Double(drinkVolumeArray[row])
     }
     // swiftlint:disable:next file_length
 }
