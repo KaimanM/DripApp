@@ -250,6 +250,7 @@
 		3605E3F82600E22400FFE3C2 /* TrendsPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsPresenterTestCase.swift; sourceTree = "<group>"; };
 		360CAA0125F69F9900C7676A /* HistoryScreenBuilderTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryScreenBuilderTestCase.swift; sourceTree = "<group>"; };
 		360CAA0725F6A01300C7676A /* HistoryPresenterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPresenterTestCase.swift; sourceTree = "<group>"; };
+		36202B7626A1BF35000030CA /* Drip v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Drip v2.xcdatamodel"; sourceTree = "<group>"; };
 		362A52A025EFA59800B6AA8D /* CoreDataControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataControllerProtocol.swift; sourceTree = "<group>"; };
 		362A52A425EFA68100B6AA8D /* Drip.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Drip.xcdatamodel; sourceTree = "<group>"; };
 		362A52DD25EFAA2600B6AA8D /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
@@ -1651,9 +1652,10 @@
 		362A52A325EFA68100B6AA8D /* Drip.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				36202B7626A1BF35000030CA /* Drip v2.xcdatamodel */,
 				362A52A425EFA68100B6AA8D /* Drip.xcdatamodel */,
 			);
-			currentVersion = 362A52A425EFA68100B6AA8D /* Drip.xcdatamodel */;
+			currentVersion = 36202B7626A1BF35000030CA /* Drip v2.xcdatamodel */;
 			path = Drip.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

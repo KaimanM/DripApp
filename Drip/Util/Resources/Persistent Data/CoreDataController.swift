@@ -60,34 +60,30 @@ class CoreDataController: CoreDataControllerProtocol {
             fatalError("Error has occured")
         }
 
-        let drinkCoefficient = UserDefaultsController.shared.useDrinkCoefficients ? beverage.coefficient : 1.0
+        let coefficientEnabled = UserDefaultsController.shared.useDrinkCoefficients
+
+        let drink = Drink(context: context)
+        drink.name = beverage.name
+        drink.volume = volume
+        drink.coefficientVolume = volume * beverage.coefficient
+        drink.coefficientEnabled = UserDefaultsController.shared.useDrinkCoefficients
+        drink.imageName = beverage.imageName
+        drink.timeStamp = timeStamp
 
         if day.isEmpty {
             let day = Day(context: context)
             day.goal = isRunningTests ? 2000 : UserDefaultsController.shared.drinkGoal
             day.timeStamp = timeStamp
             day.didReachGoal = false
-            day.total = volume*drinkCoefficient
+            day.total = coefficientEnabled ? drink.coefficientVolume : drink.volume
             if day.total >= day.goal { day.didReachGoal = true }
-
-            let drink = Drink(context: context)
-            drink.name = beverage.name
-            drink.volume = volume
-            drink.imageName = beverage.imageName
-            drink.timeStamp = timeStamp
 
             day.addToDrinks(drink)
         } else {
             let day = day.first!
 
-            let drink = Drink(context: context)
-            drink.name = beverage.name
-            drink.volume = volume
-            drink.imageName = beverage.imageName
-            drink.timeStamp = timeStamp
-
-            day.total += volume*drinkCoefficient
-            if day.total >= day.goal { day.didReachGoal = true}
+            day.total += coefficientEnabled ? drink.coefficientVolume : drink.volume
+            if day.total >= day.goal { day.didReachGoal = true }
 
             day.addToDrinks(drink)
         }
@@ -155,7 +151,8 @@ class CoreDataController: CoreDataControllerProtocol {
     // Deletes a drink and removes it from the day object, also deletes day if it was the only drink.
     func deleteEntry(entry: Drink) {
         guard let day = entry.day else { fatalError() }
-        day.total -= entry.volume
+
+        day.total -= entry.coefficientEnabled ? entry.coefficientVolume : entry.volume
         day.removeFromDrinks(entry)
         context.delete(entry)
 

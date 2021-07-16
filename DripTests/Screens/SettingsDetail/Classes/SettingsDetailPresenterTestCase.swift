@@ -256,7 +256,8 @@ class SettingsDetailPresenterTestCase: XCTestCase {
                         Enabling HealthKit integration allows us to save your drink progress in the Apple Health app.
 
                         Note:
-                        \u{2022} Drink coefficents aren't reflected in Apple Health.
+                        \u{2022} Health Kit only supports water intake, therefore we recommend \
+                        for accurate readings you enable drink coefficients.
                         """)
     }
 

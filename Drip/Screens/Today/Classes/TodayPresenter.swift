@@ -112,7 +112,8 @@ final class TodayPresenter: TodayPresenterProtocol {
 
         if let userDefaultsController = view?.userDefaultsController,
            userDefaultsController.enabledHealthKit {
-            view?.healthKitController.addWaterDataToHealthStore(amount: volume, date: timeStamp)
+            let volumeToSave = userDefaultsController.useDrinkCoefficients ? volume * beverage.coefficient : volume
+            view?.healthKitController.addWaterDataToHealthStore(amount: volumeToSave, date: timeStamp)
         }
 
         updateProgressRing()
