@@ -84,7 +84,7 @@ class ProgressRingView: UIView {
     }
 
     func setProgress(_ progress: CGFloat, duration: Double) {
-        self.percent = progress == 0 ? 0.001 : progress
+        self.percent = progress <= 0 ? 0.001 : progress
         timings.totalDuration = duration
 
         if duration == 0 {
