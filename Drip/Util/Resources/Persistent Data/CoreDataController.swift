@@ -60,8 +60,6 @@ class CoreDataController: CoreDataControllerProtocol {
             fatalError("Error has occured")
         }
 
-        let drinkCoefficient = UserDefaultsController.shared.useDrinkCoefficients ? beverage.coefficient : 1.0
-
         let coefficientEnabled = UserDefaultsController.shared.useDrinkCoefficients
 
         let drink = Drink(context: context)
@@ -154,13 +152,6 @@ class CoreDataController: CoreDataControllerProtocol {
     func deleteEntry(entry: Drink) {
         guard let day = entry.day else { fatalError() }
 
-
-        // TODO: REMOVE THESE PRINT STATEMENTS
-        print("entry is coef enabled: \(entry.coefficientEnabled)")
-        print("entry coef volume: \(entry.coefficientVolume)")
-
-
-//        day.total -= entry.volume
         day.total -= entry.coefficientEnabled ? entry.coefficientVolume : entry.volume
         day.removeFromDrinks(entry)
         context.delete(entry)
